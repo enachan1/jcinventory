@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <?php
+include "../connectdb.php";
 session_start();
 if(isset($_SESSION['id']) && isset($_SESSION['user_name'])) {
 $user = $_SESSION['user_name'];
@@ -86,8 +87,16 @@ $user = $_SESSION['user_name'];
                     <div class="col-md-4">
                         <div class="p-3 colorbox shadow-sm d-flex justify-content-around align-items-center rounded">
                             <div>
-                                <h3 class="fs-2">720</h3>
+                                <?php
+                                $item_total_count_query = "SELECT COUNT(*) as total_count FROM items_db";
+                                $result_query = mysqli_query($sqlconn, $item_total_count_query);
+                                if ($rows_count = mysqli_fetch_array($result_query)) {
+                                ?>
+                                
+                                
+                                <h3 class="fs-2"><?php echo $rows_count['total_count'] ?></h3>
                                 <p class="fs-5">Products</p>
+                                <?php }?>
                             </div>
                             <i class="fas fa-box fs-1 primary-text border rounded-full secondary-bg p-3"></i>
                         </div>
