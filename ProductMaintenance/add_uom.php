@@ -22,7 +22,7 @@ if(isset($_POST['uom_name'])) {
         $sql_result = mysqli_query($sqlconn, $sql_query);
 
         if($sql_result) {
-            header("Location: ProductMaintenance.php?msg=uom Added");
+            header("Location: ProductMaintenance.php?uommsg=UOM Added");
             exit();
         }
         else {

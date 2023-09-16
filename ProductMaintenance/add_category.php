@@ -22,7 +22,7 @@ if(isset($_POST['category_name'])) {
         $sql_result = mysqli_query($sqlconn, $sql_query);
 
         if($sql_result) {
-            header("Location: ProductMaintenance.php?msg=Category Added");
+            header("Location: ProductMaintenance.php?catmsg=Category Added");
             exit();
         }
         else {

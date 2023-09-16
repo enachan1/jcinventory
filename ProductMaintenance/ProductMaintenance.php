@@ -99,6 +99,11 @@ $user = $_SESSION['user_name'];
                                 <input type="text" class="form-control search-bar" placeholder="Search">
                             </div>
                         </div>
+                        <?php if(isset($_GET['catmsg'])) {?>
+                                <div class="alert alert-success" role="alert">
+                                <?php echo $_GET['catmsg']; ?>
+                                </div>
+                                <?php } ?>
                         <div class="card-body colorbox">
                             <h5 class="card-title">Category</h5>
                             <div class="table-responsive">
@@ -185,6 +190,10 @@ $user = $_SESSION['user_name'];
                                     <input type="text" class="form-control search-bar" placeholder="Search">
                                 </div>
                             </div>
+                            <?php if(isset($_GET['uommsg'])) {?>
+                                <div class="alert alert-success" role="alert">
+                                <?php echo $_GET['uommsg']; ?></div>
+                                <?php } ?>
                             <div class="card-body colorbox">
                                 <h5 class="card-title">Unit of Measure</h5>
                                 <div class="table-responsive">
