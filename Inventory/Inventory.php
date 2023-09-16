@@ -139,79 +139,34 @@ $user = $_SESSION['user_name'];
                                     <th scope="col">Stocks</th>
                                     <th scope="col">Exp.Date</th>
                                     <th scope="col">Price</th>
+                                    <th scope="col">UOM</th>
                                     <th scope="col">Category</th>
                                     <th scope="col">Action</th>
                             </tr>
                     </thead>
                     <tbody>
+                        <?php 
+                        $show_items_query = "SELECT * FROM items_db";
+                        $show_result = mysqli_query($sqlconn, $show_items_query);
+
+                        while($show_rows = mysqli_fetch_array($show_result)) {
+                        
+                        ?>
                         <tr>
-                            <th scope="row">1</th>
-                            <td>Chicaron</td>
-                            <td>125</td>
-                            <td>6/20/25</td>
-                            <td>7</td>
-                            <td>Junk Food</td>
+                            <td><?php echo $show_rows['item_sku'] ?></td>
+                            <td><?php echo $show_rows['item_name'] ?></td>
+                            <td><?php echo $show_rows['item_stocks'] ?></td>
+                            <td><?php echo $show_rows['item_exp_date'] ?></td>
+                            <td><?php echo $show_rows['item_price'] ?></td>
+                            <td><?php echo $show_rows['item_uom'] ?></td>
+                            <td><?php echo $show_rows['item_category'] ?></td>
                             <!--Button Edit / Remove-->
                             <div class="">
                             <td><button class="btn btn-primary btn-sm btn-secondary" type="button"><i class="fas fa-edit"></i>
                                 <button class="btn btn-primary btn-sm btn-danger" type="reset"><i class="fas fa-trash"></i></td>
                                 </div>
                         </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>Orea</td>
-                            <td>6/20/25</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">3</th>
-                            <td>Orea</td>
-                            <td>6/20/25</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">4</th>
-                            <td>Sardens</td>
-                            <td>6/20/25</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">5</th>
-                            <td>Choco Choco</td>
-                            <td>6/20/25</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">6</th>
-                            <td>Mints</td>
-                            <td>6/20/25</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">7</th>
-                            <td>Kleso</td>
-                            <td>6/20/25</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">8</th>
-                            <td>Yiama</td>
-                            <td>6/20/25</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">9</th>
-                            <td>Skyflex</td>
-                            <td>6/20/25</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">10</th>
-                            <td>Doni Donat</td>
-                            <td>6/20/25</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">11</th>
-                            <td>Respa</td>
-                            <td>6/20/25</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">12</th>
-                            <td>Muchos</td>
-                            <td>6/20/25</td>
-                        </tr>
+                        <?php } ?>
                     </tbody>
                 </table>
             </div>
@@ -230,13 +185,14 @@ $user = $_SESSION['user_name'];
       </div>
       <div class="modal-body">
         <div class="mb-4">
+        <form action="add_items.php" method="post">
         <!-- Label and Textbox -->
         <label for="skuInput" class="form-label">SKU</label>
         <input type="text" name="modal_sku" class="form-control" id="skuInput">
         <label for="itemnameInput" class="form-label">Item Name</label>
         <input type="text" name="modal_itemname" class="form-control" id="itemnameInput">
         <label for="stocksInput" class="form-label">Stocks</label>
-        <input type="text" name="modal_stocks" class="form-control" id="stocksInput">
+        <input type="number" name="modal_stocks" class="form-control" id="stocksInput">
         <label for="expdateInput" class="form-label">Exp. Date</label>
         <input type="date" name="modal_date" class="form-control" id="expdateInput">
         <label for="priceInput" class="form-label">Price</label>
@@ -244,7 +200,7 @@ $user = $_SESSION['user_name'];
         <!-- Selecting UoF / Category-->
         <div class="input-group mb-4">
             <label class="input-group-text colorbox" for="uof">Unit of Measure</label>
-            <select class="form-select" id="uof" name="uof">
+            <select class="form-select" id="uof" name="uom">
                 <!-- PHP Looping for fetching uom's for the dropdown list -->
             <?php  
             $sql_query = "SELECT * FROM uom_db";
@@ -276,6 +232,7 @@ $user = $_SESSION['user_name'];
     </div>
       <div class="modal-footer">
         <button class="btn btn-primary">Add Item</button>
+        </form>
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
       </div>
     </div>
