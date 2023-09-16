@@ -240,7 +240,7 @@ $user = $_SESSION['user_name'];
         <label for="expdateInput" class="form-label">Exp. Date</label>
         <input type="date" name="modal_date" class="form-control" id="expdateInput">
         <label for="priceInput" class="form-label">Price</label>
-        <input type="text" name="modal_price" class="form-control" id="priceInput"><br>
+        <input style="margin: 0;" type="number" name="modal_price" class="form-control" id="priceInput"><br>
         <!-- Selecting UoF / Category-->
         <div class="input-group mb-4">
             <label class="input-group-text colorbox" for="uof">Unit of Measure</label>
