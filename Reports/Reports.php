@@ -1,6 +1,4 @@
 <?php
-include ("/JunCathyPOSInventory/login_form.php");
-include ("/JunCathyPOSInventory/connectdb.php");
 session_start();
 if(isset($_SESSION['id']) && isset($_SESSION['user_name'])) {
 $user = $_SESSION['user_name'];
