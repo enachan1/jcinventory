@@ -159,7 +159,7 @@ $user = $_SESSION['user_name'];
                             <td><?php echo $show_rows['item_sku'] ?></td>
                             <td><?php echo $show_rows['item_name'] ?></td>
                             <td><?php echo $show_rows['item_stocks'] ?></td>
-                            <td><?php echo $show_rows['item_exp_date'] ?></td>
+                            <td><?php echo $show_rows['item_expdate'] ?></td>
                             <td><?php echo $show_rows['item_price'] ?></td>
                             <td><?php echo $show_rows['item_uom'] ?></td>
                             <td><?php echo $show_rows['item_category'] ?></td>
