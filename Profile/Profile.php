@@ -19,6 +19,8 @@
                                 class="fas fa-inventory me-2"></i>Inventory</a>
                         <a href="../ProductMaintenance/ProductMaintenance.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
                                 class="fas fa-folders me-2"></i>Product Maintenance</a>
+                        <a href="../POS/POS.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
+                                class="fas fa-usd-circle me-2"></i>Point of Sales</a>
                         <a href="../Reports/Reports.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
                                 class="fas fa-file-spreadsheet me-2"></i>Reports</a>
                         <a href="../Accounts/Accounts.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
@@ -28,7 +30,7 @@
                         <a href="../Settings/Settings.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
                                 class="far fa-cog me-2"></i>Setting</a>                            
                         <a href="../logout.php" class="list-group-item list-group-item-action bg-transparent text-danger fw-bold"><i
-                                class="fas fa-power-off me-2"></i>Logout</a>
+                                class="fas fa-power-off me-2"></i>Log-out</a>
                         </div>
                     </div>
     
@@ -55,7 +57,8 @@
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <li><a class="dropdown-item" href="../Profile/Profile.php">Profile</a></li>
                             <li><a class="dropdown-item" href="../Settings/Settings.php">Setting</a></li>
-                            <li><a class="dropdown-item" href="#">Logout</a></li>
+                            <div class="dropdown-divider"></div>
+                            <li><a class="dropdown-item" href="../logout.php">Log-out</a></li>
                             </ul>
                         </li>
                     </ul>
