@@ -6,70 +6,10 @@
     <title>POS</title>
     <!--Style inside main Page -->
     <style>
-        .colobody{
-            background-color: rgb(236, 236, 236);
-        }
-        .colorbody{
-            background-color: #fffcfc;
-        }
-        .table-responsive {
-            position: relative;
-        }
-
-        .table-responsive table {
-            position: relative;
-        }
-
-        .table-responsive table thead th {
-            position: sticky;
-            top: 0;
-            background-color: #b1ffa1;
-        }
-        .custom-btn-lg {
-            padding:40px 1px; 
-            font-size: 1rem; 
-            margin: 3;
-            font-size: larger;
-        }
-        .calculator {
-            text-align: center;
-            background-color: rgb(236, 236, 236);
-            padding: 15px;
-            border-radius: 10px;
-        }
-
-        .buttons {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 10px;
-        }
-
-        button {
-            font-size: 1.5rem;
-            padding: 10px 0;
-        }
-
-        button#calculate:hover {
-            background-color: #218838;
-        }
-
-        button.btn-danger {
-            background-color: #dc3545;
-            color: white;
-        }
-
-        button.btn-danger:hover {
-            background-color: #c82333;
-        }
-        .apto-display-font {
-            font-family: "Aptos Display", sans-serif;
-        }
-
-        @media (max-width: 768px) {
-            .buttons {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
+        .search-bar {
+           order: 2;
+           width: 200px;
+       }
     </style>
 
 </head>
@@ -133,210 +73,108 @@
                     </div>
                 </nav>
 
-<!-- Point of Sales Content -->
-<div class="container-fluid mt-3">
-    <div class="row m-1">
-        <!-- Left side column -->
-        <div class="col-8">
-            <!-- Total Display -->
-            <div class="card mb-3">
-                <div class="card-body d-flex justify-content-between bg-info">
-                    <h1 class="display-4 mb-0 apto-display-font">Total:</h1>
-                    <h1 class="display-4 mb-0">$0.00</h1>
-                </div>
-            </div>
-
-            <!-- Table -->
-            <div class="card mb-4">
-                <div class="card-body colobody">
-                    <!-- Your content here -->
-                    <div class="card-body">
-                        <div class="table-responsive" style="max-height: 470px; overflow-y: auto;">
-                            <table class="table colorbody rounded shadow-sm table-hover">
-                                <thead>
-                                    <tr>
-                                        <th>QTY</th>
-                                        <th>Item Description</th>
-                                        <th>Price</th>
-                                        <th>Amount</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                <!-- Table content here -->
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td>Orea qweasdqwe</td>
-                                    <td>60</td>
-                                    <td>5</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td>Orea qweasdqwe</td>
-                                    <td>60</td>
-                                    <td>5</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td>Orea qweasdqwe</td>
-                                    <td>60</td>
-                                    <td>5</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td>Orea qweasdqwe</td>
-                                    <td>60</td>
-                                    <td>5</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td>Orea qweasdqwe</td>
-                                    <td>60</td>
-                                    <td>5</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td>Orea qweasdqwe</td>
-                                    <td>60</td>
-                                    <td>5</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td>Orea qweasdqwe</td>
-                                    <td>60</td>
-                                    <td>5</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td>Orea qweasdqwe</td>
-                                    <td>60</td>
-                                    <td>5</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td>Orea qweasdqwe</td>
-                                    <td>60</td>
-                                    <td>5</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td>Orea qweasdqwe</td>
-                                    <td>60</td>
-                                    <td>5</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td>Orea qweasdqwe</td>
-                                    <td>60</td>
-                                    <td>5</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td>Orea qweasdqwe</td>
-                                    <td>60</td>
-                                    <td>5</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td>Orea qweasdqwe</td>
-                                    <td>60</td>
-                                    <td>5</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td>Orea qweasdqwe</td>
-                                    <td>60</td>
-                                    <td>5</td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
+        <!-- Accounts Add-->
+        <div class="container mt-3">
+            <div class="card">
+                <div class="card-header">
+                    <div class="d-flex justify-content-between rounded">
+                        <button type="button" class="btn colorbox btn-outline-secondary btn-lg" data-bs-toggle="modal" data-bs-target="#myModal">
+                            Add Account
+                        </button>
+                        <input type="text" class="form-control search-bar" placeholder="Search">
                     </div>
                 </div>
-            </div>
-
-            <!-- Barcode Scanning -->
-            <div class="card mb-3">
-                <div class="card-body d-flex justify-content-around colobody">
-                    <div class="card-body bg-info">
-                        <h3 class="mb-1">Barcode:</h3>
-                    </div>
-                        <input type="text" class="form-control" id="barcodeInput">
-                </div>
-            </div>
-        </div>
-
-        <!-- Right side column -->
-        <div class="col-4">
-            <!-- Calculator-like buttons -->
-            <div class="card mb-4">
-                <div class="card-body calculator">
-                    <div class="buttons">
-                        <button type="button" class="btn btn-light btn-lg">7</button>
-                        <button type="button" class="btn btn-light btn-lg">8</button>
-                        <button type="button" class="btn btn-light btn-lg">9</button>
-                        <button type="button" class="btn btn-secondary btn-lg">/</button>
-                        <button type="button" class="btn btn-light btn-lg">4</button>
-                        <button type="button" class="btn btn-light btn-lg">5</button>
-                        <button type="button" class="btn btn-light btn-lg">6</button>
-                        <button type="button" class="btn btn-secondary btn-lg">*</button>
-                        <button type="button" class="btn btn-light btn-lg">1</button>
-                        <button type="button" class="btn btn-light btn-lg">2</button>
-                        <button type="button" class="btn btn-light btn-lg">3</button>
-                        <button type="button" class="btn btn-secondary btn-lg">-</button>
-                        <button type="button" class="btn btn-light btn-lg">0</button>
-                        <button type="button" class="btn btn-light btn-lg">.</button>
-                        <button type="button" class="btn btn-secondary btn-lg">+</button>
-                        <button type="button" class="btn btn-danger btn-lg">C</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Buttons for Payment, Inventory, Sales, Dashboard -->
-            <div class="card colobody">
-                <div class="card-body ">
-                    <div class="d-grid gap-2 mx-auto ">
-                    <button type="button" class="btn btn-primary custom-btn-lg">Dashboard</button>
-                    <button type="button" class="btn btn-primary custom-btn-lg">Inventory</button>
-                    <button type="button" class="btn btn-primary custom-btn-lg">Sales</button>
-                    <button type="button" class="btn btn-primary custom-btn-lg" data-toggle="modal" data-target="#transactionModal">Payment</button>
-                </div>
+                <div class="card-body">
+                <div class="card-body" style="max-height: 400px; overflow-y: auto;">
+                    <table class="table colorbox rounded shadow-sm table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col">Account Number</th>
+                                <th scope="col">Account Name</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Table rows here -->
+                            <tr>
+                                <th scope="row">1</th>
+                                <td>John Doe</td>
+                                <td>
+                                    <button class="btn btn-primary btn-sm" type="button">Edit</button>
+                                    <button class="btn btn-danger btn-sm" type="button">Delete</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">2</th>
+                                <td>Jane Smith</td>
+                                <td>
+                                    <button class="btn btn-primary btn-sm" type="button">Edit</button>
+                                    <button class="btn btn-danger btn-sm" type="button">Delete</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">3</th>
+                                <td>Bob Johnson</td>
+                                <td>
+                                    <button class="btn btn-primary btn-sm" type="button">Edit</button>
+                                    <button class="btn btn-danger btn-sm" type="button">Delete</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">3</th>
+                                <td>Bob Johnson</td>
+                                <td>
+                                    <button class="btn btn-primary btn-sm" type="button">Edit</button>
+                                    <button class="btn btn-danger btn-sm" type="button">Delete</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">3</th>
+                                <td>Bob Johnson</td>
+                                <td>
+                                    <button class="btn btn-primary btn-sm" type="button">Edit</button>
+                                    <button class="btn btn-danger btn-sm" type="button">Delete</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">3</th>
+                                <td>Bob Johnson</td>
+                                <td>
+                                    <button class="btn btn-primary btn-sm" type="button">Edit</button>
+                                    <button class="btn btn-danger btn-sm" type="button">Delete</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">3</th>
+                                <td>Bob Johnson</td>
+                                <td>
+                                    <button class="btn btn-primary btn-sm" type="button">Edit</button>
+                                    <button class="btn btn-danger btn-sm" type="button">Delete</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">3</th>
+                                <td>Bob Johnson</td>
+                                <td>
+                                    <button class="btn btn-primary btn-sm" type="button">Edit</button>
+                                    <button class="btn btn-danger btn-sm" type="button">Delete</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">3</th>
+                                <td>Bob Johnson</td>
+                                <td>
+                                    <button class="btn btn-primary btn-sm" type="button">Edit</button>
+                                    <button class="btn btn-danger btn-sm" type="button">Delete</button>
+                                </td>
+                            </tr>
+                            <!-- Continue adding entries here -->
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
     </div>
-</div>
-
-            <!-- Payment Modal -->
-            <div class="modal fade" id="transactionModal" tabindex="-1" role="dialog" aria-labelledby="transactionModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="transactionModalLabel">Payment</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                            </div>
-                            <div class="modal-body">
-                                <!-- ETO MODAL TO  -->
-                            <form>
-                                <div class="form-group">
-                                    <label for="total">Total</label>
-                                    <input type="text" class="form-control" id="total">
-                                </div>
-                                <div class="form-group">
-                                    <label for="cash">Cash</label>
-                                    <input type="text" class="form-control" id="cash">
-                                </div>
-                                <div class="form-group">
-                                    <label for="change">Change</label>
-                                    <input type="text" class="form-control" id="change">
-                                </div>
-                            </form>
-                            </div>
-                  
-                            </div>
-                        </div>
-                    </div>
       
 
     </div>
