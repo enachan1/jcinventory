@@ -348,7 +348,7 @@ $user = $_SESSION['user_name'];
     
         </script>
 
-        <script type="text/javascript" src="../update.js"></script>
+        <script type="text/javascript" src="update.js"></script>
     </body>
     <?php
 }
