@@ -137,6 +137,7 @@ $user = $_SESSION['user_name'];
                         <table class="table colorbox rounded shadow-sm table-hover">
                             <thead>
                                 <tr>
+                                    <th scope="col" style="display: none;"></th>
                                     <th scope="col">SKU</th>
                                     <th scope="col">Item Name</th>
                                     <th scope="col">Stocks</th>
@@ -156,6 +157,7 @@ $user = $_SESSION['user_name'];
                         
                         ?>
                         <tr>
+                            <td style="display: none;"><?php echo $show_rows['id'] ?></td>
                             <td><?php echo $show_rows['item_sku'] ?></td>
                             <td><?php echo $show_rows['item_name'] ?></td>
                             <td><?php echo $show_rows['item_stocks'] ?></td>
@@ -165,8 +167,8 @@ $user = $_SESSION['user_name'];
                             <td><?php echo $show_rows['item_category'] ?></td>
                             <!--Button Edit / Remove-->
                             <div class="">
-                            <td><button class="btn btn-primary btn-sm btn-secondary" type="button"><i class="fas fa-edit"></i>
-                                <button class="btn btn-primary btn-sm btn-danger" type="reset"><i class="fas fa-trash"></i></td>
+                            <td><button type="button" class="btn btn-secondary btn-sm editbtn" data-bs-toggle="modal" data-bs-target="#editModal"><i class="fas fa-edit"></i></button>
+                                <a class="btn btn-primary btn-sm btn-danger" href="delete_items.php?id=<?php echo $show_rows['id']?>"><i class="fas fa-trash"></i></td></a>
                                 </div>
                         </tr>
                         <?php } ?>
@@ -195,11 +197,11 @@ $user = $_SESSION['user_name'];
 </div>
     
     <!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Add Item</h5>
+        <h5 class="modal-title" id="editModalLabel">Add Item</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -207,7 +209,7 @@ $user = $_SESSION['user_name'];
         <form action="add_items.php" method="post">
         <!-- Label and Textbox -->
         <label for="skuInput" class="form-label">SKU</label>
-        <input type="text" name="modal_sku" class="form-control" id="skuInput">
+        <input type="number" name="modal_sku" class="form-control" id="skuInput">
         <label for="itemnameInput" class="form-label">Item Name</label>
         <input type="text" name="modal_itemname" class="form-control" id="itemnameInput">
         <label for="stocksInput" class="form-label">Stocks</label>
@@ -219,7 +221,76 @@ $user = $_SESSION['user_name'];
         <!-- Selecting UoF / Category-->
         <div class="input-group mb-4">
             <label class="input-group-text colorbox" for="uof">Unit of Measure</label>
-            <select class="form-select" id="uof" name="uom">
+            <select class="form-select" id="update_uom" name="uom">
+                <!-- PHP Looping for fetching uom's for the dropdown list -->
+            <?php  
+            $sql_query = "SELECT * FROM uom_db";
+            $sql_res = mysqli_query($sqlconn, $sql_query);
+
+            while($array = mysqli_fetch_array($sql_res)) {
+            ?>
+                <option value="<?php echo $array['uom_name']; ?>"> <?php echo $array['uom_name']; ?> </option>
+                <?php 
+            }
+                ?>
+            </select>
+    </div>
+        <div class="input-group mb-4">
+            <label class="input-group-text colorbox" for="category">Category</label>
+            <select class="form-select" id="update_category" name="category">
+            <?php  
+            $sql_query1 = "SELECT * FROM category_db";
+            $sql_res1 = mysqli_query($sqlconn, $sql_query1);
+
+            while($array1 = mysqli_fetch_array($sql_res1)) {
+            ?>
+                <option value="<?php echo $array1['category_name']; ?>"><?php echo $array1['category_name']; ?></option>
+                <?php 
+            }
+                ?>
+            </select>
+        </div>
+    </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary">Add Item</button>
+        </form>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+        </div>
+<!-- End of add item modal -->
+
+
+<!-- edit item modal -->
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editModalLabel">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <!-- Start of Modal Body -->
+                <div class="mb-4">
+        <form action="update_item.php" method="post">
+        <!-- Label and Textbox -->
+        <input type="hidden" name="modal_id" id="update_id">
+        <label for="skuInput" class="form-label">SKU</label>
+        <input type="number" name="modal_sku" id="sku" class="form-control">
+        <label for="itemnameInput" class="form-label">Item Name</label>
+        <input type="text" name="modal_itemname" id="itemname" class="form-control" id="itemnameInput">
+        <label for="stocksInput" class="form-label">Stocks</label>
+        <input type="number" name="modal_stocks" id="stocks" class="form-control" id="stocksInput">
+        <label for="expdateInput" class="form-label">Exp. Date</label>
+        <input type="date" name="modal_date" id="expdate" class="form-control" id="expdateInput">
+        <label for="priceInput" class="form-label">Price</label>
+        <input style="margin: 0;" type="number" name="modal_price" id="price" class="form-control" id="priceInput"><br>
+        <!-- Selecting UoF / Category-->
+        <div class="input-group mb-4">
+            <label class="input-group-text colorbox" for="uof">Unit of Measure</label>
+            <select class="form-select" id="uom" name="uom">
                 <!-- PHP Looping for fetching uom's for the dropdown list -->
             <?php  
             $sql_query = "SELECT * FROM uom_db";
@@ -249,19 +320,18 @@ $user = $_SESSION['user_name'];
             </select>
         </div>
     </div>
+      </div>
+      <!-- end of modal body -->
       <div class="modal-footer">
-        <button class="btn btn-primary">Add Item</button>
+        <button  class="btn btn-primary">Update Changes</button>
         </form>
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        
       </div>
     </div>
   </div>
 </div>
-
-
-
-        </div>
-        </div>
+<!-- end of edit modal -->
 
 
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -277,6 +347,8 @@ $user = $_SESSION['user_name'];
     
     
         </script>
+
+        <script type="text/javascript" src="../update.js"></script>
     </body>
     <?php
 }
