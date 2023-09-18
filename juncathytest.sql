@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Sep 15, 2023 at 06:08 PM
+-- Generation Time: Sep 18, 2023 at 05:42 PM
 -- Server version: 8.0.34-0ubuntu0.22.04.1
 -- PHP Version: 8.1.2-1ubuntu2.14
 
@@ -30,7 +30,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `category_db` (
   `id` int NOT NULL,
   `category_name` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `category_db`
@@ -39,7 +39,10 @@ CREATE TABLE `category_db` (
 INSERT INTO `category_db` (`id`, `category_name`) VALUES
 (1, 'Canned Goods'),
 (2, 'Drinks'),
-(3, 'Necessities');
+(3, 'Necessities'),
+(4, 'Snacks'),
+(5, 'Chemicals'),
+(6, 'Utensils');
 
 -- --------------------------------------------------------
 
@@ -49,21 +52,24 @@ INSERT INTO `category_db` (`id`, `category_name`) VALUES
 
 CREATE TABLE `items_db` (
   `id` bigint NOT NULL,
-  `sku` bigint NOT NULL,
-  `item_name` varchar(100) NOT NULL,
-  `qty` int NOT NULL,
-  `price` float NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `item_sku` bigint NOT NULL,
+  `item_name` varchar(50) NOT NULL,
+  `item_stocks` int NOT NULL,
+  `item_expdate` date NOT NULL,
+  `item_price` float NOT NULL,
+  `item_uom` varchar(50) NOT NULL,
+  `item_category` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `items_db`
 --
 
-INSERT INTO `items_db` (`id`, `sku`, `item_name`, `qty`, `price`) VALUES
-(1, 32455, 'piattos', 365, 12),
-(2, 1032155, 'martys', 55, 8),
-(3, 321569879, 'cock', 78, 27),
-(4, 56468798721, 'pepsi paloma', 45, 30);
+INSERT INTO `items_db` (`id`, `item_sku`, `item_name`, `item_stocks`, `item_expdate`, `item_price`, `item_uom`, `item_category`) VALUES
+(1, 256874, 'piattos', 52, '2023-10-13', 52, 'Liters', 'Snacks'),
+(2, 23658984, 'martys', 2355, '2023-11-21', 8, 'pieces', 'snacks'),
+(3, 56468, 'genshin', 65, '2023-09-16', 256, 'Liters', 'Drinks'),
+(4, 23568775126, 'Coca Cola Mismo', 25, '2023-12-28', 15, 'Liters', 'Drinks');
 
 -- --------------------------------------------------------
 
@@ -74,7 +80,7 @@ INSERT INTO `items_db` (`id`, `sku`, `item_name`, `qty`, `price`) VALUES
 CREATE TABLE `uom_db` (
   `id` bigint NOT NULL,
   `uom_name` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `uom_db`
@@ -97,7 +103,7 @@ CREATE TABLE `users__db` (
   `email` varchar(50) NOT NULL,
   `pass_word` varchar(50) NOT NULL,
   `is_admin` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `users__db`
@@ -142,7 +148,7 @@ ALTER TABLE `users__db`
 -- AUTO_INCREMENT for table `category_db`
 --
 ALTER TABLE `category_db`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `items_db`
