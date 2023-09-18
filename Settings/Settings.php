@@ -116,9 +116,6 @@
                             <a class="nav-link active" id="notification-tab" data-bs-toggle="tab" href="#notification" role="tab" aria-controls="notification" aria-selected="true"><i class="fas fa-bell"></i> Notification</a>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <a class="nav-link" id="inventorysetting-tab" data-bs-toggle="tab" href="#inventorysetting" role="tab" aria-controls="inventorysetting" aria-selected="false"><i class="fas fa-box-full"></i> Inventory Setting</a>
-                        </li>
-                        <li class="nav-item" role="presentation">
                             <a class="nav-link" id="account-setting-tab" data-bs-toggle="tab" href="#account-setting" role="tab" aria-controls="account-setting" aria-selected="false"><i class="fas fa-cog"></i> Account Setting</a>
                         </li>
                     </ul>
@@ -167,45 +164,6 @@
                             </div>
                         </div>
 
-                        <!-- Inventoroy Settings? -->
-                    <div class="tab-pane fade" id="inventorysetting" role="tabpanel" aria-labelledby="inventorysetting-tab">
-                        <h2>Inventory System Settings</h2>
-                        <form>
-                            <div class="form-group">
-                                <label for="inventoryName">Inventory Name</label>
-                                <input type="text" id="inventoryName" name="inventoryName" placeholder="Enter inventory name">
-                            </div>
-                            <div class="form-group">
-                                <label for="currency">Currency</label>
-                                <select id="currency" name="currency">
-                                    <option value="yen">YEN - Japanese Yen</option>
-                                    <option value="php">PHP - Philippine Peso</option>
-                                    <option value="usd">USD - United States Dollar</option>
-                                    <option value="eur">EUR - Euro</option>
-                                    <option value="gbp">GBP - British Pound</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="timezone">Timezone</label>
-                                <select id="timezone" name="timezone">
-                                    <option value="est">EST - Eastern Standard Time</option>
-                                    <option value="pst">PST - Pacific Standard Time</option>
-                                    <option value="gmt">GMT - Greenwich Mean Time</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="gamemode">Game mode</label>
-                                <select id="gamemode" name="gamemode">
-                                    <option value="Prd">Unli products</option>
-                                    <option value="orders">Unli orders</option>
-                                    <option value="pop">Unli pop</option>
-                                </select>
-                            </div>
-                
-                            <button type="submit">Save Settings</button>
-                        </form>
-                    </div>
-
                     <!-- Account Settings-->
                     <div class="tab-pane fade" id="account-setting" role="tabpanel" aria-labelledby="account-setting-tab">
                         <h2>Account Setting</h2>
@@ -225,16 +183,6 @@
                             <div class="form-group">
                                 <label for="confirmPassword">Confirm Password</label>
                                 <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm your password">
-                            </div>
-                            <div class="form-group">
-                                <label for="country">Country</label>
-                                <select id="country" name="country">
-                                    <option value="ph">Pilepens</option>
-                                    <option value="ch">tsana</option>
-                                    <option value="tw">tayone</option>
-                                    <option value="hk">kangkong</option>
-                                    <option value="jp">japanudes</option>
-                                </select>
                             </div>
                             <button type="submit">Save Changes</button>
                         </form>
