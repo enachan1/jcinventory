@@ -161,7 +161,7 @@ $user = $_SESSION['user_name'];
                 <div class="card">
                     <div class="card-body colorbox">
                         <h5 class="card-title">Sales Report</h5>
-                        <table class="table colorbox rounded shadow-sm table-hover">
+                        <table class="table bg-light rounded shadow-sm table-hover">
                             <thead>
                                 <tr>
                                     <th>Item No.</th>
@@ -177,6 +177,23 @@ $user = $_SESSION['user_name'];
                                 <!-- Table content here -->
                             </tbody>
                         </table>
+
+                            <!-- Pagination Next Tables-->
+                            <nav aria-label="Page navigation">
+                                <ul class="pagination justify-content-center">
+                                            <li class="page-item disabled">
+                                            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                                            </li>
+                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">4</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">5</a></li>
+                                    <li class="page-item">
+                                    <a class="page-link" href="#">Next</a>
+                                    </li>
+                                </ul>
+                            </nav>
                     </div>
                 </div>
             </div>
@@ -186,7 +203,7 @@ $user = $_SESSION['user_name'];
                 <div class="card">
                     <div class="card-body colorbox">
                         <h5 class="card-title">Inventory Report</h5>
-                        <table class="table colorbox rounded shadow-sm table-hover">
+                        <table class="table bg-light rounded shadow-sm table-hover">
                             <thead>
                                 <tr>
                                     <th>Item No.</th>
@@ -202,6 +219,23 @@ $user = $_SESSION['user_name'];
                                 <!-- Table content here -->
                             </tbody>
                         </table>
+
+                            <!-- Pagination Next Tables-->
+                            <nav aria-label="Page navigation">
+                                <ul class="pagination justify-content-center">
+                                        <li class="page-item disabled">
+                                        <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                                        </li>
+                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">4</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">5</a></li>
+                                    <li class="page-item">
+                                    <a class="page-link" href="#">Next</a>
+                                    </li>
+                                </ul>
+                            </nav>
                     </div>
                 </div>
             </div>
@@ -211,7 +245,7 @@ $user = $_SESSION['user_name'];
                 <div class="card">
                     <div class="card-body colorbox">
                         <h5 class="card-title">Delivery Report</h5>
-                        <table class="table colorbox rounded shadow-sm table-hover">
+                        <table class="table bg-light rounded shadow-sm table-hover">
                             <thead>
                                 <tr>
                                     <th>Item No.</th>
@@ -227,6 +261,23 @@ $user = $_SESSION['user_name'];
                                 <!-- Table content here -->
                             </tbody>
                         </table>
+
+                            <!-- Pagination Next Tables-->
+                            <nav aria-label="Page navigation">
+                                <ul class="pagination justify-content-center">
+                                            <li class="page-item disabled">
+                                            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                                            </li>
+                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">4</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">5</a></li>
+                                    <li class="page-item">
+                                    <a class="page-link" href="#">Next</a>
+                                    </li>
+                                </ul>
+                            </nav>
                     </div>
                 </div>
             </div>
@@ -236,7 +287,7 @@ $user = $_SESSION['user_name'];
                 <div class="card">
                     <div class="card-body colorbox">
                         <h5 class="card-title">Bad Order Report</h5>
-                        <table class="table colorbox rounded shadow-sm table-hover">
+                        <table class="table bg-light rounded shadow-sm table-hover">
                             <thead>
                                 <tr>
                                     <th>Item No.</th>
@@ -252,6 +303,23 @@ $user = $_SESSION['user_name'];
                                 <!-- Table content here -->
                             </tbody>
                         </table>
+
+                            <!-- Pagination Next Tables-->
+                            <nav aria-label="Page navigation">
+                                <ul class="pagination justify-content-center">
+                                            <li class="page-item disabled">
+                                            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                                            </li>
+                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">4</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">5</a></li>
+                                    <li class="page-item">
+                                    <a class="page-link" href="#">Next</a>
+                                    </li>
+                                </ul>
+                            </nav>
                     </div>
                 </div>
             </div>
@@ -261,7 +329,7 @@ $user = $_SESSION['user_name'];
                 <div class="card">
                     <div class="card-body colorbox">
                         <h5 class="card-title">Transaction Record</h5>
-                        <table class="table colorbox rounded shadow-sm table-hover">
+                        <table class="table bg-light rounded shadow-sm table-hover">
                             <thead>
                                 <tr>
                                     <th>Collect Records</th>
@@ -272,13 +340,29 @@ $user = $_SESSION['user_name'];
                                 <!-- Table content here -->
                             </tbody>
                         </table>
+
+                            <!-- Pagination Next Tables-->
+                            <nav aria-label="Page navigation">
+                                <ul class="pagination justify-content-center">
+                                            <li class="page-item disabled">
+                                            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                                            </li>
+                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">4</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">5</a></li>
+                                    <li class="page-item">
+                                    <a class="page-link" href="#">Next</a>
+                                    </li>
+                                </ul>
+                            </nav>
                     </div>
                 </div>
             </div>
 
         </div>
     </div>
-
 
 
 
