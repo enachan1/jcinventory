@@ -5,6 +5,27 @@
         <link rel="stylesheet" href="../styles.css" />
         <title>Notification</title>
     </head>
+    <style>
+        .alert {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #ffc107; 
+            color: #070707; 
+            border-radius: 50px; 
+            padding: 20px 22px; 
+            margin-bottom: 10px; 
+        }
+
+        .alert button.close {
+            background-color: transparent; 
+            font-size: 30px; 
+            color: #050505;
+            border: none;
+            padding: 0; 
+            line-height: 1;
+        }
+    </style>
 
 
 <body>
@@ -67,21 +88,29 @@
     </nav>
 
     <!-- Notification -->
-<!--    <div class="container mt-5">
+    <div class="container">
         <div class="alert alert-warning alert-dismissible fade show" role="alert">
-            <strong>Product Expiration Date:</strong> This product will expire on <strong> August 31, 2023</strong>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times</span></button>
+            <div class="d-flex align-items-center">
+                <i class="fas fa-exclamation-triangle me-2"></i> <!-- Warning icon -->
+                <strong>Product Expiration Date:</strong> This product will expire on <strong>August 31, 2023</strong>
+            </div>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         </div>
         <div class="alert alert-warning alert-dismissible fade show" role="alert">
-            <strong>Product Expiration Date:</strong> This product will expire on <strong> August 31, 2023</strong>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times</span></button>
+            <div class="d-flex align-items-center">
+                <i class="fas fa-exclamation-triangle me-2"></i> <!-- Warning icon -->
+                <strong>Product Expiration Date:</strong> This product will expire on <strong>August 31, 2023</strong>
+            </div>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         </div>
         <div class="alert alert-warning alert-dismissible fade show" role="alert">
-            <strong>Product Expiration Date:</strong> This product will expire on <strong> August 31, 2023</strong>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times</span></button>
+            <div class="d-flex align-items-center">
+                <i class="fas fa-exclamation-triangle me-2"></i> <!-- Warning icon -->
+                <strong>Product Expiration Date:</strong> This product will expire on <strong>August 31, 2023</strong>
+            </div>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         </div>
-
-    </div> -->
+    </div>
 
 
 
