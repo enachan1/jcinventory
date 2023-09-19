@@ -110,7 +110,7 @@ $user = $_SESSION['user_name'];
                         <div class="card-body colorbox">
                             <h5 class="card-title">Category</h5>
                             <div class="table-responsive">
-                                <table class="table colorbox rounded shadow-sm table-hover">
+                                <table class="table bg-light rounded shadow-sm table-hover">
                                     <thead>
                                         <tr>
                                             <th scope="col">Category</th>
@@ -145,23 +145,25 @@ $user = $_SESSION['user_name'];
                                         ?>
                                 </table>
                             </div>
+
+                            <!-- Pagination Next Tables-->
+                            <nav aria-label="Page navigation">
+                                <ul class="pagination justify-content-center">
+                                    <li class="page-item disabled">
+                                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                                </li>
+                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">4</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">5</a></li>
+                                    <li class="page-item">
+                                    <a class="page-link" href="#">Next</a>
+                                    </li>
+                                </ul>
+                            </nav>
+
                         </div>
-                        <!-- Pagination -->
-                    <nav aria-label="Page navigation">
-                        <ul class="pagination justify-content-center">
-                            <li class="page-item disabled">
-                                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-                            </li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item"><a class="page-link" href="#">4</a></li>
-                            <li class="page-item"><a class="page-link" href="#">5</a></li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">Next</a>
-                            </li>
-                        </ul>
-                    </nav>
                     </div>
                 </div>
             </div>
@@ -216,7 +218,7 @@ $user = $_SESSION['user_name'];
                             <div class="card-body colorbox">
                                 <h5 class="card-title">Unit of Measure</h5>
                                 <div class="table-responsive">
-                                    <table class="table colorbox rounded shadow-sm table-hover">
+                                    <table class="table bg-light rounded shadow-sm table-hover">
                                         <thead>
                                             <tr>
                                                 <th scope="col">Unit of Measure</th>
@@ -251,6 +253,24 @@ $user = $_SESSION['user_name'];
                                         ?>
                                     </table>
                                 </div>
+
+                                <!-- Pagination Next Tables-->
+                                <nav aria-label="Page navigation">
+                                    <ul class="pagination justify-content-center">
+                                        <li class="page-item disabled">
+                                        <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                                    </li>
+                                        <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">4</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">5</a></li>
+                                        <li class="page-item">
+                                        <a class="page-link" href="#">Next</a>
+                                        </li>
+                                    </ul>
+                                </nav>
+
                             </div>
                         </div>
                     </div>
@@ -284,7 +304,8 @@ $user = $_SESSION['user_name'];
                     </div>
                 </div>
 
-<!-- Selecting Brand -->
+
+<!-- Display Brand -->
 
 <div class="container-fluid px-4">
         <div class="row g-3 my-2">
