@@ -122,7 +122,6 @@ $user = $_SESSION['user_name'];
 
 
     <div class="container mt-3">
-        <div class="row justify-content-center">
                 <div class="card">
                     <div class="card-header">
                         <div class="d-flex justify-content-between rounded">
@@ -193,7 +192,6 @@ $user = $_SESSION['user_name'];
                     </nav>
         </div>
     </div>
-</div>
 </div>
     
     <!-- Modal -->
