@@ -9,11 +9,15 @@
         .colobody{
             background-color: rgb(236, 236, 236);
         }
+
         .colorbody{
             background-color: #fffcfc;
         }
+
         .table-responsive {
             position: relative;
+            max-height: 470px;
+            overflow-y: auto;
         }
 
         .table-responsive table {
@@ -25,15 +29,22 @@
             top: 0;
             background-color: #b1ffa1;
         }
+
         .custom-btn-lg {
             padding:40px 1px; 
             font-size: 1rem; 
             margin: 3;
             font-size: larger;
         }
+
         .adjustment{
             padding-top: 280px;
         }
+
+        .adjustments{
+            width: 38px;
+        }
+
         .apto-display-font {
             font-family: "Aptos Display", sans-serif;
         }
@@ -132,85 +143,17 @@
                                 <tbody>
                                 <!-- Table content here -->
                                 <tr>
-                                    <th scope="row">2</th>
+                                    <!-- Input QTY -->
+                                    <th scope="row"> <input class="adjustments" type="text" class="form-control" value="1"></th>
+
                                     <td>Orea qweasdqwe</td>
                                     <td>60</td>
-                                    <td>5</td>
+                                    <td>5</td>       
                                 </tr>
                                 <tr>
-                                    <th scope="row">2</th>
-                                    <td>Orea qweasdqwe</td>
-                                    <td>60</td>
-                                    <td>5</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td>Orea qweasdqwe</td>
-                                    <td>60</td>
-                                    <td>5</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td>Orea qweasdqwe</td>
-                                    <td>60</td>
-                                    <td>5</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td>Orea qweasdqwe</td>
-                                    <td>60</td>
-                                    <td>5</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td>Orea qweasdqwe</td>
-                                    <td>60</td>
-                                    <td>5</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td>Orea qweasdqwe</td>
-                                    <td>60</td>
-                                    <td>5</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td>Orea qweasdqwe</td>
-                                    <td>60</td>
-                                    <td>5</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td>Orea qweasdqwe</td>
-                                    <td>60</td>
-                                    <td>5</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td>Orea qweasdqwe</td>
-                                    <td>60</td>
-                                    <td>5</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td>Orea qweasdqwe</td>
-                                    <td>60</td>
-                                    <td>5</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td>Orea qweasdqwe</td>
-                                    <td>60</td>
-                                    <td>5</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td>Orea qweasdqwe</td>
-                                    <td>60</td>
-                                    <td>5</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">2</th>
+                                    <!-- Pumili ka sa dalawa ano maganda Input-->
+                                    <!-- Input QTY but change-->
+                                    <td><input class="form-control adjustments" type="text" value="1"></td>
                                     <td>Orea qweasdqwe</td>
                                     <td>60</td>
                                     <td>5</td>
