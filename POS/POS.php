@@ -133,7 +133,7 @@ $user = $_SESSION['user_name'];
             <div class="card mb-3">
                 <div class="card-body d-flex justify-content-between bg-info">
                     <h1 class="display-4 mb-0 apto-display-font">Total:</h1>
-                    <h1 class="display-4 mb-0">$0.00</h1>
+                    <h1 class="display-4 mb-0">P <span id="overallTotal">0.00</span></h1>
                 </div>
             </div>
 
@@ -147,29 +147,30 @@ $user = $_SESSION['user_name'];
                                 <thead>
                                     <tr>
                                         <th>QTY</th>
+                                        <th>SKU</th>
                                         <th>Item Description</th>
                                         <th>Price</th>
-                                        <th>Amount</th>
+                                        <th>Total Amount</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                 <!-- Table content here -->
-                                <tr>
-                                    <!-- Input QTY -->
-                                    <th scope="row"> <input class="adjustments" type="text" class="form-control" value="1"></th>
-
-                                    <td>Orea qweasdqwe</td>
-                                    <td>60</td>
-                                    <td>5</td>       
-                                </tr>
+                                <?php
+                                $select_query = "SELECT * FROM purchase_db";
+                                $result_query = mysqli_query($sqlconn, $select_query);
+                                
+                                while($row = mysqli_fetch_array($result_query)) {
+                                ?>
                                 <tr>
                                     <!-- Pumili ka sa dalawa ano maganda Input-->
                                     <!-- Input QTY but change-->
-                                    <td><input class="form-control adjustments" type="text" value="1"></td>
-                                    <td>Orea qweasdqwe</td>
-                                    <td>60</td>
-                                    <td>5</td>
+                                    <td><input class="form-control adjustments qty" type="number" value="1"></td>
+                                    <td class="sku"><?php echo $row['p_sku']; ?></td>
+                                    <td><?php echo $row['p_itemname']; ?></td>
+                                    <td class="price"><?php echo $row['p_price']; ?></td>
+                                    <td class="totalPrice"></td>
                                 </tr>
+                                <?php }?>
                                 </tbody>
                             </table>
                         </div>
@@ -178,13 +179,17 @@ $user = $_SESSION['user_name'];
             </div>
 
             <!-- Barcode Scanning -->
+            <form action="purchaseinsert.php" method="post">
             <div class="card mb-3">
                 <div class="card-body d-flex justify-content-around colobody">
+                
                     <div class="card-body bg-info">
                         <h3 class="mb-1">Barcode:</h3>
                     </div>
-                        <input type="text" class="form-control" id="barcodeInput">
+                        <input type="text" class="form-control" name="skubarcode" id="barcodeInput">
+                        <button class="btn btn-primary">btn</button>
                 </div>
+                </form>
             </div>
         </div>
 
@@ -230,6 +235,9 @@ $user = $_SESSION['user_name'];
                                     <label for="change">Change</label>
                                     <input type="text" class="form-control" id="change">
                                 </div>
+                                <div class="form-group">
+                                    <button class="btn btn-primary" id="purchase">Pay</button>
+                                </div>
                             </form>
                             </div>
                   
@@ -250,6 +258,8 @@ $user = $_SESSION['user_name'];
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="postUpdate.js"></script>
+  <script src="calculateItems.js"></script>
     <script>
         var el = document.getElementById("wrapper");
         var toggleButton = document.getElementById("menu-toggle");
