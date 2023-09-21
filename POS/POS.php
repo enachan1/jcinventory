@@ -187,10 +187,9 @@ $user = $_SESSION['user_name'];
                         <h3 class="mb-1">Barcode:</h3>
                     </div>
                         <input type="text" class="form-control" name="skubarcode" id="barcodeInput">
-                        <button class="btn btn-primary">btn</button>
+                        <button style="display: none;" class="btn btn-primary">btn</button>
                 </div>
                 </form>
-            </div>
         </div>
 
         <!-- Right side column -->
