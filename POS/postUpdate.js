@@ -12,7 +12,7 @@ $(document).ready(function() {
         type: "POST",
         data: { dataToUpdate: JSON.stringify(dataToUpdate) },
         success: function(response) {
-            console.log("Success");
+            location.reload();
         },
         error: function(error) {
             console.error("Error:", error);

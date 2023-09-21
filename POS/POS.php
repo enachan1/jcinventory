@@ -153,7 +153,7 @@ $user = $_SESSION['user_name'];
                                         <th>Total Amount</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody id="tableBody">
                                 <!-- Table content here -->
                                 <?php
                                 $select_query = "SELECT * FROM purchase_db";
@@ -222,7 +222,6 @@ $user = $_SESSION['user_name'];
                             </div>
                             <div class="modal-body">
                                 <!-- ETO MODAL TO  -->
-                            <form>
                                 <div class="form-group">
                                     <label for="total">Total</label>
                                     <input type="text" class="form-control" id="total">
@@ -238,7 +237,6 @@ $user = $_SESSION['user_name'];
                                 <div class="form-group">
                                     <button class="btn btn-primary" id="purchase">Pay</button>
                                 </div>
-                            </form>
                             </div>
                   
                             </div>

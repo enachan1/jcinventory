@@ -18,7 +18,8 @@ if(isset($_POST['skubarcode'])) {
         $select_query = "SELECT * FROM items_db WHERE item_sku = $input_sku";
         $result_query = mysqli_query($sqlconn, $select_query);
         if($result_query === false) {
-            echo "error";
+            header("Location: POS.php?msg=Item not found");
+            exit();
         }
         else {
             if(mysqli_num_rows($result_query) === 1) {
@@ -64,7 +65,7 @@ function addtoPosTable($itemSkuValue,$itemNameValue, $itemPriceValue) {
             exit();
         }
         else {
-            header("Location: POS.php?error=lmao");
+            header("Location: POS.php?error=error");
         }
         }
         catch (Exception $e) {
