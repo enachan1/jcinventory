@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Sep 18, 2023 at 05:42 PM
+-- Generation Time: Sep 21, 2023 at 06:27 PM
 -- Server version: 8.0.34-0ubuntu0.22.04.1
 -- PHP Version: 8.1.2-1ubuntu2.14
 
@@ -42,7 +42,8 @@ INSERT INTO `category_db` (`id`, `category_name`) VALUES
 (3, 'Necessities'),
 (4, 'Snacks'),
 (5, 'Chemicals'),
-(6, 'Utensils');
+(6, 'Utensils'),
+(7, 'tubul');
 
 -- --------------------------------------------------------
 
@@ -66,10 +67,23 @@ CREATE TABLE `items_db` (
 --
 
 INSERT INTO `items_db` (`id`, `item_sku`, `item_name`, `item_stocks`, `item_expdate`, `item_price`, `item_uom`, `item_category`) VALUES
-(1, 256874, 'piattos', 52, '2023-10-13', 52, 'Liters', 'Snacks'),
-(2, 23658984, 'martys', 2355, '2023-11-21', 8, 'pieces', 'snacks'),
-(3, 56468, 'genshin', 65, '2023-09-16', 256, 'Liters', 'Drinks'),
-(4, 23568775126, 'Coca Cola Mismo', 25, '2023-12-28', 15, 'Liters', 'Drinks');
+(4, 23568775126, 'Coca Cola Mismo', 22, '2023-12-28', 15, 'Liters', 'Drinks'),
+(8, 89456456123, 'toblerone', 15, '2023-11-30', 26, 'Liters', 'Snacks'),
+(9, 25458976321, 'Piattos', 30, '2023-10-31', 19, 'Pieces', 'Snacks'),
+(10, 12365987452, 'Nescafe', 65, '2023-09-30', 16, 'Pieces', 'Drinks');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `purchase_db`
+--
+
+CREATE TABLE `purchase_db` (
+  `id` bigint NOT NULL,
+  `p_sku` bigint NOT NULL,
+  `p_itemname` varchar(255) NOT NULL,
+  `p_price` float NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -89,7 +103,8 @@ CREATE TABLE `uom_db` (
 INSERT INTO `uom_db` (`id`, `uom_name`) VALUES
 (1, 'Liters'),
 (2, 'Dozen'),
-(3, 'Pieces');
+(3, 'Pieces'),
+(4, 'lobut');
 
 -- --------------------------------------------------------
 
@@ -129,6 +144,12 @@ ALTER TABLE `items_db`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `purchase_db`
+--
+ALTER TABLE `purchase_db`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `uom_db`
 --
 ALTER TABLE `uom_db`
@@ -148,19 +169,25 @@ ALTER TABLE `users__db`
 -- AUTO_INCREMENT for table `category_db`
 --
 ALTER TABLE `category_db`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `items_db`
 --
 ALTER TABLE `items_db`
-  MODIFY `id` bigint NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT for table `purchase_db`
+--
+ALTER TABLE `purchase_db`
+  MODIFY `id` bigint NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `uom_db`
 --
 ALTER TABLE `uom_db`
-  MODIFY `id` bigint NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `users__db`
