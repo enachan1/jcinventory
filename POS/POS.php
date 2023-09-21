@@ -123,7 +123,6 @@ $user = $_SESSION['user_name'];
                         </ul>
                     </div>
                 </nav>
-
 <!-- Point of Sales Content -->
 <div class="container-fluid mt-3">
     <div class="row m-1">
@@ -191,7 +190,7 @@ $user = $_SESSION['user_name'];
                 </div>
                 </form>
         </div>
-
+        </div>
         <!-- Right side column -->
         <div class="col-4 adjustment">
             <!-- Buttons for Payment, Inventory, Sales, Dashboard -->
