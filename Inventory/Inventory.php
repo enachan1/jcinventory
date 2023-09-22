@@ -214,15 +214,15 @@ $user = $_SESSION['user_name'];
                     <form action="add_items.php" method="post">
                     <!-- Label and Textbox -->
                     <label for="skuInput" class="form-label">SKU</label>
-                    <input type="number" name="modal_sku" class="form-control" id="skuInput">
+                    <input type="number" name="modal_sku" class="form-control" id="skuInput" required>
                     <label for="itemnameInput" class="form-label">Item Name</label>
-                    <input type="text" name="modal_itemname" class="form-control" id="itemnameInput">
+                    <input type="text" name="modal_itemname" class="form-control" id="itemnameInput" required>
                     <label for="stocksInput" class="form-label">Stocks</label>
-                    <input type="number" name="modal_stocks" class="form-control" id="stocksInput">
+                    <input type="number" name="modal_stocks" class="form-control" id="stocksInput" required>
                     <label for="expdateInput" class="form-label">Exp. Date</label>
-                    <input type="date" name="modal_date" class="form-control" id="expdateInput">
+                    <input type="date" name="modal_date" class="form-control" id="expdateInput" required>
                     <label for="priceInput" class="form-label">Price</label>
-                    <input style="margin: 0;" type="number" name="modal_price" class="form-control" id="priceInput"><br>
+                    <input style="margin: 0;" type="number" name="modal_price" class="form-control" id="priceInput" required><br>
 
                     <!-- Selecting Unit of measure-->
                     <div class="input-group mb-4">
