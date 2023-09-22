@@ -35,10 +35,13 @@
             placeholder=" " class="forminput">
             <label for="password" class="formlabel">Password</label>
         </div>
-        <br>
+        <div class="input-container">
+            <input type="checkbox" for="showpass" id="checkboxPass" onclick="isChecked()">
+            <label class="showPass">Show Password</label>
+        </div>
         <button>Log In</button>
     </div>
 </form>
-    
+<script src="showPassword.js"></script>
 </body>
 </html>
