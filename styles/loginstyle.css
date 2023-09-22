@@ -26,6 +26,8 @@ h1 {
     background: none;
     padding-left: 21px;
     transition: all 160ms ease-in;
+    font-size: 16px;
+    font-family: 'Roboto', sans-serif;
 }
 .forminput:focus {
     border-color: #000;
@@ -45,6 +47,7 @@ h1 {
 }
 .forminput:focus ~ .formlabel,
 .forminput:not(:placeholder-shown).forminput:not(:focus) ~ .formlabel {
+    font-weight: 500;
     top: -0.5rem;
     font-size: 0.9rem;
     left: 0.8rem;
@@ -74,4 +77,8 @@ button {
     padding: 15px;
     text-align: center;
     
+}
+
+.showPass {
+    font-family: 'Roboto', sans-serif;
 }
