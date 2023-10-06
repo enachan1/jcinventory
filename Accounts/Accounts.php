@@ -25,8 +25,8 @@
                                 class="fas fa-inventory me-2"></i>Inventory</a>
                         <a href="../ProductMaintenance/ProductMaintenance.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
                                 class="fas fa-folders me-2"></i>Product Maintenance</a>
-                        <a href="../POS/POS.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-                                class="fas fa-usd-circle me-2"></i>Point of Sales</a>
+                        <a href="../PurchaseOrder/PurchaseOrder.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
+                                class="fas fa-folders me-2"></i>Purchase Order</a>
                         <a href="../Reports/Reports.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
                                 class="fas fa-file-spreadsheet me-2"></i>Reports</a>
                         <a href="../Accounts/Accounts.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
@@ -56,7 +56,7 @@
                     </button>
     
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                        <ul class="navbar-nav ms-auto mb-2 mb-lg-0 dropadjust">
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle second-text fw-bold" href="#" id="#navbarDropdown"
                                     role="button" data-bs-toggle="dropdown" aria-expanded="false">
