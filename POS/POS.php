@@ -179,10 +179,8 @@ $user = $_SESSION['user_name'];
             </div>
         </div>
     </div>
-</div>
-      
 
-  </div>
+    <!-- End of Page Content -->
 
               <!-- Dashboard Modal-->
               <div class="modal fade" id="dashboardModal">
