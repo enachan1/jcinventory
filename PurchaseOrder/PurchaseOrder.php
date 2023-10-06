@@ -160,13 +160,9 @@
                                 <h5 class="card-title">Vendors</h5>
                                 <!--Dropdown Button For Vendors-->
                                 <div class="d-flex justify-content-between rounded">
-                                    <div class="btn-group">
-                                    <button type="button" class="btn colorbox btn-outline-secondary btn-lg" data-bs-toggle="modal" data-bs-target="#myModal">
+                                    <button type="button" class="btn colorbox btn-outline-secondary btn-lg" data-bs-toggle="modal" data-bs-target="#vendor1">
                                         Add item
                                     </button>
-                                    <!-- Search Bar-->
-                                    <input type="text" class="form-control search-bar" placeholder="Search">
-                                      </div><br>
                                       <!-- Search Bar-->
                                     <input type="text" class="form-control search-bar" placeholder="Search">
                                 </div><br>
@@ -253,6 +249,7 @@
 
         </div>
     </div>
+    
 
     <!-- ...Purchase Order Modal... -->
 
@@ -316,6 +313,7 @@
                     </div>
                 </div>
                 <!--End modal Example-->
+
 
     <!-- ...Vendors Modal... -->
 
