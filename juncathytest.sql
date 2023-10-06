@@ -30,7 +30,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `category_db` (
   `id` int NOT NULL,
   `category_name` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `category_db`
@@ -60,7 +60,7 @@ CREATE TABLE `items_db` (
   `item_price` float NOT NULL,
   `item_uom` varchar(50) NOT NULL,
   `item_category` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `items_db`
@@ -83,7 +83,7 @@ CREATE TABLE `purchase_db` (
   `p_sku` bigint NOT NULL,
   `p_itemname` varchar(255) NOT NULL,
   `p_price` float NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -94,7 +94,7 @@ CREATE TABLE `purchase_db` (
 CREATE TABLE `uom_db` (
   `id` bigint NOT NULL,
   `uom_name` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `uom_db`
@@ -118,7 +118,7 @@ CREATE TABLE `users__db` (
   `email` varchar(50) NOT NULL,
   `pass_word` varchar(50) NOT NULL,
   `is_admin` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `users__db`
