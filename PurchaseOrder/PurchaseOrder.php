@@ -61,8 +61,8 @@
                         <i class="fas fa-user me-2"></i>My name
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="/Profile/Profile.html">Profile</a></li>
-                        <li><a class="dropdown-item" href="/Settings/Settings.html">Setting</a></li>
+                        <li><a class="dropdown-item" href="../Profile/Profile.php">Profile</a></li>
+                        <li><a class="dropdown-item" href="../Settings/Settings.php">Setting</a></li>
                         <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item" href="#">Logout</a></li>
                     </ul>
