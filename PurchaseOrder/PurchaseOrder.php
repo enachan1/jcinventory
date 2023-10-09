@@ -11,6 +11,10 @@
            order: 2;
            width: 200px;
        }
+
+       .adjustments {
+        width: 65px;
+       }
     </style>
 
 <body>
@@ -95,11 +99,6 @@
         </ul>
 
 
-
-
-
-
-
                 <!-- Purchase Order -->
                 <div class="tab-content" id="myTabContent">
                     <div class="tab-pane fade show active" id="sales" role="tabpanel" aria-labelledby="sales-tab">
@@ -108,16 +107,9 @@
                                 <h5 class="card-title">Purchase Order</h5>
                                 <!--Drop down Button Purchase Order-->
                                 <div class="d-flex justify-content-between rounded">
-                                    <div class="btn-group">
-                                        <button class="btn colorbox btn-outline-secondary btn-lg dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                          Selection Purchase
-                                        </button>
-                                        <ul class="dropdown-menu">
-                                        <!--Purchase Selection-->
-                                          <li class="Example1" data-bs-toggle="modal" data-bs-target="#example1"><a class="dropdown-item">Example</a></li>
-                                        <!--Add more here-->
-                                        </ul>
-                                    </div>
+                                    <button type="button" class="btn colorbox btn-outline-secondary btn-lg" data-bs-toggle="modal" data-bs-target="#purchase1">
+                                        Add item
+                                    </button>
                                     <!-- Search Bar-->
                                     <input type="text" class="form-control search-bar" placeholder="Search">
                                 </div><br>
@@ -223,28 +215,28 @@
                                     </tbody>
                                 </table>
         
-                                        <!-- Pagination Next Tables-->
-                                        <nav aria-label="Page navigation">
-                                            <ul class="pagination justify-content-center">
-                                                    <li class="page-item disabled">
-                                                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-                                                    </li>
-                                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                            <li class="page-item"><a class="page-link" href="#">4</a></li>
-                                            <li class="page-item"><a class="page-link" href="#">5</a></li>
-                                            <li class="page-item">
-                                            <a class="page-link" href="#">Next</a>
-                                            </li>
-                                             </ul>
-                                        </nav>
-                            </div>             
+                                    <!-- Pagination Next Tables-->
+                                    <nav aria-label="Page navigation">
+                                        <ul class="pagination justify-content-center">
+                                                <li class="page-item disabled">
+                                                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                                                </li>
+                                        <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">4</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">5</a></li>
+                                        <li class="page-item">
+                                        <a class="page-link" href="#">Next</a>
+                                        </li>
+                                        </ul>
+                                    </nav>
+                                </div>             
+                            </div>
+                        </div>
+
                     </div>
                 </div>
-
-            </div>
-        </div>
         <!-- End of Page Content -->
 
         </div>
@@ -253,54 +245,74 @@
     
     <!-- ...Purchase Order Modal... -->
 
-                <!-- Example Modal-->
-                <div class="modal fade" id="example1">
-                    <div class="modal-dialog modal-lg">
+                <!-- Purchase Modal-->
+                <div class="modal fade" id="purchase1">
+                    <div class="modal-dialog modal-xl">
                         <div class="modal-content">
                         <!-- Modal Header -->
                             <div class="modal-header">
-                                <h3 class="modal-title">Example</h3>
+                                <h3 class="modal-title">Purchase Order</h3>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                             </div>
                             <!-- Modal Body -->
                             <div class="modal-body">
-                            <!-- Your Example content goes here -->
+                            <!-- Your Purchase content goes here -->
                             <div class="container-fluid px-1">
                                 <div class="mb-4">
                                     <!-- Label and Textbox -->
-                                    <label for="skuInput" class="form-label">SKU</label>
-                                    <input type="text" class="form-control" id="skuInput">
-                                    <label for="itemnameInput" class="form-label">Item Name</label>
-                                    <input type="text" class="form-control" id="itemnameInput">
-                                    <label for="stocksInput" class="form-label">Stocks</label>
-                                    <input type="text" class="form-control" id="stocksInput">
-                                    <label for="expdateInput" class="form-label">Exp. Date</label>
-                                    <input type="date" class="form-control" id="expdateInput">
-                                    <label for="priceInput" class="form-label">Price</label>
-                                    <input type="text" class="form-control" id="priceInput"><br>
-                                    <!-- Selecting UoF / Category-->
-                                    <div class="input-group mb-4">
-                                        <label class="input-group-text colorbox" for="uof">Unit of Measure</label>
-                                        <select class="form-select" id="uof" name="uof">
-                                            <option value="pieces">Pieces</option>
-                                            <option value="dozen">Dozen</option>
-                                            <option value="packs">Packs</option>
-                                            <option value="liters">Liters</option>
-                                        </select>
+                                    <label for="vendorID" class="form-label">Vendor ID</label>
+                                    <input type="number" class="form-control" id="vendorID" name="vendorId" required>
+                                    <label for="vendorNAME" class="form-label">Vendor Name</label>
+                                    <input type="text" class="form-control" id="vendorNAME" name="vendorName" required>
+                                    <label for="dateTransaction" class="form-label">Date of Transaction</label>
+                                    <input type="date" class="form-control" id="dateTransaction" name="dateTrans" required>
+                                    <label for="expectedDelivery" class="form-label">Expected Delivery</label>
+                                    <input type="date" class="form-control" id="expectedDelivery" name="expectDel" required><br>
                                 </div>
-                                    <div class="input-group mb-4">
-                                        <label class="input-group-text colorbox" for="category">Category</label>
-                                        <select class="form-select" id="category" name="category">
-                                            <option value="drinks">Drinks</option>
-                                            <option value="canfood">Can Food</option>
-                                            <option value="toilt">Toiletries</option>
-                                            <option value="junkfood">Junk Food</option>
-                                            <!-- Many Brands -->
-                                        </select>
+
+                                <!-- Table for Items-->
+                                <div class="row my-1">
+                                    <h3 class="fs-4 mb-3">Items</h3>
+                                    <div class="col">
+                                        <table class="table colorbox rounded shadow-sm  table-hover" id="itemTable">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">Item Name</th>
+                                                    <th scope="col">QTY</th>
+                                                    <th scope="col">UOM</th>
+                                                    <th scope="col">Category</th>
+                                                    <th>Add Row</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <!--Table Content-->
+                                                    <th><input type="text" class="form-control" id="itemName" name="#" required></th>
+                                                    <th><input type="text" class="form-control adjustments" id="qtY" name="#" required></th>
+                                                    <th>            
+                                                    <select class="form-select" id="uof" name="uof">
+                                                        <option value="pieces">Pieces</option>
+                                                        <option value="dozen">Dozen</option>
+                                                        <option value="packs">Packs</option>
+                                                        <option value="liters">Liters</option>
+                                                    </select></th>
+                                                    <th>            
+                                                    <select class="form-select" id="category" name="category">
+                                                        <option value="drinks">Drinks</option>
+                                                        <option value="canfood">Can Food</option>
+                                                        <option value="toilt">Toiletries</option>
+                                                        <option value="junkfood">Junk Food</option>
+                                                        <!-- Many Brands -->
+                                                    </select></th>
+                                                    <!--Added Input -->
+                                                    <td><button class="btn btn-primary btn-sm btn-secondary" id="addItem" type="button"><i class="far fa-plus-circle"></i>
+                                                </tr>
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
     
-                            <!-- ... Rest of your Example content ... -->
+                            <!-- ... Rest of your Purchase content ... -->
                         </div>
                             <!-- Modal Footer Goes here-->
                             <div class="modal-footer">
@@ -312,7 +324,7 @@
                         </div>
                     </div>
                 </div>
-                <!--End modal Example-->
+                <!--End modal Purchase-->
 
 
     <!-- ...Vendors Modal... -->
@@ -348,7 +360,7 @@
                                 <button class="btn btn-primary">Add</button>
                                 </form>
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                              </div>
+                            </div>
 
                         </div>
                         </div>
@@ -376,6 +388,28 @@
             el.classList.toggle("toggled");
         };
 
+        // Function to add a new row to the table
+        function addRow() {
+            const table = document.getElementById('itemTable').getElementsByTagName('tbody')[0];
+            const newRow = table.insertRow(table.rows.length);
+
+            // Define the cell elements
+            const cell1 = newRow.insertCell(0);
+            const cell2 = newRow.insertCell(1);
+            const cell3 = newRow.insertCell(2);
+            const cell4 = newRow.insertCell(3);
+
+            // Set default values or placeholders 
+            // Table Purchase Order Input
+            cell1.innerHTML = '<input type="text" class="form-control" id="itemName" name="#" required>';
+            cell2.innerHTML = '<input type="text" class="form-control adjustments" id="qtY" name="#" required>';
+            cell3.innerHTML = '<select class="form-select" id="uof" name="uof"> <option value="pieces">Pieces</option> <option value="dozen">Dozen</option> <option value="packs">Packs</option> <option value="liters">Liters</option> </select>';
+            cell4.innerHTML = '<select class="form-select" id="category" name="category"> <option value="drinks">Drinks</option> <option value="canfood">Can Food</option> <option value="toilt">Toiletries</option> <option value="junkfood">Junk Food</option> </select>';
+        }
+
+        // Add an event listener to the "Add Item" button
+        const addItemButton = document.getElementById('addItem');
+        addItemButton.addEventListener('click', addRow);
 
     </script>
 
