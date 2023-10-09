@@ -249,8 +249,8 @@
 
         </div>
     </div>
-    
 
+    
     <!-- ...Purchase Order Modal... -->
 
                 <!-- Example Modal-->
@@ -329,21 +329,25 @@
                             <!-- Modal Body -->
                             <div class="modal-body">
                             <!-- Your Vendor1 content goes here -->
+                            <form action="addvendor.php" method="post">
                             <div class="container-fluid px-1">
                                 <div class="mb-4">
                                     <!-- Label and Textbox -->
+                                    <label for="itemnameInput" class="form-label">Vendor ID</label>
+                                    <input type="number" name="vendorId" class="form-control" id="itemnameInput" required>
                                     <label for="skuInput" class="form-label">Vendor Name</label>
-                                    <input type="text" class="form-control" id="skuInput">
+                                    <input type="text" name="vendorName" class="form-control" id="skuInput" required>
                                     <label for="itemnameInput" class="form-label">Contact Number</label>
-                                    <input type="text" class="form-control" id="itemnameInput">
+                                    <input type="number" class="form-control" name="vendorContact" id="itemnameInput" required>
                                 </div>
     
                             <!-- ... Rest of your Vendor1 content ... -->
                         </div>
                             <!-- Modal Footer Goes here-->
                             <div class="modal-footer">
+                                <button class="btn btn-primary">Add</button>
+                                </form>
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary">Add</button>
                               </div>
 
                         </div>
