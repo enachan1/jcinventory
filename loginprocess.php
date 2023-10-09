@@ -12,7 +12,8 @@ if(isset($_POST['email']) && isset($_POST['password'])) {
 
     $email = validate($_POST['email']);
     $pass = validate($_POST['password']);
-    $md5 = md5($pass);
+    $hash = password_hash($pass, PASSWORD_DEFAULT);
+
 
     if(empty($email)) {
         header("Location: login_form.php?error=You cannot leave fields empty");
@@ -23,13 +24,15 @@ if(isset($_POST['email']) && isset($_POST['password'])) {
         exit();
     }
     else {
-        $sqlquery = "SELECT * FROM users__db WHERE email = '$email' AND pass_word = '$md5'";
+        $sqlquery = "SELECT * FROM users__db WHERE email = '$email'";
         $sqlconquery = mysqli_query($sqlconn, $sqlquery) or die("error");
+
 
         if(mysqli_num_rows($sqlconquery) === 1) {
             $rows = mysqli_fetch_assoc($sqlconquery);
+            $hashed_fromDB = $rows['pass_word'];
 
-            if($rows['email'] === $email && $rows['pass_word'] === md5($pass)) {
+            if($rows['email'] === $email && password_verify($pass, $hashed_fromDB)) {
                 $_SESSION['id'] = $rows['id'];
                 $_SESSION['user_name'] = $rows['user_name'];
                 $_SESSION['is_admin'] = $rows['is_admin'];
@@ -53,8 +56,6 @@ if(isset($_POST['email']) && isset($_POST['password'])) {
                 header("Location: login_form.php?error=Incorrect Email or Password");
                 exit();
             }
-            
-
         }
         else {
             header("Location: login_form.php?error=Incorrect Email or Password");
