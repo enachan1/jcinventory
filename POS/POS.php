@@ -82,14 +82,14 @@ $user = $_SESSION['user_name'];
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle second-text fw-bold" href="#" id="#navbarDropdown"
                         role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="fas fa-user me-2"></i>My name
+                        <i class="fas fa-user me-2"></i><?php echo $user; ?>
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="POSother.html">Point of Sales</a></li>
                         <li><a class="dropdown-item" href="Profile.html">Profile</a></li>
                         <li><a class="dropdown-item" href="Setting.html">Setting</a></li>
                         <div class="dropdown-divider"></div>
-                        <li><a class="dropdown-item" href="#">Logout</a></li>
+                        <li><a class="dropdown-item" href="../logout.php">Logout</a></li>
                     </ul>
                 </li>
             </ul>
@@ -321,7 +321,6 @@ $user = $_SESSION['user_name'];
                         <!-- Modal Body -->
                         <div class="modal-body">
                         <!-- Your Dashboard content goes here -->
-                            <form>
                                 <!--Total Input-->
                                 <div class="form-group mt-1">
                                     <label for="total"><h3 class="fs-5">Total</h3></label>
@@ -342,9 +341,8 @@ $user = $_SESSION['user_name'];
 
                                 <!--Pay Button-->
                                 <div class="form-group">
-                                    <button type="button" class="btn btn-secondary btn-lg" id="purchase">Pay</button>
+                                    <button class="btn btn-secondary btn-lg" id="purchase">Pay</button>
                                 </div>
-                            </form>
                         
                             <!-- Modal Footer Goes here-->
 
@@ -367,13 +365,7 @@ $user = $_SESSION['user_name'];
   <script src="postUpdate.js"></script>
   <script src="calculateItems.js"></script>
     <script>
-        var el = document.getElementById("wrapper");
-        var toggleButton = document.getElementById("menu-toggle");
-
-        toggleButton.onclick = function () {
-            el.classList.toggle("toggled");
-        };
-
+        /*
         // Sample data for demonstration
         const barcodeData = [
             { barcode: '4800010075069', description: 'Cream-O' },
@@ -400,7 +392,7 @@ $user = $_SESSION['user_name'];
             });
         });
 
-
+        */
     </script>
     
 </body>

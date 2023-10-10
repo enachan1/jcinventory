@@ -61,7 +61,7 @@ function addtoPosTable($itemSkuValue,$itemNameValue, $itemPriceValue) {
         $result_query = mysqli_query($sqlconn, $insert_query);
 
         if($result_query) {
-            header("Location: POS.php?msg=inserted success");
+            header("Location: POS.php");
             exit();
         }
         else {

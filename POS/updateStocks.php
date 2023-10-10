@@ -11,21 +11,26 @@ if($_SERVER["REQUEST_METHOD"]==="POST") {
 
         $update_query = "UPDATE items_db SET item_stocks = item_stocks - $qty WHERE item_sku = $sku";
         $result_update = mysqli_query($sqlconn, $update_query);
-    }
-    if($result_update === true) {
+
+
+    
+    if($result_update == true) {
+        echo 'success';
         $truncate_query = "TRUNCATE TABLE `purchase_db`";
         $result_truncate = mysqli_query($sqlconn, $truncate_query);
-        if ($result_truncate === true) {
+        if ($result_truncate == true) {
             header("Location: POS.php?msg=success");
             exit();
         }
-        
+        else {
+            echo 'error';
+        }
     }
     else {
         header("Location: POS.php?msg=error");
         exit();
     }
-
+}
 }
 else {
     // Handle invalid requests here
