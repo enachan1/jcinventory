@@ -4,6 +4,8 @@ var priceElements = document.querySelectorAll('.price');
 var totalPriceElements = document.querySelectorAll('.totalPrice');
 var overallTotalElement = document.getElementById('overallTotal');
 
+var modal1Input = document.getElementById('modalPTotal');
+
 // Initialize and calculate the initial total prices
 for (var i = 0; i < qtyInputs.length; i++) {
     calculateTotalPrice(i);
@@ -35,5 +37,6 @@ function updateOverallTotal() {
         overallTotal += parseFloat(totalPriceElement.textContent) || 0;
     });
     overallTotalElement.textContent = overallTotal.toFixed(2);
+    modal1Input.value = overallTotal.toFixed(2);
 }
 updateOverallTotal();

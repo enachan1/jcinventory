@@ -324,7 +324,7 @@ $user = $_SESSION['user_name'];
                                 <!--Total Input-->
                                 <div class="form-group mt-1">
                                     <label for="total"><h3 class="fs-5">Total</h3></label>
-                                    <input type="text" class="form-control" id="total" placeholder="0.00">
+                                    <input type="text" class="form-control" id="modalPTotal" placeholder="0.00">
                                 </div>
 
                                 <!--Cash Input-->
