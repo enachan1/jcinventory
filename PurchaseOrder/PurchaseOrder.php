@@ -302,7 +302,7 @@ $user = $_SESSION['user_name'];
                                 <div class="row my-1">
                                     <h3 class="fs-4 mb-3">Items</h3>
                                     <div class="col">
-                                        <table class="table colorbox rounded shadow-sm  table-hover" id="itemTable">
+                                        <table class="table colorbox rounded shadow-sm  table-hover" id="addPurchaseItems">
                                             <thead>
                                                 <tr>
                                                     <th scope="col">Item Name</th>
@@ -312,28 +312,40 @@ $user = $_SESSION['user_name'];
                                                     <th>Add Row</th>
                                                 </tr>
                                             </thead>
-                                            <tbody>
+                                            <tbody class="show_items">
                                                 <tr>
                                                     <!--Table Content-->
                                                     <th><input type="text" class="form-control" id="itemName" name="#" required></th>
                                                     <th><input type="text" class="form-control adjustments" id="qtY" name="#" required></th>
                                                     <th>            
                                                     <select class="form-select" id="uof" name="uof">
-                                                        <option value="pieces">Pieces</option>
-                                                        <option value="dozen">Dozen</option>
-                                                        <option value="packs">Packs</option>
-                                                        <option value="liters">Liters</option>
+                                                    <?php  
+                                                         $sql_query = "SELECT * FROM uom_db";
+                                                        $sql_res = mysqli_query($sqlconn, $sql_query);
+
+                                                        while($array = mysqli_fetch_array($sql_res)) {
+                                                    ?>
+                                                        <option value="<?php echo $array['uom_name']; ?>"> <?php echo $array['uom_name']; ?> </option>
+                                                    <?php 
+                                                        }
+                                                    ?>
                                                     </select></th>
                                                     <th>            
                                                     <select class="form-select" id="category" name="category">
-                                                        <option value="drinks">Drinks</option>
-                                                        <option value="canfood">Can Food</option>
-                                                        <option value="toilt">Toiletries</option>
-                                                        <option value="junkfood">Junk Food</option>
+                                                    <?php  
+                                                        $sql_query1 = "SELECT * FROM category_db";
+                                                        $sql_res1 = mysqli_query($sqlconn, $sql_query1);
+
+                                                        while($array1 = mysqli_fetch_array($sql_res1)) {
+                                                        ?>
+                                                        <option value="<?php echo $array1['category_name']; ?>"><?php echo $array1['category_name']; ?></option>
+                                                    <?php 
+                                                        }
+                                                    ?>
                                                         <!-- Many Brands -->
                                                     </select></th>
                                                     <!--Added Input -->
-                                                    <td><button class="btn btn-primary btn-sm btn-secondary" id="addItem" type="button"><i class="far fa-plus-circle"></i>
+                                                    <td><button class="btn btn-primary btn-sm btn-secondary" id="addInput" type="button"><i class="far fa-plus-circle"></i>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -407,7 +419,7 @@ $user = $_SESSION['user_name'];
         
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
-
+    <script src="cloneInputs.js"></script>
     <script>
         var el = document.getElementById("wrapper");
         var toggleButton = document.getElementById("menu-toggle");
@@ -415,30 +427,6 @@ $user = $_SESSION['user_name'];
         toggleButton.onclick = function () {
             el.classList.toggle("toggled");
         };
-
-        // Function to add a new row to the table
-        function addRow() {
-            const table = document.getElementById('itemTable').getElementsByTagName('tbody')[0];
-            const newRow = table.insertRow(table.rows.length);
-
-            // Define the cell elements
-            const cell1 = newRow.insertCell(0);
-            const cell2 = newRow.insertCell(1);
-            const cell3 = newRow.insertCell(2);
-            const cell4 = newRow.insertCell(3);
-
-            // Set default values or placeholders 
-            // Table Purchase Order Input
-            cell1.innerHTML = '<input type="text" class="form-control" id="itemName" name="#" required>';
-            cell2.innerHTML = '<input type="text" class="form-control adjustments" id="qtY" name="#" required>';
-            cell3.innerHTML = '<select class="form-select" id="uof" name="uof"> <option value="pieces">Pieces</option> <option value="dozen">Dozen</option> <option value="packs">Packs</option> <option value="liters">Liters</option> </select>';
-            cell4.innerHTML = '<select class="form-select" id="category" name="category"> <option value="drinks">Drinks</option> <option value="canfood">Can Food</option> <option value="toilt">Toiletries</option> <option value="junkfood">Junk Food</option> </select>';
-        }
-
-        // Add an event listener to the "Add Item" button
-        const addItemButton = document.getElementById('addItem');
-        addItemButton.addEventListener('click', addRow);
-
     </script>
 <?php } ?>
 </body>
