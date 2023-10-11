@@ -1,4 +1,17 @@
 <!DOCTYPE html>
+<?php
+include "../connectdb.php";
+session_start();
+if(isset($_SESSION['id']) && isset($_SESSION['user_name'])) {
+$user = $_SESSION['user_name'];
+
+    if(!isset($user)) {
+        header("Location: login_form.php");
+        exit();
+    }
+
+
+?>
     <head>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" />
         <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
@@ -163,10 +176,23 @@
                                     <thead>
                                         <tr>
                                             <!-- Table content here -->
-                                            <th>Working Title</th>
+                                            <th>Vendor ID</th>
+                                            <th>Vendor Name</th>
+                                            <th>Contact No.</th>
                                         </tr>
                                     </thead>
                                     <tbody>
+                                <?php  
+                                    $sql_query = "SELECT * FROM vendors_db";
+                                    $sql_res = mysqli_query($sqlconn, $sql_query);
+
+                                    while($array = mysqli_fetch_array($sql_res)) {
+                                        ?>
+                                        <td><?php echo $array['vendor_id'] ?></td>
+                                        <td><?php echo $array['vendor_name'] ?></td>
+                                        <td><?php echo $array['vendor_contact'] ?></td>
+
+                                        <?php } ?>
                                     </tbody>
                                 </table>
         
@@ -208,10 +234,12 @@
                                     <thead>
                                         <tr>
                                             <!-- Table content here -->
-                                            <th>Working Title</th>
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
                                     </tbody>
                                 </table>
         
@@ -412,6 +440,6 @@
         addItemButton.addEventListener('click', addRow);
 
     </script>
-
+<?php } ?>
 </body>
 </html>
