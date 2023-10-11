@@ -102,11 +102,6 @@ $user = $_SESSION['user_name'];
                                 <input type="text" class="form-control search-bar" placeholder="Search">
                             </div>
                         </div>
-                        <?php if(isset($_GET['catmsg'])) {?>
-                                <div class="alert alert-success" role="alert">
-                                <?php echo $_GET['catmsg']; ?>
-                                </div>
-                                <?php } ?>
                         <div class="card-body colorbox">
                             <h5 class="card-title">Category</h5>
                             <div class="table-responsive">
@@ -131,12 +126,12 @@ $user = $_SESSION['user_name'];
                                             </td>
                                             <td>
                                                 <!-- Buttons for Edit and Remove -->
-                                                <button class="btn btn-primary btn-sm btn-secondary" type="button">
+                                                <a class="btn btn-primary btn-sm btn-secondary" type="button">
                                                     <i class="fas fa-edit"></i>
-                                                </button>
-                                                <button class="btn btn-primary btn-sm btn-danger" type="reset">
+                                                </a>
+                                                <a href="delete_category.php?id=<?php echo $array['id'];?>" class="btn btn-primary btn-sm btn-danger" type="reset">
                                                     <i class="fas fa-trash"></i>
-                                                </button>
+                                                </a>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -211,10 +206,6 @@ $user = $_SESSION['user_name'];
                                     <input type="text" class="form-control search-bar" placeholder="Search">
                                 </div>
                             </div>
-                            <?php if(isset($_GET['uommsg'])) {?>
-                                <div class="alert alert-success" role="alert">
-                                <?php echo $_GET['uommsg']; ?></div>
-                                <?php } ?>
                             <div class="card-body colorbox">
                                 <h5 class="card-title">Unit of Measure</h5>
                                 <div class="table-responsive">
