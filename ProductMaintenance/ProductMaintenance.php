@@ -125,10 +125,6 @@ $user = $_SESSION['user_name'];
                                                 <?php echo $array['category_name']; ?>
                                             </td>
                                             <td>
-                                                <!-- Buttons for Edit and Remove -->
-                                                <a class="btn btn-primary btn-sm btn-secondary" type="button">
-                                                    <i class="fas fa-edit"></i>
-                                                </a>
                                                 <a href="delete_category.php?id=<?php echo $array['id'];?>" class="btn btn-primary btn-sm btn-danger" type="reset">
                                                     <i class="fas fa-trash"></i>
                                                 </a>
@@ -228,13 +224,9 @@ $user = $_SESSION['user_name'];
                                                     <?php echo $array1['uom_name']; ?>
                                                 </td>
                                                 <td>
-                                                    <!-- Buttons for Edit and Remove -->
-                                                    <button class="btn btn-primary btn-sm btn-secondary" type="button">
-                                                        <i class="fas fa-edit"></i>
-                                                    </button>
-                                                    <button class="btn btn-primary btn-sm btn-danger" type="reset">
+                                                    <a href="delete_uom.php?id= <?php echo $array1['id'] ?>" class="btn btn-primary btn-sm btn-danger">
                                                         <i class="fas fa-trash"></i>
-                                                    </button>
+                                        </a>
                                                 </td>
                                             </tr>
                                         </tbody>
