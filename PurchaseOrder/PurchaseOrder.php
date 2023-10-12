@@ -295,7 +295,7 @@ $user = $_SESSION['user_name'];
 
                                     </div>
                                     <label for="vendorNAME" class="form-label">Vendor Name</label>
-                                    <input type="text" class="form-control" id="vendorNAME" name="vendorName" required>
+                                    <input type="text" class="form-control" id="vendorNAME" name="vendorName" disabled>
                                     <label for="dateTransaction" class="form-label">Date of Transaction</label>
                                     <input type="date" class="form-control" id="dateTransaction" name="dateTrans" required>
                                     <label for="expectedDelivery" class="form-label">Expected Delivery</label>
