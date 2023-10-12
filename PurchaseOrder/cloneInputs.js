@@ -1,7 +1,8 @@
 $(document).ready(function () {
     $('#addInput').click(function(e) {
         e.preventDefault();
-        $(".show_items").prepend(`<tr>
+        $(".show_items").prepend(
+        `<tr>
         <!--Table Content-->
         <th><input type="text" class="form-control" id="itemName" name="#" required></th>
         <th><input type="text" class="form-control adjustments" id="qtY" name="#" required></th>
@@ -16,7 +17,8 @@ $(document).ready(function () {
         </select></th>
         <!--Added Input -->
         <td><button class="btn btn-primary btn-sm btn-danger" id="removeInput" type="button"><i class="fa fa-minus-circle"></i>
-    </tr>`);
+        </tr>`
+    );
 
     // Populate UOM dropdown
     const uofDropdown = $('.uom-dropdown').first();

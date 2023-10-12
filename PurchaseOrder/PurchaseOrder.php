@@ -75,13 +75,13 @@ $user = $_SESSION['user_name'];
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle second-text fw-bold" href="#" id="navbarDropdown"
                         role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="fas fa-user me-2"></i>My name
+                        <i class="fas fa-user me-2"></i><?php echo $user; ?>
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="../Profile/Profile.php">Profile</a></li>
                         <li><a class="dropdown-item" href="../Settings/Settings.php">Setting</a></li>
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#">Logout</a></li>
+                        <li><a class="dropdown-item" href="../logout.php">Logout</a></li>
                     </ul>
                 </li>
             </ul>
@@ -188,10 +188,11 @@ $user = $_SESSION['user_name'];
 
                                     while($array = mysqli_fetch_array($sql_res)) {
                                         ?>
-                                        <td><?php echo $array['vendor_id'] ?></td>
-                                        <td><?php echo $array['vendor_name'] ?></td>
-                                        <td><?php echo $array['vendor_contact'] ?></td>
-
+                                        <tr>
+                                            <td><?php echo $array['vendor_id'] ?></td>
+                                            <td><?php echo $array['vendor_name'] ?></td>
+                                            <td><?php echo $array['vendor_contact'] ?></td>
+                                        </tr>
                                         <?php } ?>
                                     </tbody>
                                 </table>
@@ -290,6 +291,9 @@ $user = $_SESSION['user_name'];
                                     <!-- Label and Textbox -->
                                     <label for="vendorID" class="form-label">Vendor ID</label>
                                     <input type="number" class="form-control" id="vendorID" name="vendorId" required>
+                                    <div class="list-group" id="showlist_vendorid" style="position: absolute; z-index: 1; width: 30%;">
+
+                                    </div>
                                     <label for="vendorNAME" class="form-label">Vendor Name</label>
                                     <input type="text" class="form-control" id="vendorNAME" name="vendorName" required>
                                     <label for="dateTransaction" class="form-label">Date of Transaction</label>
@@ -420,6 +424,7 @@ $user = $_SESSION['user_name'];
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="cloneInputs.js"></script>
+    <script src="autocomplete.js"></script>
     <script>
         var el = document.getElementById("wrapper");
         var toggleButton = document.getElementById("menu-toggle");
