@@ -95,12 +95,12 @@ $user = $_SESSION['user_name'];
             <!-- Navigation Menu -->
             <li class="nav-item" role="presentation">
                 <a class="nav-link active" id="category-tab" data-bs-toggle="tab" data-bs-target="#category" type="button" role="tab" aria-controls="category" aria-selected="true">
-                    <i class="fas fa-chart-line"></i> Category
+                    <i class="fas fa-folder"></i> Category
                 </a>
             </li>
             <li class="nav-item" role="presentation">
                 <a class="nav-link" id="uom-tab" data-bs-toggle="tab" data-bs-target="#uom" type="button" role="tab" aria-controls="uom" aria-selected="false">
-                    <i class="fas fa-box"></i> Unity of Measure
+                    <i class="fas fa-ruler"></i> Unity of Measure
                 </a>
             </li>
         </ul>
@@ -240,21 +240,22 @@ $user = $_SESSION['user_name'];
 
             <!-- Category Modal -->
             <div class="modal fade" id="categoryModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
+                <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Add Category</h5>
+                            <h4 class="modal-title" id="exampleModalLabel">Add Category</h4>
                             <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                         </div>
-
                         <!-- Form to add a new category -->
                         <form action="add_category.php" method="post">
-                        <div class="modal-body">
-                                <div class="form-group">
-                                    <label for="categoryInput">Category Name</label>
-                                    <input type="text" name="category_name" class="form-control" id="categoryInput" placeholder="Enter category name">
+                            <div class="modal-body">
+                                <div class="container-fluid px-1">
+                                    <div class="mb-3">
+                                        <label for="categoryInput">Category Name</label>
+                                        <input type="text" name="category_name" class="form-control" id="categoryInput" placeholder="Enter category name">
+                                    </div>
                                 </div>
-                        </div>
+                            </div>
                         <div class="modal-footer">
                             <button class="btn btn-primary">Add</button>
                             </form>
@@ -266,20 +267,22 @@ $user = $_SESSION['user_name'];
 
                 <!-- Unit of Measure Modal -->
                 <div class="modal fade" id="uomModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
+                    <div class="modal-dialog modal-lg" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Add Unit of Measure</h5>
+                                <h4 class="modal-title" id="exampleModalLabel">Add Unit of Measure</h4>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                             </div>
                             <!-- Form to add a new Unit of Measure -->
                             <form action="add_uom.php" method="post">
-                            <div class="modal-body">
-                                    <div class="form-group">
-                                        <label for="categoryInput">Unit of Measure</label>
-                                        <input type="text" class="form-control" name="uom_name" id="categoryInput" placeholder="Enter Unit of Measure name">
+                                <div class="modal-body">
+                                    <div class="container-fluid px-1">
+                                        <div class="mb-3">
+                                            <label for="categoryInput">Unit of Measure</label>
+                                            <input type="text" class="form-control" name="uom_name" id="categoryInput" placeholder="Enter Unit of Measure name">
+                                        </div>
                                     </div>
-                            </div>
+                                </div>
                             <div class="modal-footer">
                                 <button class="btn btn-primary">Add</button>
                                 </form>
