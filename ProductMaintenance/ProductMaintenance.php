@@ -70,105 +70,181 @@ $user = $_SESSION['user_name'];
         data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
         aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
-    </button>
+        </button>
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav ms-auto mb-2 mb-lg-0 dropadjust">
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle second-text fw-bold" href="#" id="navbarDropdown"
-                    role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <i class="fas fa-user me-2"></i><?php echo $user; ?>
-                </a>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0 dropadjust">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle second-text fw-bold" href="#" id="navbarDropdown"
+                        role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-user me-2"></i><?php echo $user; ?>
+                    </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <li><a class="dropdown-item" href="../Profile/Profile.html">Profile</a></li>
                     <li><a class="dropdown-item" href="../Settings/Settings.html">Setting</a></li>
                     <div class="dropdown-divider"></div>
                     <li><a class="dropdown-item" href="../logout.php">Log-out</a></li>
                 </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <!-- Navigation Menu -->
+            <li class="nav-item" role="presentation">
+                <a class="nav-link active" id="category-tab" data-bs-toggle="tab" data-bs-target="#category" type="button" role="tab" aria-controls="category" aria-selected="true">
+                    <i class="fas fa-chart-line"></i> Category
+                </a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a class="nav-link" id="uom-tab" data-bs-toggle="tab" data-bs-target="#uom" type="button" role="tab" aria-controls="uom" aria-selected="false">
+                    <i class="fas fa-box"></i> Unity of Measure
+                </a>
             </li>
         </ul>
-    </div>
-    </nav>
-            <!-- Category List Card -->
-        <div class="container-fluid px-4">
-            <div class="row justify-content-center mt-5">
-                <div class="col-md-10">
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="d-flex justify-content-between rounded">
-                                <button type="button" class="btn colorbox btn-outline-secondary btn-lg" data-bs-toggle="modal" data-bs-target="#myModal">
-                                    Add Category
-                                </button>
-                                <input type="text" class="form-control search-bar" placeholder="Search">
-                            </div>
-                        </div>
-                        <div class="card-body colorbox">
-                            <h5 class="card-title">Category</h5>
-                            <div class="table-responsive">
-                                <table class="table bg-light rounded shadow-sm table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">Category</th>
-                                            <th scope="col">Action</th>
-                                        </tr>
-                                    </thead>
-                                    <?php 
-                                        $sql_query = "SELECT * FROM category_db";
-                                        $sql_res = mysqli_query($sqlconn, $sql_query);
 
-                                        while($array = mysqli_fetch_array($sql_res)) {
 
-                                        ?>
-                                    <tbody>
-                                        <tr>
-                                            <td>
-                                                <?php echo $array['category_name']; ?>
-                                            </td>
-                                            <td>
-                                                <a href="delete_category.php?id=<?php echo $array['id'];?>" class="btn btn-primary btn-sm btn-danger" type="reset">
-                                                    <i class="fas fa-trash"></i>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                    <?php 
-                                        }
-                                        ?>
-                                </table>
-                            </div>
+        <!-- Category Tab -->
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="category" role="tabpanel" aria-labelledby="category-tab">
+                <div class="card">
+                    <div class="card-body colorbox">
+                        <h5 class="card-title">Category</h5>
+                        <!--Drop down Button Purchase Order-->
+                        <div class="d-flex justify-content-between rounded">
+                            <button type="button" class="btn colorbox btn-outline-secondary btn-lg" data-bs-toggle="modal" data-bs-target="#categoryModal">
+                                Add Category
+                            </button>
+                            <!-- Search Bar-->
+                            <input type="text" class="form-control search-bar" placeholder="Search">
+                        </div><br>
+                        <!-- Table -->
+                        <table class="table bg-light rounded shadow-sm table-hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Category</th>
+                                    <th scope="col">Action</th>
+                                </tr>
+                            </thead>
+                             <?php 
+                                    $sql_query = "SELECT * FROM category_db";
+                                    $sql_res = mysqli_query($sqlconn, $sql_query);
+
+                                    while($array = mysqli_fetch_array($sql_res)) {
+                                ?>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <?php echo $array['category_name']; ?>
+                                    </td>
+                                    <td>
+                                        <a href="delete_category.php?id=<?php echo $array['id'];?>" class="btn btn-primary btn-sm btn-danger" type="reset">
+                                            <i class="fas fa-trash"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <?php 
+                                }
+                                ?>
+                        </table>
 
                             <!-- Pagination Next Tables-->
                             <nav aria-label="Page navigation">
                                 <ul class="pagination justify-content-center">
-                                    <li class="page-item disabled">
-                                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-                                </li>
+                                        <li class="page-item disabled">
+                                            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                                        </li>
                                     <li class="page-item"><a class="page-link" href="#">1</a></li>
                                     <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">4</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">5</a></li>
                                     <li class="page-item">
                                     <a class="page-link" href="#">Next</a>
                                     </li>
                                 </ul>
                             </nav>
+                    </div>
+                </div>
+            </div>
 
+
+            <!-- Unit of Measure Tab -->
+            <div class="tab-pane fade" id="uom" role="tabpanel" aria-labelledby="uom-tab">
+                <div class="card">
+                    <div class="card-body colorbox">
+                        <h5 class="card-title">Unit of Measure</h5>
+                        <!--Dropdown Button For Vendors-->
+                            <div class="d-flex justify-content-between rounded">
+                                <button type="button" class="btn colorbox btn-outline-secondary btn-lg" data-bs-toggle="modal" data-bs-target="#uomModal">
+                                    Add Unit of Measure
+                                </button>
+                            <!-- Search Bar-->
+                                <input type="text" class="form-control search-bar" placeholder="Search">
+                            </div><br>
+                        <!-- Table -->
+                        <table class="table bg-light rounded shadow-sm table-hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Unit of Measure</th>
+                                    <th scope="col">Action</th>
+                                </tr>
+                            </thead>
+                            <?php 
+                                $sql_query1 = "SELECT * FROM uom_db";
+                                $sql_res1 = mysqli_query($sqlconn, $sql_query1);
+
+                                while($array1 = mysqli_fetch_array($sql_res1)) {
+                            ?>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <?php echo $array1['uom_name']; ?>
+                                    </td>
+                                    <td>
+                                        <a href="delete_uom.php?id= <?php echo $array1['id'] ?>" class="btn btn-primary btn-sm btn-danger">
+                                            <i class="fas fa-trash"></i>
+                            </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <?php 
+                            }
+                            
+                            ?>
+                        </table>
+
+                            <!-- Pagination Next Tables-->
+                            <nav aria-label="Page navigation">
+                                <ul class="pagination justify-content-center">
+                                        <li class="page-item disabled">
+                                        <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                                        </li>
+                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                    <li class="page-item">
+                                    <a class="page-link" href="#">Next</a>
+                                    </li>
+                                </ul>
+                            </nav>
                         </div>
                     </div>
                 </div>
             </div>
+
         </div>
-    
+    </div>
+</div>
+<!-- End of Page Content-->
+
+
             <!-- Category Modal -->
-            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="categoryModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="exampleModalLabel">Add Category</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                         </div>
 
                         <!-- Form to add a new category -->
@@ -180,81 +256,9 @@ $user = $_SESSION['user_name'];
                                 </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                             <button class="btn btn-primary">Add</button>
-                        </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Unit of Measure -->
-
-            <div class="container-fluid px-4">
-                <div class="row justify-content-center mt-5">
-                    <div class="col-md-10">
-                        <div class="card">
-                            <div class="card-header">
-                                <div class="d-flex justify-content-between rounded">
-                                    <button type="button" class="btn colorbox btn-outline-secondary btn-lg" data-bs-toggle="modal" data-bs-target="#uomModal">
-                                        Add Unit of Measure
-                                    </button>
-                                    <input type="text" class="form-control search-bar" placeholder="Search">
-                                </div>
-                            </div>
-                            <div class="card-body colorbox">
-                                <h5 class="card-title">Unit of Measure</h5>
-                                <div class="table-responsive">
-                                    <table class="table bg-light rounded shadow-sm table-hover">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col">Unit of Measure</th>
-                                                <th scope="col">Action</th>
-                                            </tr>
-                                        </thead>
-                                        <?php 
-                                        $sql_query1 = "SELECT * FROM uom_db";
-                                        $sql_res1 = mysqli_query($sqlconn, $sql_query1);
-
-                                        while($array1 = mysqli_fetch_array($sql_res1)) {
-                                        ?>
-                                        <tbody>
-                                            <tr>
-                                                <td>
-                                                    <?php echo $array1['uom_name']; ?>
-                                                </td>
-                                                <td>
-                                                    <a href="delete_uom.php?id= <?php echo $array1['id'] ?>" class="btn btn-primary btn-sm btn-danger">
-                                                        <i class="fas fa-trash"></i>
-                                        </a>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                        <?php 
-                                        }
-                                        
-                                        ?>
-                                    </table>
-                                </div>
-
-                                <!-- Pagination Next Tables-->
-                                <nav aria-label="Page navigation">
-                                    <ul class="pagination justify-content-center">
-                                        <li class="page-item disabled">
-                                        <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-                                    </li>
-                                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">4</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">5</a></li>
-                                        <li class="page-item">
-                                        <a class="page-link" href="#">Next</a>
-                                        </li>
-                                    </ul>
-                                </nav>
-
-                            </div>
+                            </form>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         </div>
                     </div>
                 </div>
@@ -266,11 +270,9 @@ $user = $_SESSION['user_name'];
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title" id="exampleModalLabel">Add Unit of Measure</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                             </div>
-                <!-- Form to add a new Unit of Measure -->
+                            <!-- Form to add a new Unit of Measure -->
                             <form action="add_uom.php" method="post">
                             <div class="modal-body">
                                     <div class="form-group">
@@ -280,121 +282,12 @@ $user = $_SESSION['user_name'];
                             </div>
                             <div class="modal-footer">
                                 <button class="btn btn-primary">Add</button>
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                </form>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                             </div>
-                            </form>
                         </div>
                     </div>
                 </div>
-
-
-<!-- Display Brand -->
-
-<div class="container-fluid px-4">
-        <div class="row g-3 my-2">
-            <div class="col-md-3">
-                <div class="card shadow-sm">
-                <div class="p-3 colorbox shadow-sm d-flex justify-content-around align-items-center rounded" >
-                    <div>
-                        <h3 class="fs-2">720</h3>
-                        <p class="fs-5">Drinks</p>
-                    </div>
-                    <i class="fas fa-glass-whiskey fs-1 primary-text border rounded-full secondary-bg p-3" id="drinks-icon"></i>
-                </div>
-            </div>
-        </div>
-
-            <div class="col-md-3">
-                <div class="card shadow-sm">
-                <div class="p-3 colorbox shadow-sm d-flex justify-content-around align-items-center rounded">
-                    <div>
-                        <h3 class="fs-2">4920</h3>
-                        <p class="fs-5">Junk Food</p>
-                    </div>
-                    <i
-                        class="fas fa-cookie-bite fs-1 primary-text border rounded-full secondary-bg p-3" id="junkfood-icon"></i>
-                </div>
-            </div>
-        </div>
-
-            <div class="col-md-3">
-                <div class="card shadow-sm">
-                <div class="p-3 colorbox shadow-sm d-flex justify-content-around align-items-center rounded">
-                    <div>
-                        <h3 class="fs-2">3899</h3>
-                        <p class="fs-5">Can Food</p>
-                    </div>
-                    <i class="fas fa-utensils fs-1 primary-text border rounded-full secondary-bg p-3" id="canfood-icon"></i>
-                </div>
-            </div>
-        </div>
-
-            <div class="col-md-3">
-                <div class="card shadow-sm">
-                <div class="p-3 colorbox shadow-sm d-flex justify-content-around align-items-center rounded">
-                    <div>
-                        <h3 class="fs-2">3899</h3>
-                        <p class="fs-5">Toiletries</p>
-                    </div>
-                    <i class="fad fa-truck fs-1 primary-text border rounded-full secondary-bg p-3" id="toiletries-icon"></i>
-                </div>
-            </div>
-        </div>
-
-
-            <div class="col-md-3">
-                <div class="card shadow-sm">
-                <div class="p-3 colorbox shadow-sm d-flex justify-content-around align-items-center rounded">
-                    <div>
-                        <h3 class="fs-2">3899</h3>
-                        <p class="fs-5">Toiletries</p>
-                    </div>
-                    <i class="fad fa-truck fs-1 primary-text border rounded-full secondary-bg p-3"></i>
-                </div>
-            </div>
-        </div>
-
-            <div class="col-md-3">
-                <div class="card shadow-sm">
-                <div class="p-3 colorbox shadow-sm d-flex justify-content-around align-items-center rounded">
-                    <div>
-                        <h3 class="fs-2">3899</h3>
-                        <p class="fs-5">Toiletries</p>
-                    </div>
-                    <i class="fad fa-truck fs-1 primary-text border rounded-full secondary-bg p-3"></i>
-                </div>
-            </div>
-        </div>
-
-            <div class="col-md-3">
-                <div class="card shadow-sm">
-                <div class="p-3 colorbox shadow-sm d-flex justify-content-around align-items-center rounded">
-                    <div>
-                        <h3 class="fs-2">3899</h3>
-                        <p class="fs-5">Toiletries</p>
-                    </div>
-                    <i class="fad fa-truck fs-1 primary-text border rounded-full secondary-bg p-3"></i>
-                </div>
-            </div>
-        </div>
-
-            <div class="col-md-3">
-                <div class="card shadow-sm">
-                <div class="p-3 colorbox shadow-sm d-flex justify-content-around align-items-center rounded">
-                    <div>
-                        <h3 class="fs-2">3899</h3>
-                        <p class="fs-5">Toiletries</p>
-                    </div>
-                    <i class="fad fa-truck fs-1 primary-text border rounded-full secondary-bg p-3"></i>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-        </div>
-        </div>
 
 
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -410,49 +303,6 @@ $user = $_SESSION['user_name'];
                 el.classList.toggle("toggled");
             };
 
-            // JavaScript function to add a new category
-            //function addCategory() {
-            //    const categoryInput = document.getElementById('categoryInput').value;
-            //    if (categoryInput.trim() === '') {
-            //       alert('Please enter a category name.');
-            //        return;
-            //    }
-            
-            // Create a new table row for the category
-            //const categoryList = document.getElementById('categoryList');
-            //const newRow = document.createElement('tr');
-            //newRow.innerHTML = `
-            //    <td>${categoryInput}</td>
-            //    <td>
-            //        <!-- Buttons for Edit and Remove -->
-            //        <button class="btn btn-primary btn-sm btn-secondary" type="button">
-            //            <i class="fas fa-edit"></i>
-            //        </button>
-            //        <button class="btn btn-primary btn-sm btn-danger" type="button" onclick="removeCategory(this)">
-            //            <i class="fas fa-trash"></i>
-            //        </button>
-            //    </td>
-            //`;
-            
-            // Append the new row to the category list
-            //categoryList.appendChild(newRow);
-            
-            // Clear the input field and close the modal
-            //document.getElementById('categoryInput').value = '';
-            //    $('#myModal').modal('hide');
-            //}
-        
-            // JavaScript function to remove a category
-            //function removeCategory(button) {
-            //    f (confirm("Are you sure you want to remove this category?")) 
-            //        const row = button.parentElement.parentElement;
-            //        row.remove();
-                
-            //}
-        
-            // Attach the addCategory function to the "Add" button
-            //document.getElementById('addCategoryBtn').addEventListener('click', addCategory);
-    
         </script>
     </body>
     <?php
