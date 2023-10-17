@@ -17,6 +17,7 @@ foreach ($_POST['PO_itemname'] as $key => $value) {
         echo $stmt->bind_param("ssssssi", $value, $_POST['PO_qty'][$key], $_POST['PO_uom'][$key], $_POST['PO_category'][$key], $dateoftransaction, $expectedDelivery, $vendor_id);
         
         $stmt->execute();
+        header("Location: PurchaseOrder.php");
 }
 
 

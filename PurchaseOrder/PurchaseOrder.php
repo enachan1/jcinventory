@@ -324,7 +324,7 @@ $user = $_SESSION['user_name'];
                             <div class="modal-body">
                             <!-- Your Purchase content goes here -->
                             <div class="container-fluid px-1">
-                            <form action="#" method="POST" id="formList">
+                            <form method="POST" id="formList">
                                 <div class="mb-4">
                                     <!-- Label and Textbox -->
                                     <label for="vendorID" class="form-label">Vendor ID</label>

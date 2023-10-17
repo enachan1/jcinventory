@@ -37,6 +37,7 @@ $(document).ready(function () {
     });
 
     $("#formList").submit(function (e) {
+        e.preventDefault();
         $.ajax({
             url: "addPurchaseOrder.php",
             method: "POST",
@@ -44,6 +45,7 @@ $(document).ready(function () {
             success: function (response) {
                 $("#purchase1").modal('hide');
                 $(".appended_items").remove();
+                updateTableContent();
                 location.reload();
             }
         });
@@ -63,6 +65,20 @@ function fetchDropdownOptions(dropdown, type) {
             data.forEach(function (option) {
                 dropdown.append('<option value="' + option.label + '">' + option.label + '</option>');
             });
+        },
+        error: function (xhr, status, error) {
+            console.error(xhr.responseText);
+        }
+    });
+}
+
+
+function updateTableContent() {
+    $.ajax({
+        url: 'refreshTable.php', // Replace with the actual URL of your refreshTable.php file
+        type: 'GET',
+        success: function (data) {
+            $('.show_items').html(data);
         },
         error: function (xhr, status, error) {
             console.error(xhr.responseText);
