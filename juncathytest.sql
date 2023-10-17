@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 12, 2023 at 04:09 PM
+-- Generation Time: Oct 17, 2023 at 02:24 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -67,7 +67,8 @@ CREATE TABLE `items_db` (
 INSERT INTO `items_db` (`id`, `item_sku`, `item_name`, `item_stocks`, `item_expdate`, `item_price`, `item_uom`, `item_category`) VALUES
 (4, 23568775126, 'Coca Cola Mismo', 0, '2023-12-28', 15, 'Liters', 'Drinks'),
 (8, 89456456123, 'toblerone', 14, '2023-11-30', 26, 'Liters', 'Snacks'),
-(9, 25458976321, 'Piattos', 30, '2023-10-31', 19, 'Pieces', 'Snacks');
+(9, 25458976321, 'Piattos', 30, '2023-10-31', 19, 'Pieces', 'Snacks'),
+(16, 12313, 'Coca Cola Mismo1', 344, '2023-10-26', 4545, 'Boxes', 'Drinks');
 
 -- --------------------------------------------------------
 
@@ -81,6 +82,32 @@ CREATE TABLE `purchase_db` (
   `p_itemname` varchar(255) NOT NULL,
   `p_price` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `purchase_order_db`
+--
+
+CREATE TABLE `purchase_order_db` (
+  `id` bigint(20) NOT NULL,
+  `po_item_name` varchar(255) NOT NULL,
+  `po_qty` float NOT NULL,
+  `po_uom` varchar(255) NOT NULL,
+  `po_category` varchar(255) NOT NULL,
+  `po_dot` date NOT NULL,
+  `po_expdelivery` date NOT NULL,
+  `is_delivered` tinyint(1) NOT NULL,
+  `vendor_id` bigint(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `purchase_order_db`
+--
+
+INSERT INTO `purchase_order_db` (`id`, `po_item_name`, `po_qty`, `po_uom`, `po_category`, `po_dot`, `po_expdelivery`, `is_delivered`, `vendor_id`) VALUES
+(31, 'asddwe', 54, 'Dozen', 'Canned Goods', '2023-10-17', '2023-11-09', 0, 10001),
+(32, 'asdasd', 34, 'Dozen', 'Canned Goods', '2023-10-17', '2023-11-09', 0, 10001);
 
 -- --------------------------------------------------------
 
@@ -142,7 +169,9 @@ CREATE TABLE `vendors_db` (
 
 INSERT INTO `vendors_db` (`vendor_id`, `vendor_name`, `vendor_contact`) VALUES
 (10001, 'vendor1', 123456),
-(10002, 'xijinping', 2147483647);
+(10002, 'xijinping', 2147483647),
+(10003, 'puwit', 6589443),
+(10004, 'haheds', 2147483647);
 
 --
 -- Indexes for dumped tables
@@ -165,6 +194,13 @@ ALTER TABLE `items_db`
 --
 ALTER TABLE `purchase_db`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `purchase_order_db`
+--
+ALTER TABLE `purchase_order_db`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `vendor_id` (`vendor_id`);
 
 --
 -- Indexes for table `uom_db`
@@ -198,13 +234,19 @@ ALTER TABLE `category_db`
 -- AUTO_INCREMENT for table `items_db`
 --
 ALTER TABLE `items_db`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `purchase_db`
 --
 ALTER TABLE `purchase_db`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `purchase_order_db`
+--
+ALTER TABLE `purchase_order_db`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `uom_db`
@@ -217,6 +259,16 @@ ALTER TABLE `uom_db`
 --
 ALTER TABLE `users__db`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `purchase_order_db`
+--
+ALTER TABLE `purchase_order_db`
+  ADD CONSTRAINT `purchase_order_db_ibfk_1` FOREIGN KEY (`vendor_id`) REFERENCES `vendors_db` (`vendor_id`) ON DELETE NO ACTION;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
