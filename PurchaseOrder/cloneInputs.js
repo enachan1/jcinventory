@@ -4,19 +4,19 @@ $(document).ready(function () {
         $(".show_items").prepend(
         `<tr>
         <!--Table Content-->
-        <th><input type="text" class="form-control" id="itemName" name="#" required></th>
-        <th><input type="text" class="form-control adjustments" id="qtY" name="#" required></th>
+        <th><input type="text" class="form-control" name="PO_itemname[]" required></th>
+        <th><input type="number" class="form-control adjustments" name="PO_qty[]" required></th>
         <th>            
-        <select class="form-select uom-dropdown" id="uom" name="uom">
-       
+        <select class="form-select uom-dropdown" name="PO_uom[]">
+
         </select></th>
         <th>            
-        <select class="form-select category-dropdown" id="category" name="category">
-        
+        <select class="form-select category-dropdown" name="PO_category[]">
+
             <!-- Many Brands -->
         </select></th>
         <!--Added Input -->
-        <td><button class="btn btn-primary btn-sm btn-danger" id="removeInput" type="button"><i class="fa fa-minus-circle"></i>
+        <td><button class="btn btn-primary btn-sm btn-danger removeInput" type="button"><i class="fa fa-minus-circle"></i>
         </tr>`
     );
 
@@ -29,11 +29,24 @@ $(document).ready(function () {
     fetchDropdownOptions(categoryDropdown, 'category');
     });
 
-    $(document).on('click', '#removeInput', function(e) {
+    $(document).on('click', '.removeInput', function(e) {
         e.preventDefault();
 
         let rowItem = $(this).parent().parent();
         $(rowItem).remove();
+    });
+
+    $("#formList").submit(function (e) {
+        $.ajax({
+            url: "addPurchaseOrder.php",
+            method: "POST",
+            data: $(this).serialize(),
+            success: function (response) {
+                $("#purchase1").modal('hide');
+                $(".appended_items").remove();
+                location.reload();
+            }
+        });
     });
 
 
@@ -46,8 +59,9 @@ function fetchDropdownOptions(dropdown, type) {
         url: 'populate.php?type=' + type,
         type: 'GET',
         success: function (data) {
+            dropdown.empty();
             data.forEach(function (option) {
-                dropdown.append('<option value="' + option.value + '">' + option.label + '</option>');
+                dropdown.append('<option value="' + option.label + '">' + option.label + '</option>');
             });
         },
         error: function (xhr, status, error) {

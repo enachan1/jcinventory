@@ -131,10 +131,47 @@ $user = $_SESSION['user_name'];
                                     <thead>
                                         <tr>
                                             <!-- Table content here -->
-                                            <th>Working Title</th>
+                                            <th>Vendor Name</th>
+                                            <th>Action</th>
+                                            <th>Mark as</th>
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        <?php 
+                                            $query = " SELECT
+                                            vendors_db.vendor_id,
+                                            vendors_db.vendor_name as Vendor,
+                                            purchase_order_db.vendor_id as item_vendorID
+                                        FROM vendors_db
+                                        JOIN purchase_order_db ON vendors_db.vendor_id = purchase_order_db.vendor_id";
+                    
+                                        $results = mysqli_query($sqlconn, $query);
+                                        $previous = null;
+                                        
+                                        while ($rows = mysqli_fetch_assoc($results)) {
+                                        ?>
+                                        <tr>
+                                            <?php if($rows['Vendor'] != $previous) { ?>
+                                            <td><?php echo $rows['Vendor']; 
+                                            $previous = $rows['Vendor'];
+                                            ?></td>
+                                            <td>
+                                                <button type="button" class="btn btn-primary btn-sm">View Items</button>
+                                                <a href="delete_po.php?vendorid=<?php echo $rows['item_vendorID'] ?>" class="btn btn-danger btn-sm">Delete</a>
+                                            </td>
+                                            <td>
+                                                <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                                                <label class="form-check-label" for="flexRadioDefault1">Delivered</label>
+                                                </div>
+                                                <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                                                <label class="form-check-label" for="flexRadioDefault1">Bad Order</label>
+                                                </div>
+                                            </td>
+                                            <?php } ?>
+                                        </tr>
+                                        <?php } ?>
                                     </tbody>
                                 </table>
         
@@ -287,6 +324,7 @@ $user = $_SESSION['user_name'];
                             <div class="modal-body">
                             <!-- Your Purchase content goes here -->
                             <div class="container-fluid px-1">
+                            <form action="#" method="POST" id="formList">
                                 <div class="mb-4">
                                     <!-- Label and Textbox -->
                                     <label for="vendorID" class="form-label">Vendor ID</label>
@@ -319,10 +357,10 @@ $user = $_SESSION['user_name'];
                                             <tbody class="show_items">
                                                 <tr>
                                                     <!--Table Content-->
-                                                    <th><input type="text" class="form-control" id="itemName" name="#" required></th>
-                                                    <th><input type="text" class="form-control adjustments" id="qtY" name="#" required></th>
+                                                    <th><input type="text" class="form-control" name="PO_itemname[]" required></th>
+                                                    <th><input type="number" class="form-control adjustments"  name="PO_qty[]" required></th>
                                                     <th>            
-                                                    <select class="form-select" id="uof" name="uof">
+                                                    <select class="form-select" name="PO_uom[]">
                                                     <?php  
                                                          $sql_query = "SELECT * FROM uom_db";
                                                         $sql_res = mysqli_query($sqlconn, $sql_query);
@@ -335,7 +373,7 @@ $user = $_SESSION['user_name'];
                                                     ?>
                                                     </select></th>
                                                     <th>            
-                                                    <select class="form-select" id="category" name="category">
+                                                    <select class="form-select" name="PO_category[]">
                                                     <?php  
                                                         $sql_query1 = "SELECT * FROM category_db";
                                                         $sql_res1 = mysqli_query($sqlconn, $sql_query1);
@@ -360,10 +398,10 @@ $user = $_SESSION['user_name'];
                         </div>
                             <!-- Modal Footer Goes here-->
                             <div class="modal-footer">
+                                <input type="submit" class="btn btn-primary" value="Add" id="addBtn">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary">Add Item</button>
                               </div>
-
+                              </form>
                         </div>
                         </div>
                     </div>
