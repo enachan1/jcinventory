@@ -121,7 +121,7 @@ $user = $_SESSION['user_name'];
                                 <!--Drop down Button Purchase Order-->
                                 <div class="d-flex justify-content-between rounded">
                                     <button type="button" class="btn colorbox btn-outline-secondary btn-lg" data-bs-toggle="modal" data-bs-target="#purchase1">
-                                        Add item
+                                        Add Order
                                     </button>
                                     <!-- Search Bar-->
                                     <input type="text" class="form-control search-bar" placeholder="Search">
@@ -156,7 +156,7 @@ $user = $_SESSION['user_name'];
                                             $previous = $rows['Vendor'];
                                             ?></td>
                                             <td>
-                                                <button type="button" class="btn btn-primary btn-sm">View Items</button>
+                                                <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#viewModal">View Items</button>
                                                 <a href="delete_po.php?vendorid=<?php echo $rows['item_vendorID'] ?>" class="btn btn-danger btn-sm">Delete</a>
                                             </td>
                                             <td>
@@ -406,7 +406,78 @@ $user = $_SESSION['user_name'];
                         </div>
                     </div>
                 </div>
-                <!--End modal Purchase-->
+
+    <!-- ...Purchase Modal Ends Here... -->
+
+
+        <!-- ...View Modal ... -->
+                <div class="modal fade" id="viewModal">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                        <!-- Modal Header -->
+                            <div class="modal-header">
+                                <h3 class="modal-title">Display Vendor Name</h3>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                            </div>
+
+                            <div class="col-6 px-3 py-2">
+
+                                <!-- Date Current -->
+                                <div class="d-flex">
+                                    <div class="p-2 w-50"><h5>Date:</h5></div>
+                                                                    <!-- Display Date js-->
+                                    <div class="p-2 flex-shrink-1"><h5 id="currentDate"></h5></div>
+                                </div>
+                                <div class="dropdown-divider"></div>
+
+                                <!-- Date Delivery Expected -->
+                                <div class="d-flex">
+                                    <div class="p-2 w-50"><h5>Date Expected:</h5></div>
+                                                                    <!-- Display Date js-->
+                                    <div class="p-2 flex-shrink-1"><h5 id="expectedDate"></h5></div>
+                                </div>
+                                     
+
+                            </div>
+
+                            <!-- Modal Body -->
+                            <div class="modal-body">
+                                <!-- Table Content Display Goes Here -->
+                                <div class="container-fluid px-4">
+                                    <div class="table-responsive">
+                                        <table class="table colorbox rounded shadow-sm table-hover">
+                                            <thead>
+                                            <tr>
+                                                <th scope="col">Item Name</th>
+                                                <th scope="col">QTY</th>
+                                                <th scope="col">Unit Price</th>
+                                                <th scope="col">Total</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                    <!-- Table goes here-->
+                                                                                
+                                                    </td>
+                                                </tr>
+                                        </tbody>
+                                        </table>
+                                    </div>
+
+                                <!-- Modal Footer Goes here-->
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Print Recipt</button>
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+    <!-- ...View Modal Ends Here... -->
 
 
     <!-- ...Vendors Modal... -->
@@ -448,9 +519,11 @@ $user = $_SESSION['user_name'];
                         </div>
                     </div>
                 </div>
-                <!--End modal Vendor-->
 
     <!-- ...Vendors Modal Ends Here... -->
+
+
+
 
 
 
@@ -470,6 +543,26 @@ $user = $_SESSION['user_name'];
         toggleButton.onclick = function () {
             el.classList.toggle("toggled");
         };
+
+        // Function for Display Date
+        // Function to format a date as "YYYY-MM-DD"
+        function formatDate(date) {
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            return `${year}-${month}-${day}`;
+        }
+
+        // Get the current date
+        const currentDateElement = document.getElementById("currentDate");
+        const currentDate = new Date();
+        currentDateElement.textContent = formatDate(currentDate);
+
+        // Get the expected date (you can set your expected date here)
+        const expectedDateElement = document.getElementById("expectedDate");
+        const expectedDate = new Date("2023-12-31"); // Example expected date
+        expectedDateElement.textContent = formatDate(expectedDate);
+
     </script>
 <?php } ?>
 </body>
