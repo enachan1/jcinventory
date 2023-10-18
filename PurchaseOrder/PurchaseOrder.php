@@ -161,12 +161,12 @@ $user = $_SESSION['user_name'];
                                             </td>
                                             <td>
                                                 <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                                                <label class="form-check-label" for="flexRadioDefault1">Delivered</label>
+                                                <input class="form-check-input" value="Delivered" type="radio" name="flexRadioDefault" id="delivered" data-itemid="<?php echo $rows['item_vendorID']; ?>">
+                                                <label class="form-check-label" for="delivered">Delivered</label>
                                                 </div>
                                                 <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                                                <label class="form-check-label" for="flexRadioDefault1">Bad Order</label>
+                                                <input class="form-check-input" value="badOrder" type="radio" name="flexRadioDefault" id="bad_order" data-itemid="<?php echo $rows['item_vendorID']; ?>">
+                                                <label class="form-check-label" for="fbad_order">Bad Order</label>
                                                 </div>
                                             </td>
                                             <?php } ?>
@@ -463,6 +463,7 @@ $user = $_SESSION['user_name'];
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="cloneInputs.js"></script>
     <script src="autocomplete.js"></script>
+    <script src="radioBtn-function.js"></script>
     <script>
         var el = document.getElementById("wrapper");
         var toggleButton = document.getElementById("menu-toggle");
