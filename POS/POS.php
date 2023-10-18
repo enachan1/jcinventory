@@ -61,6 +61,26 @@ $user = $_SESSION['user_name'];
             font-family: "Aptos Display", sans-serif;
         }
 
+        .dropadjust
+        {
+            padding-right: 30px;
+        }
+
+        .buttonadjust
+        {
+            width: 190px; 
+            height: 110px;
+        }
+
+        .button-md {
+            font-size: 24px; 
+            font-weight: bold;
+        }
+
+        .searchadjust
+        {
+            width: 500px;
+        }
     </style>
 
 </head>
@@ -166,15 +186,35 @@ $user = $_SESSION['user_name'];
         </div>
         <!-- Right side column -->
         <div class="col-4 adjustment">
-            <!-- Buttons for Payment, Inventory, Sales, Dashboard -->
+            <!-- Image display right side -->
+            <!-- 
+        <img src="https://www.canva.com/design/DAFxkB5EQu0/1kiuIgG-pOuWWAKI1AYkzA/edit?utm_content=DAFxkB5EQu0&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton" class="rounded float-end" alt="imagelogo">
+                                -->
+            <!-- Buttons for Search, Price Inquiry, Suspend, Resume, Cash out, Payment  -->
             <div class="card colobody">
                 <div class="card-body ">
-                    <div class="d-grid gap-2 mx-auto ">
-                    <button type="button" class="btn btn-primary custom-btn-lg" data-bs-toggle="modal" data-bs-target="#dashboardModal"> Dashboard</button>
-                    <button type="button" class="btn btn-primary custom-btn-lg" data-bs-toggle="modal" data-bs-target="#inventoryModal"> Inventory</button>
-                    <button type="button" class="btn btn-primary custom-btn-lg" data-bs-toggle="modal" data-bs-target="#salesModal"> Sales</button>
-                    <button type="button" class="btn btn-primary custom-btn-lg" data-bs-toggle="modal" data-bs-target="#transactionModal"> Payment</button>
-                </div>
+                    <div class="container text-center">
+                        <div class="row g-2">
+                            <div class="col-md-6 col-sm-12">
+                                <div class="p-3 d-flex justify-content-center"><button type="button" class="btn btn-primary cbtn-lg buttonadjust button-md"  data-bs-toggle="modal" data-bs-target="#searchModal" id="F1Button"> Search F1</button> </div>
+                            </div>
+                            <div class="col-md-6 col-sm-12">
+                                <div class="p-3 d-flex justify-content-center"><button type="button" class="btn btn-primary btn-lg buttonadjust button-md" data-bs-toggle="modal" data-bs-target="#priceinquiryModal" id="F2Button"> Price Inquiry F2</button> </div>
+                            </div>
+                            <div class="col-md-6 col-sm-12">
+                                <div class="p-3 d-flex justify-content-center"><button type="button" class="btn btn-primary btn-lg buttonadjust button-md" data-bs-toggle="modal" data-bs-target="#suspendModal" id="F3Button"> Suspend F3</button> </div>
+                            </div>
+                            <div class="col-md-6 col-sm-12">
+                                <div class="p-3 d-flex justify-content-center"><button type="button" class="btn btn-primary btn-lg buttonadjust button-md" data-bs-toggle="modal" data-bs-target="#resumeModal" id="F4Button"> Resume F4</button> </div>
+                            </div>
+                            <div class="col-md-6 col-sm-12">
+                                <div class="p-3 d-flex justify-content-center"><button type="button" class="btn btn-primary btn-lg buttonadjust button-md" data-bs-toggle="modal" data-bs-target="#cashModal" id="F5Button"> Cash Out F5</button> </div>
+                            </div>
+                            <div class="col-md-6 col-sm-12">
+                                <div class="p-3 d-flex justify-content-center"><button type="button" class="btn btn-primary btn-lg buttonadjust button-md" data-bs-toggle="modal" data-bs-target="#transactionModal" id="F6Button"> Payment F6</button> </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -182,121 +222,131 @@ $user = $_SESSION['user_name'];
 
     <!-- End of Page Content -->
 
-              <!-- Dashboard Modal-->
-              <div class="modal fade" id="dashboardModal">
-                <div class="modal-dialog modal-lg">
+                          <!-- Search Modal-->
+                          <div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="searchModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-fullscreen">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="searchModalLabel">Search F1</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="container-fluid px-4">
+                                        <div class="mb-3">
+                                            <label for="searchInput" class="form-label">Search Input</label>
+                                            <input type="text" class="form-control" id="searchInput">
+                                        </div>
+                                        <div class="table-responsive">
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">Item Name</th>
+                                                        <th scope="col">SKU</th>
+                                                        <th scope="col">Category</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>Pato</td>
+                                                        <td>0909</td>
+                                                        <td>Animal</td>
+                                                    </tr>
+                                                    <!-- Add more rows as needed -->
+                                                </tbody>
+                                            </table>
+                                        </div>
+  
+                            <!-- Pagination -->
+                            <nav aria-label="Page navigation">
+                                <ul class="pagination justify-content-center">
+                                    <li class="page-item disabled">
+                                        <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                                    </li>
+                                        <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">4</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">5</a></li>
+                                        <li class="page-item">
+                                        <a class="page-link" href="#">Next</a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                        
+                        <!-- Modal Footer Goes here-->
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+            <!--End modal Search-->
+
+                <!-- Price Inquiry Modal-->
+                <div class="modal fade" id="priceinquiryModal">
+                <div class="modal-dialog modal-fullscreen">
                     <div class="modal-content">
-                    <!-- Modal Header -->
+                        <!-- Modal Header -->
                         <div class="modal-header">
-                            <h3 class="modal-title">Dashboard</h3>
+                            <h3 class="modal-title">Price Inquiry</h3>
                             <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                         </div>
-
+            
                         <!-- Modal Body -->
                         <div class="modal-body">
-                        <!-- Your Dashboard content goes here -->
-                        <div class="container-fluid px-4">
-                            <div class="row g-3 my-2">
-                                <div class="col-md-4">
-                                    <div class="p-3 colorbox shadow-sm d-flex justify-content-around align-items-center rounded">
-                                        <div>
-                                            <h3 class="fs-2">720</h3>
-                                            <p class="fs-5">Products</p>
-                                        </div>
-                                        <i class="fas fa-box fs-1 primary-text border rounded-full secondary-bg p-3"></i>
-                                    </div>
-                                </div>
+                            <!-- Display Box -->
+                            <div class="mb-3">
+                                <label for="displayBox" class="form-label">Display Box</label>
+                                <input type="text" class="form-control" id="displayBox" readonly>
+                            </div>
             
-                                <div class="col-md-4">
-                                    <div class="p-3 colorbox shadow-sm d-flex justify-content-around align-items-center rounded">
-                                        <div>
-                                            <h3 class="fs-2">4920</h3>
-                                            <p class="fs-5">Sales</p>
-                                        </div>
-                                        <i
-                                            class="fas fa-sack-dollar fs-1 primary-text border rounded-full secondary-bg p-3"></i>
-                                    </div>
-                                </div>
-            
-                                <div class="col-md-4">
-                                    <div class="p-3 colorbox shadow-sm d-flex justify-content-around align-items-center rounded">
-                                        <div>
-                                            <h3 class="fs-2">3899</h3>
-                                            <p class="fs-5">Delivery</p>
-                                        </div>
-                                        <i class="fad fa-truck fs-1 primary-text border rounded-full secondary-bg p-3"></i>
-                                    </div>
-                                </div>
-
-                        <!-- ... Rest of your Dashboard content ... -->
-                        <div class="row my-5">
-                            <h3 class="fs-4 mb-3">Expiration Date</h3>
-                            <div class="col">
-                                <table class="table colorbox rounded shadow-sm  table-hover">
+                            <!-- Table -->
+                            <div class="table-responsive">
+                                <table class="table">
                                     <thead>
                                         <tr>
-                                            <th scope="col" width="50">#</th>
-                                            <th scope="col">Product</th>
-                                            <th scope="col">Date</th>
+                                            <th scope="col">SKU</th>
+                                            <th scope="col">Item Name</th>
+                                            <th scope="col">Price</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <th scope="row">1</th>
-                                            <td>Chicaron</td>
-                                            <td>6/20/25</td>
+                                            <td>0909</td>
+                                            <td>Pato</td>
+                                            <td>800</td>
                                         </tr>
+                                        <!-- Add more rows as needed -->
                                     </tbody>
                                 </table>
                             </div>
                         </div>
-                        </div>
-                    </div>
+            
                         <!-- Modal Footer Goes here-->
-
-                    </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
                     </div>
                 </div>
             </div>
-            <!--End modal Dashboard-->
+            
+            <!--End modal Price Inquiry-->
 
-            <!-- Inventory Modal-->
-            <div class="modal fade" id="inventoryModal">
+                        <!-- Suspend Modal-->
+                        <div class="modal fade" id="suspendModal">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                     <!-- Modal Header -->
                         <div class="modal-header">
-                            <h3 class="modal-title">Inventory</h3>
+                            <h3 class="modal-title">#</h3>
                             <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                         </div>
 
                         <!-- Modal Body -->
                         <div class="modal-body">
-                        <!-- Your Inventory content goes here -->
-
-                        <!-- //// -->
-                        
-                        <!-- Modal Footer Goes here-->
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!--End modal Inventory-->
-
-            <!-- Sales Modal-->
-            <div class="modal fade" id="salesModal">
-                <div class="modal-dialog modal-lg">
-                    <div class="modal-content">
-                    <!-- Modal Header -->
-                        <div class="modal-header">
-                            <h3 class="modal-title">Sales</h3>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                        </div>
-
-                        <!-- Modal Body -->
-                        <div class="modal-body">
-                        <!-- Your Sales content goes here -->
+                        <!-- Your Suspend content goes here -->
 
                         <!-- /// -->
                         
@@ -306,46 +356,143 @@ $user = $_SESSION['user_name'];
                     </div>
                 </div>
             </div>
-            <!--End modal Sales-->
+            <!--End modal Suspend-->
 
-            <!-- Payment Modal -->
-            <div class="modal fade" id="transactionModal">
+
+            <!-- Resume Modal-->
+            <div class="modal fade" id="resumeModal">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                     <!-- Modal Header -->
                         <div class="modal-header">
-                            <h3 class="modal-title">Payment</h3>
+                            <h3 class="modal-title">#</h3>
                             <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                         </div>
 
                         <!-- Modal Body -->
                         <div class="modal-body">
-                        <!-- Your Dashboard content goes here -->
-                                <!--Total Input-->
-                                <div class="form-group mt-1">
-                                    <label for="total"><h3 class="fs-5">Total</h3></label>
-                                    <input type="text" class="form-control" id="modalPTotal" placeholder="0.00">
-                                </div>
+                        <!-- Your Resume content goes here -->
 
-                                <!--Cash Input-->
-                                <div class="form-group mt-2">
-                                    <label for="cash"><h3 class="fs-5">Cash</h3></label>
-                                    <input type="text" class="form-control" id="cash" placeholder="0.00">
-                                </div>
-
-                                <!--Change Input-->
-                                <div class="form-group mt-2">
-                                    <label for="change"><h3 class="fs-5">Change</h3></label>
-                                    <input type="text" class="form-control" id="change">
-                                </div><br>
-
-                                <!--Pay Button-->
-                                <div class="form-group">
-                                    <button class="btn btn-secondary btn-lg" id="purchase">Pay</button>
-                                </div>
+                        <!-- /// -->
                         
-                            <!-- Modal Footer Goes here-->
+                        <!-- Modal Footer Goes here-->
 
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--End modal Resume-->
+
+            <!-- Cash out Modal-->
+            <div class="modal fade" id="cashModal">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                    <!-- Modal Header -->
+                        <div class="modal-header">
+                            <h3 class="modal-title">#</h3>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+
+                        <!-- Modal Body -->
+                        <div class="modal-body">
+                        <!-- Your Cashout content goes here -->
+
+                        <!-- /// -->
+                        
+                        <!-- Modal Footer Goes here-->
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--End modal Cash out-->
+
+
+            <!-- Payment Modal -->
+            <div class="modal fade" id="transactionModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog modal-xl">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3 class="modal-title">Payment</h3>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="container-fluid mt-1">
+                                <div class="row m-1">
+                                <!-- Left side column -->
+                                    <div class="col-6">
+                                        <!--Total Input-->
+                                        <div class="form-group mt-1">
+                                            <label for="total"><div class="p-2 w-100"><h4>Total</h4></div></label>
+                                            <input type="text" class="form-control" id="modalPTotal" placeholder="0.00">
+                                        </div>
+    
+                                        <!--Cash Input-->
+                                        <div class="form-group mt-2">
+                                            <label for="cash"><div class="p-2 w-100"><h4>Cash</h4></div></label>
+                                            <input type="text" class="form-control" id="cash" placeholder="0.00">
+                                        </div>
+    
+                                        <!--Change Input-->
+                                        <div class="form-group mt-2">
+                                            <label for="change"><div class="p-2 w-100"><h4>Change</h4></div></label>
+                                            <input type="text" class="form-control" id="change" readonly>
+                                        </div><br>
+    
+                                        <!--Pay Button-->
+                                        <div class="form-group">
+                                            <button class="btn btn-secondary btn-lg" id="purchase">Pay</button>
+                                        </div>
+    
+                                    </div>
+                                <!-- Right side column -->
+                                <div class="col-4 ms-auto">
+                                    <div class="card">
+                                        <div class="card-body ">
+
+                                        <!-- Display & VAT -->
+                                        <!--Total Product Display-->
+                                        <div class="d-flex mt-1">
+                                            <div class="p-2 w-100"><h5>Total Product:</h5></div>
+                                            <div class="p-2 flex-shrink-1"><h5 style="color: rgb(0, 97, 255);">0</h5></div>
+                                        </div>
+                                        <div class="dropdown-divider"></div>
+
+                                        <!--VAT Sale-->
+                                        <div class="d-flex">
+                                            <div class="p-2 w-100"><h5>VATable SALES:</h5></div>
+                                            <div class="p-2 flex-shrink-1"><h5>0.00</h5></div>
+                                        </div>
+                                        <div class="dropdown-divider"></div>
+
+                                        <!--VAT Exempt Sale-->
+                                        <div class="d-flex">
+                                            <div class="p-2 w-100"><h5>VAT-Exempt SALES:</h5></div>
+                                            <div class="p-2 flex-shrink-1"><h5>0.00</h5></div>
+                                        </div>
+                                        <div class="dropdown-divider"></div>
+
+                                        <!--VAT Zero-Rated Sales-->
+                                        <div class="d-flex">
+                                            <div class="p-2 w-100"><h5>VAT Zero-Rated SALES:</h5></div>
+                                            <div class="p-2 flex-shrink-1"><h5>0.00</h5></div>
+                                        </div>
+                                        <div class="dropdown-divider"></div>
+
+                                        <!--VAT Amount-->
+                                        <div class="d-flex">
+                                            <div class="p-2 w-100"><h5>VAT Amount:</h5></div>
+                                            <div class="p-2 flex-shrink-1"><h5>0.00</h5></div>
+                                        </div>
+                                        <div class="dropdown-divider"></div>
+                                        
+                                        </div>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+
+                            <!-- Modal Footer Goes here-->
                         </div>
                     </div>
                 </div>
@@ -364,7 +511,9 @@ $user = $_SESSION['user_name'];
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="postUpdate.js"></script>
   <script src="calculateItems.js"></script>
+  <script src="buttonPOS.js"></script>
     <script>
+        
         /*
         // Sample data for demonstration
         const barcodeData = [
