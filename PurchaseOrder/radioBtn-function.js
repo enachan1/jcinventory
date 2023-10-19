@@ -1,18 +1,13 @@
 $(document).ready(function () {
-    const delivered = $('#delivered');
-    const badorder = $('#bad_order');
-
-    delivered.on('change', function () {
-        if (delivered.prop('checked')) {
-            const vendorItemID = $(this).data('itemid');
-            console.log(vendorItemID);
-        }
+    $(document).on('change', '.delivered-rbtn',  function () {
+        const vendorDataId = $(this).data('itemid');
+        console.log(vendorDataId);
     });
 
-    badorder.on('change', function () {
-        if (badorder.prop('checked')) {
-            const vendorItemID = $(this).data('itemid');
-            console.log(vendorItemID);
-        }
+    $(document).on('change', '.badorder-rbtn',  function () {
+        const vendorDataId = $(this).data('itemid');
+        console.log(vendorDataId);
     });
+
+    
 });

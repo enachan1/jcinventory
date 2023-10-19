@@ -156,16 +156,16 @@ $user = $_SESSION['user_name'];
                                             $previous = $rows['Vendor'];
                                             ?></td>
                                             <td>
-                                                <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#viewModal">View Items</button>
+                                                <button title="<?php echo $rows['item_vendorID']; ?>" class="btn btn-primary btn-sm view-data" data-itemid="<?php echo $rows['item_vendorID'];?>" data-bs-toggle="modal" data-bs-target="#viewModal">View Items</button>
                                                 <a href="delete_po.php?vendorid=<?php echo $rows['item_vendorID'] ?>" class="btn btn-danger btn-sm">Delete</a>
                                             </td>
                                             <td>
                                                 <div class="form-check">
-                                                <input class="form-check-input" value="Delivered" type="radio" name="flexRadioDefault" id="delivered" data-itemid="<?php echo $rows['item_vendorID']; ?>">
+                                                <input class="form-check-input delivered-rbtn" value="Delivered" type="radio" name="flexRadioDefault" data-itemid="<?php echo $rows['item_vendorID']; ?>">
                                                 <label class="form-check-label" for="delivered">Delivered</label>
                                                 </div>
                                                 <div class="form-check">
-                                                <input class="form-check-input" value="badOrder" type="radio" name="flexRadioDefault" id="bad_order" data-itemid="<?php echo $rows['item_vendorID']; ?>">
+                                                <input class="form-check-input badorder-rbtn" value="badOrder" type="radio" name="flexRadioDefault"  data-itemid="<?php echo $rows['item_vendorID']; ?>">
                                                 <label class="form-check-label" for="fbad_order">Bad Order</label>
                                                 </div>
                                             </td>
@@ -416,7 +416,7 @@ $user = $_SESSION['user_name'];
                         <div class="modal-content">
                         <!-- Modal Header -->
                             <div class="modal-header">
-                                <h3 class="modal-title">Display Vendor Name</h3>
+                                <h3 class="modal-title" id="dispVendorName"></h3>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                             </div>
 
@@ -445,22 +445,17 @@ $user = $_SESSION['user_name'];
                                 <!-- Table Content Display Goes Here -->
                                 <div class="container-fluid px-4">
                                     <div class="table-responsive">
-                                        <table class="table colorbox rounded shadow-sm table-hover">
+                                        <table class="table colorbox rounded shadow-sm table-hover" id="itemTable">
                                             <thead>
                                             <tr>
                                                 <th scope="col">Item Name</th>
                                                 <th scope="col">QTY</th>
-                                                <th scope="col">Unit Price</th>
-                                                <th scope="col">Total</th>
+                                                <th scope="col">UOM</th>
+                                                <th scope="col">Category</th>
                                             </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td>
-                                                    <!-- Table goes here-->
-                                                                                
-                                                    </td>
-                                                </tr>
+                                                
                                         </tbody>
                                         </table>
                                     </div>
@@ -488,7 +483,7 @@ $user = $_SESSION['user_name'];
                         <div class="modal-content">
                         <!-- Modal Header -->
                             <div class="modal-header">
-                                <h3 class="modal-title">Vendor Name</h3>
+                                <h3 class="modal-title"></h3>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                             </div>
                             <!-- Modal Body -->
@@ -537,6 +532,7 @@ $user = $_SESSION['user_name'];
     <script src="cloneInputs.js"></script>
     <script src="autocomplete.js"></script>
     <script src="radioBtn-function.js"></script>
+    <script src="view-item.js"></script>
     <script>
         var el = document.getElementById("wrapper");
         var toggleButton = document.getElementById("menu-toggle");
@@ -544,25 +540,6 @@ $user = $_SESSION['user_name'];
         toggleButton.onclick = function () {
             el.classList.toggle("toggled");
         };
-
-        // Function for Display Date
-        // Function to format a date as "YYYY-MM-DD"
-        function formatDate(date) {
-            const year = date.getFullYear();
-            const month = String(date.getMonth() + 1).padStart(2, '0');
-            const day = String(date.getDate()).padStart(2, '0');
-            return `${year}-${month}-${day}`;
-        }
-
-        // Get the current date
-        const currentDateElement = document.getElementById("currentDate");
-        const currentDate = new Date();
-        currentDateElement.textContent = formatDate(currentDate);
-
-        // Get the expected date (you can set your expected date here)
-        const expectedDateElement = document.getElementById("expectedDate");
-        const expectedDate = new Date("2023-12-31"); // Example expected date
-        expectedDateElement.textContent = formatDate(expectedDate);
 
     </script>
 <?php } ?>
