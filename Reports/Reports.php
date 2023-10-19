@@ -137,16 +137,6 @@ $user = $_SESSION['user_name'];
                 </a>
             </li>
             <li class="nav-item" role="presentation">
-                <a class="nav-link" id="delivery-tab" data-bs-toggle="tab" data-bs-target="#delivery" type="button" role="tab" aria-controls="delivery" aria-selected="false">
-                    <i class="fas fa-truck"></i> Delivery Report
-                </a>
-            </li>
-            <li class="nav-item" role="presentation">
-                <a class="nav-link" id="badorder-tab" data-bs-toggle="tab" data-bs-target="#badorder" type="button" role="tab" aria-controls="badorder" aria-selected="false">
-                    <i class="fas fa-exclamation-circle"></i> Bad Order Report
-                </a>
-            </li>
-            <li class="nav-item" role="presentation">
                 <a class="nav-link" id="trackrecord-tab" data-bs-toggle="tab" data-bs-target="#trackrecord" type="button" role="tab" aria-controls="trackrecord" aria-selected="false">
                     <i class="fas fa-list-alt"></i> Transaction Record
                 </a>
@@ -197,6 +187,7 @@ $user = $_SESSION['user_name'];
                     </div>
                 </div>
             </div>
+            <!-- End Sales Report -->
 
             <!-- Inventory Report -->
             <div class="tab-pane fade" id="inventory" role="tabpanel" aria-labelledby="inventory-tab">
@@ -239,90 +230,8 @@ $user = $_SESSION['user_name'];
                     </div>
                 </div>
             </div>
+            <!-- End Inventory Report -->
 
-            <!-- Delivery Report -->
-            <div class="tab-pane fade" id="delivery" role="tabpanel" aria-labelledby="delivery-tab">
-                <div class="card">
-                    <div class="card-body colorbox">
-                        <h5 class="card-title">Delivery Report</h5>
-                        <table class="table bg-light rounded shadow-sm table-hover">
-                            <thead>
-                                <tr>
-                                    <th>Item No.</th>
-                                    <th>Item Name</th>
-                                    <th>Item Description</th>
-                                    <th>Price</th>
-                                    <th>Qty</th>
-                                    <th>Amount</th>
-                                    <th>Total</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <!-- Table content here -->
-                            </tbody>
-                        </table>
-
-                            <!-- Pagination Next Tables-->
-                            <nav aria-label="Page navigation">
-                                <ul class="pagination justify-content-center">
-                                            <li class="page-item disabled">
-                                            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-                                            </li>
-                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">4</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">5</a></li>
-                                    <li class="page-item">
-                                    <a class="page-link" href="#">Next</a>
-                                    </li>
-                                </ul>
-                            </nav>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Bad Order Report -->
-            <div class="tab-pane fade" id="badorder" role="tabpanel" aria-labelledby="badorder-tab">
-                <div class="card">
-                    <div class="card-body colorbox">
-                        <h5 class="card-title">Bad Order Report</h5>
-                        <table class="table bg-light rounded shadow-sm table-hover">
-                            <thead>
-                                <tr>
-                                    <th>Item No.</th>
-                                    <th>Item Name</th>
-                                    <th>Item Description</th>
-                                    <th>Price</th>
-                                    <th>Qty</th>
-                                    <th>Amount</th>
-                                    <th>Total</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <!-- Table content here -->
-                            </tbody>
-                        </table>
-
-                            <!-- Pagination Next Tables-->
-                            <nav aria-label="Page navigation">
-                                <ul class="pagination justify-content-center">
-                                            <li class="page-item disabled">
-                                            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-                                            </li>
-                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">4</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">5</a></li>
-                                    <li class="page-item">
-                                    <a class="page-link" href="#">Next</a>
-                                    </li>
-                                </ul>
-                            </nav>
-                    </div>
-                </div>
-            </div>
 
             <!-- Transaction Record -->
             <div class="tab-pane fade" id="trackrecord" role="tabpanel" aria-labelledby="trackrecord-tab">
@@ -360,15 +269,15 @@ $user = $_SESSION['user_name'];
                     </div>
                 </div>
             </div>
-
+            <!-- End Transaction Report -->
         </div>
     </div>
 
 
-
-
         </div>
         </div>
+
+        <!-- Modal goes here -->
 
 
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
