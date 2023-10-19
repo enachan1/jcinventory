@@ -50,7 +50,7 @@ $user = $_SESSION['user_name'];
         }
 
         .adjustment{
-            padding-top: 280px;
+            padding-top: 20px;
         }
 
         .adjustments{
@@ -105,7 +105,7 @@ $user = $_SESSION['user_name'];
                         <i class="fas fa-user me-2"></i><?php echo $user; ?>
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="POSother.html">Point of Sales</a></li>
+                        <li><a class="dropdown-item" href="../POS/POS.php">Point of Sales</a></li>
                         <li><a class="dropdown-item" href="Profile.html">Profile</a></li>
                         <li><a class="dropdown-item" href="Setting.html">Setting</a></li>
                         <div class="dropdown-divider"></div>
@@ -185,11 +185,16 @@ $user = $_SESSION['user_name'];
         </div>
         </div>
         <!-- Right side column -->
-        <div class="col-4 adjustment">
+        <div class="col-4">
             <!-- Image display right side -->
-            <!-- 
-        <img src="https://www.canva.com/design/DAFxkB5EQu0/1kiuIgG-pOuWWAKI1AYkzA/edit?utm_content=DAFxkB5EQu0&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton" class="rounded float-end" alt="imagelogo">
-                                -->
+
+            <div class="card">
+                <div class="card-body ">
+                    <img src="Jun&CathyGrocery.png" class="img-fluid rounded mx-auto d-block" alt="imagelogo">
+                </div>
+            </div>
+            <div class="adjustment">
+                                
             <!-- Buttons for Search, Price Inquiry, Suspend, Resume, Cash out, Payment  -->
             <div class="card colobody">
                 <div class="card-body ">
@@ -202,20 +207,18 @@ $user = $_SESSION['user_name'];
                                 <div class="p-3 d-flex justify-content-center"><button type="button" class="btn btn-primary btn-lg buttonadjust button-md" data-bs-toggle="modal" data-bs-target="#priceinquiryModal" id="F2Button"> Price Inquiry F2</button> </div>
                             </div>
                             <div class="col-md-6 col-sm-12">
-                                <div class="p-3 d-flex justify-content-center"><button type="button" class="btn btn-primary btn-lg buttonadjust button-md" data-bs-toggle="modal" data-bs-target="#suspendModal" id="F3Button"> Suspend F3</button> </div>
+                                <div class="p-3 d-flex justify-content-center"><button type="button" class="btn btn-primary btn-lg buttonadjust button-md" data-bs-toggle="modal" data-bs-target="#transactionModal" id="F3Button"> Transaction F3</button> </div>
                             </div>
                             <div class="col-md-6 col-sm-12">
-                                <div class="p-3 d-flex justify-content-center"><button type="button" class="btn btn-primary btn-lg buttonadjust button-md" data-bs-toggle="modal" data-bs-target="#resumeModal" id="F4Button"> Resume F4</button> </div>
+                                <div class="p-3 d-flex justify-content-center"><button type="button" class="btn btn-primary btn-lg buttonadjust button-md" data-bs-toggle="modal" data-bs-target="#cashModal" id="F4Button"> Cash Out F4</button> </div>
                             </div>
                             <div class="col-md-6 col-sm-12">
-                                <div class="p-3 d-flex justify-content-center"><button type="button" class="btn btn-primary btn-lg buttonadjust button-md" data-bs-toggle="modal" data-bs-target="#cashModal" id="F5Button"> Cash Out F5</button> </div>
-                            </div>
-                            <div class="col-md-6 col-sm-12">
-                                <div class="p-3 d-flex justify-content-center"><button type="button" class="btn btn-primary btn-lg buttonadjust button-md" data-bs-toggle="modal" data-bs-target="#transactionModal" id="F6Button"> Payment F6</button> </div>
+                                <div class="p-3 d-flex justify-content-center"><button type="button" class="btn btn-primary btn-lg buttonadjust button-md" data-bs-toggle="modal" data-bs-target="#paymentModal" id="F5Button"> Payment F5</button> </div>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
             </div>
         </div>
     </div>
@@ -284,6 +287,7 @@ $user = $_SESSION['user_name'];
             </div>
             <!--End modal Search-->
 
+
                 <!-- Price Inquiry Modal-->
                 <div class="modal fade" id="priceinquiryModal">
                 <div class="modal-dialog modal-fullscreen">
@@ -334,9 +338,10 @@ $user = $_SESSION['user_name'];
             
             <!--End modal Price Inquiry-->
 
-                        <!-- Suspend Modal-->
-                        <div class="modal fade" id="suspendModal">
-                <div class="modal-dialog modal-lg">
+
+            <!-- Transaction Modal-->
+            <div class="modal fade" id="transactionModal">
+                <div class="modal-dialog modal-fullscreen">
                     <div class="modal-content">
                     <!-- Modal Header -->
                         <div class="modal-header">
@@ -346,42 +351,41 @@ $user = $_SESSION['user_name'];
 
                         <!-- Modal Body -->
                         <div class="modal-body">
-                        <!-- Your Suspend content goes here -->
+                        <!-- Your content goes here -->
 
-                        <!-- /// -->
+                            <!-- Table -->
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Reciept No.</th>
+                                            <th scope="col">Date</th>
+                                            <th scope="col">Total Item</th>
+                                            <th scope="col">Total Amount</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>001</td>
+                                            <td>2023-10-16</td>
+                                            <td>16</td>
+                                            <td>500</td>
+                                        </tr>
+                                        <!-- Add more rows as needed -->
+                                    </tbody>
+                                </table>
+                            </div>
                         
                         <!-- Modal Footer Goes here-->
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
 
                         </div>
                     </div>
                 </div>
             </div>
-            <!--End modal Suspend-->
-
-
-            <!-- Resume Modal-->
-            <div class="modal fade" id="resumeModal">
-                <div class="modal-dialog modal-lg">
-                    <div class="modal-content">
-                    <!-- Modal Header -->
-                        <div class="modal-header">
-                            <h3 class="modal-title">#</h3>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                        </div>
-
-                        <!-- Modal Body -->
-                        <div class="modal-body">
-                        <!-- Your Resume content goes here -->
-
-                        <!-- /// -->
-                        
-                        <!-- Modal Footer Goes here-->
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!--End modal Resume-->
+            <!--End modal Transaction History-->
 
             <!-- Cash out Modal-->
             <div class="modal fade" id="cashModal">
@@ -398,6 +402,7 @@ $user = $_SESSION['user_name'];
                         <!-- Your Cashout content goes here -->
 
                         <!-- /// -->
+                        <!-- You should Display Change here -->
                         
                         <!-- Modal Footer Goes here-->
 
@@ -409,7 +414,7 @@ $user = $_SESSION['user_name'];
 
 
             <!-- Payment Modal -->
-            <div class="modal fade" id="transactionModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal fade" id="paymentModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                 <div class="modal-dialog modal-xl">
                     <div class="modal-content">
                         <div class="modal-header">

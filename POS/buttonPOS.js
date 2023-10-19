@@ -29,10 +29,3 @@ document.addEventListener("keydown", function(event) {
         document.getElementById("F5Button").click();
     }
 })
-
-document.addEventListener("keydown", function(event){
-    if(event.key === "F6"){
-        event.preventDefault();
-        document.getElementById("F6Button").click();
-    }
-})
