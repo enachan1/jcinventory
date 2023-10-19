@@ -109,8 +109,14 @@ $user = $_SESSION['user_name'];
                     <i class="fas fa-truck"></i> Delivery In
                 </a>
             </li>
+            <li class="nav-item" role="presentation">
+                <a class="nav-link" id="badorder-tab" data-bs-toggle="tab" data-bs-target="#badorder" type="button" role="tab" aria-controls="badorder" aria-selected="false">
+                    <i class="fas fa-exclamation-circle"></i> Bad Order
+                </a>
+            </li>
         </ul>
 
+        <!-- Tab-Content here -->
 
                 <!-- Purchase Order -->
                 <div class="tab-content" id="myTabContent">
@@ -203,7 +209,7 @@ $user = $_SESSION['user_name'];
                                 <!--Dropdown Button For Vendors-->
                                 <div class="d-flex justify-content-between rounded">
                                     <button type="button" class="btn colorbox btn-outline-secondary btn-lg" data-bs-toggle="modal" data-bs-target="#vendor1">
-                                        Add item
+                                        Add Vendor
                                     </button>
                                       <!-- Search Bar-->
                                     <input type="text" class="form-control search-bar" placeholder="Search">
@@ -260,23 +266,71 @@ $user = $_SESSION['user_name'];
                             <div class="card-body colorbox">
                                 <h5 class="card-title">Delivery In</h5>
                                 <!-- Button for Add item-->
-                                <div class="d-flex justify-content-between rounded">
-                                    <button type="button" class="btn colorbox btn-outline-secondary btn-lg" data-bs-toggle="modal" data-bs-target="#myModal">
-                                        Add item
-                                    </button>
+                                <div class="d-flex justify-content-end mt-2">
                                     <!-- Search Bar-->
-                                    <input type="text" class="form-control search-bar" placeholder="Search">
+                                    <input type="text" class="form-control search-bar" style="height: 49px; max-width: 300px;"" placeholder="Search">
                                 </div><br>
                                 <!--Table-->
                                 <table class="table bg-light rounded shadow-sm table-hover">
                                     <thead>
                                         <tr>
                                             <!-- Table content here -->
+                                            <th>Working Title</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <td></td>
-                                        <td></td>
+                                        <?php
+                                        
+                                        ?>
+                                        <td>
+                                         <!--    
+                                        <div class="form-check">
+
+                                        </div>
+                                        -->
+                                        </td>
+                                    </tbody>
+                                </table>
+        
+                                    <!-- Pagination Next Tables-->
+                                    <nav aria-label="Page navigation">
+                                        <ul class="pagination justify-content-center">
+                                                <li class="page-item disabled">
+                                                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                                                </li>
+                                        <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">4</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">5</a></li>
+                                        <li class="page-item">
+                                        <a class="page-link" href="#">Next</a>
+                                        </li>
+                                        </ul>
+                                    </nav>
+                                </div>             
+                            </div>
+                        </div>
+
+                    <!--Bad Order -->
+                    <div class="tab-pane fade" id="badorder" role="tabpanel" aria-labelledby="badorder-tab">
+                        <div class="card">
+                            <div class="card-body colorbox">
+                                <h5 class="card-title">Bad Order</h5>
+                                <!-- Button for Add item-->
+                                <div class="d-flex justify-content-end mt-2">
+                                    <!-- Search Bar-->
+                                    <input type="text" class="form-control search-bar" style="height: 49px; max-width: 300px;"" placeholder="Search">
+                                </div><br>
+                                <!--Table-->
+                                <table class="table bg-light rounded shadow-sm table-hover">
+                                    <thead>
+                                        <tr>
+                                            <!-- Table content here -->
+                                            <th>Working Title</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
                                         <td></td>
                                     </tbody>
                                 </table>
@@ -303,8 +357,9 @@ $user = $_SESSION['user_name'];
 
                     </div>
                 </div>
+                
+                <!--End of Tab-Content-->
         <!-- End of Page Content -->
-
         </div>
     </div>
 
