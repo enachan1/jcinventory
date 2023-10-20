@@ -12,6 +12,7 @@ $user = $_SESSION['user_name'];
     }
 ?>
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
     <link rel="stylesheet" href="../styles.css" />
@@ -72,7 +73,14 @@ $user = $_SESSION['user_name'];
             height: 110px;
         }
 
-        .button-md {
+        @media (max-width: 800px) {
+            .button-md {
+                font-size: 16px;
+                width: 100%; /* Make the buttons full width on mobile */
+            }
+        }
+        .button-md 
+        {
             font-size: 24px; 
             font-weight: bold;
         }
@@ -81,6 +89,8 @@ $user = $_SESSION['user_name'];
         {
             width: 500px;
         }
+
+
     </style>
 
 </head>
@@ -200,20 +210,20 @@ $user = $_SESSION['user_name'];
                 <div class="card-body ">
                     <div class="container text-center">
                         <div class="row g-2">
-                            <div class="col-md-6 col-sm-12">
-                                <div class="p-3 d-flex justify-content-center"><button type="button" class="btn btn-primary cbtn-lg buttonadjust button-md"  data-bs-toggle="modal" data-bs-target="#searchModal" id="F1Button"> Search F1</button> </div>
+                            <div class="col-md-6 col-sm-12 col-12">
+                                <div class="p-3 d-flex justify-content-center"><button type="button" class="btn btn-primary buttonadjust button-md"  data-bs-toggle="modal" data-bs-target="#searchModal" id="F1Button"> Search F1</button> </div>
                             </div>
-                            <div class="col-md-6 col-sm-12">
-                                <div class="p-3 d-flex justify-content-center"><button type="button" class="btn btn-primary btn-lg buttonadjust button-md" data-bs-toggle="modal" data-bs-target="#priceinquiryModal" id="F2Button"> Price Inquiry F2</button> </div>
+                            <div class="col-md-6 col-sm-12 col-12">
+                                <div class="p-3 d-flex justify-content-center"><button type="button" class="btn btn-primary buttonadjust button-md" data-bs-toggle="modal" data-bs-target="#priceinquiryModal" id="F2Button"> Price Inquiry F2</button> </div>
                             </div>
-                            <div class="col-md-6 col-sm-12">
-                                <div class="p-3 d-flex justify-content-center"><button type="button" class="btn btn-primary btn-lg buttonadjust button-md" data-bs-toggle="modal" data-bs-target="#transactionModal" id="F3Button"> Transaction F3</button> </div>
+                            <div class="col-md-6 col-sm-12 col-12">
+                                <div class="p-3 d-flex justify-content-center"><button type="button" class="btn btn-primary buttonadjust button-md" data-bs-toggle="modal" data-bs-target="#transactionModal" id="F3Button"> Transaction F3</button> </div>
                             </div>
-                            <div class="col-md-6 col-sm-12">
-                                <div class="p-3 d-flex justify-content-center"><button type="button" class="btn btn-primary btn-lg buttonadjust button-md" data-bs-toggle="modal" data-bs-target="#cashModal" id="F4Button"> Cash Out F4</button> </div>
+                            <div class="col-md-6 col-sm-12 col-12">
+                                <div class="p-3 d-flex justify-content-center"><button type="button" class="btn btn-primary buttonadjust button-md"  data-bs-toggle="modal" data-bs-target="#cashModal" id="F4Button"> Cash Out F4</button> </div>
                             </div>
-                            <div class="col-md-6 col-sm-12">
-                                <div class="p-3 d-flex justify-content-center"><button type="button" class="btn btn-primary btn-lg buttonadjust button-md" data-bs-toggle="modal" data-bs-target="#paymentModal" id="F5Button"> Payment F5</button> </div>
+                            <div class="col-md-6 col-sm-12 col-12">
+                                <div class="p-3 d-flex justify-content-center"><button type="button" class="btn btn-primary buttonadjust button-md" data-bs-toggle="modal" data-bs-target="#paymentModal" id="F5Button"> Payment F5</button> </div>
                             </div>
                         </div>
                     </div>
@@ -225,12 +235,12 @@ $user = $_SESSION['user_name'];
 
     <!-- End of Page Content -->
 
-                          <!-- Search Modal-->
-                          <div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="searchModalLabel" aria-hidden="true">
+                        <!-- Search Modal-->
+                        <div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="searchModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-fullscreen">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="searchModalLabel">Search F1</h5>
+                                        <h3 class="modal-title" id="searchModalLabel">Search</h3>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
@@ -288,8 +298,8 @@ $user = $_SESSION['user_name'];
             <!--End modal Search-->
 
 
-                <!-- Price Inquiry Modal-->
-                <div class="modal fade" id="priceinquiryModal">
+            <!-- Price Inquiry Modal-->
+            <div class="modal fade" id="priceinquiryModal">
                 <div class="modal-dialog modal-fullscreen">
                     <div class="modal-content">
                         <!-- Modal Header -->
@@ -345,7 +355,7 @@ $user = $_SESSION['user_name'];
                     <div class="modal-content">
                     <!-- Modal Header -->
                         <div class="modal-header">
-                            <h3 class="modal-title">#</h3>
+                            <h3 class="modal-title">Transaction</h3>
                             <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                         </div>
 
@@ -393,18 +403,23 @@ $user = $_SESSION['user_name'];
                     <div class="modal-content">
                     <!-- Modal Header -->
                         <div class="modal-header">
-                            <h3 class="modal-title">#</h3>
+                            <h3 class="modal-title">Cash Out</h3>
                             <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                         </div>
 
                         <!-- Modal Body -->
                         <div class="modal-body">
                         <!-- Your Cashout content goes here -->
-
-                        <!-- /// -->
-                        <!-- You should Display Change here -->
+                        <div class="card-body d-flex justify-content-between bg-info">
+                            <h1 class="display-4 mb-0 apto-display-font">Change:</h1>
+                                                    <!-- Display Exchange here -->
+                            <h1 class="display-4 mb-0"> <span id="change">0.00</span></h1>
+                        </div>
                         
                         <!-- Modal Footer Goes here-->
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
 
                         </div>
                     </div>
@@ -459,35 +474,40 @@ $user = $_SESSION['user_name'];
                                         <!--Total Product Display-->
                                         <div class="d-flex mt-1">
                                             <div class="p-2 w-100"><h5>Total Product:</h5></div>
-                                            <div class="p-2 flex-shrink-1"><h5 style="color: rgb(0, 97, 255);">0</h5></div>
+                                                                                                                <!-- call id for total product-->
+                                            <div class="p-2 flex-shrink-1"><h5 style="color: rgb(0, 97, 255);"><span id="totalPRODUCT">0</span></h5></div>
                                         </div>
                                         <div class="dropdown-divider"></div>
 
                                         <!--VAT Sale-->
                                         <div class="d-flex">
                                             <div class="p-2 w-100"><h5>VATable SALES:</h5></div>
-                                            <div class="p-2 flex-shrink-1"><h5>0.00</h5></div>
+                                                                            <!-- call id for vat sales-->
+                                            <div class="p-2 flex-shrink-1"><h5><span id="vatSALES">0.00</span></h5></div>
                                         </div>
                                         <div class="dropdown-divider"></div>
 
                                         <!--VAT Exempt Sale-->
                                         <div class="d-flex">
                                             <div class="p-2 w-100"><h5>VAT-Exempt SALES:</h5></div>
-                                            <div class="p-2 flex-shrink-1"><h5>0.00</h5></div>
+                                                                                <!-- call id for vat Exempt-->
+                                            <div class="p-2 flex-shrink-1"><h5><span id="vatEXEMPT">0.00</span></h5></div>
                                         </div>
                                         <div class="dropdown-divider"></div>
 
                                         <!--VAT Zero-Rated Sales-->
                                         <div class="d-flex">
                                             <div class="p-2 w-100"><h5>VAT Zero-Rated SALES:</h5></div>
-                                            <div class="p-2 flex-shrink-1"><h5>0.00</h5></div>
+                                                                                <!-- call id for vat Zero-rated-->
+                                            <div class="p-2 flex-shrink-1"><h5><span id="vatZERORATED">0.00</span></h5></div>
                                         </div>
                                         <div class="dropdown-divider"></div>
 
                                         <!--VAT Amount-->
                                         <div class="d-flex">
                                             <div class="p-2 w-100"><h5>VAT Amount:</h5></div>
-                                            <div class="p-2 flex-shrink-1"><h5>0.00</h5></div>
+                                                                                <!-- call id for vat amount-->
+                                            <div class="p-2 flex-shrink-1"><h5><span id="vatAMOUNT">0.00</span></h5></div>
                                         </div>
                                         <div class="dropdown-divider"></div>
                                         
@@ -518,35 +538,17 @@ $user = $_SESSION['user_name'];
   <script src="calculateItems.js"></script>
   <script src="buttonPOS.js"></script>
     <script>
-        
-        /*
-        // Sample data for demonstration
-        const barcodeData = [
-            { barcode: '4800010075069', description: 'Cream-O' },
-            // Add more data as needed
-        ];
 
-        barcodeInput.addEventListener('input', () => {
-            const searchTerm = barcodeInput.value.trim();
+        // Function Try for POS
+        // Function to update the total product count
+        //function updateTotalProductCount() {
+        //    var totalProductCount = $("#tableBody tr").length;
+        //    $("#totalProductCount").text(totalProductCount);
+        //}
 
-            // Clear the table body
-            barcodeTableBody.innerHTML = '';
+        // Call the function initially
+        //updateTotalProductCount();
 
-            // Filter data based on the input
-            const filteredData = barcodeData.filter(item => item.barcode.includes(searchTerm));
-
-            // Populate the table with filtered data
-            filteredData.forEach(item => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${item.barcode}</td>
-                    <td>${item.description}</td>
-                `;
-                barcodeTableBody.appendChild(row);
-            });
-        });
-
-        */
     </script>
     
 </body>
