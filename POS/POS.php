@@ -444,7 +444,7 @@ if(isset($_SESSION['id']) && isset($_SESSION['user_name'])) {
                                         <!--Total Input-->
                                         <div class="form-group mt-1">
                                             <label for="total"><div class="p-2 w-100"><h4>Total</h4></div></label>
-                                            <input type="text" class="form-control" id="modalPTotal" placeholder="0.00">
+                                            <input type="number" class="form-control" id="modalPTotal" placeholder="0.00" disabled>
                                         </div>
     
                                         <!--Cash Input-->
