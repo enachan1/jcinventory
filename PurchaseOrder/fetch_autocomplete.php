@@ -20,6 +20,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     }
 } else {
-    header("Location: PurchaseOrder.php?gag=hhoho");
+    header("Location: PurchaseOrder.php?msg=false");
 }
 ?>

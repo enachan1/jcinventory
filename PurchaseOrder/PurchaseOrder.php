@@ -153,6 +153,7 @@ $user = $_SESSION['user_name'];
                     
                                         $results = mysqli_query($sqlconn, $query);
                                         $previous = null;
+                                        $unique_identifier = 0;
                                         
                                         while ($rows = mysqli_fetch_assoc($results)) {
                                         ?>
@@ -166,14 +167,8 @@ $user = $_SESSION['user_name'];
                                                 <a href="delete_po.php?vendorid=<?php echo $rows['item_vendorID'] ?>" class="btn btn-danger btn-sm">Delete</a>
                                             </td>
                                             <td>
-                                                <div class="form-check">
-                                                <input class="form-check-input delivered-rbtn" value="Delivered" type="radio" name="flexRadioDefault" data-itemid="<?php echo $rows['item_vendorID']; ?>">
-                                                <label class="form-check-label" for="delivered">Delivered</label>
-                                                </div>
-                                                <div class="form-check">
-                                                <input class="form-check-input badorder-rbtn" value="badOrder" type="radio" name="flexRadioDefault"  data-itemid="<?php echo $rows['item_vendorID']; ?>">
-                                                <label class="form-check-label" for="fbad_order">Bad Order</label>
-                                                </div>
+                                            <button class="btn btn-primary btn-sm delivered-rbtn" id="delivered_label" value="Delivered" name="dob_<?php echo $rows['item_vendorID']; ?>" data-itemid="<?php echo $rows['item_vendorID']; ?>">Delivered</button>
+                                            <button class="btn btn-danger btn-sm badorder-rbtn" id="badorder_label" value="badOrder" name="dob_<?php echo $rows['item_vendorID']; ?>" data-itemid="<?php echo $rows['item_vendorID']; ?>">Bad Order</button>
                                             </td>
                                             <?php } ?>
                                         </tr>
@@ -538,7 +533,7 @@ $user = $_SESSION['user_name'];
                         <div class="modal-content">
                         <!-- Modal Header -->
                             <div class="modal-header">
-                                <h3 class="modal-title"></h3>
+                                <h3 class="modal-title">Add Vendor</h3>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                             </div>
                             <!-- Modal Body -->
@@ -572,6 +567,25 @@ $user = $_SESSION['user_name'];
 
     <!-- ...Vendors Modal Ends Here... -->
 
+ <!-- confirmation Modal here -->
+        <div class="modal fade" tabindex="-1" role="dialog" id="confirmation_modal">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Confirmation</h5>
+                        <button type="button" class="btn-close" id="close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Are you sure you want to mark as <span>tite</span></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="confirmation_yes" class="btn btn-primary">Yes</button>
+                        <button type="button" id="confirmation_no" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+<!-- ends here -->
 
 
 
