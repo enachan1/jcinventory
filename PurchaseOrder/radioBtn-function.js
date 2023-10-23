@@ -2,6 +2,7 @@ $(document).ready(function () {
 
     //iterate if there is delivered item in po's
     loadIterate();
+    badorder_iterate();
     
 
     //for radio button delivered
@@ -10,9 +11,10 @@ $(document).ready(function () {
         
         console.log(vendorDataId);
         $('#confirmation_modal').modal('show');
-
+        const delivered_label_text = $('#delivered_label').html();
+        $('#confirmation_modal span').html(delivered_label_text);
         
-        $('#confirmation_yes').click(function (e) { 
+        $('#confirmation_yes').off('click').on('click', function (e) { 
             e.preventDefault();
             
             $.ajax({
@@ -25,7 +27,7 @@ $(document).ready(function () {
             });
         });
 
-        $('#confirmation_no').click(function (e) { 
+        $('#confirmation_no').off('click').on('click', function (e) { 
             e.preventDefault();
             $('#confirmation_modal').modal('hide');
         });
@@ -44,7 +46,7 @@ $(document).ready(function () {
 
         //actions for modal buttons
 
-        $('#confirmation_yes').click(function (e) { 
+        $('#confirmation_yes').off('click').on('click', function (e) { 
             e.preventDefault();
             $('#confirmation_yes').click(function (e) { 
                 e.preventDefault();
@@ -61,7 +63,7 @@ $(document).ready(function () {
             
         });
 
-        $('#confirmation_no').click(function (e) { 
+        $('#confirmation_no').off('click').on('click', function (e) { 
             e.preventDefault();
             $('#confirmation_modal').modal('hide');
         });
@@ -97,6 +99,10 @@ function loadIterate() {
     });
 
 
+    
+
+}
+function badorder_iterate() {
     $('.badorder-rbtn').each(function () {
         const deliveredRbtn = $(this);
         const vendorDataId = deliveredRbtn.data('itemid');
@@ -114,5 +120,4 @@ function loadIterate() {
             }
         });
     });
-
 }

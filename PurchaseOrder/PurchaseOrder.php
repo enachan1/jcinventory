@@ -209,6 +209,12 @@ $user = $_SESSION['user_name'];
                                       <!-- Search Bar-->
                                     <input type="text" class="form-control search-bar" placeholder="Search">
                                 </div><br>
+                                <!-- Maybe you can fix this alert i want it to close-->
+                                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                    <strong>Holy guacamole!</strong> You should check in on some of those fields below.
+                                    <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close">
+                                    </button>
+                                </div>
                                 <!--Table-->
                                 <table class="table bg-light rounded shadow-sm table-hover">
                                     <thead>
@@ -217,6 +223,7 @@ $user = $_SESSION['user_name'];
                                             <th>Vendor ID</th>
                                             <th>Vendor Name</th>
                                             <th>Contact No.</th>
+                                            <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -230,6 +237,10 @@ $user = $_SESSION['user_name'];
                                             <td><?php echo $array['vendor_id'] ?></td>
                                             <td><?php echo $array['vendor_name'] ?></td>
                                             <td><?php echo $array['vendor_contact'] ?></td>
+                                            <td>
+                                                <button type="button" class="btn btn-secondary btn-sm edit-vendor-btn" data-bs-toggle="modal" data-bs-target="#edit-vendor"><i class="fas fa-edit"></i></button>
+                                                <a href="#" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>
+                                            </td>
                                         </tr>
                                         <?php } ?>
                                     </tbody>
@@ -270,20 +281,37 @@ $user = $_SESSION['user_name'];
                                     <thead>
                                         <tr>
                                             <!-- Table content here -->
-                                            <th>Working Title</th>
+                                            <th>Vendor Name</th>                                          
+                                            <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php
+                                    <?php
+                                        $query_deliveryin = "SELECT
+                                            vendors_db.vendor_id,
+                                            vendors_db.vendor_name as Vendor
+                                        FROM vendors_db
+                                        JOIN purchase_order_db ON vendors_db.vendor_id = purchase_order_db.vendor_id
+                                        WHERE purchase_order_db.is_delivered = 1 AND purchase_order_db.isBadOrder = 0";
+                                        
+                                        $results_deliveryin = mysqli_query($sqlconn, $query_deliveryin);
+                                        $previous_deliverIn = null;
+                                        
+                                        while ($rows_deliveryin = mysqli_fetch_assoc($results_deliveryin)) {
                                         
                                         ?>
-                                        <td>
-                                         <!--    
-                                        <div class="form-check">
-
-                                        </div>
-                                        -->
-                                        </td>
+                                        <tr>
+                                        <?php if($rows_deliveryin['Vendor'] != $previous_deliverIn) { ?>
+                                            <td><?php echo $rows_deliveryin['Vendor']; 
+                                            $previous_deliverIn = $rows_deliveryin['Vendor'];
+                                            ?></td>
+                                            <td>
+                                                <button class="btn btn-primary btn-sm">View Data</button>
+                                                <button class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
+                                            </td>
+                                            <?php } ?>
+                                        </tr>
+                                    <?php  } ?>
                                     </tbody>
                                 </table>
         
@@ -322,11 +350,37 @@ $user = $_SESSION['user_name'];
                                     <thead>
                                         <tr>
                                             <!-- Table content here -->
-                                            <th>Working Title</th>
+                                            <th>Vendor Name</th>
+                                            <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <td></td>
+                                    <?php
+                                        $query_badorder = "SELECT
+                                            vendors_db.vendor_id,
+                                            vendors_db.vendor_name as Vendor
+                                        FROM vendors_db
+                                        JOIN purchase_order_db ON vendors_db.vendor_id = purchase_order_db.vendor_id
+                                        WHERE purchase_order_db.is_delivered = 0 AND purchase_order_db.isBadOrder = 1";
+                                        
+                                        $results_badorder = mysqli_query($sqlconn, $query_badorder);
+                                        $previous_badorder = null;
+                                        
+                                        while ($rows_badorder = mysqli_fetch_assoc($results_badorder)) {
+                                        
+                                        ?>
+                                        <tr>
+                                        <?php if($rows_badorder['Vendor'] != $previous_badorder) { ?>
+                                            <td><?php echo $rows_badorder['Vendor']; 
+                                            $previous_badorder = $rows_badorder['Vendor'];
+                                            ?></td>
+                                            <td>
+                                                <button class="btn btn-primary btn-sm">View Data</button>
+                                                <button class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
+                                            </td>
+                                            <?php } ?>
+                                        </tr>
+                                    <?php  } ?>
                                     </tbody>
                                 </table>
         
@@ -567,6 +621,50 @@ $user = $_SESSION['user_name'];
 
     <!-- ...Vendors Modal Ends Here... -->
 
+
+    <!-- ...Edit Vendors Modal... -->
+
+                <!-- Vendor Modal-->
+                <div class="modal fade" id="edit-vendor">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                        <!-- Modal Header -->
+                            <div class="modal-header">
+                                <h3 class="modal-title">Edit Vendor</h3>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                            </div>
+                            <!-- Modal Body -->
+                            <div class="modal-body">
+                            <!-- Your Vendor1 content goes here -->
+                            <div class="container-fluid px-1">
+                                <div class="mb-4">
+                                <form action="update-vendor.php" method="post">
+                                    <!-- Label and Textbox -->
+                                    <input type="hidden" name="uvendorId" class="form-control" id="update-vendor-id">
+                                    <label for="skuInput" class="form-label">Vendor Name</label>
+                                    <input type="text" name="uvendorName" class="form-control" id="update-vendor-name" required>
+                                    <label for="itemnameInput" class="form-label">Contact Number</label>
+                                    <input type="number" class="form-control" name="uvendorContact" id="update-vendor-contact" required>
+                                </div>
+    
+                            <!-- ... Rest of your Vendor1 content ... -->
+                        </div>
+                            <!-- Modal Footer Goes here-->
+                            <div class="modal-footer">
+                                <button class="btn btn-primary">Update</button>
+                                </form>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            </div>
+
+                        </div>
+                        </div>
+                    </div>
+                </div>
+
+    <!-- ... Edit Vendors Modal Ends Here... -->
+
+
+
  <!-- confirmation Modal here -->
         <div class="modal fade" tabindex="-1" role="dialog" id="confirmation_modal">
             <div class="modal-dialog" role="document">
@@ -576,7 +674,7 @@ $user = $_SESSION['user_name'];
                         <button type="button" class="btn-close" id="close" data-bs-dismiss="modal"></button>
                     </div>
                     <div class="modal-body">
-                        <p>Are you sure you want to mark as <span>tite</span></p>
+                        <p>Are you sure you want to mark as <span></span></p>
                     </div>
                     <div class="modal-footer">
                         <button type="button" id="confirmation_yes" class="btn btn-primary">Yes</button>
@@ -602,6 +700,7 @@ $user = $_SESSION['user_name'];
     <script src="autocomplete.js"></script>
     <script src="radioBtn-function.js"></script>
     <script src="view-item.js"></script>
+    <script src="update-vendor.js"></script>
     <script>
         var el = document.getElementById("wrapper");
         var toggleButton = document.getElementById("menu-toggle");
@@ -610,6 +709,7 @@ $user = $_SESSION['user_name'];
             el.classList.toggle("toggled");
         };
 
+        
     </script>
 <?php } ?>
 </body>
