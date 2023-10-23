@@ -34,18 +34,16 @@ $user = $_SESSION['user_name'];
     <!-- Sidebar -->
     <div class="d-flex" id="wrapper">
         <div id="sidebar-wrapper">
-            <div class="sidebar-heading text-center py-4 primary-text fs-4 fw-bold text-uppercase border-bottom"><i></i>Jun&Cathy</div>
-
-            
+            <div class="sidebar-heading text-center py-4 primary-text fs-4 fw-bold text-uppercase border-bottom">Jun&Cathy</div>
             <div class="list-group list-group-flush my-3">
                 <a href="../Dashboard/Dashboard.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
                         class="fas fa-home-lg-alt me-2"></i>Dashboard</a>
                 <a href="../Inventory/Inventory.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
                         class="fas fa-inventory me-2"></i>Inventory</a>
                 <a href="../ProductMaintenance/ProductMaintenance.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-                        class="fas fa-folders me-2"></i>Product Maintenance</a>
+                        class="fas fa-tools me-2"></i>Product Maintenance</a>
                 <a href="../PurchaseOrder/PurchaseOrder.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-                        class="fas fa-folders me-2"></i>Purchase Order</a>
+                        class="fas fa-shopping-bag me-2"></i>Purchase Order</a>
                 <a href="../Reports/Reports.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
                         class="fas fa-file-spreadsheet me-2"></i>Reports</a>
                 <a href="../Accounts/Accounts.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i

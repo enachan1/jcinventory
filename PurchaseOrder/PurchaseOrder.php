@@ -32,30 +32,30 @@ $user = $_SESSION['user_name'];
 
 <body>
         <!-- Sidebar -->
-        <div class="d-flex" id="wrapper">
-            <div id="sidebar-wrapper">
-                <div class="sidebar-heading text-center py-4 primary-text fs-4 fw-bold text-uppercase border-bottom"><i></i>Jun&Cathy</div>
-                <div class="list-group list-group-flush my-3">
-                        <a href="../Dashboard/Dashboard.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-                                class="fas fa-home-lg-alt me-2"></i>Dashboard</a>
-                        <a href="../Inventory/Inventory.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-                                class="fas fa-inventory me-2"></i>Inventory</a>
-                        <a href="../ProductMaintenance/ProductMaintenance.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-                                class="fas fa-folders me-2"></i>Product Maintenance</a>
-                        <a href="../PurchaseOrder/PurchaseOrder.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-                                class="fas fa-folders me-2"></i>Purchase Order</a>
-                        <a href="../Reports/Reports.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-                                class="fas fa-file-spreadsheet me-2"></i>Reports</a>
-                        <a href="../Accounts/Accounts.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-                                class="fad fa-users me-2"></i>Accounts</a>
-                        <a href="../Notification/Notification.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-                                class="fas fa-bell me-2"></i>Notification</a>
-                        <a href="../Settings/Settings.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-                                class="far fa-cog me-2"></i>Setting</a>                            
-                        <a href="../logout.php" class="list-group-item list-group-item-action bg-transparent text-danger fw-bold"><i
-                                class="fas fa-power-off me-2"></i>Log-out</a>
-                </div>
+    <div class="d-flex" id="wrapper">
+        <div id="sidebar-wrapper">
+            <div class="sidebar-heading text-center py-4 primary-text fs-4 fw-bold text-uppercase border-bottom">Jun&Cathy</div>
+            <div class="list-group list-group-flush my-3">
+                <a href="../Dashboard/Dashboard.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
+                        class="fas fa-home-lg-alt me-2"></i>Dashboard</a>
+                <a href="../Inventory/Inventory.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
+                        class="fas fa-inventory me-2"></i>Inventory</a>
+                <a href="../ProductMaintenance/ProductMaintenance.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
+                        class="fas fa-tools me-2"></i>Product Maintenance</a>
+                <a href="../PurchaseOrder/PurchaseOrder.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
+                        class="fas fa-shopping-bag me-2"></i>Purchase Order</a>
+                <a href="../Reports/Reports.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
+                        class="fas fa-file-spreadsheet me-2"></i>Reports</a>
+                <a href="../Accounts/Accounts.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
+                        class="fad fa-users me-2"></i>Accounts</a>
+                <a href="../Notification/Notification.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
+                        class="fas fa-bell me-2"></i>Notification</a>
+                <a href="../Settings/Settings.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
+                        class="far fa-cog me-2"></i>Setting</a>                            
+                <a href="../logout.php" class="list-group-item list-group-item-action bg-transparent text-danger fw-bold"><i
+                        class="fas fa-power-off me-2"></i>Log-out</a>
             </div>
+        </div>
 
     <!--Page Content-->
     <div id="page-content-wrapper">
@@ -91,17 +91,17 @@ $user = $_SESSION['user_name'];
 
     <!--Tab button--->
 
-    <div class="container mt-5">
+    <div class="container-fluid mt-4 px-4">
         <ul class="nav nav-tabs" id="myTab" role="tablist">
             <!-- Navigation Menu -->
             <li class="nav-item" role="presentation">
                 <a class="nav-link active" id="sales-tab" data-bs-toggle="tab" data-bs-target="#sales" type="button" role="tab" aria-controls="sales" aria-selected="true">
-                    <i class="fas fa-chart-line"></i> Purchase Order
+                    <i class="fas fa-shopping-cart"></i> Purchase Order
                 </a>
             </li>
             <li class="nav-item" role="presentation">
                 <a class="nav-link" id="inventory-tab" data-bs-toggle="tab" data-bs-target="#inventory" type="button" role="tab" aria-controls="inventory" aria-selected="false">
-                    <i class="fas fa-box"></i> Vendors
+                    <i class="fas fa-building"></i> Vendors
                 </a>
             </li>
             <li class="nav-item" role="presentation">
@@ -209,11 +209,10 @@ $user = $_SESSION['user_name'];
                                       <!-- Search Bar-->
                                     <input type="text" class="form-control search-bar" placeholder="Search">
                                 </div><br>
-                                <!-- Maybe you can fix this alert i want it to close-->
+                                <!-- Missing bs form data-bs-dimiss this should work now "if you read this remove comment"-->
                                 <div class="alert alert-warning alert-dismissible fade show" role="alert">
                                     <strong>Holy guacamole!</strong> You should check in on some of those fields below.
-                                    <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close">
-                                    </button>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                 </div>
                                 <!--Table-->
                                 <table class="table bg-light rounded shadow-sm table-hover">
@@ -696,6 +695,7 @@ $user = $_SESSION['user_name'];
         
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    
     <script src="cloneInputs.js"></script>
     <script src="autocomplete.js"></script>
     <script src="radioBtn-function.js"></script>

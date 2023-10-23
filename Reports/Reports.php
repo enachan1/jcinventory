@@ -30,28 +30,26 @@ $user = $_SESSION['user_name'];
     <!-- Sidebar -->
     <div class="d-flex" id="wrapper">
         <div id="sidebar-wrapper">
-            <div class="sidebar-heading text-center py-4 primary-text fs-4 fw-bold text-uppercase border-bottom"><i></i>Jun&Cathy</div>
-
-            
+            <div class="sidebar-heading text-center py-4 primary-text fs-4 fw-bold text-uppercase border-bottom">Jun&Cathy</div>
             <div class="list-group list-group-flush my-3">
-                        <a href="../Dashboard/Dashboard.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-                                class="fas fa-home-lg-alt me-2"></i>Dashboard</a>
-                        <a href="../Inventory/Inventory.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-                                class="fas fa-inventory me-2"></i>Inventory</a>
-                        <a href="../ProductMaintenance/ProductMaintenance.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-                                class="fas fa-folders me-2"></i>Product Maintenance</a>
-                        <a href="../PurchaseOrder/PurchaseOrder.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-                                class="fas fa-folders me-2"></i>Purchase Order</a>
-                        <a href="../Reports/Reports.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-                                class="fas fa-file-spreadsheet me-2"></i>Reports</a>
-                        <a href="../Accounts/Accounts.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-                                class="fad fa-users me-2"></i>Accounts</a>
-                        <a href="../Notification/Notification.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-                                class="fas fa-bell me-2"></i>Notification</a>
-                        <a href="../Settings/Settings.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-                                class="far fa-cog me-2"></i>Setting</a>                            
-                        <a href="../logout.php" class="list-group-item list-group-item-action bg-transparent text-danger fw-bold"><i
-                                class="fas fa-power-off me-2"></i>Log-out</a>
+                <a href="../Dashboard/Dashboard.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
+                        class="fas fa-home-lg-alt me-2"></i>Dashboard</a>
+                <a href="../Inventory/Inventory.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
+                        class="fas fa-inventory me-2"></i>Inventory</a>
+                <a href="../ProductMaintenance/ProductMaintenance.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
+                        class="fas fa-tools me-2"></i>Product Maintenance</a>
+                <a href="../PurchaseOrder/PurchaseOrder.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
+                        class="fas fa-shopping-bag me-2"></i>Purchase Order</a>
+                <a href="../Reports/Reports.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
+                        class="fas fa-file-spreadsheet me-2"></i>Reports</a>
+                <a href="../Accounts/Accounts.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
+                        class="fad fa-users me-2"></i>Accounts</a>
+                <a href="../Notification/Notification.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
+                        class="fas fa-bell me-2"></i>Notification</a>
+                <a href="../Settings/Settings.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
+                        class="far fa-cog me-2"></i>Setting</a>                            
+                <a href="../logout.php" class="list-group-item list-group-item-action bg-transparent text-danger fw-bold"><i
+                        class="fas fa-power-off me-2"></i>Log-out</a>
             </div>
         </div>
 
