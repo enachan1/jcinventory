@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 17, 2023 at 02:24 PM
+-- Generation Time: Oct 23, 2023 at 02:02 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -65,10 +65,9 @@ CREATE TABLE `items_db` (
 --
 
 INSERT INTO `items_db` (`id`, `item_sku`, `item_name`, `item_stocks`, `item_expdate`, `item_price`, `item_uom`, `item_category`) VALUES
-(4, 23568775126, 'Coca Cola Mismo', 0, '2023-12-28', 15, 'Liters', 'Drinks'),
+(4, 23568775126, 'Coca Cola Mismo', -1, '2023-12-28', 15, 'Liters', 'Drinks'),
 (8, 89456456123, 'toblerone', 14, '2023-11-30', 26, 'Liters', 'Snacks'),
-(9, 25458976321, 'Piattos', 30, '2023-10-31', 19, 'Pieces', 'Snacks'),
-(16, 12313, 'Coca Cola Mismo1', 344, '2023-10-26', 4545, 'Boxes', 'Drinks');
+(9, 25458976321, 'Piattos', 30, '2023-10-31', 19, 'Pieces', 'Snacks');
 
 -- --------------------------------------------------------
 
@@ -82,6 +81,15 @@ CREATE TABLE `purchase_db` (
   `p_itemname` varchar(255) NOT NULL,
   `p_price` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `purchase_db`
+--
+
+INSERT INTO `purchase_db` (`id`, `p_sku`, `p_itemname`, `p_price`) VALUES
+(1, 23568775126, 'Coca Cola Mismo', 15),
+(2, 89456456123, 'toblerone', 26),
+(3, 89456456123, 'toblerone', 26);
 
 -- --------------------------------------------------------
 
@@ -97,7 +105,8 @@ CREATE TABLE `purchase_order_db` (
   `po_category` varchar(255) NOT NULL,
   `po_dot` date NOT NULL,
   `po_expdelivery` date NOT NULL,
-  `is_delivered` tinyint(1) NOT NULL,
+  `is_delivered` tinyint(1) DEFAULT NULL,
+  `isBadOrder` tinyint(1) DEFAULT NULL,
   `vendor_id` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -105,9 +114,9 @@ CREATE TABLE `purchase_order_db` (
 -- Dumping data for table `purchase_order_db`
 --
 
-INSERT INTO `purchase_order_db` (`id`, `po_item_name`, `po_qty`, `po_uom`, `po_category`, `po_dot`, `po_expdelivery`, `is_delivered`, `vendor_id`) VALUES
-(31, 'asddwe', 54, 'Dozen', 'Canned Goods', '2023-10-17', '2023-11-09', 0, 10001),
-(32, 'asdasd', 34, 'Dozen', 'Canned Goods', '2023-10-17', '2023-11-09', 0, 10001);
+INSERT INTO `purchase_order_db` (`id`, `po_item_name`, `po_qty`, `po_uom`, `po_category`, `po_dot`, `po_expdelivery`, `is_delivered`, `isBadOrder`, `vendor_id`) VALUES
+(17, 'piatoss', 2, 'Dozen', 'Canned Goods', '2023-10-28', '2023-10-28', 1, 0, 10001),
+(18, 'energen', 2, 'Dozen', 'Canned Goods', '2023-10-21', '2023-10-28', 1, 0, 10002);
 
 -- --------------------------------------------------------
 
@@ -240,13 +249,13 @@ ALTER TABLE `items_db`
 -- AUTO_INCREMENT for table `purchase_db`
 --
 ALTER TABLE `purchase_db`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `purchase_order_db`
 --
 ALTER TABLE `purchase_order_db`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `uom_db`
