@@ -699,7 +699,7 @@ $user = $_SESSION['user_name'];
     <script src="cloneInputs.js"></script>
     <script src="autocomplete.js"></script>
     <script src="radioBtn-function.js"></script>
-    <script src="view-item.js"></script>
+    <script src="po-view-item.js"></script>
     <script src="update-vendor.js"></script>
     <script>
         var el = document.getElementById("wrapper");
