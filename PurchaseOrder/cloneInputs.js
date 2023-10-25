@@ -15,6 +15,7 @@ $(document).ready(function () {
 
             <!-- Many Brands -->
         </select></th>
+        <th><input type="number" class="form-control" name="PO_price[]" required></th>
         <!--Added Input -->
         <td><button class="btn btn-primary btn-sm btn-danger removeInput" type="button"><i class="fa fa-minus-circle"></i>
         </tr>`
@@ -45,6 +46,7 @@ $(document).ready(function () {
             success: function (response) {
                 $("#purchase1").modal('hide');
                 $(".appended_items").remove();
+                console.log(response);
                 updateTableContent();
                 location.reload();
             }

@@ -12,7 +12,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                      purchase_order_db.po_item_name as item_name,
                      purchase_order_db.po_qty as qty,
                      purchase_order_db.po_uom as uom,
-                     purchase_order_db.po_category as category
+                     purchase_order_db.po_category as category,
+                     purchase_order_db.po_item_price as price
               FROM vendors_db
               JOIN purchase_order_db ON vendors_db.vendor_id = purchase_order_db.vendor_id
               WHERE vendors_db.vendor_id = $item_vendor_id";

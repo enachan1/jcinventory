@@ -36,6 +36,7 @@ function populateModal(data) {
                 <td>${item.qty}</td>
                 <td>${item.uom}</td>
                 <td>${item.category}</td>
+                <td>${item.price}</td>
             </tr>`
         );
     });

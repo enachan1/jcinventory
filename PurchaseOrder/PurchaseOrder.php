@@ -138,6 +138,8 @@ $user = $_SESSION['user_name'];
                                         <tr>
                                             <!-- Table content here -->
                                             <th>Vendor Name</th>
+                                            <th>Transaction Date</th>
+                                            <th>Expected Delivery</th>
                                             <th>Action</th>
                                             <th>Mark as</th>
                                         </tr>
@@ -147,7 +149,9 @@ $user = $_SESSION['user_name'];
                                             $query = " SELECT
                                             vendors_db.vendor_id,
                                             vendors_db.vendor_name as Vendor,
-                                            purchase_order_db.vendor_id as item_vendorID
+                                            purchase_order_db.vendor_id as item_vendorID,
+                                            purchase_order_db.po_dot as dateOfTransaction,
+                                            purchase_order_db.po_expdelivery as expectedDel
                                         FROM vendors_db
                                         JOIN purchase_order_db ON vendors_db.vendor_id = purchase_order_db.vendor_id";
                     
@@ -162,9 +166,10 @@ $user = $_SESSION['user_name'];
                                             <td><?php echo $rows['Vendor']; 
                                             $previous = $rows['Vendor'];
                                             ?></td>
+                                            <td><?php echo $rows['dateOfTransaction'] ?></td>
+                                            <td><?php echo $rows['expectedDel'] ?></td>
                                             <td>
                                                 <button title="<?php echo $rows['item_vendorID']; ?>" class="btn btn-primary btn-sm view-data" data-itemid="<?php echo $rows['item_vendorID'];?>" data-bs-toggle="modal" data-bs-target="#viewModal">View Items</button>
-                                                <a href="delete_po.php?vendorid=<?php echo $rows['item_vendorID'] ?>" class="btn btn-danger btn-sm">Delete</a>
                                             </td>
                                             <td>
                                             <button class="btn btn-primary btn-sm delivered-rbtn" id="delivered_label" value="Delivered" name="dob_<?php echo $rows['item_vendorID']; ?>" data-itemid="<?php echo $rows['item_vendorID']; ?>">Delivered</button>
@@ -280,7 +285,9 @@ $user = $_SESSION['user_name'];
                                     <thead>
                                         <tr>
                                             <!-- Table content here -->
-                                            <th>Vendor Name</th>                                          
+                                            <th>Vendor Name</th>
+                                            <th>Date of Transaction</th>   
+                                            <th>Expected Delivery</th>                                          
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -288,7 +295,10 @@ $user = $_SESSION['user_name'];
                                     <?php
                                         $query_deliveryin = "SELECT
                                             vendors_db.vendor_id,
-                                            vendors_db.vendor_name as Vendor
+                                            vendors_db.vendor_name as Vendor,
+                                            purchase_order_db.vendor_id as item_vendorID,
+                                            purchase_order_db.po_dot as dateOfTransaction,
+                                            purchase_order_db.po_expdelivery as expectedDel
                                         FROM vendors_db
                                         JOIN purchase_order_db ON vendors_db.vendor_id = purchase_order_db.vendor_id
                                         WHERE purchase_order_db.is_delivered = 1 AND purchase_order_db.isBadOrder = 0";
@@ -304,9 +314,11 @@ $user = $_SESSION['user_name'];
                                             <td><?php echo $rows_deliveryin['Vendor']; 
                                             $previous_deliverIn = $rows_deliveryin['Vendor'];
                                             ?></td>
+                                            <td><?php echo $rows_deliveryin['dateOfTransaction'] ?></td>
+                                            <td><?php echo $rows_deliveryin['expectedDel'] ?></td>
                                             <td>
-                                                <button class="btn btn-primary btn-sm">View Data</button>
-                                                <button class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
+                                                <button title="<?php echo $rows_deliveryin['item_vendorID']; ?>" class="btn btn-primary btn-sm view-data" data-itemid="<?php echo $rows_deliveryin['item_vendorID'];?>" data-bs-toggle="modal" data-bs-target="#viewModal">View Items</button>
+                                                <a href="delete_po.php?vendorid=<?php echo $rows_deliveryin['item_vendorID'] ?>" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>
                                             </td>
                                             <?php } ?>
                                         </tr>
@@ -350,6 +362,8 @@ $user = $_SESSION['user_name'];
                                         <tr>
                                             <!-- Table content here -->
                                             <th>Vendor Name</th>
+                                            <th>Date of Transaction</th>
+                                            <th>Expected Delivery</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -357,7 +371,10 @@ $user = $_SESSION['user_name'];
                                     <?php
                                         $query_badorder = "SELECT
                                             vendors_db.vendor_id,
-                                            vendors_db.vendor_name as Vendor
+                                            vendors_db.vendor_name as Vendor,
+                                            purchase_order_db.vendor_id as item_vendorID,
+                                            purchase_order_db.po_dot as dateOfTransaction,
+                                            purchase_order_db.po_expdelivery as expectedDel
                                         FROM vendors_db
                                         JOIN purchase_order_db ON vendors_db.vendor_id = purchase_order_db.vendor_id
                                         WHERE purchase_order_db.is_delivered = 0 AND purchase_order_db.isBadOrder = 1";
@@ -373,9 +390,11 @@ $user = $_SESSION['user_name'];
                                             <td><?php echo $rows_badorder['Vendor']; 
                                             $previous_badorder = $rows_badorder['Vendor'];
                                             ?></td>
+                                            <td><?php echo $rows_badorder['dateOfTransaction'] ?></td>
+                                            <td><?php echo $rows_badorder['expectedDel'] ?></td>
                                             <td>
-                                                <button class="btn btn-primary btn-sm">View Data</button>
-                                                <button class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
+                                                <button title="<?php echo $rows_badorder['item_vendorID']; ?>" class="btn btn-primary btn-sm view-data" data-itemid="<?php echo $rows_badorder['item_vendorID'];?>" data-bs-toggle="modal" data-bs-target="#viewModal">View Items</button>
+                                                <a href="delete_po.php?vendorid=<?php echo $rows_badorder['item_vendorID'] ?>" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>
                                             </td>
                                             <?php } ?>
                                         </tr>
@@ -454,6 +473,7 @@ $user = $_SESSION['user_name'];
                                                     <th scope="col">QTY</th>
                                                     <th scope="col">UOM</th>
                                                     <th scope="col">Category</th>
+                                                    <th scope="col">Price</th>
                                                     <th>Add Row</th>
                                                 </tr>
                                             </thead>
@@ -489,6 +509,7 @@ $user = $_SESSION['user_name'];
                                                     ?>
                                                         <!-- Many Brands -->
                                                     </select></th>
+                                                    <th><input type="number" class="form-control" name="PO_price[]" required></th>
                                                     <!--Added Input -->
                                                     <td><button class="btn btn-primary btn-sm btn-secondary" id="addInput" type="button"><i class="far fa-plus-circle"></i>
                                                 </tr>
@@ -555,6 +576,7 @@ $user = $_SESSION['user_name'];
                                                 <th scope="col">QTY</th>
                                                 <th scope="col">UOM</th>
                                                 <th scope="col">Category</th>
+                                                <th scope="col">Price</th>
                                             </tr>
                                             </thead>
                                             <tbody>
