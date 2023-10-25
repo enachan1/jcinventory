@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 23, 2023 at 02:02 PM
+-- Generation Time: Oct 25, 2023 at 05:16 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -103,6 +103,7 @@ CREATE TABLE `purchase_order_db` (
   `po_qty` float NOT NULL,
   `po_uom` varchar(255) NOT NULL,
   `po_category` varchar(255) NOT NULL,
+  `po_item_price` double NOT NULL,
   `po_dot` date NOT NULL,
   `po_expdelivery` date NOT NULL,
   `is_delivered` tinyint(1) DEFAULT NULL,
@@ -114,9 +115,10 @@ CREATE TABLE `purchase_order_db` (
 -- Dumping data for table `purchase_order_db`
 --
 
-INSERT INTO `purchase_order_db` (`id`, `po_item_name`, `po_qty`, `po_uom`, `po_category`, `po_dot`, `po_expdelivery`, `is_delivered`, `isBadOrder`, `vendor_id`) VALUES
-(17, 'piatoss', 2, 'Dozen', 'Canned Goods', '2023-10-28', '2023-10-28', 1, 0, 10001),
-(18, 'energen', 2, 'Dozen', 'Canned Goods', '2023-10-21', '2023-10-28', 1, 0, 10002);
+INSERT INTO `purchase_order_db` (`id`, `po_item_name`, `po_qty`, `po_uom`, `po_category`, `po_item_price`, `po_dot`, `po_expdelivery`, `is_delivered`, `isBadOrder`, `vendor_id`) VALUES
+(45, 'energen', 23, 'Boxes', 'Canned Goods', 23, '2023-10-25', '2023-10-31', NULL, NULL, 10002),
+(46, 'piatoss', 23, 'Boxes', 'Canned Goods', 23, '2023-10-25', '2023-10-31', NULL, NULL, 10002),
+(47, 'asfdsf', 23, 'Boxes', 'Canned Goods', 32, '2023-10-25', '2023-10-31', NULL, NULL, 10001);
 
 -- --------------------------------------------------------
 
@@ -134,7 +136,6 @@ CREATE TABLE `uom_db` (
 --
 
 INSERT INTO `uom_db` (`id`, `uom_name`) VALUES
-(2, 'Dozen'),
 (5, 'Boxes');
 
 -- --------------------------------------------------------
@@ -177,9 +178,9 @@ CREATE TABLE `vendors_db` (
 --
 
 INSERT INTO `vendors_db` (`vendor_id`, `vendor_name`, `vendor_contact`) VALUES
-(10001, 'vendor1', 123456),
+(10001, 'vendor2', 123456),
 (10002, 'xijinping', 2147483647),
-(10003, 'puwit', 6589443),
+(10003, 'vladimir', 6589443),
 (10004, 'haheds', 2147483647);
 
 --
@@ -255,7 +256,7 @@ ALTER TABLE `purchase_db`
 -- AUTO_INCREMENT for table `purchase_order_db`
 --
 ALTER TABLE `purchase_order_db`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 
 --
 -- AUTO_INCREMENT for table `uom_db`
