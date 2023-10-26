@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 25, 2023 at 05:16 AM
+-- Generation Time: Oct 26, 2023 at 06:32 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -65,9 +65,9 @@ CREATE TABLE `items_db` (
 --
 
 INSERT INTO `items_db` (`id`, `item_sku`, `item_name`, `item_stocks`, `item_expdate`, `item_price`, `item_uom`, `item_category`) VALUES
-(4, 23568775126, 'Coca Cola Mismo', -1, '2023-12-28', 15, 'Liters', 'Drinks'),
-(8, 89456456123, 'toblerone', 14, '2023-11-30', 26, 'Liters', 'Snacks'),
-(9, 25458976321, 'Piattos', 30, '2023-10-31', 19, 'Pieces', 'Snacks');
+(4, 23568775126, 'Coca Cola Mismo', 25, '2023-12-28', 15, 'Boxes', 'Drinks'),
+(8, 89456456123, 'toblerone', 26, '2023-11-30', 26, 'Liters', 'Snacks'),
+(9, 25458976321, 'Piattos', 25, '2023-10-31', 19, 'Pieces', 'Snacks');
 
 -- --------------------------------------------------------
 
@@ -81,15 +81,6 @@ CREATE TABLE `purchase_db` (
   `p_itemname` varchar(255) NOT NULL,
   `p_price` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `purchase_db`
---
-
-INSERT INTO `purchase_db` (`id`, `p_sku`, `p_itemname`, `p_price`) VALUES
-(1, 23568775126, 'Coca Cola Mismo', 15),
-(2, 89456456123, 'toblerone', 26),
-(3, 89456456123, 'toblerone', 26);
 
 -- --------------------------------------------------------
 
@@ -119,6 +110,62 @@ INSERT INTO `purchase_order_db` (`id`, `po_item_name`, `po_qty`, `po_uom`, `po_c
 (45, 'energen', 23, 'Boxes', 'Canned Goods', 23, '2023-10-25', '2023-10-31', NULL, NULL, 10002),
 (46, 'piatoss', 23, 'Boxes', 'Canned Goods', 23, '2023-10-25', '2023-10-31', NULL, NULL, 10002),
 (47, 'asfdsf', 23, 'Boxes', 'Canned Goods', 32, '2023-10-25', '2023-10-31', NULL, NULL, 10001);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `sales_db`
+--
+
+CREATE TABLE `sales_db` (
+  `id` bigint(20) NOT NULL,
+  `s_sku` bigint(50) NOT NULL,
+  `s_item` varchar(255) NOT NULL,
+  `s_qty` float NOT NULL,
+  `s_total` float NOT NULL,
+  `s_date` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `sales_db`
+--
+
+INSERT INTO `sales_db` (`id`, `s_sku`, `s_item`, `s_qty`, `s_total`, `s_date`) VALUES
+(1, 89456456123, 'toblerone', 1, 26, '2023-10-25'),
+(2, 89456456123, 'toblerone', 1, 26, '2023-10-25'),
+(3, 89456456123, 'toblerone', 1, 26, '2023-10-25'),
+(4, 89456456123, 'toblerone', 1, 26, '2023-10-25'),
+(5, 23568775126, 'Coca Cola Mismo', 1, 15, '2023-10-25'),
+(6, 89456456123, 'toblerone', 3, 78, '2023-10-26'),
+(7, 23568775126, 'Coca Cola Mismo', 3, 45, '2023-10-26'),
+(8, 89456456123, 'toblerone', 3, 78, '2023-10-26'),
+(9, 25458976321, 'Piattos', 2, 38, '2023-10-26'),
+(22, 25458976321, 'Piattos', 1, 19, '2023-10-26'),
+(23, 89456456123, 'toblerone', 1, 26, '2023-10-26'),
+(24, 23568775126, 'Coca Cola Mismo', 5, 75, '2023-10-26'),
+(25, 89456456123, 'toblerone', 3, 78, '2023-10-26'),
+(26, 25458976321, 'Piattos', 2, 38, '2023-10-26');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `transaction_db`
+--
+
+CREATE TABLE `transaction_db` (
+  `reciept_no` varchar(255) NOT NULL,
+  `transaction_date` date NOT NULL,
+  `total_item` int(11) NOT NULL,
+  `overall_amount` float NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `transaction_db`
+--
+
+INSERT INTO `transaction_db` (`reciept_no`, `transaction_date`, `total_item`, `overall_amount`) VALUES
+('juncathyr20231026062720', '2023-10-26', 2, 45),
+('juncathyr20231026063026', '2023-10-26', 10, 191);
 
 -- --------------------------------------------------------
 
@@ -213,6 +260,12 @@ ALTER TABLE `purchase_order_db`
   ADD KEY `vendor_id` (`vendor_id`);
 
 --
+-- Indexes for table `sales_db`
+--
+ALTER TABLE `sales_db`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `uom_db`
 --
 ALTER TABLE `uom_db`
@@ -250,13 +303,19 @@ ALTER TABLE `items_db`
 -- AUTO_INCREMENT for table `purchase_db`
 --
 ALTER TABLE `purchase_db`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `purchase_order_db`
 --
 ALTER TABLE `purchase_order_db`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
+
+--
+-- AUTO_INCREMENT for table `sales_db`
+--
+ALTER TABLE `sales_db`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `uom_db`
