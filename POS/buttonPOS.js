@@ -23,9 +23,11 @@ document.addEventListener("keydown", function(event) {
         document.getElementById("F4Button").click();
     }
 })
+
 document.addEventListener("keydown", function(event) {
     if (event.key === "F5"){
         event.preventDefault();
         document.getElementById("F5Button").click();
     }
 })
+

@@ -1,24 +1,63 @@
 $(document).ready(function() {
     var dataToUpdate = [];
+    var overAllQty = 0;
+    $("#alert-pos").hide();
     $("#purchase").click(function() {
-    
-    $("tbody tr").each(function() {
-        var sku = $(this).find(".sku").text();
-        var qty = parseFloat($(this).find(".qty").val());
-        dataToUpdate.push({ sku: sku, qty: qty });
-    });
-    $.ajax({
-        url: "updateStocks.php", 
-        type: "POST",
-        data: { dataToUpdate: JSON.stringify(dataToUpdate) },
-        success: function(response) {
-            location.reload();
-        },
-        error: function(error) {
-            console.error("Error:", error);
+        
+        var cash_input = parseFloat($('#cash').val());
+        var total_input = parseFloat($('#modalPTotal').val());
+        var qty;
+        var overallTotalVal = parseFloat($('#overallTotal').text());
+
+        if(cash_input >= total_input) {
+
+            $("#tableBody tr").each(function() {
+                var sku = $(this).find(".sku").text();
+                qty = parseFloat($(this).find(".qty").val());
+                var item_name = $(this).find(".item-name").text();
+                var totalAmount = $(this).find(".totalPrice").text();
+
+                dataToUpdate.push({ sku: sku, item_name: item_name, totalAmount: totalAmount, qty: qty });
+
+                overAllQty += qty;
+            });
+            $.ajax({
+                url: "updateStocks.php", 
+                type: "POST",
+                data: { dataToUpdate: JSON.stringify(dataToUpdate), overAllQty: overAllQty, overallTotalVal: overallTotalVal },
+                success: function(response) {
+                    overAllQty = 0;
+                    location.reload();
+                    
+                },
+                error: function(error) {
+                    console.error("Error:", error);
+                }
+            });
         }
-    });
+        else {
+            console.log("lol");
+            $("#alert-pos").show();
+        }
+
     });
 
+    $(document).on('keyup', '#cash' ,function (e) { 
+        console.log("keyup working")
+        var cash_input = parseFloat($('#cash').val());
+        var total_input = parseFloat($('#modalPTotal').val());
+
+        if (isNaN(cash_input) || cash_input < total_input) {
+            $(".change-pay").val(0);
+        } else {
+            var subtract = cash_input - total_input;
+            $(".change-pay").val(subtract);
+        }
+        
+
+    });
+    $('.bt-hide').on('click', function () {
+        $("#alert-pos").fadeIn();
+    });
     
 });

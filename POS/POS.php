@@ -168,7 +168,7 @@ if(isset($_SESSION['id']) && isset($_SESSION['user_name'])) {
                                     <!-- Input QTY but change-->
                                     <td><input class="form-control adjustments qty" type="number" value="1"></td>
                                     <td class="sku"><?php echo $row['p_sku']; ?></td>
-                                    <td><?php echo $row['p_itemname']; ?></td>
+                                    <td class="item-name"><?php echo $row['p_itemname']; ?></td>
                                     <td class="price"><?php echo $row['p_price']; ?></td>
                                     <td class="totalPrice"></td>
                                 </tr>
@@ -439,6 +439,10 @@ if(isset($_SESSION['id']) && isset($_SESSION['user_name'])) {
                         <div class="modal-body">
                             <div class="container-fluid mt-1">
                                 <div class="row m-1">
+                                <div class="alert alert-warning alert-dismissible fade show" role="alert" id="alert-pos">
+                                    Insufficient Cash
+                                    <button type="button" class="btn-close bt-hide" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
                                 <!-- Left side column -->
                                     <div class="col-6">
                                         <!--Total Input-->
@@ -450,13 +454,13 @@ if(isset($_SESSION['id']) && isset($_SESSION['user_name'])) {
                                         <!--Cash Input-->
                                         <div class="form-group mt-2">
                                             <label for="cash"><div class="p-2 w-100"><h4>Cash</h4></div></label>
-                                            <input type="text" class="form-control" id="cash" placeholder="0.00">
+                                            <input type="number" class="form-control" id="cash" placeholder="0.00">
                                         </div>
     
                                         <!--Change Input-->
                                         <div class="form-group mt-2">
                                             <label for="change"><div class="p-2 w-100"><h4>Change</h4></div></label>
-                                            <input type="text" class="form-control" id="change" readonly>
+                                            <input type="text" class="form-control change-pay" readonly>
                                         </div><br>
     
                                         <!--Pay Button-->
