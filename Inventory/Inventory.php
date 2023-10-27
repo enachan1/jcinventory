@@ -9,6 +9,26 @@ $user = $_SESSION['user_name'];
         header("Location: login_form.php");
         exit();
     }
+
+    //get page number on table inventory
+    if (isset($_GET['page_no']) && $_GET['page_no'] !== "") {
+        $page_no = $_GET['page_no'];
+    } else {
+        $page_no = 1;
+    }
+    $total_records_per_page = 5;
+    $offset = ($page_no -1) * $total_records_per_page;
+    $previous_page = $page_no -1;
+    $next_page = $page_no + 1;
+
+    $result_count = mysqli_query($sqlconn,"SELECT COUNT(*) as total_records FROM items_db");
+    $records = mysqli_fetch_array($result_count);
+    $total_records = $records['total_records'];
+    $total_no_of_pages = ceil($total_records / $total_records_per_page);
+
+
+
+
 ?>
 <html>
     <head>
@@ -152,7 +172,7 @@ $user = $_SESSION['user_name'];
                     </thead>
                     <tbody>
                         <?php 
-                        $show_items_query = "SELECT * FROM items_db";
+                        $show_items_query = "SELECT * FROM items_db  LIMIT $offset , $total_records_per_page";
                         $show_result = mysqli_query($sqlconn, $show_items_query);
 
                         while($show_rows = mysqli_fetch_array($show_result)) {
@@ -177,22 +197,26 @@ $user = $_SESSION['user_name'];
                     </tbody>
                 </table>
             </div>
+            
                     <!-- Pagination -->
                     <nav aria-label="Page navigation">
                         <ul class="pagination justify-content-center">
-                            <li class="page-item disabled">
-                                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                            <li class="page-item">       
+                            <a class="page-link <?= ($page_no <= 1) ? 'disabled' : ''; ?>"<?= ($page_no > 1) ? 'href=?page_no=' . $previous_page : ''; ?> tabindex="-1" aria-disabled="true">Previous</a>
                             </li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item"><a class="page-link" href="#">4</a></li>
-                            <li class="page-item"><a class="page-link" href="#">5</a></li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">Next</a>
+
+                            <?php for ($counter = 1; $counter <= $total_records_per_page; $counter++)
+                            {?>
+                            <li class="page-item"><a class="page-link" href="?page_no= <?php echo $counter; ?>"><?php echo $counter; ?></a></li>
+                            <?php } ?>
+
+                            <a class="page-link <?= ($page_no >= $total_no_of_pages)? 'disabled' : '';?>" <?= ($page_no < $total_no_of_pages)? 'href=?page_no=' . $next_page: '';?>>Next</a>
                             </li>
                         </ul>
                     </nav>
+                    <div class="p-10">
+                        <strong>Page <?= $page_no; ?> of <?= $total_no_of_pages; ?></strong>
+                    </div>
         </div>
     </div>
 </div>
