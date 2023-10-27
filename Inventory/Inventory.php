@@ -16,7 +16,7 @@ $user = $_SESSION['user_name'];
     } else {
         $page_no = 1;
     }
-    $total_records_per_page = 5;
+    $total_records_per_page = 10;
     $offset = ($page_no -1) * $total_records_per_page;
     $previous_page = $page_no -1;
     $next_page = $page_no + 1;
@@ -205,7 +205,7 @@ $user = $_SESSION['user_name'];
                             <a class="page-link <?= ($page_no <= 1) ? 'disabled' : ''; ?>"<?= ($page_no > 1) ? 'href=?page_no=' . $previous_page : ''; ?> tabindex="-1" aria-disabled="true">Previous</a>
                             </li>
 
-                            <?php for ($counter = 1; $counter <= $total_records_per_page; $counter++)
+                            <?php for ($counter = 1; $counter <= $total_no_of_pages; $counter++)
                             {?>
                             <li class="page-item"><a class="page-link" href="?page_no= <?php echo $counter; ?>"><?php echo $counter; ?></a></li>
                             <?php } ?>
@@ -215,7 +215,7 @@ $user = $_SESSION['user_name'];
                         </ul>
                     </nav>
                     <div class="p-10">
-                        <strong>Page <?= $page_no; ?> of <?= $total_no_of_pages; ?></strong>
+                        <strong>Page <?= $page_no; ?> of <?= $total_records_per_page; ?></strong>
                     </div>
         </div>
     </div>
