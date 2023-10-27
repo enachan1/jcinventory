@@ -215,7 +215,7 @@ $user = $_SESSION['user_name'];
                         </ul>
                     </nav>
                     <div class="p-10">
-                        <strong>Page <?= $page_no; ?> of <?= $total_records_per_page; ?></strong>
+                        <strong>Page <?= $page_no; ?> of <?= $total_no_of_pages; ?></strong>
                     </div>
         </div>
     </div>
