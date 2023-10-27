@@ -16,6 +16,10 @@ if(isset($_SESSION['id']) && isset($_SESSION['user_name'])) {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
     <link rel="stylesheet" href="../styles.css" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap" rel="stylesheet">
+
     <title>POS</title>
     <!--Style inside main Page -->
     <style>
@@ -90,6 +94,21 @@ if(isset($_SESSION['id']) && isset($_SESSION['user_name'])) {
             width: 500px;
         }
 
+        .apto-display-font {
+            font-family: 'Alfa Slab One', cursive;
+            font-size: 62px;
+        }
+        .roboto-font {
+            font-family: 'Roboto', sans-serif;
+            font-size: 62px;
+        }
+
+        .responsive-input {
+            width: 100%; 
+            max-width: 300px;
+            height: 80px; 
+        }
+
 
     </style>
 
@@ -135,7 +154,7 @@ if(isset($_SESSION['id']) && isset($_SESSION['user_name'])) {
             <div class="card mb-3">
                 <div class="card-body d-flex justify-content-between bg-info">
                     <h1 class="display-4 mb-0 apto-display-font">Total:</h1>
-                    <h1 class="display-4 mb-0">P <span id="overallTotal">0.00</span></h1>
+                    <h1 class="display-4 mb-0 roboto-font">P <span id="overallTotal">0.00</span></h1>
                 </div>
             </div>
 
@@ -208,22 +227,19 @@ if(isset($_SESSION['id']) && isset($_SESSION['user_name'])) {
             <!-- Buttons for Search, Price Inquiry, Suspend, Resume, Cash out, Payment  -->
             <div class="card colobody">
                 <div class="card-body ">
-                    <div class="container text-center">
+                    <div class="container">
                         <div class="row g-2">
                             <div class="col-md-6 col-sm-12 col-12">
-                                <div class="p-3 d-flex justify-content-center"><button type="button" class="btn btn-primary buttonadjust button-md"  data-bs-toggle="modal" data-bs-target="#searchModal" id="F1Button"> Search F1</button> </div>
+                                <div class="p-3 d-flex justify-content-center"><button type="button" class="btn btn-primary w-100 btns" style="height: 100px; font-size: 24px; font-weight: bold;" data-bs-toggle="modal" data-bs-target="#searchModal" id="F1Button"> Search  F1</button> </div>
                             </div>
                             <div class="col-md-6 col-sm-12 col-12">
-                                <div class="p-3 d-flex justify-content-center"><button type="button" class="btn btn-primary buttonadjust button-md" data-bs-toggle="modal" data-bs-target="#priceinquiryModal" id="F2Button"> Price Inquiry F2</button> </div>
+                                <div class="p-3 d-flex justify-content-center"><button type="button" class="btn btn-primary w-100 btns" style="height: 100px; font-size: 24px; font-weight: bold;" data-bs-toggle="modal" data-bs-target="#priceinquiryModal" id="F2Button"> Price Inquiry F2</button> </div>
                             </div>
                             <div class="col-md-6 col-sm-12 col-12">
-                                <div class="p-3 d-flex justify-content-center"><button type="button" class="btn btn-primary buttonadjust button-md" data-bs-toggle="modal" data-bs-target="#transactionModal" id="F3Button"> Transaction F3</button> </div>
+                                <div class="p-3 d-flex justify-content-center"><button type="button" class="btn btn-primary w-100 btns" style="height: 100px; font-size: 24px; font-weight: bold;" data-bs-toggle="modal" data-bs-target="#transactionModal" id="F3Button"> Transaction <br> F3</button> </div>
                             </div>
                             <div class="col-md-6 col-sm-12 col-12">
-                                <div class="p-3 d-flex justify-content-center"><button type="button" class="btn btn-primary buttonadjust button-md"  data-bs-toggle="modal" data-bs-target="#cashModal" id="F4Button"> Cash Out F4</button> </div>
-                            </div>
-                            <div class="col-md-6 col-sm-12 col-12">
-                                <div class="p-3 d-flex justify-content-center"><button type="button" class="btn btn-primary buttonadjust button-md" data-bs-toggle="modal" data-bs-target="#paymentModal" id="F5Button"> Payment F5</button> </div>
+                                <div class="p-3 d-flex justify-content-center"><button type="button" class="btn btn-primary w-100 btns" style="height: 100px; font-size: 24px; font-weight: bold;" data-bs-toggle="modal" data-bs-target="#paymentModal" id="F4Button"> Payment  F4</button> </div>
                             </div>
                         </div>
                     </div>
@@ -433,92 +449,47 @@ if(isset($_SESSION['id']) && isset($_SESSION['user_name'])) {
                 <div class="modal-dialog modal-xl">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h3 class="modal-title">Payment</h3>
+                            <h3 class="modal-title" style="font-size:32px">Payment</h3>
                             <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                         </div>
                         <div class="modal-body">
-                            <div class="container-fluid mt-1">
-                                <div class="row m-1">
-                                <div class="alert alert-warning alert-dismissible fade show" role="alert" id="alert-pos">
-                                    Insufficient Cash
+                            <div class="container mt-2 px-5">
+                                <div class="alert alert-warning alert-dismissible fade show" role="alert" id="alert-pos" style="font-size:24px">
+                                     <strong> Insufficient Cash </strong>
                                     <button type="button" class="btn-close bt-hide" data-bs-dismiss="alert" aria-label="Close"></button>
                                 </div>
-                                <!-- Left side column -->
-                                    <div class="col-6">
-                                        <!--Total Input-->
-                                        <div class="form-group mt-1">
-                                            <label for="total"><div class="p-2 w-100"><h4>Total</h4></div></label>
-                                            <input type="number" class="form-control" id="modalPTotal" placeholder="0.00" disabled>
-                                        </div>
-    
-                                        <!--Cash Input-->
-                                        <div class="form-group mt-2">
-                                            <label for="cash"><div class="p-2 w-100"><h4>Cash</h4></div></label>
-                                            <input type="number" class="form-control" id="cash" placeholder="0.00">
-                                        </div>
-    
-                                        <!--Change Input-->
-                                        <div class="form-group mt-2">
-                                            <label for="change"><div class="p-2 w-100"><h4>Change</h4></div></label>
-                                            <input type="text" class="form-control change-pay" readonly>
-                                        </div><br>
-    
-                                        <!--Pay Button-->
-                                        <div class="form-group">
-                                            <button class="btn btn-secondary btn-lg" id="purchase">Pay</button>
-                                        </div>
-    
-                                    </div>
-                                <!-- Right side column -->
-                                <div class="col-4 ms-auto">
-                                    <div class="card">
-                                        <div class="card-body ">
-
-                                        <!-- Display & VAT -->
-                                        <!--Total Product Display-->
-                                        <div class="d-flex mt-1">
-                                            <div class="p-2 w-100"><h5>Total Product:</h5></div>
-                                                                                                                <!-- call id for total product-->
-                                            <div class="p-2 flex-shrink-1"><h5 style="color: rgb(0, 97, 255);"><span id="totalPRODUCT">0</span></h5></div>
-                                        </div>
-                                        <div class="dropdown-divider"></div>
-
-                                        <!--VAT Sale-->
-                                        <div class="d-flex">
-                                            <div class="p-2 w-100"><h5>VATable SALES:</h5></div>
-                                                                            <!-- call id for vat sales-->
-                                            <div class="p-2 flex-shrink-1"><h5><span id="vatSALES">0.00</span></h5></div>
-                                        </div>
-                                        <div class="dropdown-divider"></div>
-
-                                        <!--VAT Exempt Sale-->
-                                        <div class="d-flex">
-                                            <div class="p-2 w-100"><h5>VAT-Exempt SALES:</h5></div>
-                                                                                <!-- call id for vat Exempt-->
-                                            <div class="p-2 flex-shrink-1"><h5><span id="vatEXEMPT">0.00</span></h5></div>
-                                        </div>
-                                        <div class="dropdown-divider"></div>
-
-                                        <!--VAT Zero-Rated Sales-->
-                                        <div class="d-flex">
-                                            <div class="p-2 w-100"><h5>VAT Zero-Rated SALES:</h5></div>
-                                                                                <!-- call id for vat Zero-rated-->
-                                            <div class="p-2 flex-shrink-1"><h5><span id="vatZERORATED">0.00</span></h5></div>
-                                        </div>
-                                        <div class="dropdown-divider"></div>
-
-                                        <!--VAT Amount-->
-                                        <div class="d-flex">
-                                            <div class="p-2 w-100"><h5>VAT Amount:</h5></div>
-                                                                                <!-- call id for vat amount-->
-                                            <div class="p-2 flex-shrink-1"><h5><span id="vatAMOUNT">0.00</span></h5></div>
-                                        </div>
-                                        <div class="dropdown-divider"></div>
+                                    <!--Total Input-->
+                                    <div class="card-body d-flex justify-content-between bg-info">
+                                        <h1 class="display-4 mb-0 apto-display-font">Total:</h1>
+                                                                <!-- Display total here -->
+                                        <h1 class="display-4 mb-0">
+                                            <input type="text" class="form-control roboto-font text-end responsive-input" id="modalPTotal" placeholder="0.00" disabled>
+                                        </h1>
+                                    </div><br>
+                                    <!--Cash Input-->
+                                    <div class="card-body d-flex justify-content-between bg-info">
+                                        <h1 class="display-4 mb-0 apto-display-font">Cash:</h1>
+                                                                <!-- Display cash here -->
+                                        <h1 class="display-4 mb-0">
+                                            <input type="text" class="form-control roboto-font text-end responsive-input" id="cash" placeholder="0.00">
+                                        </h1>
+                                    </div><br>
                                         
-                                        </div>
+    
+                                    <!--Change Input-->
+                                    <div class="card-body d-flex justify-content-between bg-info">
+                                        <h1 class="display-4 mb-0 apto-display-font">Change:</h1>
+                                                                <!-- Display Exchange here -->
+                                        <h1 class="display-4 mb-0">
+                                            <input type="text" class="form-control roboto-font text-end responsive-input change-pay" id="change" placeholder="0.00" disabled>
+                                        </h1>
+                                    </div><br>
+    
+                                    <!--Pay Button-->
+                                    <div class="form-group">
+                                        <button class="btn btn-secondary btn-lg" id="purchase">Pay</button>
                                     </div>
-                                </div>
-                                </div>
+    
                             </div>
 
                             <!-- Modal Footer Goes here-->
@@ -552,6 +523,21 @@ if(isset($_SESSION['id']) && isset($_SESSION['user_name'])) {
 
         // Call the function initially
         //updateTotalProductCount();
+        function updateTextSize() {
+        const screenWidth = window.innerWidth;
+        const buttonElements = document.querySelectorAll(".btns");
+        const textSize = screenWidth <= 1440 ? "18px" : "24px"; 
+    
+        buttonElements.forEach((button) => {
+                button.style.fontSize = textSize;
+            });
+        }   
+    
+        // Add an event listener to update text size when the window is resized
+        window.addEventListener("resize", updateTextSize);
+    
+        // Call the function initially
+        updateTextSize();
 
     </script>
     
