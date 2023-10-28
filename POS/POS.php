@@ -512,7 +512,15 @@ if(isset($_SESSION['id']) && isset($_SESSION['user_name'])) {
   <script src="postUpdate.js"></script>
   <script src="calculateItems.js"></script>
   <script src="buttonPOS.js"></script>
+  <script src="autofocus.js"></script>
+
     <script>
+         // auto focus
+         
+         $(document).ready(function () {
+            $("#barcodeInput").focus();
+        });
+
 
         // Function Try for POS
         // Function to update the total product count
