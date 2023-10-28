@@ -16,7 +16,7 @@ $user = $_SESSION['user_name'];
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
     <link rel="stylesheet" href="../styles.css" />
-    <title>POS</title>
+    <title>Accounts</title>
     <!--Style inside main Page -->
     <style>
         .search-bar {
@@ -96,91 +96,45 @@ $user = $_SESSION['user_name'];
                         <input type="text" class="form-control search-bar" placeholder="Search">
                     </div>
                 </div>
+                <div class="alert alert-success alert-dismissible fade show" role="alert" id="alert-call">
+                    <span id="alert-text"></span>
+                    <button type="button" class="btn-close btn-clsbtn" data-bs-dismiss="alert"></button>
+                </div>
                 <div class="card-body">
                 <div class="card-body" style="max-height: 400px; overflow-y: auto;">
                     <table class="table colorbox rounded shadow-sm table-hover">
                         <thead>
                             <tr>
-                                <th scope="col">Account Number</th>
-                                <th scope="col">Account Name</th>
+                                <th scope="col">Username</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Contact</th>
                                 <th scope="col">Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             <!-- Table rows here -->
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>John Doe</td>
-                                <td>
-                                    <button class="btn btn-primary btn-sm" type="button">Edit</button>
-                                    <button class="btn btn-danger btn-sm" type="button">Delete</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>Jane Smith</td>
-                                <td>
-                                    <button class="btn btn-primary btn-sm" type="button">Edit</button>
-                                    <button class="btn btn-danger btn-sm" type="button">Delete</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td>Bob Johnson</td>
-                                <td>
-                                    <button class="btn btn-primary btn-sm" type="button">Edit</button>
-                                    <button class="btn btn-danger btn-sm" type="button">Delete</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td>Bob Johnson</td>
-                                <td>
-                                    <button class="btn btn-primary btn-sm" type="button">Edit</button>
-                                    <button class="btn btn-danger btn-sm" type="button">Delete</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td>Bob Johnson</td>
-                                <td>
-                                    <button class="btn btn-primary btn-sm" type="button">Edit</button>
-                                    <button class="btn btn-danger btn-sm" type="button">Delete</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td>Bob Johnson</td>
-                                <td>
-                                    <button class="btn btn-primary btn-sm" type="button">Edit</button>
-                                    <button class="btn btn-danger btn-sm" type="button">Delete</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td>Bob Johnson</td>
-                                <td>
-                                    <button class="btn btn-primary btn-sm" type="button">Edit</button>
-                                    <button class="btn btn-danger btn-sm" type="button">Delete</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td>Bob Johnson</td>
-                                <td>
-                                    <button class="btn btn-primary btn-sm" type="button">Edit</button>
-                                    <button class="btn btn-danger btn-sm" type="button">Delete</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td>Bob Johnson</td>
-                                <td>
-                                    <button class="btn btn-primary btn-sm" type="button">Edit</button>
-                                    <button class="btn btn-danger btn-sm" type="button">Delete</button>
-                                </td>
-                            </tr>
+                         <?php 
+                         $account_fetch_query = "SELECT `id`, `user_name`, `email`, `contact_no` FROM `users__db`";
+                         $result = mysqli_query($sqlconn, $account_fetch_query);
+                         
+                         while($rows = mysqli_fetch_assoc($result)) {
+                         ?>
                             <!-- Continue adding entries here -->
+                            <tr>
+                                <td><?= $rows['user_name']; ?></td>
+                                <td><?= $rows['email']; ?></td>
+                                <td><?= $rows['contact_no']; ?></td>
+                                <?php 
+                                if($user == $rows['user_name']) {
+                                ?>
+                                <td><button class="btn btn-sm btn-danger delete-btn" disabled><i class="fas fa-trash" ></i></button></td>
+                                <?php }
+                                    else {
+                                ?>
+                                <td><button class="btn btn-sm btn-danger delete-btn" data-accid="<?= $rows['id']; ?>"><i class="fas fa-trash"></i></button></td>
+                                <?php } ?>
+                            </tr>
+                            <?php  } ?>
                         </tbody>
                     </table>
                 </div>
@@ -188,6 +142,77 @@ $user = $_SESSION['user_name'];
         </div>
     </div>
       
+
+    <!-- Add Account Modal-->
+    <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editModalLabel">Add Account</h5>
+                    <button type="button" class="btn-close mdl-tp-cls" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+            <!-- Start Modal Body-->
+            <div class="modal-body">
+                <div class="mb-4">
+                    <form method="POST" id="submit_form">
+                    <!-- Label and Textbox -->
+                    <label for="account_name" class="form-label">Username</label>
+                    <input type="text" name="a_username" class="form-control" id="account_name" required>
+                    <label for="account_email" class="form-label">Email</label>
+                    <input type="text" name="a_email" class="form-control" id="account_email" required>
+                    <label for="account_contact" class="form-label">Contact</label>
+                    <input type="text" name="a_contact" class="form-control" id="account_contact">
+                    <label for="the_password" class="form-label">Password</label>
+                    <input type="password" name="a_password" class="form-control" id="the_password" required>
+                    <label for="confirm_pass" class="form-label">Confirm Password</label>
+                    <input style="margin-bottom: 20px;" type="password" name="a_conpassword" class="form-control" id="confirm_pass" required>
+
+                    <div class="input-group mb-4">
+                            <label class="input-group-text colorbox" for="uof">User Type</label>
+                            <select class="form-select" id="user-type" name="user_type">
+                            <option value="1">Admin</option>
+                            <option value="0">Cashier</option>
+                        </select>
+                    </div>
+
+                </div>
+                <!-- End of modal body -->
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" id="add-acc">Add Account</button>
+                    </form>
+                        <button type="button" class="btn btn-secondary mdl-bt-cls" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<!-- End of Modal Add Account -->
+
+
+
+
+<!-- Start of confirmation modal -->
+<div class="modal fade" id="confirmation-modal" tabindex="-1" role="dialog" aria-labelledby="confirmation-modal-Label" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+        </button>
+      </div>
+      <div class="modal-body">
+        Are you sure you want to delete?
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="mdl-close" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" id="mdl-yes" class="btn btn-primary">Yes</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End of Confirmation Modal -->
+
 
     </div>
   </div>
@@ -201,6 +226,7 @@ $user = $_SESSION['user_name'];
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="submit.js"></script>
     <script>
         var el = document.getElementById("wrapper");
         var toggleButton = document.getElementById("menu-toggle");
