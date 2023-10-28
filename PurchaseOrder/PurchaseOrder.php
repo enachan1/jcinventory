@@ -126,7 +126,7 @@ $user = $_SESSION['user_name'];
                                 <h5 class="card-title">Purchase Order</h5>
                                 <!--Drop down Button Purchase Order-->
                                 <div class="d-flex justify-content-between rounded">
-                                    <button type="button" class="btn colorbox btn-outline-secondary btn-lg" data-bs-toggle="modal" data-bs-target="#purchase1">
+                                    <button type="button" class="btn colorbox btn-outline-secondary btn-lg" id="order-btn" data-bs-toggle="modal" data-bs-target="#purchase1">
                                         Add Order
                                     </button>
                                     <!-- Search Bar-->
@@ -440,7 +440,7 @@ $user = $_SESSION['user_name'];
                         <!-- Modal Header -->
                             <div class="modal-header">
                                 <h3 class="modal-title">Purchase Order</h3>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                <button type="button" class="btn-close" id="cls" data-bs-dismiss="modal"></button>
                             </div>
                             <!-- Modal Body -->
                             <div class="modal-body">
@@ -469,17 +469,19 @@ $user = $_SESSION['user_name'];
                                         <table class="table colorbox rounded shadow-sm  table-hover" id="addPurchaseItems">
                                             <thead>
                                                 <tr>
+                                                    <th scope="col">SKU</th>
                                                     <th scope="col">Item Name</th>
                                                     <th scope="col">QTY</th>
                                                     <th scope="col">UOM</th>
                                                     <th scope="col">Category</th>
                                                     <th scope="col">Price</th>
-                                                    <th>Add Row</th>
+                                                    <th scope="col">Add</th>
                                                 </tr>
                                             </thead>
                                             <tbody class="show_items">
                                                 <tr>
                                                     <!--Table Content-->
+                                                    <th><input type="text" id="generateRandom" class="form-control" name="PO_sku[]" required></th>
                                                     <th><input type="text" class="form-control" name="PO_itemname[]" required></th>
                                                     <th><input type="number" class="form-control adjustments"  name="PO_qty[]" required></th>
                                                     <th>            
