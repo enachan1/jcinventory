@@ -180,7 +180,7 @@ $user = $_SESSION['user_name'];
                         ?>
                         <tr>
                             <td style="display: none;"><?php echo $show_rows['id'] ?></td>
-                            <td><?php echo $show_rows['item_sku'] ?></td>
+                            <td><?php echo $show_rows['item_barcode'] ?></td>
                             <td><?php echo $show_rows['item_name'] ?></td>
                             <td><?php echo $show_rows['item_stocks'] ?></td>
                             <td><?php echo $show_rows['item_expdate'] ?></td>
