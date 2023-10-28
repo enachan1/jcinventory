@@ -25,6 +25,10 @@ $(document).ready(function () {
                     $("#alert-text").text(response);
                     $("#alert-call").show();
                     clear();
+
+                    setTimeout(function() {
+                        location.reload();
+                    },2000);
                 }
             });
         }
@@ -62,9 +66,12 @@ $(document).ready(function () {
                 data: $(this).serialize(),
                 success: function (response) {
                     $("#confirmation-modal").modal('hide');
-                    location.reload();
                     $("#alert-text").text(response);
                     $("#alert-call").show();
+
+                    setTimeout(function() {
+                        location.reload();
+                    },2000);
                 }
             });
         });
