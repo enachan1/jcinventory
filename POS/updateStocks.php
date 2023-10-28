@@ -19,7 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $qty = mysqli_real_escape_string($sqlconn, $datas['qty']);
         $total_amount = mysqli_real_escape_string($sqlconn, $datas['totalAmount']);
 
-        $update_query = "UPDATE items_db SET item_stocks = item_stocks - $qty WHERE item_sku = $sku";
+        $update_query = "UPDATE items_db SET item_stocks = item_stocks - $qty WHERE item_barcode = $sku";
         $result_update = mysqli_query($sqlconn, $update_query);
 
         if (!$result_update) {

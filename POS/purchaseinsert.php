@@ -15,7 +15,7 @@ if(isset($_POST['skubarcode'])) {
     
     else {
         try {
-        $select_query = "SELECT * FROM items_db WHERE item_sku = $input_sku";
+        $select_query = "SELECT * FROM items_db WHERE item_barcode = $input_sku";
         $result_query = mysqli_query($sqlconn, $select_query);
         if($result_query === false) {
             header("Location: POS.php?msg=Item not found");
@@ -24,7 +24,7 @@ if(isset($_POST['skubarcode'])) {
         else {
             if(mysqli_num_rows($result_query) === 1) {
                 $rows = mysqli_fetch_assoc($result_query);
-                $itemsku = $rows['item_sku'];
+                $itemsku = $rows['item_barcode'];
                 $itemname = $rows['item_name'];
                 $itemprice = $rows['item_price'];
 
