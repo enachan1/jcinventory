@@ -1,3 +1,16 @@
+<!DOCTYPE html>
+<?php
+include "../connectdb.php";
+session_start();
+if(isset($_SESSION['id']) && isset($_SESSION['user_name'])) {
+$user = $_SESSION['user_name'];
+$email = $_SESSION['email'];
+
+    if(!isset($user)) {
+        header("Location: login_form.php");
+        exit();
+    }
+    ?>
 <html>
     <head>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" />
@@ -94,7 +107,8 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle second-text fw-bold" href="#" id="navbarDropdown"
                             role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="fas fa-user me-2"></i>My name
+                            <i class="fas fa-user me-2"></i>
+                            <?=  $user ?>
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <li><a class="dropdown-item" href="../Profile/Profile.php">Profile</a></li>
@@ -112,7 +126,7 @@
                     <!-- Navigation Menu -->
                     <ul class="nav nav-tabs" id="myTabs" role="tablist">
                         <li class="nav-item" role="presentation">
-                            <a class="nav-link active" id="notification-tab" data-bs-toggle="tab" href="#notification" role="tab" aria-controls="notification" aria-selected="true"><i class="fas fa-bell"></i> Notification</a>
+                            <a class="nav-link active" id="notification-tab" data-bs-toggle="tab" href="#inventory" role="tab" aria-controls="notification" aria-selected="true"><i class="fas fa-bell"></i>Inventory Settings</a>
                         </li>
                         <li class="nav-item" role="presentation">
                             <a class="nav-link" id="account-setting-tab" data-bs-toggle="tab" href="#account-setting" role="tab" aria-controls="account-setting" aria-selected="false"><i class="fas fa-cog"></i> Account Setting</a>
@@ -124,43 +138,33 @@
             <!-- Inside tab content -->
             <div class="container">
                 <div class="tab-content" id="myTabContent">
-                    <div class="tab-pane fade show active" id="notification" role="tabpanel" aria-labelledby="notification-tab">
-                            <h1 class="text-center">Notification Settings</h1>
+                    <div class="tab-pane fade show active" id="inventory" role="tabpanel" aria-labelledby="notification-tab">
+                            <h1 class="text-center">Inventory Settings</h1>
                             <div class="card">
                                 <div class="card-body">
-                                    <h5 class="card-title">Email Notifications</h5>
                                     <form>
-                                        <div class="form-check">
-                                            <input type="checkbox" class="form-check-input" id="enableNotifications" checked>
-                                            <label class="form-check-label" for="enableNotifications">Enable Email Notifications</label>
+                                        <div class="form-group">
+                                            <label for="Threshold">Threshold</label>
+                                            <input type="text" id="Threshold" name="threshold-inp">
                                         </div>
+
+                                        <div class="form-group">
+                                            <label for="mark-up">Markup %</label>
+                                            <input type="text" id="mark-up" name="markup">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="mark-up">Markdown %</label>
+                                            <input type="text" id="mark-up" name="markdown">
+                                        </div>
+
+                                        <button type="submit">Save Changes</button>
                                     </form>
                                 </div>
                             </div>
 
                             <!-- Notification Settings-->
-                            <div class="card mt-3">
-                                <div class="card-body">
-                                    <h5 class="card-title">Notification Preferences</h5>
-                                    <form>
-                                        <div class="form-group">
-                                            <label for="outOfStock">Out of Stock:</label>
-                                            <select class="form-control" id="outOfStock">
-                                                <option value="on">Turn On</option>
-                                                <option value="off">Turn Off</option>
-                                            </select>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="fullyStocked">Fully Stocked:</label>
-                                            <select class="form-control" id="fullyStocked">
-                                                <option value="on">Turn On</option>
-                                                <option value="off">Turn Off</option>
-                                            </select>
-                                        </div>
-                                        <!-- Add more notification preferences as needed -->
-                                    </form>
-                                </div>
-                            </div>
+                        
                         </div>
 
                     <!-- Account Settings-->
@@ -169,11 +173,11 @@
                         <form>
                             <div class="form-group">
                                 <label for="username">Username</label>
-                                <input type="text" id="username" name="username" placeholder="Enter your username">
+                                <input type="text" id="username" name="username" value="<?= $user ?>" placeholder="Enter your username">
                             </div>
                             <div class="form-group">
                                 <label for="email">Email</label>
-                                <input type="text" id="email" name="email" placeholder="Enter your email">
+                                <input type="text" id="email" name="email" value="<?= $email ?>" placeholder="Enter your email">
                             </div>
                             <div class="form-group">
                                 <label for="password">Password</label>
@@ -210,4 +214,13 @@
             
     </script>
 </body>
+<?php
+}
+else {
+    header("Location: /jcinventory/login_form.php");
+    exit();
+}
+
+
+?>
 </html>
