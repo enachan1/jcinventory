@@ -35,6 +35,7 @@ if(isset($_POST['email']) && isset($_POST['password'])) {
             if($rows['email'] === $email && password_verify($pass, $hashed_fromDB)) {
                 $_SESSION['id'] = $rows['id'];
                 $_SESSION['user_name'] = $rows['user_name'];
+                $_SESSION['email'] = $rows['email'];
                 $_SESSION['is_admin'] = $rows['is_admin'];
 
                 if(isset($_SESSION['is_admin']) && $_SESSION['is_admin'] == 1) {
