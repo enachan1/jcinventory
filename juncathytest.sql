@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 28, 2023 at 10:37 AM
+-- Generation Time: Oct 29, 2023 at 09:35 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -51,12 +51,12 @@ INSERT INTO `category_db` (`id`, `category_name`) VALUES
 
 CREATE TABLE `items_db` (
   `id` bigint(20) NOT NULL,
-  `item_sku` bigint(20) NOT NULL,
+  `item_sku` varchar(255) NOT NULL,
+  `item_barcode` bigint(20) NOT NULL,
   `item_name` varchar(50) NOT NULL,
   `item_stocks` int(11) NOT NULL,
   `item_expdate` date NOT NULL,
   `item_price` float NOT NULL,
-  `item_uom` varchar(50) NOT NULL,
   `item_category` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -64,10 +64,8 @@ CREATE TABLE `items_db` (
 -- Dumping data for table `items_db`
 --
 
-INSERT INTO `items_db` (`id`, `item_sku`, `item_name`, `item_stocks`, `item_expdate`, `item_price`, `item_uom`, `item_category`) VALUES
-(1, 23568775126, 'Coca Cola Mismo', 24, '2023-12-28', 15, 'Boxes', 'Drinks'),
-(2, 89456456123, 'toblerone', 26, '2023-11-30', 26, 'Liters', 'Snacks'),
-(3, 25458976321, 'Piattos', 25, '2023-10-31', 19, 'Pieces', 'Snacks');
+INSERT INTO `items_db` (`id`, `item_sku`, `item_barcode`, `item_name`, `item_stocks`, `item_expdate`, `item_price`, `item_category`) VALUES
+(1, 'LULUMOPANOT', 654897561321, 'Coca Cola Mismo', 100, '2023-11-29', 27, 'Drinks');
 
 -- --------------------------------------------------------
 
@@ -108,8 +106,12 @@ CREATE TABLE `purchase_order_db` (
 
 INSERT INTO `purchase_order_db` (`po_item_sku`, `po_item_name`, `po_qty`, `po_uom`, `po_category`, `po_item_price`, `po_dot`, `po_expdelivery`, `is_delivered`, `isBadOrder`, `vendor_id`) VALUES
 ('', 'asfdsf', 23, 'Boxes', 'Canned Goods', 32, '2023-10-25', '2023-10-31', NULL, NULL, 10001),
-('231028GNT', 'piatoss', 23, 'Boxes', 'Canned Goods', 15, '2023-10-28', '2023-10-29', 1, 0, 10004),
-('231028IZQ', 'energen', 2, 'Boxes', 'Canned Goods', 15, '2023-10-28', '2023-10-31', 1, 0, 10004);
+('231028JXQ', 'piatoss', 2, 'Boxes', 'Canned Goods', 120, '2023-10-28', '2023-10-30', NULL, NULL, 10004),
+('231028NQC', 'energen', 1, 'Boxes', 'Canned Goods', 14, '2023-10-28', '2023-10-31', NULL, NULL, 10001),
+('231028SSO', 'asfdsf', 1, 'Boxes', 'Canned Goods', 14, '2023-10-28', '2023-10-31', NULL, NULL, 10001),
+('231028MYE', 'asfdsf', 1, 'Boxes', 'Canned Goods', 14, '2023-10-28', '2023-10-31', NULL, NULL, 10001),
+('231028YKT', 'asfdsf', 1, 'Boxes', 'Canned Goods', 14, '2023-10-28', '2023-10-31', NULL, NULL, 10001),
+('231028TDO', 'energen', 1, 'Boxes', 'Canned Goods', 14, '2023-10-28', '2023-10-31', NULL, NULL, 10001);
 
 -- --------------------------------------------------------
 
@@ -145,7 +147,9 @@ INSERT INTO `sales_db` (`id`, `s_sku`, `s_item`, `s_qty`, `s_total`, `s_date`) V
 (24, 23568775126, 'Coca Cola Mismo', 5, 75, '2023-10-26'),
 (25, 89456456123, 'toblerone', 3, 78, '2023-10-26'),
 (26, 25458976321, 'Piattos', 2, 38, '2023-10-26'),
-(27, 23568775126, 'Coca Cola Mismo', 1, 15, '2023-10-28');
+(27, 23568775126, 'Coca Cola Mismo', 1, 15, '2023-10-28'),
+(28, 23568775126, 'Coca Cola Mismo', 1, 15, '2023-10-28'),
+(29, 89456456123, 'toblerone', 1, 26, '2023-10-28');
 
 -- --------------------------------------------------------
 
@@ -167,7 +171,9 @@ CREATE TABLE `transaction_db` (
 INSERT INTO `transaction_db` (`reciept_no`, `transaction_date`, `total_item`, `overall_amount`) VALUES
 ('juncathyr20231026062720', '2023-10-26', 2, 45),
 ('juncathyr20231026063026', '2023-10-26', 10, 191),
-('juncathyr20231028082611', '2023-10-28', 1, 15);
+('juncathyr20231028082611', '2023-10-28', 1, 15),
+('juncathyr20231028115524', '2023-10-28', 1, 15),
+('juncathyr20231028121831', '2023-10-28', 1, 26);
 
 -- --------------------------------------------------------
 
@@ -208,7 +214,8 @@ CREATE TABLE `users__db` (
 
 INSERT INTO `users__db` (`id`, `user_name`, `email`, `pass_word`, `contact_no`, `is_admin`) VALUES
 (1, 'admin', 'admin@admin.com', '$2y$10$G8aqIVH39MA8FWmfN7e2FewYWYJ7smOlu/yp3Kferk1VsUIwgrYm6', 0, 1),
-(2, 'cashier', 'notadmin@notadmin.com', '$2y$10$srTH9HwBVOhWeXmEkMVRCOc5uA10C.7KEjbQLPVcC5AlToknX3/kS', 0, 0);
+(2, 'cashier', 'notadmin@notadmin.com', '$2y$10$srTH9HwBVOhWeXmEkMVRCOc5uA10C.7KEjbQLPVcC5AlToknX3/kS', 0, 0),
+(9, ' ena', 'em@em.com', '$2y$10$EIPBDSMpQ9VMIa2y2wuh0OST.Z0Pb4NMMTJZMekRQHSLQLAfvUCfC', 0, 1);
 
 -- --------------------------------------------------------
 
@@ -298,7 +305,7 @@ ALTER TABLE `category_db`
 -- AUTO_INCREMENT for table `items_db`
 --
 ALTER TABLE `items_db`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `purchase_db`
@@ -310,7 +317,7 @@ ALTER TABLE `purchase_db`
 -- AUTO_INCREMENT for table `sales_db`
 --
 ALTER TABLE `sales_db`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `uom_db`
@@ -322,7 +329,7 @@ ALTER TABLE `uom_db`
 -- AUTO_INCREMENT for table `users__db`
 --
 ALTER TABLE `users__db`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- Constraints for dumped tables
