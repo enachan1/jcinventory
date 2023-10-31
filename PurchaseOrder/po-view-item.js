@@ -32,6 +32,7 @@ function populateModal(data) {
 
         $('#itemTable tbody').append(
             `<tr>
+                <td>${item.itemSku}</td>
                 <td>${item.item_name}</td>
                 <td>${item.qty}</td>
                 <td>${item.uom}</td>

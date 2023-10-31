@@ -571,6 +571,7 @@ $user = $_SESSION['user_name'];
                                         <table class="table colorbox rounded shadow-sm table-hover" id="itemTable">
                                             <thead>
                                             <tr>
+                                                <th scope="col">SKU</th>
                                                 <th scope="col">Item Name</th>
                                                 <th scope="col">QTY</th>
                                                 <th scope="col">UOM</th>

@@ -6,6 +6,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $query = "SELECT vendors_db.vendor_id,
                      vendors_db.vendor_name as Vendor,
+                     purchase_order_db.po_item_sku as itemSku,
                      purchase_order_db.vendor_id as item_vendorID,
                      purchase_order_db.po_dot as transaction_date,
                      purchase_order_db.po_expdelivery as exp_del_date,
