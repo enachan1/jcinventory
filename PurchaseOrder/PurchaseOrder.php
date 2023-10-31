@@ -10,6 +10,60 @@ $user = $_SESSION['user_name'];
         exit();
     }
 
+    //get page number on purchase order
+    if (isset($_GET['page_no']) && $_GET['page_no'] !== "") {
+        $page_no = $_GET['page_no'];
+    } else {
+        $page_no = 1;
+    }
+    $total_records_per_page = 10;
+    $offset = ($page_no -1) * $total_records_per_page;
+    $previous_page = $page_no -1;
+    $next_page = $page_no + 1;
+    
+    $pagination_queary = "SELECT COUNT(vendors_db.vendor_name) AS total_records FROM vendors_db JOIN purchase_order_db ON vendors_db.vendor_id = purchase_order_db.vendor_id";
+    $result_count = mysqli_query($sqlconn, $pagination_queary);
+    $records = mysqli_fetch_array($result_count);
+    $total_records = $records['total_records'];
+    $total_no_of_pages = ceil($total_records / $total_records_per_page);
+
+
+    //get page number on vendors
+    if (isset($_GET['page_num']) && $_GET['page_num'] !== "") {
+        $page_num = $_GET['page_num'];
+    } else {
+        $page_num = 1;
+    }
+
+    $total_record_per_page = 10;
+    $offsets = ($page_num -1) * $total_record_per_page;
+    $previouss_page = $page_num -1;
+    $nexts_page = $page_num + 1;
+    
+    $results_count = mysqli_query($sqlconn,"SELECT COUNT(*) as total_record FROM vendors_db");
+    $recordss = mysqli_fetch_array($results_count);
+    $total_record = $recordss['total_record'];
+    $total_no_of_page = ceil($total_record / $total_record_per_page);
+
+
+    //get page number on delivery
+    if (isset($_GET['page_s']) && $_GET['page_s'] !== "") {
+        $page_s = $_GET["page_s"];
+    } else {
+        $page_s = 1;
+    }
+    
+    $totals_record_per_page = 10;
+    $offsetp = ($page_s - 1) * $totals_record_per_page;
+    $previous_pages = $page_s - 1;
+    $next_pages = $page_s + 1;
+    
+    $pagination_query = "SELECT COUNT(*) AS totals_record FROM vendors_db JOIN purchase_order_db ON vendors_db.vendor_id = purchase_order_db.vendor_id WHERE is_delivered = 1";
+    $result_counts = mysqli_query($sqlconn, $pagination_query);
+    $record = mysqli_fetch_array($result_counts);
+    $totals_record = $record['totals_record'];
+    $totals_no_of_page = ceil($totals_record / $totals_record_per_page);
+
 
 ?>
     <head>
@@ -91,36 +145,31 @@ $user = $_SESSION['user_name'];
 
     <!--Tab button--->
 
-    <div class="container-fluid mt-4 px-4">
-        <ul class="nav nav-tabs" id="myTab" role="tablist">
-            <!-- Navigation Menu -->
-            <li class="nav-item" role="presentation">
-                <a class="nav-link active" id="sales-tab" data-bs-toggle="tab" data-bs-target="#sales" type="button" role="tab" aria-controls="sales" aria-selected="true">
-                    <i class="fas fa-shopping-cart"></i> Purchase Order
-                </a>
-            </li>
-            <li class="nav-item" role="presentation">
-                <a class="nav-link" id="inventory-tab" data-bs-toggle="tab" data-bs-target="#inventory" type="button" role="tab" aria-controls="inventory" aria-selected="false">
-                    <i class="fas fa-building"></i> Vendors
-                </a>
-            </li>
-            <li class="nav-item" role="presentation">
-                <a class="nav-link" id="delivery-tab" data-bs-toggle="tab" data-bs-target="#delivery" type="button" role="tab" aria-controls="delivery" aria-selected="false">
-                    <i class="fas fa-truck"></i> Delivery In
-                </a>
-            </li>
-            <li class="nav-item" role="presentation">
-                <a class="nav-link" id="badorder-tab" data-bs-toggle="tab" data-bs-target="#badorder" type="button" role="tab" aria-controls="badorder" aria-selected="false">
-                    <i class="fas fa-exclamation-circle"></i> Bad Order
-                </a>
-            </li>
-        </ul>
+<div class="container-fluid mt-4 px-4">
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <!-- Navigation Menu -->
+        <li class="nav-item" role="presentation">
+            <a class="nav-link" href="?tb=1" id="purchase-tab" data-bs-toggle="tab" data-bs-target="#purchase" type="button" role="tab" aria-controls="purchase" aria-selected="true">
+                <i class="fas fa-shopping-cart"></i> Purchase Order
+            </a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a class="nav-link" href="?tb=2" id="vendor-tab" data-bs-toggle="tab" data-bs-target="#vendor" type="button" role="tab" aria-controls="vendor" aria-selected="false">
+                <i class="fas fa-building"></i> Vendors
+            </a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a class="nav-link" href="?tb=3" id="delivery-tab" data-bs-toggle="tab" data-bs-target="#delivery" type="button" role="tab" aria-controls="delivery" aria-selected="false">
+                <i class="fas fa-truck"></i> Delivery In
+            </a>
+        </li>
+    </ul>
 
         <!-- Tab-Content here -->
 
                 <!-- Purchase Order -->
                 <div class="tab-content" id="myTabContent">
-                    <div class="tab-pane fade show active" id="sales" role="tabpanel" aria-labelledby="sales-tab">
+                    <div class="tab-pane fade"  id="purchase" role="tabpanel" aria-labelledby="purchase-tab">
                         <div class="card">
                             <div class="card-body colorbox">
                                 <h5 class="card-title">Purchase Order</h5>
@@ -146,14 +195,21 @@ $user = $_SESSION['user_name'];
                                     </thead>
                                     <tbody>
                                         <?php 
-                                            $query = " SELECT
-                                            vendors_db.vendor_id,
-                                            vendors_db.vendor_name as Vendor,
-                                            purchase_order_db.vendor_id as item_vendorID,
-                                            purchase_order_db.po_dot as dateOfTransaction,
-                                            purchase_order_db.po_expdelivery as expectedDel
-                                        FROM vendors_db
-                                        JOIN purchase_order_db ON vendors_db.vendor_id = purchase_order_db.vendor_id";
+                                            $query = "SELECT Vendor, dateOfTransaction, expectedDel, item_vendorID
+                                            FROM (
+                                                SELECT
+                                                    vendors_db.vendor_name as Vendor,
+                                                    purchase_order_db.vendor_id as item_vendorID,
+                                                    purchase_order_db.po_dot as dateOfTransaction,
+                                                    purchase_order_db.po_expdelivery as expectedDel,
+                                                    @rownum := IF(@prev_value = vendors_db.vendor_name, @rownum + 1, 1) AS rn,
+                                                    @prev_value := vendors_db.vendor_name
+                                                FROM vendors_db
+                                                JOIN purchase_order_db ON vendors_db.vendor_id = purchase_order_db.vendor_id
+                                                ORDER BY vendors_db.vendor_name, purchase_order_db.po_dot
+                                            ) AS ranked
+                                            WHERE rn <= $total_records_per_page
+                                            LIMIT $offset, $total_records_per_page";
                     
                                         $results = mysqli_query($sqlconn, $query);
                                         $previous = null;
@@ -181,28 +237,33 @@ $user = $_SESSION['user_name'];
                                     </tbody>
                                 </table>
         
-                                        <!-- Pagination Next Tables-->
-                                        <nav aria-label="Page navigation">
-                                            <ul class="pagination justify-content-center">
-                                                    <li class="page-item disabled">
-                                                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-                                                    </li>
-                                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                            <li class="page-item"><a class="page-link" href="#">4</a></li>
-                                            <li class="page-item"><a class="page-link" href="#">5</a></li>
-                                            <li class="page-item">
-                                            <a class="page-link" href="#">Next</a>
-                                            </li>
-                                             </ul>
-                                        </nav>
+                                <!-- Pagination -->
+                                <nav aria-label="Page navigation">
+                                    <ul class="pagination justify-content-center">
+                                        <li class="page-item">       
+                                        <a class="page-link <?= ($page_no <= 1) ? 'disabled' : ''; ?>"<?= ($page_no > 1) ? 'href=?page_no=' . $previous_page : ''; ?> tabindex="-1" aria-disabled="true">Previous</a>
+                                        </li>
+
+                                        <?php for ($counter = 1; $counter <= $total_no_of_pages; $counter++)
+                                        {?>
+                                        <li class="page-item"><a class="page-link" href="?page_no= <?php echo $counter; ?>"><?php echo $counter; ?></a></li>
+                                        <?php } ?>
+                            
+
+                                        <a class="page-link <?= ($page_no >= $total_no_of_pages)? 'disabled' : '';?>" <?= ($page_no < $total_no_of_pages)? 'href=?page_no=' . $next_page: '';?>>Next</a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                                <div class="p-10">
+                                    <strong>Page <?= $page_no; ?> of <?= $total_no_of_pages; ?></strong>
+                                </div>
+
                             </div>
                         </div>
                     </div>
         
                     <!-- Vendors -->
-                    <div class="tab-pane fade" id="inventory" role="tabpanel" aria-labelledby="inventory-tab">
+                    <div class="tab-pane fade"  id="vendor" role="tabpanel" aria-labelledby="vendor-tab">
                         <div class="card">
                             <div class="card-body colorbox">
                                 <h5 class="card-title">Vendors</h5>
@@ -232,7 +293,7 @@ $user = $_SESSION['user_name'];
                                     </thead>
                                     <tbody>
                                 <?php  
-                                    $sql_query = "SELECT * FROM vendors_db";
+                                    $sql_query = "SELECT * FROM vendors_db LIMIT $offsets , $total_record_per_page";
                                     $sql_res = mysqli_query($sqlconn, $sql_query);
 
                                     while($array = mysqli_fetch_array($sql_res)) {
@@ -250,22 +311,26 @@ $user = $_SESSION['user_name'];
                                     </tbody>
                                 </table>
         
-                                        <!-- Pagination Next Tables-->
-                                        <nav aria-label="Page navigation">
-                                            <ul class="pagination justify-content-center">
-                                                    <li class="page-item disabled">
-                                                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-                                                    </li>
-                                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                            <li class="page-item"><a class="page-link" href="#">4</a></li>
-                                            <li class="page-item"><a class="page-link" href="#">5</a></li>
-                                            <li class="page-item">
-                                            <a class="page-link" href="#">Next</a>
-                                            </li>
-                                             </ul>
-                                        </nav>
+                                <!-- Pagination -->
+                                <nav aria-label="Page navigation">
+                                    <ul class="pagination justify-content-center">
+                                        <li class="page-item">       
+                                        <a class="page-link <?= ($page_num <= 1) ? 'disabled' : ''; ?>"<?= ($page_num > 1) ? 'href=?page_num=' . $previouss_page : ''; ?> tabindex="-1" aria-disabled="true">Previous</a>
+                                        </li>
+
+                                        <?php for ($counters = 1; $counters <= $total_no_of_page; $counters++)
+                                        {?>
+                                        <li class="page-item"><a class="page-link" href="?page_num= <?php echo $counters; ?>"><?php echo $counters; ?></a></li>
+                                        <?php } ?>
+
+                                        <a class="page-link <?= ($page_num >= $total_no_of_page)? 'disabled' : '';?>" <?= ($page_num < $total_no_of_page)? 'href=?page_num=' . $nexts_page: '';?>>Next</a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            <div class="p-10">
+                                <strong>Page <?= $page_num; ?> of <?= $total_no_of_page; ?></strong>
+                            </div>
+
                             </div>
                         </div>
                     </div>
@@ -301,7 +366,8 @@ $user = $_SESSION['user_name'];
                                             purchase_order_db.po_expdelivery as expectedDel
                                         FROM vendors_db
                                         JOIN purchase_order_db ON vendors_db.vendor_id = purchase_order_db.vendor_id
-                                        WHERE purchase_order_db.is_delivered = 1 AND purchase_order_db.isBadOrder = 0";
+                                        WHERE purchase_order_db.is_delivered = 1 
+                                        LIMIT $offsetp, $totals_record_per_page";
                                         
                                         $results_deliveryin = mysqli_query($sqlconn, $query_deliveryin);
                                         $previous_deliverIn = null;
@@ -326,106 +392,37 @@ $user = $_SESSION['user_name'];
                                     </tbody>
                                 </table>
         
-                                    <!-- Pagination Next Tables-->
+                                    <!-- Pagination -->
                                     <nav aria-label="Page navigation">
                                         <ul class="pagination justify-content-center">
-                                                <li class="page-item disabled">
-                                                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-                                                </li>
-                                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">4</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">5</a></li>
-                                        <li class="page-item">
-                                        <a class="page-link" href="#">Next</a>
-                                        </li>
+                                            <li class="page-item">       
+                                            <a class="page-link <?= ($page_s <= 1) ? 'disabled' : ''; ?>"<?= ($page_s > 1) ? 'href=?page_s=' . $previous_pages : ''; ?> tabindex="-1" aria-disabled="true">Previous</a>
+                                            </li>
+
+                                            <?php for ($counterss = 1; $counterss <= $totals_no_of_page; $counterss++)
+                                            {?>
+                                            <li class="page-item"><a class="page-link" href="?page_s=<?php echo $counterss; ?>"><?php echo $counterss; ?></a></li>
+                                            <?php } ?>
+
+                                            <a class="page-link <?= ($page_s >= $totals_no_of_page)? 'disabled' : '';?>" <?= ($page_s < $totals_no_of_page)? 'href=?page_s=' . $next_pages: '';?>>Next</a>
+                                            </li>
                                         </ul>
                                     </nav>
+                                <div class="p-10">
+                                    <strong>Page <?= $page_s; ?> of <?= $totals_no_of_page; ?></strong>
+                                </div>
+
+
                                 </div>             
                             </div>
                         </div>
 
-                    <!--Bad Order -->
-                    <div class="tab-pane fade" id="badorder" role="tabpanel" aria-labelledby="badorder-tab">
-                        <div class="card">
-                            <div class="card-body colorbox">
-                                <h5 class="card-title">Bad Order</h5>
-                                <!-- Button for Add item-->
-                                <div class="d-flex justify-content-end mt-2">
-                                    <!-- Search Bar-->
-                                    <input type="text" class="form-control search-bar" style="height: 49px; max-width: 300px;"" placeholder="Search">
-                                </div><br>
-                                <!--Table-->
-                                <table class="table bg-light rounded shadow-sm table-hover">
-                                    <thead>
-                                        <tr>
-                                            <!-- Table content here -->
-                                            <th>Vendor Name</th>
-                                            <th>Date of Transaction</th>
-                                            <th>Expected Delivery</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    <?php
-                                        $query_badorder = "SELECT
-                                            vendors_db.vendor_id,
-                                            vendors_db.vendor_name as Vendor,
-                                            purchase_order_db.vendor_id as item_vendorID,
-                                            purchase_order_db.po_dot as dateOfTransaction,
-                                            purchase_order_db.po_expdelivery as expectedDel
-                                        FROM vendors_db
-                                        JOIN purchase_order_db ON vendors_db.vendor_id = purchase_order_db.vendor_id
-                                        WHERE purchase_order_db.is_delivered = 0 AND purchase_order_db.isBadOrder = 1";
-                                        
-                                        $results_badorder = mysqli_query($sqlconn, $query_badorder);
-                                        $previous_badorder = null;
-                                        
-                                        while ($rows_badorder = mysqli_fetch_assoc($results_badorder)) {
-                                        
-                                        ?>
-                                        <tr>
-                                        <?php if($rows_badorder['Vendor'] != $previous_badorder) { ?>
-                                            <td><?php echo $rows_badorder['Vendor']; 
-                                            $previous_badorder = $rows_badorder['Vendor'];
-                                            ?></td>
-                                            <td><?php echo $rows_badorder['dateOfTransaction'] ?></td>
-                                            <td><?php echo $rows_badorder['expectedDel'] ?></td>
-                                            <td>
-                                                <button title="<?php echo $rows_badorder['item_vendorID']; ?>" class="btn btn-primary btn-sm view-data" data-itemid="<?php echo $rows_badorder['item_vendorID'];?>" data-bs-toggle="modal" data-bs-target="#viewModal">View Items</button>
-                                                <a href="delete_po.php?vendorid=<?php echo $rows_badorder['item_vendorID'] ?>" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>
-                                            </td>
-                                            <?php } ?>
-                                        </tr>
-                                    <?php  } ?>
-                                    </tbody>
-                                </table>
-        
-                                    <!-- Pagination Next Tables-->
-                                    <nav aria-label="Page navigation">
-                                        <ul class="pagination justify-content-center">
-                                                <li class="page-item disabled">
-                                                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-                                                </li>
-                                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">4</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">5</a></li>
-                                        <li class="page-item">
-                                        <a class="page-link" href="#">Next</a>
-                                        </li>
-                                        </ul>
-                                    </nav>
-                                </div>             
-                            </div>
-                        </div>
 
                     </div>
+                    <!--End of Tab-Content-->
                 </div>
-                
-                <!--End of Tab-Content-->
+
+
         <!-- End of Page Content -->
         </div>
     </div>
@@ -733,7 +730,29 @@ $user = $_SESSION['user_name'];
             el.classList.toggle("toggled");
         };
 
-        
+        document.addEventListener('DOMContentLoaded', function () {
+            var urlParams = new URLSearchParams(window.location.search);
+            var tabNumber = urlParams.get('tb');
+
+        // Restore the last active tab from sessionStorage
+            var lastActiveTab = sessionStorage.getItem('activeTab');
+            if (lastActiveTab) {
+                var tabLink = document.querySelector('a[href="?tb=' + lastActiveTab + '"]');
+            if (tabLink) {
+                tabLink.click();
+            }
+        }
+
+        // Add a click event listener to save the active tab to sessionStorage
+        var tabLinks = document.querySelectorAll('#myTab a.nav-link');
+            tabLinks.forEach(function (tabLink) {
+            tabLink.addEventListener('click', function () {
+                var tabNumber = tabLink.getAttribute('href').split('=')[1];
+                sessionStorage.setItem('activeTab', tabNumber);
+            });
+        });
+    });
+
     </script>
 <?php } ?>
 </body>
