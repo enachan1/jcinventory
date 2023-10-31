@@ -358,16 +358,20 @@ $user = $_SESSION['user_name'];
                                     </thead>
                                     <tbody>
                                     <?php
-                                        $query_deliveryin = "SELECT
-                                            vendors_db.vendor_id,
-                                            vendors_db.vendor_name as Vendor,
-                                            purchase_order_db.vendor_id as item_vendorID,
-                                            purchase_order_db.po_dot as dateOfTransaction,
-                                            purchase_order_db.po_expdelivery as expectedDel
-                                        FROM vendors_db
-                                        JOIN purchase_order_db ON vendors_db.vendor_id = purchase_order_db.vendor_id
-                                        WHERE purchase_order_db.is_delivered = 1 
-                                        LIMIT $offsetp, $totals_record_per_page";
+                                    $query_deliveryin = "SELECT
+                                        vendors_db.vendor_id,
+                                        vendors_db.vendor_name as Vendor,
+                                        purchase_order_db.vendor_id as item_vendorID,
+                                        purchase_order_db.po_dot as dateOfTransaction,
+                                        purchase_order_db.po_expdelivery as expectedDel,
+                                        @rownum := IF(@prev_value = vendors_db.vendor_name, @rownum + 1, 1) AS rn,
+                                        @prev_value := vendors_db.vendor_name
+                                    FROM vendors_db
+                                    JOIN purchase_order_db ON vendors_db.vendor_id = purchase_order_db.vendor_id
+                                    WHERE purchase_order_db.is_delivered = 1
+                                    ORDER BY vendors_db.vendor_name, purchase_order_db.po_dot
+                                    LIMIT $offsetp, $totals_record_per_page";
+                                        
                                         
                                         $results_deliveryin = mysqli_query($sqlconn, $query_deliveryin);
                                         $previous_deliverIn = null;
