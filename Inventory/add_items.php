@@ -11,6 +11,7 @@ if(isset($_POST['modal_sku']) || isset($_POST['modal_itemname'])) {
 
 
     $sku = validate($_POST['modal_sku']);
+    $barcode = validate($_POST['modal_barcode']);
     $itemname = validate($_POST['modal_itemname']);
     $itemstocks = validate($_POST['modal_stocks']);
     $expdate = mysqli_escape_string($sqlconn, $_POST['modal_date']);
@@ -25,8 +26,8 @@ if(isset($_POST['modal_sku']) || isset($_POST['modal_itemname'])) {
     } 
     else {
         try {
-            $sql_query = "INSERT INTO `items_db`(`item_barcode`, `item_name`, `item_stocks`, `item_expdate`, `item_price`, `item_uom`, `item_category`) 
-            VALUES ($sku, '$itemname', $itemstocks, '$expdate', $price, '$uom', '$category')";
+            $sql_query = "INSERT INTO `items_db`(`item_sku`,`item_barcode`, `item_name`, `item_stocks`, `item_expdate`, `item_price`, `item_category`) 
+            VALUES ('$sku', $barcode, '$itemname', $itemstocks, '$expdate', $price, '$category')";
         $sql_result = mysqli_query($sqlconn, $sql_query);
 
         if($sql_result) {

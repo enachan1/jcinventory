@@ -11,11 +11,11 @@ if(isset($_POST['modal_sku']) || isset($_POST['modal_itemname'])) {
 
     $id = validate($_POST['modal_id']);
     $sku = validate($_POST['modal_sku']);
+    $barcode = validate($_POST['modal_barcode']);
     $itemname = validate($_POST['modal_itemname']);
     $itemstocks = validate($_POST['modal_stocks']);
     $expdate = mysqli_escape_string($sqlconn, $_POST['modal_date']);
     $price = validate($_POST['modal_price']);
-    $uom = validate($_POST['uom']);
     $category = validate($_POST['category']);
 
 
@@ -25,7 +25,7 @@ if(isset($_POST['modal_sku']) || isset($_POST['modal_itemname'])) {
     } 
     else {
         try {
-            $sql_query = "UPDATE `items_db` SET `item_sku`=$sku,`item_name`='$itemname',`item_stocks`=$itemstocks,`item_expdate`='$expdate',`item_price`= $price,`item_uom`='$uom',`item_category`='$category'
+            $sql_query = "UPDATE `items_db` SET `item_sku`='$sku', `item_barcode` = '$barcode', `item_name`='$itemname',`item_stocks`=$itemstocks,`item_expdate`='$expdate',`item_price`= $price,`item_category`='$category'
             WHERE `id` = $id";
         $sql_result = mysqli_query($sqlconn, $sql_query);
 

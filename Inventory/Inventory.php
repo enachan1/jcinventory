@@ -161,11 +161,11 @@ $user = $_SESSION['user_name'];
                                 <tr>
                                     <th scope="col" style="display: none;"></th>
                                     <th scope="col">SKU</th>
+                                    <th scope="col">Barcode</th>
                                     <th scope="col">Item Name</th>
                                     <th scope="col">Stocks</th>
                                     <th scope="col">Exp.Date</th>
                                     <th scope="col">Price</th>
-                                    <th scope="col">UOM</th>
                                     <th scope="col">Category</th>
                                     <th scope="col">Action</th>
                             </tr>
@@ -180,12 +180,12 @@ $user = $_SESSION['user_name'];
                         ?>
                         <tr>
                             <td style="display: none;"><?php echo $show_rows['id'] ?></td>
+                            <td><?= $show_rows['item_sku'] ?></td>
                             <td><?php echo $show_rows['item_barcode'] ?></td>
                             <td><?php echo $show_rows['item_name'] ?></td>
                             <td><?php echo $show_rows['item_stocks'] ?></td>
                             <td><?php echo $show_rows['item_expdate'] ?></td>
                             <td><?php echo $show_rows['item_price'] ?></td>
-                            <td><?php echo $show_rows['item_uom'] ?></td>
                             <td><?php echo $show_rows['item_category'] ?></td>
                             <!--Button Edit / Remove-->
                             <div class="">
@@ -233,10 +233,17 @@ $user = $_SESSION['user_name'];
             <!-- Start Modal Body-->
             <div class="modal-body">
                 <div class="mb-4">
-                    <form action="add_items.php" method="post">
+                    <form action="add_items.php" method="post" autocomplete="off">
                     <!-- Label and Textbox -->
                     <label for="skuInput" class="form-label">SKU</label>
-                    <input type="number" name="modal_sku" class="form-control" id="skuInput" required>
+                    <input type="text" name="modal_sku" class="form-control" id="skuInput" required>
+                    <!-- Auto complete items -->
+                    <div class="list-group" id="showlist_skuitems" style="position: absolute; z-index: 1; width: 70%;">
+                        
+                    </div>
+                    <!-- End of auto complete items -->
+                    <label for="skuInput" class="form-label">Barcode</label>
+                    <input type="number" name="modal_barcode" class="form-control" id="barcodeInput" required>
                     <label for="itemnameInput" class="form-label">Item Name</label>
                     <input type="text" name="modal_itemname" class="form-control" id="itemnameInput" required>
                     <label for="stocksInput" class="form-label">Stocks</label>
@@ -246,29 +253,10 @@ $user = $_SESSION['user_name'];
                     <label for="priceInput" class="form-label">Price</label>
                     <input style="margin: 0;" type="number" name="modal_price" class="form-control" id="priceInput" required><br>
 
-                    <!-- Selecting Unit of measure-->
-                    <div class="input-group mb-4">
-                            <label class="input-group-text colorbox" for="uof">Unit of Measure</label>
-                            <select class="form-select" id="update_uom" name="uom">
-
-                        <!-- PHP Looping for fetching uom's for the dropdown list -->
-                        <?php  
-                            $sql_query = "SELECT * FROM uom_db";
-                            $sql_res = mysqli_query($sqlconn, $sql_query);
-
-                            while($array = mysqli_fetch_array($sql_res)) {
-                        ?>
-                            <option value="<?php echo $array['uom_name']; ?>"> <?php echo $array['uom_name']; ?> </option>
-                        <?php 
-                            }
-                        ?>
-                        </select>
-                    </div>
-
                     <!-- Selecting Category -->
                     <div class="input-group mb-4">
                         <label class="input-group-text colorbox" for="category">Category</label>
-                        <select class="form-select" id="update_category" name="category">
+                        <select class="form-select" id="add_category" name="category">
 
                         <!-- PHP Looping for fetching uom's for the dropdown list -->
                         <?php  
@@ -303,7 +291,7 @@ $user = $_SESSION['user_name'];
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="editModalLabel">Modal title</h5>
+                    <h5 class="modal-title" id="editModalLabel">Edit Item</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
 
@@ -314,7 +302,9 @@ $user = $_SESSION['user_name'];
                     <!-- Label and Textbox -->
                     <input type="hidden" name="modal_id" id="update_id">
                     <label for="skuInput" class="form-label">SKU</label>
-                    <input type="number" name="modal_sku" id="sku" class="form-control">
+                    <input type="text" name="modal_sku" id="sku" class="form-control">
+                    <label for="itemnameInput" class="form-label">Barcode</label>
+                    <input type="text" name="modal_barcode" id="barcode" class="form-control" id="itemnameInput">
                     <label for="itemnameInput" class="form-label">Item Name</label>
                     <input type="text" name="modal_itemname" id="itemname" class="form-control" id="itemnameInput">
                     <label for="stocksInput" class="form-label">Stocks</label>
@@ -323,25 +313,6 @@ $user = $_SESSION['user_name'];
                     <input type="date" name="modal_date" id="expdate" class="form-control" id="expdateInput">
                     <label for="priceInput" class="form-label">Price</label>
                     <input style="margin: 0;" type="number" name="modal_price" id="price" class="form-control" id="priceInput"><br>
-
-                    <!-- Selecting Unit of Measure-->
-                    <div class="input-group mb-4">
-                        <label class="input-group-text colorbox" for="uof">Unit of Measure</label>
-                        <select class="form-select" id="uom" name="uom">
-
-                        <!-- PHP Looping for fetching uom's for the dropdown list -->
-                        <?php  
-                            $sql_query = "SELECT * FROM uom_db";
-                            $sql_res = mysqli_query($sqlconn, $sql_query);
-
-                            while($array = mysqli_fetch_array($sql_res)) {
-                        ?>
-                            <option value="<?php echo $array['uom_name']; ?>"> <?php echo $array['uom_name']; ?> </option>
-                        <?php 
-                            }
-                        ?>
-                        </select>
-                    </div>
 
                     <!-- Selecting Category-->
                     <div class="input-group mb-4">
@@ -380,6 +351,7 @@ $user = $_SESSION['user_name'];
 
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="autocomplete.js"></script>
     
         <script>
             var el = document.getElementById("wrapper");

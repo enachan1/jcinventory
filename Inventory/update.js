@@ -13,11 +13,11 @@ $(document).ready(function() {
 
         $('#update_id').val(data[0]);
         $('#sku').val(data[1]);
-        $('#itemname').val(data[2]);
-        $('#stocks').val(data[3]);
-        $('#expdate').val(data[4]);
-        $('#price').val(data[5]);
-        $('#uom').val(data[6]);
+        $('#barcode').val(data[2]);
+        $('#itemname').val(data[3]);
+        $('#stocks').val(data[4]);
+        $('#expdate').val(data[5]);
+        $('#price').val(data[6]);
         $('#category').val(data[7]);
 
     });
