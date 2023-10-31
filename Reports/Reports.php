@@ -8,6 +8,96 @@ $user = $_SESSION['user_name'];
         exit();
     }
 
+    // //get page number on sales report
+    // if (isset($_GET['page_no']) && $_GET['page_no'] !== "") {
+    //     $page_no = $_GET['page_no'];
+    // } else {
+    //     $page_no = 1;
+    // }
+    // $total_records_per_page = 10;
+    // $offset = ($page_no -1) * $total_records_per_page;
+    // $previous_page = $page_no -1;
+    // $next_page = $page_no + 1;
+    
+    // $pagination_queary = "SELECT COUNT(vendors_db.vendor_name) AS total_records FROM vendors_db JOIN purchase_order_db ON vendors_db.vendor_id = purchase_order_db.vendor_id";
+    // $result_count = mysqli_query($sqlconn, $pagination_queary);
+    // $records = mysqli_fetch_array($result_count);
+    // $total_records = $records['total_records'];
+    // $total_no_of_pages = ceil($total_records / $total_records_per_page);
+
+
+    // //get page number on inventory report
+    // if (isset($_GET['page_num']) && $_GET['page_num'] !== "") {
+    //     $page_num = $_GET['page_num'];
+    // } else {
+    //     $page_num = 1;
+    // }
+
+    // $total_record_per_page = 10;
+    // $offsets = ($page_num -1) * $total_record_per_page;
+    // $previouss_page = $page_num -1;
+    // $nexts_page = $page_num + 1;
+    
+    // $results_count = mysqli_query($sqlconn,"SELECT COUNT(*) as total_record FROM vendors_db");
+    // $recordss = mysqli_fetch_array($results_count);
+    // $total_record = $recordss['total_record'];
+    // $total_no_of_page = ceil($total_record / $total_record_per_page);
+
+
+    // //get page number on transaction report
+    // if (isset($_GET['page_s']) && $_GET['page_s'] !== "") {
+    //     $page_s = $_GET["page_s"];
+    // } else {
+    //     $page_s = 1;
+    // }
+    
+    // $totals_record_per_page = 10;
+    // $offsetp = ($page_s - 1) * $totals_record_per_page;
+    // $previous_pages = $page_s - 1;
+    // $next_pages = $page_s + 1;
+    
+    // $pagination_query = "SELECT COUNT(*) AS totals_record FROM vendors_db JOIN purchase_order_db ON vendors_db.vendor_id = purchase_order_db.vendor_id WHERE is_delivered = 1";
+    // $result_counts = mysqli_query($sqlconn, $pagination_query);
+    // $record = mysqli_fetch_array($result_counts);
+    // $totals_record = $record['totals_record'];
+    // $totals_no_of_page = ceil($totals_record / $totals_record_per_page);
+
+    // //get page number on slow moving
+    // if (isset($_GET['page_sl']) && $_GET['page_sl'] !== "") {
+    //     $page_sl = $_GET["page_sl"];
+    // } else {
+    //     $page_sl = 1;
+    // }
+    
+    // $total_record_per_pagel = 10;
+    // $offsetl = ($page_sl - 1) * $totals_record_per_pagel;
+    // $previous_pagesl = $page_sl - 1;
+    // $next_pagesl = $page_sl + 1;
+    
+    // $pagination_queryl = "SELECT COUNT(*) AS totals_record FROM vendors_db JOIN purchase_order_db ON vendors_db.vendor_id = purchase_order_db.vendor_id WHERE is_delivered = 1";
+    // $result_countsl = mysqli_query($sqlconn, $pagination_query);
+    // $recordl = mysqli_fetch_array($result_countsl);
+    // $totalsl_record = $recordl['totalsl_record'];
+    // $totals_no_of_pagel = ceil($totalsl_record / $totals_record_per_pagel);
+
+    // //get page number on fast moving
+    // if (isset($_GET['page_sf']) && $_GET['page_sf'] !== "") {
+    //     $page_s = $_GET["page_sf"];
+    // } else {
+    //     $page_sf = 1;
+    // }
+    
+    // $totals_record_per_pagef = 10;
+    // $offsetf = ($page_sf - 1) * $totals_record_per_pagef;
+    // $previous_pagesf = $page_s - 1;
+    // $next_pagesf = $page_s + 1;
+    
+    // $pagination_queryf = "SELECT COUNT(*) AS totals_record FROM vendors_db JOIN purchase_order_db ON vendors_db.vendor_id = purchase_order_db.vendor_id WHERE is_delivered = 1";
+    // $result_countsf = mysqli_query($sqlconn, $pagination_query);
+    // $recordf = mysqli_fetch_array($result_countsf);
+    // $totalsf_record = $recordf['totalsf_record'];
+    // $totals_no_of_pagef = ceil($totalsf_record / $totals_record_per_pagef);
+
 
 ?>
 <html>
@@ -125,18 +215,28 @@ $user = $_SESSION['user_name'];
         <ul class="nav nav-tabs" id="myTab" role="tablist">
             <!-- Navigation Menu -->
             <li class="nav-item" role="presentation">
-                <a class="nav-link active" id="sales-tab" data-bs-toggle="tab" data-bs-target="#sales" type="button" role="tab" aria-controls="sales" aria-selected="true">
+                <a class="nav-link " href="?tb=1" id="sales-tab" data-bs-toggle="tab" data-bs-target="#sales" type="button" role="tab" aria-controls="sales" aria-selected="true">
                     <i class="fas fa-chart-line"></i> Sales Report
                 </a>
             </li>
             <li class="nav-item" role="presentation">
-                <a class="nav-link" id="inventory-tab" data-bs-toggle="tab" data-bs-target="#inventory" type="button" role="tab" aria-controls="inventory" aria-selected="false">
+                <a class="nav-link" href="?tb=2" id="inventory-tab" data-bs-toggle="tab" data-bs-target="#inventory" type="button" role="tab" aria-controls="inventory" aria-selected="false">
                     <i class="fas fa-box"></i> Inventory Report
                 </a>
             </li>
             <li class="nav-item" role="presentation">
-                <a class="nav-link" id="trackrecord-tab" data-bs-toggle="tab" data-bs-target="#trackrecord" type="button" role="tab" aria-controls="trackrecord" aria-selected="false">
+                <a class="nav-link" href="?tb=3" id="trackrecord-tab" data-bs-toggle="tab" data-bs-target="#trackrecord" type="button" role="tab" aria-controls="trackrecord" aria-selected="false">
                     <i class="fas fa-list-alt"></i> Transaction Record
+                </a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a class="nav-link" href="?tb=4" id="slow-tab" data-bs-toggle="tab" data-bs-target="#slow" type="button" role="tab" aria-controls="slow" aria-selected="false">
+                    <i class="fas fa-arrow-down"></i> Slow Moving
+                </a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a class="nav-link" href="?tb=5" id="fast-tab" data-bs-toggle="tab" data-bs-target="#fast" type="button" role="tab" aria-controls="fast" aria-selected="false">
+                    <i class="fas fa-arrow-up"></i> Fast Moving
                 </a>
             </li>
         </ul>
@@ -166,22 +266,27 @@ $user = $_SESSION['user_name'];
                             </tbody>
                         </table>
 
-                            <!-- Pagination Next Tables-->
-                            <nav aria-label="Page navigation">
-                                <ul class="pagination justify-content-center">
-                                            <li class="page-item disabled">
-                                            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-                                            </li>
-                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">4</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">5</a></li>
-                                    <li class="page-item">
-                                    <a class="page-link" href="#">Next</a>
-                                    </li>
-                                </ul>
-                            </nav>
+                                <!-- Pagination -->
+                                <!-- <nav aria-label="Page navigation">
+                                    <ul class="pagination justify-content-center">
+                                        <li class="page-item">       
+                                        <a class="page-link <?= ($page_no <= 1) ? 'disabled' : ''; ?>"<?= ($page_no > 1) ? 'href=?page_no=' . $previous_page : ''; ?> tabindex="-1" aria-disabled="true">Previous</a>
+                                        </li>
+
+                                        <?php for ($counter = 1; $counter <= $total_no_of_pages; $counter++)
+                                        {?>
+                                        <li class="page-item"><a class="page-link" href="?page_no= <?php echo $counter; ?>"><?php echo $counter; ?></a></li>
+                                        <?php } ?>
+                            
+
+                                        <a class="page-link <?= ($page_no >= $total_no_of_pages)? 'disabled' : '';?>" <?= ($page_no < $total_no_of_pages)? 'href=?page_no=' . $next_page: '';?>>Next</a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                                <div class="p-10">
+                                    <strong>Page <?= $page_no; ?> of <?= $total_no_of_pages; ?></strong>
+                                </div>  -->
+
                     </div>
                 </div>
             </div>
@@ -198,10 +303,7 @@ $user = $_SESSION['user_name'];
                                     <th>Item No.</th>
                                     <th>Item Name</th>
                                     <th>Item Description</th>
-                                    <th>Price</th>
                                     <th>Qty</th>
-                                    <th>Amount</th>
-                                    <th>Total</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -209,22 +311,26 @@ $user = $_SESSION['user_name'];
                             </tbody>
                         </table>
 
-                            <!-- Pagination Next Tables-->
-                            <nav aria-label="Page navigation">
-                                <ul class="pagination justify-content-center">
-                                        <li class="page-item disabled">
-                                        <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                                <!-- Pagination -->
+                                <!-- <nav aria-label="Page navigation">
+                                    <ul class="pagination justify-content-center">
+                                        <li class="page-item">       
+                                        <a class="page-link <?= ($page_num <= 1) ? 'disabled' : ''; ?>"<?= ($page_num > 1) ? 'href=?page_num=' . $previouss_page : ''; ?> tabindex="-1" aria-disabled="true">Previous</a>
                                         </li>
-                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">4</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">5</a></li>
-                                    <li class="page-item">
-                                    <a class="page-link" href="#">Next</a>
-                                    </li>
-                                </ul>
-                            </nav>
+
+                                        <?php for ($counters = 1; $counters <= $total_no_of_page; $counters++)
+                                        {?>
+                                        <li class="page-item"><a class="page-link" href="?page_num= <?php echo $counters; ?>"><?php echo $counters; ?></a></li>
+                                        <?php } ?>
+
+                                        <a class="page-link <?= ($page_num >= $total_no_of_page)? 'disabled' : '';?>" <?= ($page_num < $total_no_of_page)? 'href=?page_num=' . $nexts_page: '';?>>Next</a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            <div class="p-10">
+                                <strong>Page <?= $page_num; ?> of <?= $total_no_of_page; ?></strong>
+                            </div>  -->
+
                     </div>
                 </div>
             </div>
@@ -248,26 +354,120 @@ $user = $_SESSION['user_name'];
                             </tbody>
                         </table>
 
-                            <!-- Pagination Next Tables-->
-                            <nav aria-label="Page navigation">
-                                <ul class="pagination justify-content-center">
-                                            <li class="page-item disabled">
-                                            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                                    <!-- Pagination -->
+                                    <!-- <nav aria-label="Page navigation">
+                                        <ul class="pagination justify-content-center">
+                                            <li class="page-item">       
+                                            <a class="page-link <?= ($page_s <= 1) ? 'disabled' : ''; ?>"<?= ($page_s > 1) ? 'href=?page_s=' . $previous_pages : ''; ?> tabindex="-1" aria-disabled="true">Previous</a>
                                             </li>
-                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">4</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">5</a></li>
-                                    <li class="page-item">
-                                    <a class="page-link" href="#">Next</a>
-                                    </li>
-                                </ul>
-                            </nav>
+
+                                            <?php for ($counterss = 1; $counterss <= $totals_no_of_page; $counterss++)
+                                            {?>
+                                            <li class="page-item"><a class="page-link" href="?page_s=<?php echo $counterss; ?>"><?php echo $counterss; ?></a></li>
+                                            <?php } ?>
+
+                                            <a class="page-link <?= ($page_s >= $totals_no_of_page)? 'disabled' : '';?>" <?= ($page_s < $totals_no_of_page)? 'href=?page_s=' . $next_pages: '';?>>Next</a>
+                                            </li>
+                                        </ul>
+                                    </nav>
+                                <div class="p-10">
+                                    <strong>Page <?= $page_s; ?> of <?= $totals_no_of_page; ?></strong>
+                                </div> -->
+
                     </div>
                 </div>
             </div>
             <!-- End Transaction Report -->
+
+            <!-- Slow Moving Table -->
+            <div class="tab-pane fade" id="slow" role="tabpanel" aria-labelledby="slow-tab">
+                <div class="card">
+                    <div class="card-body colorbox">
+                        <h5 class="card-title">Slow Moving Product</h5>
+                        <table class="table bg-light rounded shadow-sm table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Item No.</th>
+                                    <th>Item Name</th>
+                                    <th>Item Description</th>
+                                    <th>Price</th>
+                                    <th>Qty</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Table content here -->
+                            </tbody>
+                        </table>
+
+                                    <!-- Pagination -->
+                                    <!-- <nav aria-label="Page navigation">
+                                        <ul class="pagination justify-content-center">
+                                            <li class="page-item">       
+                                            <a class="page-link <?= ($page_sl <= 1) ? 'disabled' : ''; ?>"<?= ($page_sl > 1) ? 'href=?page_s=' . $previous_pagesl : ''; ?> tabindex="-1" aria-disabled="true">Previous</a>
+                                            </li>
+
+                                            <?php for ($counterl = 1; $counterl <= $totals_no_of_pagel; $counterl++)
+                                            {?>
+                                            <li class="page-item"><a class="page-link" href="?page_sl=<?php echo $counterl; ?>"><?php echo $counterl; ?></a></li>
+                                            <?php } ?>
+
+                                            <a class="page-link <?= ($page_sl >= $totals_no_of_pagel)? 'disabled' : '';?>" <?= ($page_s < $totals_no_of_pagel)? 'href=?page_sl=' . $next_pagesl: '';?>>Next</a>
+                                            </li>
+                                        </ul>
+                                    </nav>
+                                <div class="p-10">
+                                    <strong>Page <?= $page_sl; ?> of <?= $totals_no_of_pagel; ?></strong>
+                                </div> -->
+                                
+                    </div>
+                </div>
+            </div>
+            <!-- End Slow Moving  -->
+
+            <!-- Fast Moving Table -->
+            <div class="tab-pane fade" id="fast" role="tabpanel" aria-labelledby="fast-tab">
+                <div class="card">
+                    <div class="card-body colorbox">
+                        <h5 class="card-title">Fast Moving Product</h5>
+                        <table class="table bg-light rounded shadow-sm table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Item No.</th>
+                                    <th>Item Name</th>
+                                    <th>Item Description</th>
+                                    <th>Price</th>
+                                    <th>Qty</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Table content here -->
+                            </tbody>
+                        </table>
+
+                                    <!-- Pagination -->
+                                    <!-- <nav aria-label="Page navigation">
+                                        <ul class="pagination justify-content-center">
+                                            <li class="page-item">       
+                                            <a class="page-link <?= ($page_sf <= 1) ? 'disabled' : ''; ?>"<?= ($page_sf > 1) ? 'href=?page_s=' . $previous_pagesf : ''; ?> tabindex="-1" aria-disabled="true">Previous</a>
+                                            </li>
+
+                                            <?php for ($countersf = 1; $countersf <= $totals_no_of_pagef; $countersf++)
+                                            {?>
+                                            <li class="page-item"><a class="page-link" href="?page_sf=<?php echo $countersf; ?>"><?php echo $countersf; ?></a></li>
+                                            <?php } ?>
+
+                                            <a class="page-link <?= ($page_sf >= $totals_no_of_pagef)? 'disabled' : '';?>" <?= ($page_s < $totals_no_of_pagef)? 'href=?page_sf=' . $next_pagesf: '';?>>Next</a>
+                                            </li>
+                                        </ul>
+                                    </nav>
+                                <div class="p-10">
+                                    <strong>Page <?= $page_sf; ?> of <?= $totals_no_of_pagef; ?></strong>
+                                </div> -->
+                    </div>
+                </div>
+            </div>
+            <!-- End Fast Moving  -->
+
         </div>
     </div>
 
@@ -288,6 +488,32 @@ $user = $_SESSION['user_name'];
             toggleButton.onclick = function () {
                 el.classList.toggle("toggled");
             };
+
+            document.addEventListener('DOMContentLoaded', function () {
+            // Retrieve the last active tab from sessionStorage
+            var lastActiveTab = sessionStorage.getItem('activeTab');
+    
+            // If no last active tab is found, default to the "Sales Report" tab (tab number 1)
+            if (lastActiveTab === null) {
+                lastActiveTab = 1;
+            }
+    
+            // Add a click event listener to restore the last active tab
+            var tabLink = document.querySelector('a[href="?tb=' + lastActiveTab + '"]');
+    
+            if (tabLink) {
+                tabLink.click();
+            }
+    
+            // Add a click event listener to save the active tab to sessionStorage
+            var tabLinks = document.querySelectorAll('#myTab a.nav-link');
+            tabLinks.forEach(function (tabLink) {
+                tabLink.addEventListener('click', function () {
+                    var tabNumber = tabLink.getAttribute('href').split('=')[1];
+                    sessionStorage.setItem('activeTab', tabNumber);
+                });
+            });
+        });
     
     
         </script>
