@@ -229,7 +229,6 @@ $user = $_SESSION['user_name'];
                                             </td>
                                             <td>
                                             <button class="btn btn-primary btn-sm delivered-rbtn" id="delivered_label" value="Delivered" name="dob_<?php echo $rows['item_vendorID']; ?>" data-itemid="<?php echo $rows['item_vendorID']; ?>">Delivered</button>
-                                            <button class="btn btn-danger btn-sm badorder-rbtn" id="badorder_label" value="badOrder" name="dob_<?php echo $rows['item_vendorID']; ?>" data-itemid="<?php echo $rows['item_vendorID']; ?>">Bad Order</button>
                                             </td>
                                             <?php } ?>
                                         </tr>
@@ -736,21 +735,24 @@ $user = $_SESSION['user_name'];
         };
 
         document.addEventListener('DOMContentLoaded', function () {
-            var urlParams = new URLSearchParams(window.location.search);
-            var tabNumber = urlParams.get('tb');
-
-        // Restore the last active tab from sessionStorage
-            var lastActiveTab = sessionStorage.getItem('activeTab');
-            if (lastActiveTab) {
-                var tabLink = document.querySelector('a[href="?tb=' + lastActiveTab + '"]');
-            if (tabLink) {
-                tabLink.click();
-            }
+        // Retrieve the last active tab from sessionStorage
+        var lastActiveTab = sessionStorage.getItem('activeTab');
+    
+        // If no last active tab is found, default to the "Purchase Order" tab (tab number 1)
+        if (lastActiveTab === null) {
+            lastActiveTab = 1;
         }
-
+    
+        // Add a click event listener to restore the last active tab
+        var tabLink = document.querySelector('a[href="?tb=' + lastActiveTab + '"]');
+    
+        if (tabLink) {
+            tabLink.click();
+        }
+    
         // Add a click event listener to save the active tab to sessionStorage
         var tabLinks = document.querySelectorAll('#myTab a.nav-link');
-            tabLinks.forEach(function (tabLink) {
+        tabLinks.forEach(function (tabLink) {
             tabLink.addEventListener('click', function () {
                 var tabNumber = tabLink.getAttribute('href').split('=')[1];
                 sessionStorage.setItem('activeTab', tabNumber);
