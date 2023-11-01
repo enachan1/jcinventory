@@ -157,7 +157,10 @@ if(isset($_SESSION['id']) && isset($_SESSION['user_name'])) {
                     <h1 class="display-4 mb-0 roboto-font">P <span id="overallTotal">0.00</span></h1>
                 </div>
             </div>
-
+            <div class="alert alert-warning alert-dismissible fade show" role="alert" id="alert-pos-stocks" style="font-size:24px">
+                                     <strong> Not Enough Stocks </strong>
+                                    <button type="button" class="btn-close bt-hide" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
             <!-- Table -->
             <div class="card mb-4">
                 <div class="card-body colobody">
@@ -172,26 +175,12 @@ if(isset($_SESSION['id']) && isset($_SESSION['user_name'])) {
                                         <th>Item Description</th>
                                         <th>Price</th>
                                         <th>Total Amount</th>
+                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody id="tableBody">
                                 <!-- Table content here -->
-                                <?php
-                                $select_query = "SELECT * FROM purchase_db";
-                                $result_query = mysqli_query($sqlconn, $select_query);
-                                
-                                while($row = mysqli_fetch_array($result_query)) {
-                                ?>
-                                <tr>
-                                    <!-- Pumili ka sa dalawa ano maganda Input-->
-                                    <!-- Input QTY but change-->
-                                    <td><input class="form-control adjustments qty" type="number" value="1"></td>
-                                    <td class="sku"><?php echo $row['p_sku']; ?></td>
-                                    <td class="item-name"><?php echo $row['p_itemname']; ?></td>
-                                    <td class="price"><?php echo $row['p_price']; ?></td>
-                                    <td class="totalPrice"></td>
-                                </tr>
-                                <?php }?>
+                               
                                 </tbody>
                             </table>
                         </div>
@@ -200,14 +189,14 @@ if(isset($_SESSION['id']) && isset($_SESSION['user_name'])) {
             </div>
 
             <!-- Barcode Scanning -->
-            <form action="purchaseinsert.php" method="post">
+            <form action="#" id="purchaseForm" autocomplete="off">
             <div class="card mb-3">
                 <div class="card-body d-flex justify-content-around colobody">
                 
                     <div class="card-body bg-info">
                         <h3 class="mb-1">Barcode:</h3>
                     </div>
-                        <input type="text" class="form-control" name="skubarcode" id="barcodeInput">
+                        <input type="number" class="form-control" name="skubarcode" id="barcodeInput">
                         <button style="display: none;" class="btn btn-primary">btn</button>
                 </div>
                 </form>
@@ -458,6 +447,8 @@ if(isset($_SESSION['id']) && isset($_SESSION['user_name'])) {
                                      <strong> Insufficient Cash </strong>
                                     <button type="button" class="btn-close bt-hide" data-bs-dismiss="alert" aria-label="Close"></button>
                                 </div>
+
+                                
                                     <!--Total Input-->
                                     <div class="card-body d-flex justify-content-between bg-info">
                                         <h1 class="display-4 mb-0 apto-display-font">Total:</h1>
@@ -510,9 +501,9 @@ if(isset($_SESSION['id']) && isset($_SESSION['user_name'])) {
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="postUpdate.js"></script>
-  <script src="calculateItems.js"></script>
   <script src="buttonPOS.js"></script>
-  <script src="autofocus.js"></script>
+  <!-- <script src="autofocus.js"></script> -->
+  <script src="insertitems.js"></script>
 
     <script>
          // auto focus

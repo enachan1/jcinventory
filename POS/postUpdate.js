@@ -2,6 +2,7 @@ $(document).ready(function() {
     var dataToUpdate = [];
     var overAllQty = 0;
     $("#alert-pos").hide();
+    $("#alert-pos-stocks").hide();
     $("#purchase").click(function() {
         
         var cash_input = parseFloat($('#cash').val());
@@ -27,8 +28,20 @@ $(document).ready(function() {
                 data: { dataToUpdate: JSON.stringify(dataToUpdate), overAllQty: overAllQty, overallTotalVal: overallTotalVal },
                 success: function(response) {
                     overAllQty = 0;
-                    location.reload();
+                    console.log(response);
                     
+                    if(response === "false") {
+                        console.log("tanga");
+                        $("#paymentModal").modal('hide');
+                        $("#alert-pos-stocks").show();
+
+                        setTimeout(function() {
+                            location.reload();
+                        }, 1500);
+                    }
+                    else {
+                        location.reload();
+                    }
                 },
                 error: function(error) {
                     console.error("Error:", error);
@@ -36,7 +49,6 @@ $(document).ready(function() {
             });
         }
         else {
-            console.log("lol");
             $("#alert-pos").show();
         }
 
@@ -57,7 +69,10 @@ $(document).ready(function() {
 
     });
     $('.bt-hide').on('click', function () {
-        $("#alert-pos").fadeIn();
+        $("#alert-pos").fadeOut();
     });
-    
+
+    $('.bt-hide-stocks').on('click', function () {
+        $("#alert-pos-stocks").fadeOut();
+    });
 });

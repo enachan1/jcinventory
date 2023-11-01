@@ -2,13 +2,13 @@
 include "../connectdb.php";
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
+
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $dataToUpdate = json_decode($_POST["dataToUpdate"], true);
 
     // Start a transaction
     mysqli_autocommit($sqlconn, FALSE);
     $success = true;
-    // print_r($_POST);
 
     $overallQuantity = $_POST['overAllQty'];
     $overallTotal = $_POST['overallTotalVal'];
@@ -18,6 +18,23 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $item_name = mysqli_real_escape_string($sqlconn, $datas['item_name']);
         $qty = mysqli_real_escape_string($sqlconn, $datas['qty']);
         $total_amount = mysqli_real_escape_string($sqlconn, $datas['totalAmount']);
+
+        // Check if requested quantity is greater than available stock
+        $select_stock_query = "SELECT item_stocks FROM items_db WHERE item_barcode = $sku";
+        $result_stock = mysqli_query($sqlconn, $select_stock_query);
+
+        if (!$result_stock || mysqli_num_rows($result_stock) !== 1) {
+            $success = false;
+            break; // Exit the loop on error
+        }
+
+        $row = mysqli_fetch_assoc($result_stock);
+        $availableStock = $row['item_stocks'];
+
+        if ($qty > $availableStock) {
+            $success = false;
+            break; // Exit the loop if requested quantity exceeds available stock
+        }
 
         $update_query = "UPDATE items_db SET item_stocks = item_stocks - $qty WHERE item_barcode = $sku";
         $result_update = mysqli_query($sqlconn, $update_query);
@@ -42,22 +59,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $transaction_query = "INSERT INTO `transaction_db`(`reciept_no`,`transaction_date`, `total_item`, `overall_amount`) VALUES ('$generate_reciept', NOW(), $overallQuantity, $overallTotal)";
         $result_transaction = mysqli_query($sqlconn, $transaction_query);
 
-        if($result_transaction == true) {
-
-            $truncate_query = "TRUNCATE TABLE `purchase_db`";
-            $result_truncate = mysqli_query($sqlconn, $truncate_query);
-
-            if ($result_truncate) {
-                mysqli_commit($sqlconn); // Commit the transaction if everything is successful
-                header("Location: POS.php?msg=success");
-                exit();
+        if ($result_transaction == true) {
+            mysqli_commit($sqlconn); // Commit the transaction if everything is successful
+            echo "true";
         }
-    }
     }
 
     mysqli_rollback($sqlconn); // Rollback the transaction on failure
-    header("Location: POS.php?msg=error");
-    exit();
+    echo "false";
 } else {
     // Handle invalid requests here
     http_response_code(400);
