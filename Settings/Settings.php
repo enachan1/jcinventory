@@ -5,6 +5,7 @@ session_start();
 if(isset($_SESSION['id']) && isset($_SESSION['user_name'])) {
 $user = $_SESSION['user_name'];
 $email = $_SESSION['email'];
+$id = $_SESSION['id'];
 
     if(!isset($user)) {
         header("Location: login_form.php");
@@ -41,6 +42,7 @@ $email = $_SESSION['email'];
         }
         input[type="text"],
         input[type="password"],
+        input[type="email"],
         select {
             width: 100%;
             padding: 10px;
@@ -142,22 +144,29 @@ $email = $_SESSION['email'];
                             <h1 class="text-center">Inventory Settings</h1>
                             <div class="card">
                                 <div class="card-body">
-                                    <form>
+                                    <form action="update-inventory-setting.php" method="POST" autocomplete="off">
+                                        <?php 
+                                        $query_value = "SELECT * FROM `setting_db`";
+                                        $result_query_value = mysqli_query($sqlconn, $query_value);
+
+
+                                        while($result_rows = mysqli_fetch_array($result_query_value)) {
+                                        ?>
                                         <div class="form-group">
                                             <label for="Threshold">Threshold</label>
-                                            <input type="text" id="Threshold" name="threshold-inp">
+                                            <input type="number" class="form-control" id="Threshold" value="<?= $result_rows['threshold'] ?>" name="threshold-inp">
                                         </div>
 
                                         <div class="form-group">
                                             <label for="mark-up">Markup %</label>
-                                            <input type="text" id="mark-up" name="markup">
+                                            <input type="number" class="form-control" id="mark-up" value="<?= $result_rows['markup'] ?>" name="markup">
                                         </div>
 
                                         <div class="form-group">
                                             <label for="mark-up">Markdown %</label>
-                                            <input type="text" id="mark-up" name="markdown">
+                                            <input type="number" id="mark-down" class="form-control" value="<?= $result_rows['markdown'] ?>" name="markdown">
                                         </div>
-
+                                            <?php } ?>
                                         <button type="submit">Save Changes</button>
                                     </form>
                                 </div>
@@ -170,22 +179,47 @@ $email = $_SESSION['email'];
                     <!-- Account Settings-->
                     <div class="tab-pane fade" id="account-setting" role="tabpanel" aria-labelledby="account-setting-tab">
                         <h2>Account Setting</h2>
-                        <form>
+                        <br>
+                        <?php 
+                            if(isset($_GET['err'])) {
+                            ?>
+                            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                <?= $_GET['err'] ?>
+                                <button class="btn-close" data-bs-dismiss="alert" id="removeErrorButton" aria-label="Close"></button>
+                            </div>
+                            <?php } 
+                            
+                            ?>
+
+                            <?php 
+                            if(isset($_GET['msg'])) {
+                            ?>
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                <?= $_GET['msg'] ?>
+                                <button class="btn-close" data-bs-dismiss="alert" id="removeErrorButton" aria-label="Close"></button>
+                            </div>
+                            <?php } ?>
+                        <form action="update-user.php" method="POST" autocomplete="off">
+                            <input type="hidden" name="id" value="<?= $id ?>">
                             <div class="form-group">
                                 <label for="username">Username</label>
-                                <input type="text" id="username" name="username" value="<?= $user ?>" placeholder="Enter your username">
+                                <input type="text" id="username" name="username" value="<?= $user ?>" class="form-control" placeholder="Enter your username" required>
                             </div>
                             <div class="form-group">
                                 <label for="email">Email</label>
-                                <input type="text" id="email" name="email" value="<?= $email ?>" placeholder="Enter your email">
+                                <input type="email" id="email" name="email" value="<?= $email ?>" class="form-control" placeholder="Enter your email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Old Password</label>
+                                <input type="password" id="password" name="old-password" class="form-control" placeholder="Enter your Old password" required>
                             </div>
                             <div class="form-group">
                                 <label for="password">Password</label>
-                                <input type="password" id="password" name="password" placeholder="Enter your password">
+                                <input type="password" id="password" name="password" class="form-control" placeholder="Enter your password" required>
                             </div>
                             <div class="form-group">
                                 <label for="confirmPassword">Confirm Password</label>
-                                <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm your password">
+                                <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" placeholder="Confirm your password" required>
                             </div>
                             <button type="submit">Save Changes</button>
                         </form>
@@ -210,8 +244,14 @@ $email = $_SESSION['email'];
         el.classList.toggle("toggled");
     };
 
-
-            
+$(document).ready(function() {
+  $('#removeErrorButton').on('click', function() {
+    // Remove the 'err' query parameter from the URL
+    var currentUrl = window.location.href;
+    var updatedUrl = currentUrl.replace(/[?&]err=.*&?/, '');
+    history.replaceState({}, document.title, updatedUrl);
+  });
+});    
     </script>
 </body>
 <?php
