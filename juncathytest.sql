@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 01, 2023 at 08:32 AM
+-- Generation Time: Nov 02, 2023 at 02:56 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -165,6 +165,25 @@ INSERT INTO `sales_db` (`id`, `s_sku`, `s_item`, `s_qty`, `s_total`, `s_date`) V
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `setting_db`
+--
+
+CREATE TABLE `setting_db` (
+  `threshold` int(11) NOT NULL,
+  `markup` float NOT NULL,
+  `markdown` float NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `setting_db`
+--
+
+INSERT INTO `setting_db` (`threshold`, `markup`, `markdown`) VALUES
+(50, 5, 20);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `transaction_db`
 --
 
@@ -227,7 +246,8 @@ CREATE TABLE `uom_db` (
 --
 
 INSERT INTO `uom_db` (`id`, `uom_name`) VALUES
-(5, 'Boxes');
+(5, 'Boxes'),
+(6, 'Cases');
 
 -- --------------------------------------------------------
 
@@ -249,9 +269,9 @@ CREATE TABLE `users__db` (
 --
 
 INSERT INTO `users__db` (`id`, `user_name`, `email`, `pass_word`, `contact_no`, `is_admin`) VALUES
-(1, 'admin', 'admin@admin.com', '$2y$10$G8aqIVH39MA8FWmfN7e2FewYWYJ7smOlu/yp3Kferk1VsUIwgrYm6', 0, 1),
+(1, 'admin', 'admin@admin.com', '$2y$10$vBkpyaBMLDr2dfoFdFud3OaigYUe6GjCG39Ad2xeC2vwUmWW5kAea', 0, 1),
 (2, 'cashier', 'notadmin@notadmin.com', '$2y$10$srTH9HwBVOhWeXmEkMVRCOc5uA10C.7KEjbQLPVcC5AlToknX3/kS', 0, 0),
-(10, ' ena', 'em@em.com', '$2y$10$G5ydTTTSU0GVMKqdP7dUEe1EuLsmEigBoGB5bypcq.2znK6QfQZCi', 0, 1);
+(3, ' ena', 'em@em.com', '$2y$10$G5ydTTTSU0GVMKqdP7dUEe1EuLsmEigBoGB5bypcq.2znK6QfQZCi', 0, 1);
 
 -- --------------------------------------------------------
 
@@ -273,7 +293,8 @@ INSERT INTO `vendors_db` (`vendor_id`, `vendor_name`, `vendor_contact`) VALUES
 (10001, 'vendor2', 123456),
 (10002, 'xijinping', 2147483647),
 (10003, 'vladimir', 6589443),
-(10004, 'haheds', 2147483647);
+(10004, 'haheds', 2147483647),
+(10005, 'vendor ni mama', 223654987);
 
 --
 -- Indexes for dumped tables
@@ -347,13 +368,13 @@ ALTER TABLE `sales_db`
 -- AUTO_INCREMENT for table `uom_db`
 --
 ALTER TABLE `uom_db`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `users__db`
 --
 ALTER TABLE `users__db`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Constraints for dumped tables
