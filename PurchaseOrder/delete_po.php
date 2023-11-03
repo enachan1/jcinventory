@@ -1,9 +1,9 @@
 <?php
 include "../connectdb.php";
-if(isset($_GET['vendorid'])) 
-$id = $_GET['vendorid'];
+if(isset($_GET['id'])) 
+$id = $_GET['id'];
 
-$sqlquery = "DELETE FROM `purchase_order_db` WHERE `vendor_id`=$id";
+$sqlquery = "DELETE FROM `purchase_order_db` WHERE `vendor_id` = $id";
 try {
 $sql_result = mysqli_query($sqlconn, $sqlquery);
 

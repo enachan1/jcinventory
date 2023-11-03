@@ -181,6 +181,15 @@ $user = $_SESSION['user_name'];
                                     <!-- Search Bar-->
                                     <input type="text" class="form-control search-bar" placeholder="Search">
                                 </div><br>
+
+                                <?php 
+                                    if(isset($_GET['msg'])) {
+                                    ?>
+                                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                            <?= $_GET['msg'] ?>
+                                            <button class="btn-close" data-bs-dismiss="alert" id="removeErrorButton" aria-label="Close"></button>
+                                        </div>
+                            <?php } ?>
                                 <!--Table-->
                                 <table class="table bg-light rounded shadow-sm table-hover">
                                     <thead>
@@ -226,6 +235,7 @@ $user = $_SESSION['user_name'];
                                             <td><?php echo $rows['expectedDel'] ?></td>
                                             <td>
                                                 <button title="<?php echo $rows['item_vendorID']; ?>" class="btn btn-primary btn-sm view-data" data-itemid="<?php echo $rows['item_vendorID'];?>" data-bs-toggle="modal" data-bs-target="#viewModal">View Items</button>
+                                                <a class="btn btn-primary btn-sm btn-danger" href="delete_po.php?id=<?= $rows['item_vendorID'] ?>"><i class="fas fa-trash"></i></a>
                                             </td>
                                             <td>
                                             <button class="btn btn-primary btn-sm delivered-rbtn" id="delivered_label" value="Delivered" name="dob_<?php echo $rows['item_vendorID']; ?>" data-itemid="<?php echo $rows['item_vendorID']; ?>">Delivered</button>
@@ -759,6 +769,15 @@ $user = $_SESSION['user_name'];
             });
         });
     });
+
+    $(document).ready(function() {
+  $('#removeErrorButton').on('click', function() {
+    // Remove the 'err' query parameter from the URL
+    var currentUrl = window.location.href;
+    var updatedUrl = currentUrl.replace(/[?&]msg=.*&?/, '');
+    history.replaceState({}, document.title, updatedUrl);
+  });
+});    
 
     </script>
 <?php } ?>
