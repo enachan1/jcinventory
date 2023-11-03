@@ -62,7 +62,7 @@ $(document).ready(function() {
         if (isNaN(cash_input) || cash_input < total_input) {
             $(".change-pay").val(0);
         } else {
-            var subtract = cash_input - total_input;
+            var subtract = (parseFloat(cash_input) - parseFloat(total_input)).toFixed(2);
             $(".change-pay").val(subtract);
         }
         

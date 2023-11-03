@@ -396,7 +396,7 @@ if(isset($_SESSION['id']) && isset($_SESSION['user_name'])) {
                                         <h1 class="display-4 mb-0 apto-display-font">Cash:</h1>
                                                                 <!-- Display cash here -->
                                         <h1 class="display-4 mb-0">
-                                            <input type="text" class="form-control roboto-font text-end responsive-input" id="cash" placeholder="0.00">
+                                            <input type="number" class="form-control roboto-font text-end responsive-input" step=".01" id="cash" placeholder="0.00">
                                         </h1>
                                     </div><br>
                                         
@@ -406,7 +406,7 @@ if(isset($_SESSION['id']) && isset($_SESSION['user_name'])) {
                                         <h1 class="display-4 mb-0 apto-display-font">Change:</h1>
                                                                 <!-- Display Exchange here -->
                                         <h1 class="display-4 mb-0">
-                                            <input type="text" class="form-control roboto-font text-end responsive-input change-pay" id="change" placeholder="0.00" disabled>
+                                            <input type="number" class="form-control roboto-font text-end responsive-input change-pay" step=".01" id="change" placeholder="0.00" disabled>
                                         </h1>
                                     </div><br>
     
