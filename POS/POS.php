@@ -109,6 +109,15 @@ if(isset($_SESSION['id']) && isset($_SESSION['user_name'])) {
             height: 80px; 
         }
 
+        .apto-display-fonts {
+            font-family: 'Alfa Slab One', cursive;
+            font-size: 28px;
+        }
+        .custom-button {
+            width: 170px; 
+            height: 70px; 
+        }
+
 
     </style>
 
@@ -219,13 +228,13 @@ if(isset($_SESSION['id']) && isset($_SESSION['user_name'])) {
                     <div class="container">
                         <div class="row g-2">
                             <div class="col-md-6 col-sm-12 col-12">
-                                <div class="p-3 d-flex justify-content-center"><button type="button" class="btn btn-primary w-100 btns" style="height: 100px; font-size: 24px; font-weight: bold;" data-bs-toggle="modal" data-bs-target="#searchModal" id="F1Button"> Search  F1</button> </div>
+                                <div class="p-3 d-flex justify-content-center"><button type="button" class="btn btn-primary w-100 btns" style="height: 100px; font-size: 24px; font-weight: bold;" data-bs-toggle="modal" data-bs-target="#searchModal" id="F1Button"> Search Item F1</button> </div>
                             </div>
                             <div class="col-md-6 col-sm-12 col-12">
                                 <div class="p-3 d-flex justify-content-center"><button type="button" class="btn btn-primary w-100 btns" style="height: 100px; font-size: 24px; font-weight: bold;" data-bs-toggle="modal" data-bs-target="#priceinquiryModal" id="F2Button"> Price Inquiry F2</button> </div>
                             </div>
                             <div class="col-md-6 col-sm-12 col-12">
-                                <div class="p-3 d-flex justify-content-center"><button type="button" class="btn btn-primary w-100 btns" style="height: 100px; font-size: 24px; font-weight: bold;" data-bs-toggle="modal" data-bs-target="#transactionModal" id="F3Button"> Transaction <br> F3</button> </div>
+                                <div class="p-3 d-flex justify-content-center"><button type="button" class="btn btn-primary w-100 btns" style="height: 100px; font-size: 24px; font-weight: bold;" id="F3Button"> Delete F3</button> </div>
                             </div>
                             <div class="col-md-6 col-sm-12 col-12">
                                 <div class="p-3 d-flex justify-content-center"><button type="button" class="btn btn-primary w-100 btns" style="height: 100px; font-size: 24px; font-weight: bold;" data-bs-toggle="modal" data-bs-target="#paymentModal" id="F4Button"> Payment  F4</button> </div>
@@ -244,19 +253,22 @@ if(isset($_SESSION['id']) && isset($_SESSION['user_name'])) {
                     <div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="searchModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-fullscreen">
                             <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="searchModalLabel">Search</h5>
+                                <div class="modal-header ">
+                                    <h2 class="modal-title display-4 mb-0 apto-display-fonts" id="searchModalLabel"><strong>Search Item</strong></h2>
                                 </div>
-                                <div class="modal-body">
-                                    <form action="search_script.php" method="GET" class="d-flex justify-content-center align-items-center" id="searchForm">
-                                        <div class="input-group mb-3" style="width: 60%;">
-                                            <input type="text" name="search" required value="<?php if(isset($_GET['search'])){echo $_GET['search'];}?>" class="form-control form-control-lg">
-                                            <button type="submit" class="btn btn-primary btn-lg custom-search-button">Search</button>
+                                <div class="modal-body colobody">
+                                <div class="container-fluid">
+                                    <form action="search_script.php" method="GET" id="searchForm">
+                                        <div class=" d-flex input-group input-group-lg" style="height: 70px;">
+                                            <span class="input-group-text" id="inputGroup-sizing-lg"><strong>Search:</strong></span>
+                                                                                                <!-- Value for search to get item -->
+                                            <input type="text" class="form-control" name="search" required value="<?php if(isset($_GET['search'])){echo $_GET['search'];}?>">
+                                            <button type="submit" class="btn btn-primary btn-lg custom-search-button d-none">Search</button>
                                         </div>
                                     </form>
                                     <div class="table-responsive text-center mt-4" id="searchResults">
                                         <!-- Results will be displayed here -->
-                                        <table class="table table-bordered" style="max-width: 75%; margin: auto;">
+                                        <table class="table table-bordered colorbody w-75 m-auto">
                                             <thead>
                                                 <tr>
                                                     <th scope="col">SKU</th>
@@ -270,9 +282,16 @@ if(isset($_SESSION['id']) && isset($_SESSION['user_name'])) {
                                         </table>
                                     </div>
                                 </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                 </div>
+
+                                <!-- Modal footer goes here -->
+                                <div class="modal-footer">
+                                                                    <!-- Kapag nag enter mapupunta sa table yong item kaso wala pa function nilagay ni carlo -->
+                                    <button type="button" class="btn btn-primary custom-button"><h2><strong>Enter</strong></h2></button>
+                                    <button type="button" class="btn btn-secondary custom-button" data-bs-dismiss="modal"><h2><strong>Close</strong></h2></button>
+                                </div>
+                                <!-- Modal footer End here -->
+
                             </div>
                         </div>
                     </div>
@@ -281,27 +300,25 @@ if(isset($_SESSION['id']) && isset($_SESSION['user_name'])) {
 
 
 
-                <!-- Price Inquiry Modal -->
-                <div class="modal fade" id="priceinquiryModal" tabindex="-1" aria-labelledby="priceinquiryModalLabel" aria-hidden="true">
+            <!-- Price Inquiry Modal -->
+            <div class="modal fade" id="priceinquiryModal" tabindex="-1" aria-labelledby="priceinquiryModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-fullscreen">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="priceinquiryModalLabel">Price Inquiry</h5>
+                            <h5 class="modal-title display-4 mb-0 apto-display-fonts" id="priceinquiryModalLabel">Price Inquiry</h5>
                         </div>
-                        <div class="modal-body">
-                        <div class="price-display-box mx-auto text-center" style="font-size: 3em; padding: 10px; background-color: #f8f9fa; height: 200px; width: 900px;">
-                                <div style="font-size: 1em; text-align: left;">Price:</div>
-                                <span id="priceDisplay"></span>
-                            </div>
-                            <form action="price_inquiry.php" method="GET" class="d-flex justify-content-center align-items-center" id="priceForm">
-                                <div class="input-group mb-3" style="width: 60%;">
-                                    <input type="text" name="price" required value="<?php if(isset($_GET['price'])){echo $_GET['price'];}?>" class="form-control form-control-lg">
-                                    <button type="submit" class="btn btn-primary btn-lg custom-search-button">Submit</button>
-                                </div>
-                            </form>
+                        <div class="modal-body colobody">
+                            <div class="card-body center d-flex justify-content-between bg-info mt-2 m-4">
+                                        <h1 class="display-4 px-2 apto-display-font">Price:</h1>
+                                                                <!-- Display Price Display here -->
+                                        <h1 class="display-4 px-5">
+                                        <i class="fas fa-dollar-sign"></i>
+                                            <span class="roboto-font text-end" id="priceDisplay">0.00</span>
+                                        </h1>
+                                    </div>
                             <div class="table-responsive text-center mt-4" id="priceResults">
                                 <!-- Results will be displayed here -->
-                                <table class="table table-bordered" style="max-width: 75%; margin: auto;">
+                                <table class="table table-bordered colorbody w-75 m-auto">
                                     <thead>
                                         <tr>
                                             <th scope="col">SKU</th>
@@ -315,100 +332,47 @@ if(isset($_SESSION['id']) && isset($_SESSION['user_name'])) {
                                 </table>
                             </div>
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+                        <!-- Modal footer goes here -->
+                        <div class="modal-footer ">
+                            <div class="container-fluid">
+                                <div class="row">
+                                <!-- Left column for the form content -->
+                                    <div class="col-md-8">
+                                        <form action="price_inquiry.php" method="GET" id="priceForm">
+                                        <div class="card-body d-flex justify-content-around colobody">
+                                            <div class="input-group input-group-lg">
+                                                <span class="input-group-text" id="inputGroup-sizing-lg"><strong>Item Name:</strong></span>
+                                                                                                                    <!-- Call value form price -->
+                                                <input type="text" class="form-control" name="price" required value="<?php if(isset($_GET['price'])){echo $_GET['price'];}?>">
+                                                <button type="submit" class="btn btn-primary d-none">Submit</button>
+                                            </div>
+                                        </div>
+                                        </form>
+                                    </div>
+
+                                <!-- Right column for the "Close" button -->
+                                    <div class="col-md-4">
+                                        <div class="d-grid m-1 gap-7 col-15 mx-auto h-50">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><h2><strong>Close</strong></h2></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
+                        <!-- Modal footer end here -->
+
                     </div>
                 </div>
             </div>
             <!--End modal Price Inquiry-->
-
-
-            <!-- Transaction Modal-->
-            <div class="modal fade" id="transactionModal">
-                <div class="modal-dialog modal-fullscreen">
-                    <div class="modal-content">
-                    <!-- Modal Header -->
-                        <div class="modal-header">
-                            <h3 class="modal-title">Transaction</h3>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                        </div>
-
-                        <!-- Modal Body -->
-                        <div class="modal-body">
-                        <!-- Your content goes here -->
-
-                            <!-- Table -->
-                            <div class="table-responsive">
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">Reciept No.</th>
-                                            <th scope="col">Date</th>
-                                            <th scope="col">Total Item</th>
-                                            <th scope="col">Total Amount</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>001</td>
-                                            <td>2023-10-16</td>
-                                            <td>16</td>
-                                            <td>500</td>
-                                        </tr>
-                                        <!-- Add more rows as needed -->
-                                    </tbody>
-                                </table>
-                            </div>
-                        
-                        <!-- Modal Footer Goes here-->
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        </div>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!--End modal Transaction History-->
-
-            <!-- Cash out Modal-->
-            <div class="modal fade" id="cashModal">
-                <div class="modal-dialog modal-lg">
-                    <div class="modal-content">
-                    <!-- Modal Header -->
-                        <div class="modal-header">
-                            <h3 class="modal-title">Cash Out</h3>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                        </div>
-
-                        <!-- Modal Body -->
-                        <div class="modal-body">
-                        <!-- Your Cashout content goes here -->
-                        <div class="card-body d-flex justify-content-between bg-info">
-                            <h1 class="display-4 mb-0 apto-display-font">Change:</h1>
-                                                    <!-- Display Exchange here -->
-                            <h1 class="display-4 mb-0"> <span id="change">0.00</span></h1>
-                        </div>
-                        
-                        <!-- Modal Footer Goes here-->
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        </div>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!--End modal Cash out-->
-
 
             <!-- Payment Modal -->
             <div class="modal fade" id="paymentModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                 <div class="modal-dialog modal-xl">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h3 class="modal-title" style="font-size:32px">Payment</h3>
+                            <h3 class="modal-title display-4 mb-0 apto-display-fonts">Payment</h3>
                             <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                         </div>
                         <div class="modal-body">
