@@ -44,9 +44,9 @@ function fetch_data_from_input(data) {
         data.itemdesc.forEach(function (item) {
             $('#itemnameInput').val(item.po_item_name);
             $('#add_category').val(item.po_category);
+            $('#cpriceInput').val(item.po_item_price);
         });
     } else {
-        // Handle the case where data.itemdesc is not as expected
         console.error("Data or data.itemdesc is not defined or not an array.");
     }
 }

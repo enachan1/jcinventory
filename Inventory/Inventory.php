@@ -27,6 +27,10 @@ $user = $_SESSION['user_name'];
     $total_no_of_pages = ceil($total_records / $total_records_per_page);
 
 
+    //for markup query
+
+    $setting_query = "SELECT `markup` FROM setting_db";
+    $setting_query_result = mysqli_query($sqlconn, $setting_query);
 
 
 ?>
@@ -176,9 +180,20 @@ $user = $_SESSION['user_name'];
                         $show_result = mysqli_query($sqlconn, $show_items_query);
 
                         while($show_rows = mysqli_fetch_array($show_result)) {
-                        
+                            // Calculate the difference between the expiration date and the current date
+                            $expDate = strtotime($show_rows['item_expdate']);
+                            $currentDate = time();
+                            $dateDifference = $expDate - $currentDate;
+
+                            // Determine the row class based on the date difference
+                            $rowClass = '';
+                            if ($dateDifference < 0) {
+                                $rowClass = 'expired'; // Expired
+                        }elseif ($dateDifference < 1296000) { // Less than 7 days (adjust as needed)
+                                $rowClass = 'close-to-expiration'; // Close to expiration
+                    }
                         ?>
-                        <tr>
+                        <tr class="<?= $rowClass?>">
                             <td style="display: none;"><?php echo $show_rows['id'] ?></td>
                             <td><?= $show_rows['item_sku'] ?></td>
                             <td><?php echo $show_rows['item_barcode'] ?></td>
@@ -250,8 +265,16 @@ $user = $_SESSION['user_name'];
                     <input type="number" name="modal_stocks" class="form-control" id="stocksInput" required>
                     <label for="expdateInput" class="form-label">Exp. Date</label>
                     <input type="date" name="modal_date" class="form-control" id="expdateInput" required>
+                    <label for="cpriceInput" class="form-label">Cost Price</label>
+                    <input style="margin: 0;" type="number" name="modal_cp" class="form-control" id="cpriceInput" readonly>
+                    <?php 
+                        if ($rows = mysqli_fetch_assoc($setting_query_result)) {
+
+                    ?>
+                    <input style="margin: 0;" type="hidden" value="<?= $rows['markup'] ?>" name="modal_markup" class="form-control" id="mark-up" readonly>
+                    <?php }?>
                     <label for="priceInput" class="form-label">Price</label>
-                    <input style="margin: 0;" type="number" name="modal_price" class="form-control" id="priceInput" required><br>
+                    <input style="margin: 0;" type="number" name="modal_price" class="form-control" id="priceInput" step=".01" required><br>
 
                     <!-- Selecting Category -->
                     <div class="input-group mb-4">
@@ -312,7 +335,7 @@ $user = $_SESSION['user_name'];
                     <label for="expdateInput" class="form-label">Exp. Date</label>
                     <input type="date" name="modal_date" id="expdate" class="form-control" id="expdateInput">
                     <label for="priceInput" class="form-label">Price</label>
-                    <input style="margin: 0;" type="number" name="modal_price" id="price" class="form-control" id="priceInput"><br>
+                    <input style="margin: 0;" type="number" name="modal_price" id="price" step=".01" class="form-control" id="priceInput"><br>
 
                     <!-- Selecting Category-->
                     <div class="input-group mb-4">
@@ -352,6 +375,8 @@ $user = $_SESSION['user_name'];
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
         <script src="autocomplete.js"></script>
+        <script src="calculate-price.js"></script>
+        <script type="text/javascript" src="update.js"></script>
     
         <script>
             var el = document.getElementById("wrapper");
@@ -364,7 +389,19 @@ $user = $_SESSION['user_name'];
     
         </script>
 
-        <script type="text/javascript" src="update.js"></script>
+
+        <script>
+            $(document).ready(function() {
+                $("tr").each(function() {
+                var row = $(this);
+                if (row.hasClass("expired")) {
+                    row.css("background-color", "#FF7276");
+            } else if (row.hasClass("close-to-expiration")) {
+                    row.css("background-color", "#FCD299");
+        }
+    });
+});
+        </script>
     </body>
     <?php
 }
