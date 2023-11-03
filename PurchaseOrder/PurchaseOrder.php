@@ -511,7 +511,7 @@ $user = $_SESSION['user_name'];
                                                     ?>
                                                         <!-- Many Brands -->
                                                     </select></th>
-                                                    <th><input type="number" class="form-control" name="PO_price[]" required></th>
+                                                    <th><input type="number" class="form-control" name="PO_price[]" step=".01" required></th>
                                                     <!--Added Input -->
                                                     <td><button class="btn btn-primary btn-sm btn-secondary" id="addInput" type="button"><i class="far fa-plus-circle"></i>
                                                 </tr>
