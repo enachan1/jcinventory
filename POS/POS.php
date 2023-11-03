@@ -240,117 +240,87 @@ if(isset($_SESSION['id']) && isset($_SESSION['user_name'])) {
 
     <!-- End of Page Content -->
 
-                        <!-- Search Modal-->
-                        <div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="searchModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-fullscreen">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h3 class="modal-title" id="searchModalLabel">Search</h3>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <!-- Search Modal-->
+                    <div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="searchModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-fullscreen">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="searchModalLabel">Search</h5>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="search_script.php" method="GET" class="d-flex justify-content-center align-items-center" id="searchForm">
+                                        <div class="input-group mb-3" style="width: 60%;">
+                                            <input type="text" name="search" required value="<?php if(isset($_GET['search'])){echo $_GET['search'];}?>" class="form-control form-control-lg">
+                                            <button type="submit" class="btn btn-primary btn-lg custom-search-button">Search</button>
+                                        </div>
+                                    </form>
+                                    <div class="table-responsive text-center mt-4" id="searchResults">
+                                        <!-- Results will be displayed here -->
+                                        <table class="table table-bordered" style="max-width: 75%; margin: auto;">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">SKU</th>
+                                                    <th scope="col">Item Name</th>
+                                                    <th scope="col">Category</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <!-- This section will be populated with search results using JavaScript -->
+                                            </tbody>
+                                        </table>
                                     </div>
-                                    <div class="modal-body">
-                                        <div class="container-fluid px-4">
-                                        <div class="mb-3">
-                                            <label for="searchInput" class="form-label">Search Input</label>
-                                            <input type="text" class="form-control" id="searchInput">
-                                        </div>
-                                        <div class="table-responsive">
-                                            <table class="table">
-                                                <thead>
-                                                    <tr>
-                                                        <th scope="col">Item Name</th>
-                                                        <th scope="col">SKU</th>
-                                                        <th scope="col">Category</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td>Pato</td>
-                                                        <td>0909</td>
-                                                        <td>Animal</td>
-                                                    </tr>
-                                                    <!-- Add more rows as needed -->
-                                                </tbody>
-                                            </table>
-                                        </div>
-  
-                            <!-- Pagination -->
-                            <nav aria-label="Page navigation">
-                                <ul class="pagination justify-content-center">
-                                    <li class="page-item disabled">
-                                        <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-                                    </li>
-                                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">4</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">5</a></li>
-                                        <li class="page-item">
-                                        <a class="page-link" href="#">Next</a>
-                                    </li>
-                                </ul>
-                            </nav>
-                        </div>
-                        
-                        <!-- Modal Footer Goes here-->
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    </div>
-                </div>
-            </div>
-            <!--End modal Search-->
+
+            <!--End search-->
 
 
-            <!-- Price Inquiry Modal-->
-            <div class="modal fade" id="priceinquiryModal">
+
+                <!-- Price Inquiry Modal -->
+                <div class="modal fade" id="priceinquiryModal" tabindex="-1" aria-labelledby="priceinquiryModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-fullscreen">
                     <div class="modal-content">
-                        <!-- Modal Header -->
                         <div class="modal-header">
-                            <h3 class="modal-title">Price Inquiry</h3>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                            <h5 class="modal-title" id="priceinquiryModalLabel">Price Inquiry</h5>
                         </div>
-            
-                        <!-- Modal Body -->
                         <div class="modal-body">
-                            <!-- Display Box -->
-                            <div class="mb-3">
-                                <label for="displayBox" class="form-label">Display Box</label>
-                                <input type="text" class="form-control" id="displayBox" readonly>
+                        <div class="price-display-box mx-auto text-center" style="font-size: 3em; padding: 10px; background-color: #f8f9fa; height: 200px; width: 900px;">
+                                <div style="font-size: 1em; text-align: left;">Price:</div>
+                                <span id="priceDisplay"></span>
                             </div>
-            
-                            <!-- Table -->
-                            <div class="table-responsive">
-                                <table class="table">
+                            <form action="price_inquiry.php" method="GET" class="d-flex justify-content-center align-items-center" id="priceForm">
+                                <div class="input-group mb-3" style="width: 60%;">
+                                    <input type="text" name="price" required value="<?php if(isset($_GET['price'])){echo $_GET['price'];}?>" class="form-control form-control-lg">
+                                    <button type="submit" class="btn btn-primary btn-lg custom-search-button">Submit</button>
+                                </div>
+                            </form>
+                            <div class="table-responsive text-center mt-4" id="priceResults">
+                                <!-- Results will be displayed here -->
+                                <table class="table table-bordered" style="max-width: 75%; margin: auto;">
                                     <thead>
                                         <tr>
                                             <th scope="col">SKU</th>
                                             <th scope="col">Item Name</th>
-                                            <th scope="col">Price</th>
+                                            <th scope="col">Category</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>0909</td>
-                                            <td>Pato</td>
-                                            <td>800</td>
-                                        </tr>
-                                        <!-- Add more rows as needed -->
+                                        <!-- This section will be populated with search results using JavaScript -->
                                     </tbody>
                                 </table>
                             </div>
                         </div>
-            
-                        <!-- Modal Footer Goes here-->
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         </div>
                     </div>
                 </div>
             </div>
-            
             <!--End modal Price Inquiry-->
 
 
@@ -506,6 +476,80 @@ if(isset($_SESSION['id']) && isset($_SESSION['user_name'])) {
   <script src="insertitems.js"></script>
 
     <script>
+
+            //search
+            $(document).ready(function () {
+            // Handle search form submission
+            $("#searchForm").on("submit", function (e) {
+                e.preventDefault(); // Prevent default form submission
+
+                var formData = $(this).serialize(); // Serialize form data
+
+                // Make an AJAX request to fetch search results
+                $.ajax({
+                    url: "search_script.php", // Replace with actual script URL
+                    type: "GET",
+                    data: formData,
+                    success: function (response) {
+                        console.log(response); // Log the response to the console
+                        if (response.trim() !== "") {
+                            $("#searchResults tbody").html(response);
+                        } else {
+                            $("#searchResults tbody").html('<tr><td colspan="3">No Item Found</td></tr>');
+                        }
+                    }
+                });
+            });
+        });
+
+            //price inquiry
+            $(document).ready(function () {
+            // Handle priceinquiry form submission
+            $("#priceForm").on("submit", function (e) {
+                e.preventDefault(); // Prevent default form submission
+
+                var formData = $(this).serialize(); // Serialize form data
+
+                // Make an AJAX request to fetch price results
+                $.ajax({
+                    url: "price_inquiry.php", // Replace with actual script URL
+                    type: "GET",
+                    data: formData,
+                    dataType: "json", // Expect JSON response
+                    success: function (response) {
+                        var data = response.data;
+                        if (data.length > 0) {
+                            var price = data[0].item_price;
+                            $("#priceDisplay").text(price);
+
+                            // Remove the "Price" column from the table
+                            var modifiedData = data.map(function (item) {
+                                return {
+                                    item_sku: item.item_sku,
+                                    item_name: item.item_name,
+                                    item_category: item.item_category,
+                                };
+                            });
+
+                            // Update content in the table body
+                            var tableBody = $("#priceResults tbody");
+                            tableBody.empty(); // Clear existing content
+
+                            $.each(modifiedData, function (index, item) {
+                                var row = $("<tr>");
+                                row.append($("<td>").text(item.item_sku));
+                                row.append($("<td>").text(item.item_name));
+                                row.append($("<td>").text(item.item_category));
+                                tableBody.append(row);
+                            });
+                        } else {
+                            $("#priceDisplay").text("Wala pa ang price nito");
+                            $("#priceResults tbody").empty(); // Clear table body
+                        }
+                    }
+                });
+            });
+        });
          // auto focus
          
          $(document).ready(function () {
