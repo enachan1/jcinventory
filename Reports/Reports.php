@@ -1,4 +1,5 @@
 <?php
+include "../connectdb.php";
 session_start();
 if(isset($_SESSION['id']) && isset($_SESSION['user_name'])) {
 $user = $_SESSION['user_name'];
@@ -7,6 +8,14 @@ $user = $_SESSION['user_name'];
         header("Location: login_form.php");
         exit();
     }
+    //for fast moving table threshold
+    $threshold_query = "SELECT `threshold` FROM `setting_db`";
+    $threshold_query_result = mysqli_query($sqlconn, $threshold_query);
+
+    if($rows = mysqli_fetch_assoc($threshold_query_result)) {
+        $threshold = $rows['threshold'];
+    }
+
 
     // //get page number on sales report
     // if (isset($_GET['page_no']) && $_GET['page_no'] !== "") {
@@ -252,17 +261,30 @@ $user = $_SESSION['user_name'];
                         <table class="table bg-light rounded shadow-sm table-hover">
                             <thead>
                                 <tr>
-                                    <th>Item No.</th>
+                                    <th>Item Barcode</th>
                                     <th>Item Name</th>
-                                    <th>Item Description</th>
-                                    <th>Price</th>
-                                    <th>Qty</th>
-                                    <th>Amount</th>
-                                    <th>Total</th>
+                                    <th>Item Quantity</th>
+                                    <th>Price Total</th>
+                                    <th>Date</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <!-- Table content here -->
+                                <?php 
+                                $sales_query1 = "SELECT * FROM `sales_db` ORDER BY `s_date` DESC";
+                                $result_sales_query = mysqli_query($sqlconn, $sales_query1);
+
+                                while($rows = mysqli_fetch_assoc($result_sales_query)) {
+                                
+                                ?>
+                                <tr>
+                                    <td><?=$rows['s_sku']?></td>
+                                    <td><?=$rows['s_item']?></td>
+                                    <td><?=$rows['s_qty']?></td>
+                                    <td><?=$rows['s_total']?></td>
+                                    <td><?=$rows['s_date']?></td>
+                                </tr>
+                                <?php } ?>
                             </tbody>
                         </table>
 
@@ -432,15 +454,32 @@ $user = $_SESSION['user_name'];
                         <table class="table bg-light rounded shadow-sm table-hover">
                             <thead>
                                 <tr>
-                                    <th>Item No.</th>
+                                    <th>Item Barcode</th>
                                     <th>Item Name</th>
-                                    <th>Item Description</th>
-                                    <th>Price</th>
-                                    <th>Qty</th>
+                                    <th>Total Sold</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <!-- Table content here -->
+                                <?php 
+                                $query_fm = "SELECT s_sku, s_item, SUM(s_qty) AS total_quantity_sold
+                                FROM sales_db
+                                WHERE s_date >= DATE_FORMAT(CURRENT_DATE, '%Y-%m-01') -- First day of the current month
+                                  AND s_date <= LAST_DAY(CURRENT_DATE) -- Last day of the current month
+                                GROUP BY s_item
+                                HAVING total_quantity_sold >= $threshold";
+                                
+                                $result_fm = mysqli_query($sqlconn, $query_fm);
+
+
+                                while($fm_rows = mysqli_fetch_assoc($result_fm)) {
+                                ?>
+                                <tr>
+                                    <td><?= $fm_rows['s_sku'] ?></td>
+                                    <td><?= $fm_rows['s_item'] ?></td>
+                                    <td><?= $fm_rows['total_quantity_sold'] ?></td>
+                                </tr>
+                                <?php } ?>
                             </tbody>
                         </table>
 
