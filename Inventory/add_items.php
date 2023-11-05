@@ -30,9 +30,14 @@ if(isset($_POST['modal_sku']) || isset($_POST['modal_itemname'])) {
             VALUES ('$sku', $barcode, '$itemname', $itemstocks, '$expdate', $price, '$category')";
         $sql_result = mysqli_query($sqlconn, $sql_query);
 
-        if($sql_result) {
-            header("Location: Inventory.php?msg=Item Added");
-            exit();
+        if($sql_result == TRUE) {
+            $remove_po = "DELETE FROM purchase_order_db WHERE `po_item_sku` = '$sku'";
+            $remove_res = mysqli_query($sqlconn, $remove_po);
+
+            if($remove_res == TRUE) {
+                header("Location: Inventory.php?msg=Item Added");
+                exit();
+            }
         }
         else {
             header("Location: Inventory.php?error=There's an error");
