@@ -10,6 +10,38 @@ $user = $_SESSION['user_name'];
         exit();
     }
 
+    //get page number on category
+    if (isset($_GET['page_no']) && $_GET['page_no'] !== "") {
+        $page_no = $_GET['page_no'];
+    } else {
+        $page_no = 1;
+    }
+    $total_records_per_page = 10;
+    $offset = ($page_no -1) * $total_records_per_page;
+    $previous_page = $page_no -1;
+    $next_page = $page_no + 1;
+    
+    $result_count = mysqli_query($sqlconn, "SELECT COUNT(*) as total_records FROM category_db");
+    $records = mysqli_fetch_array($result_count);
+    $total_records = $records['total_records'];
+    $total_no_of_pages = ceil($total_records / $total_records_per_page);
+
+    //get page number on Uom
+    if (isset($_GET['page_nos']) && $_GET['page_nos'] !== "") {
+        $page_nos = $_GET['page_nos'];
+    } else {
+        $page_nos = 1;
+    }
+    $total_records_per_pages = 10;
+    $offsets = ($page_nos -1) * $total_records_per_pages;
+    $previous_pages = $page_nos -1;
+    $next_pages = $page_nos + 1;
+    
+    $result_counts = mysqli_query($sqlconn, "SELECT COUNT(*) as total_record FROM uom_db");
+    $recordss = mysqli_fetch_array($result_counts);
+    $total_record = $recordss['total_record'];
+    $total_no_of_pagess = ceil($total_record / $total_records_per_pages);
+
 
 ?>
 <html>
@@ -92,12 +124,12 @@ $user = $_SESSION['user_name'];
         <ul class="nav nav-tabs" id="myTab" role="tablist">
             <!-- Navigation Menu -->
             <li class="nav-item" role="presentation">
-                <a class="nav-link active" id="category-tab" data-bs-toggle="tab" data-bs-target="#category" type="button" role="tab" aria-controls="category" aria-selected="true">
+                <a class="nav-link" href="?tb=1" id="category-tab" data-bs-toggle="tab" data-bs-target="#category" type="button" role="tab" aria-controls="category" aria-selected="true">
                     <i class="fas fa-folder"></i> Category
                 </a>
             </li>
             <li class="nav-item" role="presentation">
-                <a class="nav-link" id="uom-tab" data-bs-toggle="tab" data-bs-target="#uom" type="button" role="tab" aria-controls="uom" aria-selected="false">
+                <a class="nav-link" href="?tb=2" id="uom-tab" data-bs-toggle="tab" data-bs-target="#uom" type="button" role="tab" aria-controls="uom" aria-selected="false">
                     <i class="fas fa-ruler"></i> Unity of Measure
                 </a>
             </li>
@@ -106,7 +138,7 @@ $user = $_SESSION['user_name'];
 
         <!-- Category Tab -->
         <div class="tab-content" id="myTabContent">
-            <div class="tab-pane fade show active" id="category" role="tabpanel" aria-labelledby="category-tab">
+            <div class="tab-pane fade" id="category" role="tabpanel" aria-labelledby="category-tab">
                 <div class="card">
                     <div class="card-body colorbox">
                         <h5 class="card-title">Category</h5>
@@ -127,7 +159,7 @@ $user = $_SESSION['user_name'];
                                 </tr>
                             </thead>
                              <?php 
-                                    $sql_query = "SELECT * FROM category_db";
+                                    $sql_query = "SELECT * FROM category_db LIMIT $offset, $total_records_per_page";
                                     $sql_res = mysqli_query($sqlconn, $sql_query);
 
                                     while($array = mysqli_fetch_array($sql_res)) {
@@ -152,16 +184,23 @@ $user = $_SESSION['user_name'];
                             <!-- Pagination Next Tables-->
                             <nav aria-label="Page navigation">
                                 <ul class="pagination justify-content-center">
-                                        <li class="page-item disabled">
-                                            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-                                        </li>
-                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                    <li class="page-item">
-                                    <a class="page-link" href="#">Next</a>
+                                    <li class="page-item">       
+                                    <a class="page-link <?= ($page_no <= 1) ? 'disabled' : ''; ?>"<?= ($page_no > 1) ? 'href=?page_no=' . $previous_page : ''; ?> tabindex="-1" aria-disabled="true">Previous</a>
+                                    </li>
+
+                                    <?php for ($counter = 1; $counter <= $total_no_of_pages; $counter++)
+                                    {?>
+                                    <li class="page-item"><a class="page-link" href="?page_no= <?php echo $counter; ?>"><?php echo $counter; ?></a></li>
+                                    <?php } ?>
+
+                                    <a class="page-link <?= ($page_no >= $total_no_of_pages)? 'disabled' : '';?>" <?= ($page_no < $total_no_of_pages)? 'href=?page_no=' . $next_page: '';?>>Next</a>
                                     </li>
                                 </ul>
                             </nav>
+                        <div class="p-10">
+                            <strong>Page <?= $page_no; ?> of <?= $total_no_of_pages; ?></strong>
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -189,7 +228,7 @@ $user = $_SESSION['user_name'];
                                 </tr>
                             </thead>
                             <?php 
-                                $sql_query1 = "SELECT * FROM uom_db";
+                                $sql_query1 = "SELECT * FROM uom_db LIMIT $offsets, $total_records_per_pages";
                                 $sql_res1 = mysqli_query($sqlconn, $sql_query1);
 
                                 while($array1 = mysqli_fetch_array($sql_res1)) {
@@ -215,16 +254,24 @@ $user = $_SESSION['user_name'];
                             <!-- Pagination Next Tables-->
                             <nav aria-label="Page navigation">
                                 <ul class="pagination justify-content-center">
-                                        <li class="page-item disabled">
-                                        <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-                                        </li>
-                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                    <li class="page-item">
-                                    <a class="page-link" href="#">Next</a>
+                                    <li class="page-item">       
+                                    <a class="page-link <?= ($page_nos <= 1) ? 'disabled' : ''; ?>"<?= ($page_nos > 1) ? 'href=?page_nos=' . $previous_pages : ''; ?> tabindex="-1" aria-disabled="true">Previous</a>
+                                    </li>
+
+                                    <?php for ($counters = 1; $counters <= $total_no_of_pagess; $counters++)
+                                    {?>
+                                    <li class="page-item"><a class="page-link" href="?page_nos= <?php echo $counters; ?>"><?php echo $counters; ?></a></li>
+                                    <?php } ?>
+
+                                    <a class="page-link <?= ($page_nos >= $total_no_of_pagess)? 'disabled' : '';?>" <?= ($page_nos < $total_no_of_pagess)? 'href=?page_nos=' . $next_pages: '';?>>Next</a>
                                     </li>
                                 </ul>
                             </nav>
+                        <div class="p-10">
+                            <strong>Page <?= $page_nos; ?> of <?= $total_no_of_pagess; ?></strong>
+                        </div>
+
+
                         </div>
                     </div>
                 </div>
@@ -303,6 +350,32 @@ $user = $_SESSION['user_name'];
             toggleButton.onclick = function () {
                 el.classList.toggle("toggled");
             };
+
+            document.addEventListener('DOMContentLoaded', function () {
+            // Retrieve the last active tab from sessionStorage
+            var lastActiveTab = sessionStorage.getItem('activeTab');
+    
+            // If no last active tab is found, default to the "Sales Report" tab (tab number 1)
+            if (lastActiveTab === null) {
+                lastActiveTab = 1;
+            }
+    
+            // Add a click event listener to restore the last active tab
+            var tabLink = document.querySelector('a[href="?tb=' + lastActiveTab + '"]');
+    
+            if (tabLink) {
+                tabLink.click();
+            }
+    
+            // Add a click event listener to save the active tab to sessionStorage
+            var tabLinks = document.querySelectorAll('#myTab a.nav-link');
+            tabLinks.forEach(function (tabLink) {
+                tabLink.addEventListener('click', function () {
+                    var tabNumber = tabLink.getAttribute('href').split('=')[1];
+                    sessionStorage.setItem('activeTab', tabNumber);
+                });
+            });
+        });
 
         </script>
     </body>
