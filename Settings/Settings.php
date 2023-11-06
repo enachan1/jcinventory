@@ -17,7 +17,7 @@ $id = $_SESSION['id'];
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" />
         <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
         <link rel="stylesheet" href="../styles.css" />
-        <title>Setting</title>
+        <title>Settings</title>
     </head>
     <style>
         .container {
@@ -160,11 +160,6 @@ $id = $_SESSION['id'];
                                         <div class="form-group">
                                             <label for="mark-up">Markup %</label>
                                             <input type="number" class="form-control" id="mark-up" value="<?= $result_rows['markup'] ?>" name="markup">
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label for="mark-up">Markdown %</label>
-                                            <input type="number" id="mark-down" class="form-control" value="<?= $result_rows['markdown'] ?>" name="markdown">
                                         </div>
                                             <?php } ?>
                                         <button type="submit">Save Changes</button>
