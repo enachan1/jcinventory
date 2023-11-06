@@ -258,7 +258,7 @@ if(isset($_SESSION['id']) && isset($_SESSION['user_name'])) {
                                 </div>
                                 <div class="modal-body colobody">
                                 <div class="container-fluid">
-                                    <form action="search_script.php" method="GET" id="searchForm">
+                                <form action="search_script.php" method="GET" id="searchForm" autocomplete="off">
                                         <div class=" d-flex input-group input-group-lg" style="height: 70px;">
                                             <span class="input-group-text" id="inputGroup-sizing-lg"><strong>Search:</strong></span>
                                                                                                 <!-- Value for search to get item -->
@@ -274,6 +274,7 @@ if(isset($_SESSION['id']) && isset($_SESSION['user_name'])) {
                                                     <th scope="col">SKU</th>
                                                     <th scope="col">Item Name</th>
                                                     <th scope="col">Category</th>
+                                                    <th scope="col">Stocks</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -286,7 +287,7 @@ if(isset($_SESSION['id']) && isset($_SESSION['user_name'])) {
 
                                 <!-- Modal footer goes here -->
                                 <div class="modal-footer">
-                                                                    <!-- Kapag nag enter mapupunta sa table yong item kaso wala pa function nilagay ni carlo -->
+                                    <!-- Kapag nag enter mapupunta sa table yong item kaso wala pa function nilagay ni carlo -->
                                     <button type="button" class="btn btn-primary custom-button"><h2><strong>Enter</strong></h2></button>
                                     <button type="button" class="btn btn-secondary custom-button" data-bs-dismiss="modal"><h2><strong>Close</strong></h2></button>
                                 </div>
@@ -339,7 +340,7 @@ if(isset($_SESSION['id']) && isset($_SESSION['user_name'])) {
                                 <div class="row">
                                 <!-- Left column for the form content -->
                                     <div class="col-md-8">
-                                        <form action="price_inquiry.php" method="GET" id="priceForm">
+                                        <form action="price_inquiry.php" method="GET" id="priceForm" autocomplete="off">
                                         <div class="card-body d-flex justify-content-around colobody">
                                             <div class="input-group input-group-lg">
                                                 <span class="input-group-text" id="inputGroup-sizing-lg"><strong>Item Name:</strong></span>
@@ -448,80 +449,81 @@ if(isset($_SESSION['id']) && isset($_SESSION['user_name'])) {
   <script src="insertitems.js"></script>
 
     <script>
-
             //search
             $(document).ready(function () {
-            // Handle search form submission
-            $("#searchForm").on("submit", function (e) {
-                e.preventDefault(); // Prevent default form submission
+                // Handle search input keyup event
+                $("#searchForm input[name='search']").on("keyup", function () {
+                    var searchQuery = $(this).val();
 
-                var formData = $(this).serialize(); // Serialize form data
-
-                // Make an AJAX request to fetch search results
-                $.ajax({
-                    url: "search_script.php", // Replace with actual script URL
-                    type: "GET",
-                    data: formData,
-                    success: function (response) {
-                        console.log(response); // Log the response to the console
-                        if (response.trim() !== "") {
-                            $("#searchResults tbody").html(response);
-                        } else {
-                            $("#searchResults tbody").html('<tr><td colspan="3">No Item Found</td></tr>');
+                    // Make an AJAX request to fetch search results
+                    $.ajax({
+                        url: "search_script.php",
+                        type: "GET",
+                        data: { search: searchQuery },
+                        success: function (response) {
+                            console.log(response); // Log the response to the console
+                            if (response.trim() !== "") {
+                                $("#searchResults tbody").html(response);
+                            } else {
+                                $("#searchResults tbody").html('<tr><td colspan="3">No Item Found</td></tr>');
+                            }
                         }
-                    }
+                    });
                 });
             });
-        });
+            
 
-            //price inquiry
+
+            //priceinquiry
             $(document).ready(function () {
-            // Handle priceinquiry form submission
-            $("#priceForm").on("submit", function (e) {
-                e.preventDefault(); // Prevent default form submission
+                // Handle input event on the priceinquiry form
+                $("#priceForm input[name='price']").on("input", function () {
+                    var searchQuery = $(this).val();
 
-                var formData = $(this).serialize(); // Serialize form data
+                    // Make an AJAX request to fetch price results
+                    $.ajax({
+                        url: "price_inquiry.php",
+                        type: "GET",
+                        data: { price: searchQuery },
+                        dataType: "json",
+                        success: function (response) {
+                            var data = response.data;
+                            if (data.length > 0) {
+                                var price = data[0].item_price;
+                                $("#priceDisplay").text(price);
 
-                // Make an AJAX request to fetch price results
-                $.ajax({
-                    url: "price_inquiry.php", // Replace with actual script URL
-                    type: "GET",
-                    data: formData,
-                    dataType: "json", // Expect JSON response
-                    success: function (response) {
-                        var data = response.data;
-                        if (data.length > 0) {
-                            var price = data[0].item_price;
-                            $("#priceDisplay").text(price);
+                                // Remove the "Price" column from the table
+                                var modifiedData = data.map(function (item) {
+                                    return {
+                                        item_sku: item.item_sku,
+                                        item_name: item.item_name,
+                                        item_category: item.item_category,
+                                    };
+                                });
 
-                            // Remove the "Price" column from the table
-                            var modifiedData = data.map(function (item) {
-                                return {
-                                    item_sku: item.item_sku,
-                                    item_name: item.item_name,
-                                    item_category: item.item_category,
-                                };
-                            });
+                                // Update content in the table body
+                                var tableBody = $("#priceResults tbody");
+                                tableBody.empty(); // Clear existing content
 
-                            // Update content in the table body
-                            var tableBody = $("#priceResults tbody");
-                            tableBody.empty(); // Clear existing content
-
-                            $.each(modifiedData, function (index, item) {
-                                var row = $("<tr>");
-                                row.append($("<td>").text(item.item_sku));
-                                row.append($("<td>").text(item.item_name));
-                                row.append($("<td>").text(item.item_category));
-                                tableBody.append(row);
-                            });
-                        } else {
-                            $("#priceDisplay").text("Wala pa ang price nito");
-                            $("#priceResults tbody").empty(); // Clear table body
+                                $.each(modifiedData, function (index, item) {
+                                    var row = $("<tr>");
+                                    row.append($("<td>").text(item.item_sku));
+                                    row.append($("<td>").text(item.item_name));
+                                    row.append($("<td>").text(item.item_category));
+                                    tableBody.append(row);
+                                });
+                            } else {
+                                $("#priceDisplay").text("Wala pa ang price nito");
+                                $("#priceResults tbody").empty(); // Clear table body
+                            }
                         }
-                    }
+                    });
                 });
             });
-        });
+
+        
+
+
          // auto focus
          
          $(document).ready(function () {
