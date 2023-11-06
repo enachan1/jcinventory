@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 02, 2023 at 02:56 PM
+-- Generation Time: Nov 06, 2023 at 12:39 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -65,8 +65,31 @@ CREATE TABLE `items_db` (
 --
 
 INSERT INTO `items_db` (`id`, `item_sku`, `item_barcode`, `item_name`, `item_stocks`, `item_expdate`, `item_price`, `item_category`) VALUES
-(1, 'LULUMOPANOT', 654897561321, 'Coca Cola Mismo', 84, '2023-11-30', 27, 'Drinks'),
-(2, '231031ETV', 5649879321689, 'energen', 59, '2023-12-01', 15, 'Drinks');
+(2, '231031ETV', 5649879321689, 'energen', 59, '2023-11-03', 15, 'Drinks'),
+(3, '231103LSK', 2353452352345, 'piatoss', 295, '2023-11-10', 19.84, 'Canned Goods'),
+(5, '231103TKY', 8739458234004, 'shabu', 2000, '2023-11-24', 5.28, 'Chemicals'),
+(6, '231105JUT', 875435276987, 'rexona sachet', 500, '2023-12-14', 8.81, 'Necessities'),
+(7, '231105ZUR', 7498756432654, 'yawawee', 300, '2023-11-15', 26, 'Canned Goods');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `notification_db`
+--
+
+CREATE TABLE `notification_db` (
+  `notif_id` bigint(20) NOT NULL,
+  `message` varchar(355) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `notification_db`
+--
+
+INSERT INTO `notification_db` (`notif_id`, `message`) VALUES
+(66, 'The item energen with the SKU of 231031ETV is expired'),
+(67, 'The item piatoss with the SKU of 231103LSK is about to expire'),
+(68, 'The item yawawee with the SKU of 231105ZUR is about to expire');
 
 -- --------------------------------------------------------
 
@@ -87,14 +110,6 @@ CREATE TABLE `purchase_order_db` (
   `isBadOrder` tinyint(1) DEFAULT NULL,
   `vendor_id` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `purchase_order_db`
---
-
-INSERT INTO `purchase_order_db` (`po_item_sku`, `po_item_name`, `po_qty`, `po_uom`, `po_category`, `po_item_price`, `po_dot`, `po_expdelivery`, `is_delivered`, `isBadOrder`, `vendor_id`) VALUES
-('231031ETV', 'energen', 23, 'Boxes', 'Drinks', 1500, '2023-10-31', '2023-11-11', 1, 0, 10001),
-('231031SWB', 'milo', 23, 'Boxes', 'Drinks', 1500, '2023-10-31', '2023-11-11', 1, 0, 10001);
 
 -- --------------------------------------------------------
 
@@ -160,7 +175,8 @@ INSERT INTO `sales_db` (`id`, `s_sku`, `s_item`, `s_qty`, `s_total`, `s_date`) V
 (55, 5649879321689, 'energen', 2, 30, '2023-11-01'),
 (56, 5649879321689, 'energen', 5, 75, '2023-11-01'),
 (57, 5649879321689, 'energen', 3, 45, '2023-11-01'),
-(58, 5649879321689, 'energen', 2, 30, '2023-11-01');
+(58, 5649879321689, 'energen', 2, 30, '2023-11-01'),
+(59, 2353452352345, 'piatoss', 5, 99.2, '2023-11-03');
 
 -- --------------------------------------------------------
 
@@ -170,16 +186,15 @@ INSERT INTO `sales_db` (`id`, `s_sku`, `s_item`, `s_qty`, `s_total`, `s_date`) V
 
 CREATE TABLE `setting_db` (
   `threshold` int(11) NOT NULL,
-  `markup` float NOT NULL,
-  `markdown` float NOT NULL
+  `markup` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `setting_db`
 --
 
-INSERT INTO `setting_db` (`threshold`, `markup`, `markdown`) VALUES
-(50, 5, 20);
+INSERT INTO `setting_db` (`threshold`, `markup`) VALUES
+(30, 20);
 
 -- --------------------------------------------------------
 
@@ -228,7 +243,8 @@ INSERT INTO `transaction_db` (`reciept_no`, `transaction_date`, `total_item`, `o
 ('juncathyr20231101075611', '2023-11-01', 4, 30),
 ('juncathyr20231101075731', '2023-11-01', 5, 75),
 ('juncathyr20231101075756', '2023-11-01', 3, 45),
-('juncathyr20231101080227', '2023-11-01', 2, 30);
+('juncathyr20231101080227', '2023-11-01', 2, 30),
+('juncathyr20231103124606', '2023-11-03', 5, 99.2);
 
 -- --------------------------------------------------------
 
@@ -313,6 +329,12 @@ ALTER TABLE `items_db`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `notification_db`
+--
+ALTER TABLE `notification_db`
+  ADD PRIMARY KEY (`notif_id`);
+
+--
 -- Indexes for table `purchase_order_db`
 --
 ALTER TABLE `purchase_order_db`
@@ -356,37 +378,15 @@ ALTER TABLE `category_db`
 -- AUTO_INCREMENT for table `items_db`
 --
 ALTER TABLE `items_db`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `notification_db`
+--
+ALTER TABLE `notification_db`
+  MODIFY `notif_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
 
 --
 -- AUTO_INCREMENT for table `sales_db`
 --
 ALTER TABLE `sales_db`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
-
---
--- AUTO_INCREMENT for table `uom_db`
---
-ALTER TABLE `uom_db`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
---
--- AUTO_INCREMENT for table `users__db`
---
-ALTER TABLE `users__db`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `purchase_order_db`
---
-ALTER TABLE `purchase_order_db`
-  ADD CONSTRAINT `purchase_order_db_ibfk_1` FOREIGN KEY (`vendor_id`) REFERENCES `vendors_db` (`vendor_id`) ON DELETE NO ACTION;
-COMMIT;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
