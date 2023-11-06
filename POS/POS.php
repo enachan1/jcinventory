@@ -391,6 +391,14 @@ if(isset($_SESSION['id']) && isset($_SESSION['user_name'])) {
                                             <input type="text" class="form-control roboto-font text-end responsive-input" id="modalPTotal" placeholder="0.00" disabled>
                                         </h1>
                                     </div><br>
+                                    <!--VAT Input-->
+                                    <div class="card-body d-flex justify-content-between bg-info">
+                                        <h1 class="display-4 mb-0 apto-display-font">VAT - 12%</h1>
+                                                                <!-- Display total here -->
+                                        <h1 class="display-4 mb-0">
+                                            <input type="text" class="form-control roboto-font text-end responsive-input" id="modalPVat" placeholder="0.00" disabled>
+                                        </h1>
+                                    </div><br>
                                     <!--Cash Input-->
                                     <div class="card-body d-flex justify-content-between bg-info">
                                         <h1 class="display-4 mb-0 apto-display-font">Cash:</h1>

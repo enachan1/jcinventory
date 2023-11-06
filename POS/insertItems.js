@@ -11,8 +11,12 @@ $(document).ready(function () {
                 totalAmount += totalPriceValue;
             }
         });
+        var totalWithVAT = parseFloat(totalAmount * 0.12).toFixed(2);
+        var totalIncludingVAT = totalAmount + parseFloat(totalWithVAT);
+
+        $("#modalPVat").val(totalWithVAT);
         $("#overallTotal").text(totalAmount.toFixed(2));
-        $("#modalPTotal").val(totalAmount.toFixed(2));
+        $("#modalPTotal").val(totalIncludingVAT.toFixed(2));
     }
 
 
