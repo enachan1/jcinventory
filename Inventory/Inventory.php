@@ -242,7 +242,7 @@ $user = $_SESSION['user_name'];
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="editModalLabel">Add Item</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close" id="closeBtn" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
 
             <!-- Start Modal Body-->
@@ -265,15 +265,15 @@ $user = $_SESSION['user_name'];
                     <input type="number" name="modal_stocks" class="form-control" id="stocksInput" required>
                     <label for="expdateInput" class="form-label">Exp. Date</label>
                     <input type="date" name="modal_date" class="form-control" id="expdateInput" required>
-                    <label for="cpriceInput" class="form-label">Cost Price</label>
-                    <input style="margin: 0;" type="number" name="modal_cp" class="form-control" id="cpriceInput" readonly>
+                    <label for="cpriceInput" class="form-label">Selling Price</label>
+                    <input style="margin: 0;" type="number" name="modal_cp" class="form-control" step=".01" id="cpriceInput" required>
                     <?php 
                         if ($rows = mysqli_fetch_assoc($setting_query_result)) {
 
                     ?>
                     <input style="margin: 0;" type="hidden" value="<?= $rows['markup'] ?>" name="modal_markup" class="form-control" id="mark-up" readonly>
                     <?php }?>
-                    <label for="priceInput" class="form-label">Price</label>
+                    <label for="priceInput" class="form-label">Total Price</label>
                     <input style="margin: 0;" type="number" name="modal_price" class="form-control" id="priceInput" step=".01" required><br>
 
                     <!-- Selecting Category -->
@@ -300,7 +300,7 @@ $user = $_SESSION['user_name'];
                     <div class="modal-footer">
                         <button class="btn btn-primary">Add Item</button>
                     </form>
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-secondary" id="closeBtn" data-bs-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>
@@ -327,15 +327,15 @@ $user = $_SESSION['user_name'];
                     <label for="skuInput" class="form-label">SKU</label>
                     <input type="text" name="modal_sku" id="sku" class="form-control">
                     <label for="itemnameInput" class="form-label">Barcode</label>
-                    <input type="text" name="modal_barcode" id="barcode" class="form-control" id="itemnameInput">
+                    <input type="text" name="modal_barcode" id="barcode" class="form-control" id="ubarcodeInput">
                     <label for="itemnameInput" class="form-label">Item Name</label>
-                    <input type="text" name="modal_itemname" id="itemname" class="form-control" id="itemnameInput">
+                    <input type="text" name="modal_itemname" id="itemname" class="form-control" id="uitemnameInput">
                     <label for="stocksInput" class="form-label">Stocks</label>
-                    <input type="number" name="modal_stocks" id="stocks" class="form-control" id="stocksInput">
+                    <input type="number" name="modal_stocks" id="stocks" class="form-control" id="ustocksInput">
                     <label for="expdateInput" class="form-label">Exp. Date</label>
-                    <input type="date" name="modal_date" id="expdate" class="form-control" id="expdateInput">
+                    <input type="date" name="modal_date" id="expdate" class="form-control" id="uexpdateInput">
                     <label for="priceInput" class="form-label">Price</label>
-                    <input style="margin: 0;" type="number" name="modal_price" id="price" step=".01" class="form-control" id="priceInput"><br>
+                    <input style="margin: 0;" type="number" name="modal_price" id="price" step=".01" class="form-control" id="upriceInput"><br>
 
                     <!-- Selecting Category-->
                     <div class="input-group mb-4">
