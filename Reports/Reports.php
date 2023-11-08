@@ -17,23 +17,6 @@ $user = $_SESSION['user_name'];
     }
 
 
-     //get page number on sales report
-    if (isset($_GET['page_no']) && $_GET['page_no'] !== "") {
-        $page_no = $_GET['page_no'];
-    } else {
-        $page_no = 1;
-    }
-    $total_records_per_page = 10;
-    $offset = ($page_no -1) * $total_records_per_page;
-    $previous_page = $page_no -1;
-    $next_page = $page_no + 1;
-    
-    $result_count = mysqli_query($sqlconn, "SELECT COUNT(*) as total_records FROM sales_db");
-    $records = mysqli_fetch_array($result_count);
-    $total_records = $records['total_records'];
-    $total_no_of_pages = ceil($total_records / $total_records_per_page);
-
-
     // //get page number on inventory report
     // if (isset($_GET['page_num']) && $_GET['page_num'] !== "") {
     //     $page_num = $_GET['page_num'];
@@ -119,7 +102,10 @@ $user = $_SESSION['user_name'];
     <head>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" />
         <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.6/css/jquery.dataTables.min.css">
         <link rel="stylesheet" href="../styles.css" />
+        <!-- data tables -->
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css" />
         <title>Reports</title>
     </head>
     <!--
@@ -264,7 +250,27 @@ $user = $_SESSION['user_name'];
                 <div class="card">
                     <div class="card-body colorbox">
                         <h5 class="card-title">Sales Report</h5>
-                        <table class="table bg-light rounded shadow-sm table-hover">
+                         <!-- Drop down -->
+                         <div class="d-flex justify-content-end bd-highlight">
+                         <div class="p-2 bd-highlight">
+                         <form action="" method="GET">
+                            <select class="form-select mb-3 form-select-sm" name="filter" aria-label="Default select example">
+                            <!-- <option selected value="" disabled="">Open this select menu</option> -->
+                                <option selected value="">--Select Filter--</option>
+                                <option value="Monthly"<?=isset($_GET['filter']) == TRUE ? ($_GET['filter'] == 'Monthly' ? 'selected': ''): '' ?>>Monthly</option>
+                                <option value="Weekly" <?=isset($_GET['filter']) == TRUE ? ($_GET['filter'] == 'Weekly' ? 'selected': ''): '' ?>>Weekly</option>
+                                <option value="Daily" <?=isset($_GET['filter']) == TRUE ? ($_GET['filter'] == 'Daily' ? 'selected': ''): '' ?>>Daily</option>
+                            </select>
+                         </div>
+                         <div class="p-2 bd-highlight">
+                         <button class="btn btn-primary btn-sm">Filter</button>
+                         </div>
+                         
+                         </div>
+                         </form>
+                        <!-- end Drop down -->
+                        <table id="sales-table" class="table bg-light rounded shadow-sm table-hover">
+                            <div id="btnwrapper"></div>
                             <thead>
                                 <tr>
                                     <th>Item Barcode</th>
@@ -275,10 +281,37 @@ $user = $_SESSION['user_name'];
                                 </tr>
                             </thead>
                             <tbody>
+
+
                                 <!-- Table content here -->
                                 <?php 
-                                $sales_query1 = "SELECT * FROM `sales_db` ORDER BY `s_date` DESC LIMIT $offset , $total_records_per_page";
-                                $result_sales_query = mysqli_query($sqlconn, $sales_query1);
+                                if(isset($_GET['filter']) == TRUE && $_GET['filter'] != "") {
+                                    $filter = mysqli_real_escape_string($sqlconn, $_GET['filter']);
+
+                                    if($filter == "Monthly") {
+                                        $sales_query1 = "SELECT * FROM `sales_db` 
+                                        WHERE s_date >= DATE_FORMAT(CURRENT_DATE, '%Y-%m-01') 
+                                        AND s_date <= LAST_DAY(CURRENT_DATE)
+                                        ORDER BY `s_date` DESC";
+                                        $result_sales_query = mysqli_query($sqlconn, $sales_query1);
+                                    }
+                                    elseif($filter == "Weekly") {
+                                        $sales_query1 = "SELECT * FROM `sales_db` 
+                                        WHERE s_date >= DATE_SUB(CURDATE(), INTERVAL WEEKDAY(CURDATE()) DAY)
+                                        AND s_date < DATE_ADD(DATE_SUB(CURDATE(), INTERVAL WEEKDAY(CURDATE()) DAY), INTERVAL 7 DAY)
+                                        ORDER BY `s_date` DESC";
+                                        $result_sales_query = mysqli_query($sqlconn, $sales_query1);
+                                    }
+                                    elseif($filter == "Daily") {
+                                        $sales_query1 = "SELECT * FROM `sales_db` WHERE DATE(s_date) = CURDATE() ORDER BY `s_date` DESC";
+                                        $result_sales_query = mysqli_query($sqlconn, $sales_query1);
+                                    } 
+                                }
+                                else {
+                                    $sales_query1 = "SELECT * FROM `sales_db` ORDER BY `s_date` DESC";
+                                    $result_sales_query = mysqli_query($sqlconn, $sales_query1);
+                                }
+                                
 
                                 while($rows = mysqli_fetch_assoc($result_sales_query)) {
                                 
@@ -292,29 +325,7 @@ $user = $_SESSION['user_name'];
                                 </tr>
                                 <?php } ?>
                             </tbody>
-                        </table>
-
-                                <!-- Pagination -->
-                                <nav aria-label="Page navigation">
-                                    <ul class="pagination justify-content-center">
-                                        <li class="page-item">       
-                                        <a class="page-link <?= ($page_no <= 1) ? 'disabled' : ''; ?>"<?= ($page_no > 1) ? 'href=?page_no=' . $previous_page : ''; ?> tabindex="-1" aria-disabled="true">Previous</a>
-                                        </li>
-
-                                        <?php for ($counter = 1; $counter <= $total_no_of_pages; $counter++)
-                                        {?>
-                                        <li class="page-item"><a class="page-link" href="?page_no= <?php echo $counter; ?>"><?php echo $counter; ?></a></li>
-                                        <?php } ?>
-                            
-
-                                        <a class="page-link <?= ($page_no >= $total_no_of_pages)? 'disabled' : '';?>" <?= ($page_no < $total_no_of_pages)? 'href=?page_no=' . $next_page: '';?>>Next</a>
-                                        </li>
-                                    </ul>
-                                </nav>
-                                <div class="p-10">
-                                    <strong>Page <?= $page_no; ?> of <?= $total_no_of_pages; ?></strong>
-                                </div> 
-
+                        </table>                
                     </div>
                 </div>
             </div>
@@ -412,7 +423,7 @@ $user = $_SESSION['user_name'];
                 <div class="card">
                     <div class="card-body colorbox">
                         <h5 class="card-title">Slow Moving Product</h5>
-                        <table class="table bg-light rounded shadow-sm table-hover">
+                        <table id="tbl-sm" class="table bg-light rounded shadow-sm table-hover">
                             <thead>
                                 <tr>
                                     <th>Item Barcode</th>
@@ -421,7 +432,26 @@ $user = $_SESSION['user_name'];
                                 </tr>
                             </thead>
                             <tbody>
-                                <!-- Table content here -->
+                            <?php 
+                                $query_fm = "SELECT s_sku, s_item, SUM(s_qty) AS total_quantity_sold
+                                FROM sales_db
+                                WHERE s_date >= DATE_FORMAT(CURRENT_DATE, '%Y-%m-01') -- First day of the current month
+                                    AND s_date <= LAST_DAY(CURRENT_DATE) -- Last day of the current month
+                                GROUP BY s_item
+                                HAVING total_quantity_sold < $threshold
+                                LIMIT $offsetf, $totals_record_per_pagef";
+                                
+                                $result_fm = mysqli_query($sqlconn, $query_fm);
+
+
+                                while($fm_rows = mysqli_fetch_assoc($result_fm)) {
+                                ?>
+                                <tr>
+                                    <td><?= $fm_rows['s_sku'] ?></td>
+                                    <td><?= $fm_rows['s_item'] ?></td>
+                                    <td><?= $fm_rows['total_quantity_sold'] ?></td>
+                                </tr>
+                                <?php } ?>
                             </tbody>
                         </table>
 
@@ -455,6 +485,14 @@ $user = $_SESSION['user_name'];
                 <div class="card">
                     <div class="card-body colorbox">
                         <h5 class="card-title">Fast Moving Product</h5>
+                        <!-- Drop down -->
+                        <select class="form-select mb-3" id="dropdown-val" aria-label="Default select example">
+                            <option selected value="" disabled="">Open this select menu</option>
+                            <option value="Monthly">Monthly</option>
+                            <option value="Weekly">Weekly</option>
+                            <option value="Daily">Daily</option>
+                        </select>
+                        <!-- end Drop down -->
                         <table class="table bg-light rounded shadow-sm table-hover">
                             <thead>
                                 <tr>
@@ -463,7 +501,7 @@ $user = $_SESSION['user_name'];
                                     <th>Total Sold</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="table-fm">
                                 <!-- Table content here -->
                                 <?php 
                                 $query_fm = "SELECT s_sku, s_item, SUM(s_qty) AS total_quantity_sold
@@ -524,7 +562,27 @@ $user = $_SESSION['user_name'];
 
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
-    
+        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.6/js/jquery.dataTables.min.js"></script>
+        <script src="dropdown-fetch-data.js"></script>
+        
+        <!-- data table scripts -->
+        <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+        <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
+
+        <script>
+  $(document).ready( function () {
+     $('#sales-table').DataTable( {
+        lengthChange: false
+    });
+
+    $('#tbl-sm').DataTable( {
+        lengthChange: false
+    });
+});
+
+
+</script>
         <script>
             var el = document.getElementById("wrapper");
             var toggleButton = document.getElementById("menu-toggle");
