@@ -124,23 +124,25 @@ $id = $_SESSION['id'];
             </nav>
 
             <nav class="navbar bg-body-tertiary">
-                <div class="container-fluid mt-3">
+                <div class="container-fluid mt-4 px-5">
                     <!-- Navigation Menu -->
-                    <ul class="nav nav-tabs" id="myTabs" role="tablist">
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
                         <li class="nav-item" role="presentation">
-                            <a class="nav-link active" id="notification-tab" data-bs-toggle="tab" href="#inventory" role="tab" aria-controls="notification" aria-selected="true"><i class="fas fa-bell"></i>Inventory Settings</a>
+                            <a class="nav-link" href="?tb=1" id="inventory-tab" data-bs-toggle="tab" data-bs-target="#inventory" type="button" role="tab" aria-controls="inventory" aria-selected="true"><i class="fas fa-cog"></i><i class="fas fa-box"></i> Inventory Settings</a>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <a class="nav-link" id="account-setting-tab" data-bs-toggle="tab" href="#account-setting" role="tab" aria-controls="account-setting" aria-selected="false"><i class="fas fa-cog"></i> Account Setting</a>
+                            <a class="nav-link" href="?tb=2" id="account-setting-tab" data-bs-toggle="tab" data-bs-target="#account-setting" type="button" role="tab" aria-controls="account-setting" aria-selected="false"><i class="fas fa-user-cog"></i> Account Setting</a>
                         </li>
                     </ul>
                 </div>
             </nav>
             
             <!-- Inside tab content -->
+
+            <!--Inventory Setting Content Here -->
             <div class="container">
                 <div class="tab-content" id="myTabContent">
-                    <div class="tab-pane fade show active" id="inventory" role="tabpanel" aria-labelledby="notification-tab">
+                    <div class="tab-pane fade" id="inventory" role="tabpanel" aria-labelledby="inventory-tab">
                             <h1 class="text-center">Inventory Settings</h1>
                             <div class="card">
                                 <div class="card-body">
@@ -166,10 +168,8 @@ $id = $_SESSION['id'];
                                     </form>
                                 </div>
                             </div>
-
-                            <!-- Notification Settings-->
-                        
                         </div>
+                        <!--Inventory Setting Ends here -->
 
                     <!-- Account Settings-->
                     <div class="tab-pane fade" id="account-setting" role="tabpanel" aria-labelledby="account-setting-tab">
@@ -219,14 +219,15 @@ $id = $_SESSION['id'];
                             <button type="submit">Save Changes</button>
                         </form>
                     </div>
+                    <!-- Accounts Setting Ends Here -->
+
                 </div>
             </div>
-
-
-
+            <!-- Tab Content Ends Here -->
 
     </div>
 </div>
+<!-- Content Ends Here -->
                 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
@@ -239,14 +240,41 @@ $id = $_SESSION['id'];
         el.classList.toggle("toggled");
     };
 
-$(document).ready(function() {
-  $('#removeErrorButton').on('click', function() {
+    $(document).ready(function() {
+    $('#removeErrorButton').on('click', function() {
     // Remove the 'err' query parameter from the URL
-    var currentUrl = window.location.href;
-    var updatedUrl = currentUrl.replace(/[?&]err=.*&?/, '');
-    history.replaceState({}, document.title, updatedUrl);
-  });
+        var currentUrl = window.location.href;
+        var updatedUrl = currentUrl.replace(/[?&]err=.*&?/, '');
+        history.replaceState({}, document.title, updatedUrl);
+    });
 });    
+    
+    document.addEventListener('DOMContentLoaded', function () {
+    // Retrieve the last active tab from sessionStorage
+    var lastActiveTab = sessionStorage.getItem('activeTab');
+    
+    // If no last active tab is found, default to the "Purchase Order" tab (tab number 1)
+    if (lastActiveTab === null) {
+        lastActiveTab = 1;
+    }
+    
+    // Add a click event listener to restore the last active tab
+    var tabLink = document.querySelector('a[href="?tb=' + lastActiveTab + '"]');
+    
+    if (tabLink) {
+        tabLink.click();
+    }
+    
+    // Add a click event listener to save the active tab to sessionStorage
+    var tabLinks = document.querySelectorAll('#myTab a.nav-link');
+    tabLinks.forEach(function (tabLink) {
+        tabLink.addEventListener('click', function () {
+            var tabNumber = tabLink.getAttribute('href').split('=')[1];
+            sessionStorage.setItem('activeTab', tabNumber);
+        });
+    });
+});
+
     </script>
 </body>
 <?php
