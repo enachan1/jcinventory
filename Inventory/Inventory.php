@@ -10,22 +10,6 @@ $user = $_SESSION['user_name'];
         exit();
     }
 
-    //get page number on table inventory
-    if (isset($_GET['page_no']) && $_GET['page_no'] !== "") {
-        $page_no = $_GET['page_no'];
-    } else {
-        $page_no = 1;
-    }
-    $total_records_per_page = 10;
-    $offset = ($page_no -1) * $total_records_per_page;
-    $previous_page = $page_no -1;
-    $next_page = $page_no + 1;
-
-    $result_count = mysqli_query($sqlconn,"SELECT COUNT(*) as total_records FROM items_db");
-    $records = mysqli_fetch_array($result_count);
-    $total_records = $records['total_records'];
-    $total_no_of_pages = ceil($total_records / $total_records_per_page);
-
 
     //for markup query
 
@@ -39,6 +23,10 @@ $user = $_SESSION['user_name'];
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" />
         <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
         <link rel="stylesheet" href="../styles.css" />
+        <!-- data tables -->
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css" />
+
+
         <title>Inventory</title>
         <style>
         .search-bar {
@@ -153,14 +141,13 @@ $user = $_SESSION['user_name'];
                             <button type="button" class="btn colorbox btn-outline-secondary btn-lg" data-bs-toggle="modal" data-bs-target="#myModal">
                                 Add item
                             </button>
-                            <input type="text" class="form-control search-bar" placeholder="Search">
                         </div>
                     </div>
 
                     <!-- Table Content -->
                     <div class="card-body">
-                        <div class="table-responsive">
-                        <table class="table colorbox rounded shadow-sm table-hover">
+                        <!-- <div class="table-responsive"> -->
+                        <table id="inv-table" class="table bg-light rounded shadow-sm table-hover">
                             <thead>
                                 <tr>
                                     <th scope="col" style="display: none;"></th>
@@ -176,7 +163,7 @@ $user = $_SESSION['user_name'];
                     </thead>
                     <tbody>
                         <?php 
-                        $show_items_query = "SELECT * FROM items_db  LIMIT $offset , $total_records_per_page";
+                        $show_items_query = "SELECT * FROM items_db";
                         $show_result = mysqli_query($sqlconn, $show_items_query);
 
                         while($show_rows = mysqli_fetch_array($show_result)) {
@@ -212,26 +199,6 @@ $user = $_SESSION['user_name'];
                     </tbody>
                 </table>
             </div>
-            
-                    <!-- Pagination -->
-                    <nav aria-label="Page navigation">
-                        <ul class="pagination justify-content-center">
-                            <li class="page-item">       
-                            <a class="page-link <?= ($page_no <= 1) ? 'disabled' : ''; ?>"<?= ($page_no > 1) ? 'href=?page_no=' . $previous_page : ''; ?> tabindex="-1" aria-disabled="true">Previous</a>
-                            </li>
-
-                            <?php for ($counter = 1; $counter <= $total_no_of_pages; $counter++)
-                            {?>
-                            <li class="page-item"><a class="page-link" href="?page_no= <?php echo $counter; ?>"><?php echo $counter; ?></a></li>
-                            <?php } ?>
-
-                            <a class="page-link <?= ($page_no >= $total_no_of_pages)? 'disabled' : '';?>" <?= ($page_no < $total_no_of_pages)? 'href=?page_no=' . $next_page: '';?>>Next</a>
-                            </li>
-                        </ul>
-                    </nav>
-                    <div class="p-10">
-                        <strong>Page <?= $page_no; ?> of <?= $total_no_of_pages; ?></strong>
-                    </div>
         </div>
     </div>
 </div>
@@ -377,6 +344,20 @@ $user = $_SESSION['user_name'];
         <script src="autocomplete.js"></script>
         <script src="calculate-price.js"></script>
         <script type="text/javascript" src="update.js"></script>
+
+
+        <!-- data table scripts -->
+        <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+        <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
+
+        <script>
+  $(document).ready( function () {
+     $('#inv-table').DataTable();
+});
+
+
+</script>
     
         <script>
             var el = document.getElementById("wrapper");
