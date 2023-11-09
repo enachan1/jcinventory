@@ -49,6 +49,8 @@ $user = $_SESSION['user_name'];
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" />
         <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
         <link rel="stylesheet" href="../styles.css" />
+        <!-- data tables -->
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css" />
         <title>Product Maintenance</title>
     </head>
     <style>
@@ -147,11 +149,9 @@ $user = $_SESSION['user_name'];
                             <button type="button" class="btn colorbox btn-outline-secondary btn-lg" data-bs-toggle="modal" data-bs-target="#categoryModal">
                                 Add Category
                             </button>
-                            <!-- Search Bar-->
-                            <input type="text" class="form-control search-bar" placeholder="Search">
                         </div><br>
                         <!-- Table -->
-                        <table class="table bg-light rounded shadow-sm table-hover">
+                        <table id="category-table" class="table bg-light rounded shadow-sm table-hover">
                             <thead>
                                 <tr>
                                     <th scope="col">Category</th>
@@ -159,7 +159,7 @@ $user = $_SESSION['user_name'];
                                 </tr>
                             </thead>
                              <?php 
-                                    $sql_query = "SELECT * FROM category_db LIMIT $offset, $total_records_per_page";
+                                    $sql_query = "SELECT * FROM category_db";
                                     $sql_res = mysqli_query($sqlconn, $sql_query);
 
                                     while($array = mysqli_fetch_array($sql_res)) {
@@ -180,27 +180,6 @@ $user = $_SESSION['user_name'];
                                 }
                                 ?>
                         </table>
-
-                            <!-- Pagination Next Tables-->
-                            <nav aria-label="Page navigation">
-                                <ul class="pagination justify-content-center">
-                                    <li class="page-item">       
-                                    <a class="page-link <?= ($page_no <= 1) ? 'disabled' : ''; ?>"<?= ($page_no > 1) ? 'href=?page_no=' . $previous_page : ''; ?> tabindex="-1" aria-disabled="true">Previous</a>
-                                    </li>
-
-                                    <?php for ($counter = 1; $counter <= $total_no_of_pages; $counter++)
-                                    {?>
-                                    <li class="page-item"><a class="page-link" href="?page_no= <?php echo $counter; ?>"><?php echo $counter; ?></a></li>
-                                    <?php } ?>
-
-                                    <a class="page-link <?= ($page_no >= $total_no_of_pages)? 'disabled' : '';?>" <?= ($page_no < $total_no_of_pages)? 'href=?page_no=' . $next_page: '';?>>Next</a>
-                                    </li>
-                                </ul>
-                            </nav>
-                        <div class="p-10">
-                            <strong>Page <?= $page_no; ?> of <?= $total_no_of_pages; ?></strong>
-                        </div>
-
                     </div>
                 </div>
             </div>
@@ -216,11 +195,9 @@ $user = $_SESSION['user_name'];
                                 <button type="button" class="btn colorbox btn-outline-secondary btn-lg" data-bs-toggle="modal" data-bs-target="#uomModal">
                                     Add Unit of Measure
                                 </button>
-                            <!-- Search Bar-->
-                                <input type="text" class="form-control search-bar" placeholder="Search">
                             </div><br>
                         <!-- Table -->
-                        <table class="table bg-light rounded shadow-sm table-hover">
+                        <table id="uom-table" class="table bg-light rounded shadow-sm table-hover">
                             <thead>
                                 <tr>
                                     <th scope="col">Unit of Measure</th>
@@ -228,7 +205,7 @@ $user = $_SESSION['user_name'];
                                 </tr>
                             </thead>
                             <?php 
-                                $sql_query1 = "SELECT * FROM uom_db LIMIT $offsets, $total_records_per_pages";
+                                $sql_query1 = "SELECT * FROM uom_db";
                                 $sql_res1 = mysqli_query($sqlconn, $sql_query1);
 
                                 while($array1 = mysqli_fetch_array($sql_res1)) {
@@ -250,28 +227,6 @@ $user = $_SESSION['user_name'];
                             
                             ?>
                         </table>
-
-                            <!-- Pagination Next Tables-->
-                            <nav aria-label="Page navigation">
-                                <ul class="pagination justify-content-center">
-                                    <li class="page-item">       
-                                    <a class="page-link <?= ($page_nos <= 1) ? 'disabled' : ''; ?>"<?= ($page_nos > 1) ? 'href=?page_nos=' . $previous_pages : ''; ?> tabindex="-1" aria-disabled="true">Previous</a>
-                                    </li>
-
-                                    <?php for ($counters = 1; $counters <= $total_no_of_pagess; $counters++)
-                                    {?>
-                                    <li class="page-item"><a class="page-link" href="?page_nos= <?php echo $counters; ?>"><?php echo $counters; ?></a></li>
-                                    <?php } ?>
-
-                                    <a class="page-link <?= ($page_nos >= $total_no_of_pagess)? 'disabled' : '';?>" <?= ($page_nos < $total_no_of_pagess)? 'href=?page_nos=' . $next_pages: '';?>>Next</a>
-                                    </li>
-                                </ul>
-                            </nav>
-                        <div class="p-10">
-                            <strong>Page <?= $page_nos; ?> of <?= $total_no_of_pagess; ?></strong>
-                        </div>
-
-
                         </div>
                     </div>
                 </div>
@@ -337,9 +292,15 @@ $user = $_SESSION['user_name'];
                     </div>
                 </div>
 
-
+        
+        <!--Boostrap Layout -->
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+
+        <!-- Data table Scripts -->
+        <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+        <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
     
         <script>
             // Elements
@@ -376,6 +337,16 @@ $user = $_SESSION['user_name'];
                 });
             });
         });
+
+            $(document).ready( function () {
+            $('#category-table').DataTable( {
+                lengthChange: false
+            });
+            $('#uom-table').DataTable( {
+                lengthChange: false
+            });
+        });
+
 
         </script>
     </body>
