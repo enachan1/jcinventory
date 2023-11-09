@@ -16,87 +16,6 @@ $user = $_SESSION['user_name'];
         $threshold = $rows['threshold'];
     }
 
-
-    // //get page number on inventory report
-    // if (isset($_GET['page_num']) && $_GET['page_num'] !== "") {
-    //     $page_num = $_GET['page_num'];
-    // } else {
-    //     $page_num = 1;
-    // }
-
-    // $total_record_per_page = 10;
-    // $offsets = ($page_num -1) * $total_record_per_page;
-    // $previouss_page = $page_num -1;
-    // $nexts_page = $page_num + 1;
-    
-    // $results_count = mysqli_query($sqlconn,"SELECT COUNT(*) as total_record FROM vendors_db");
-    // $recordss = mysqli_fetch_array($results_count);
-    // $total_record = $recordss['total_record'];
-    // $total_no_of_page = ceil($total_record / $total_record_per_page);
-
-
-    // //get page number on transaction report
-    // if (isset($_GET['page_s']) && $_GET['page_s'] !== "") {
-    //     $page_s = $_GET["page_s"];
-    // } else {
-    //     $page_s = 1;
-    // }
-    
-    // $totals_record_per_page = 10;
-    // $offsetp = ($page_s - 1) * $totals_record_per_page;
-    // $previous_pages = $page_s - 1;
-    // $next_pages = $page_s + 1;
-    
-    // $pagination_query = "SELECT COUNT(*) AS totals_record FROM vendors_db JOIN purchase_order_db ON vendors_db.vendor_id = purchase_order_db.vendor_id WHERE is_delivered = 1";
-    // $result_counts = mysqli_query($sqlconn, $pagination_query);
-    // $record = mysqli_fetch_array($result_counts);
-    // $totals_record = $record['totals_record'];
-    // $totals_no_of_page = ceil($totals_record / $totals_record_per_page);
-
-    // //get page number on slow moving
-    // if (isset($_GET['page_sl']) && $_GET['page_sl'] !== "") {
-    //     $page_sl = $_GET["page_sl"];
-    // } else {
-    //     $page_sl = 1;
-    // }
-    
-    // $total_record_per_pagel = 10;
-    // $offsetl = ($page_sl - 1) * $totals_record_per_pagel;
-    // $previous_pagesl = $page_sl - 1;
-    // $next_pagesl = $page_sl + 1;
-    
-    // $pagination_queryl = "SELECT COUNT(*) AS totals_record FROM vendors_db JOIN purchase_order_db ON vendors_db.vendor_id = purchase_order_db.vendor_id WHERE is_delivered = 1";
-    // $result_countsl = mysqli_query($sqlconn, $pagination_query);
-    // $recordl = mysqli_fetch_array($result_countsl);
-    // $totalsl_record = $recordl['totalsl_record'];
-    // $totals_no_of_pagel = ceil($totalsl_record / $totals_record_per_pagel);
-
-    //get page number on fast moving
-    if (isset($_GET['page_sf']) && $_GET['page_sf'] !== "") {
-        $page_sf = $_GET["page_sf"];
-    } else {
-        $page_sf = 1;
-    }
-    
-    $totals_record_per_pagef = 10;
-    $offsetf = ($page_sf -1) * $totals_record_per_pagef;
-    $previous_pagesf = $page_sf -1;
-    $next_pagesf = $page_sf + 1;
-    
-    $pagination_queryf = "SELECT COUNT(*) AS totalsf_record FROM (
-        SELECT s_sku, s_item, SUM(s_qty) AS total_quantity_sold
-        FROM sales_db
-        WHERE s_date >= DATE_FORMAT(CURRENT_DATE, '%Y-%m-01')
-            AND s_date <= LAST_DAY(CURRENT_DATE)
-        GROUP BY s_item
-        HAVING SUM(s_qty) >= $threshold
-    ) AS subquery";
-    $result_countsf = mysqli_query($sqlconn, $pagination_queryf);
-    $recordf = mysqli_fetch_array($result_countsf);
-    $totalsf_record = $recordf['totalsf_record'];
-    $totals_no_of_pagef = ceil($totalsf_record / $totals_record_per_pagef);
-
-
 ?>
 <html>
     <head>
@@ -175,7 +94,7 @@ $user = $_SESSION['user_name'];
     </div>
     </nav>
 
-    <div class="container-fluid px-4">
+    <div class="container-fluid px-3">
         <div class="row g-3 my-2">
             <div class="col-md-4">
                 <div class="p-3 colorbox shadow-sm d-flex justify-content-around align-items-center rounded">
@@ -208,11 +127,8 @@ $user = $_SESSION['user_name'];
                 </div>
             </div>
 
-
-
     <!--Tab button--->
-
-    <div class="container mt-5">
+    <div class="container mt-2">
         <ul class="nav nav-tabs" id="myTab" role="tablist">
             <!-- Navigation Menu -->
             <li class="nav-item" role="presentation">
@@ -336,7 +252,22 @@ $user = $_SESSION['user_name'];
                 <div class="card">
                     <div class="card-body colorbox">
                         <h5 class="card-title">Inventory Report</h5>
-                        <table class="table bg-light rounded shadow-sm table-hover">
+                        <!-- Drop down -->
+                        <div class="d-flex justify-content-end bd-highlight">
+                        <div class="p-2 bd-highlight">
+                        <select class="form-select mb-3 form-select-sm" id="dropdown-val" aria-label="Default select example">
+                            <option selected value="">--Select Filter--</option>
+                            <option value="Monthly">Monthly</option>
+                            <option value="Weekly">Weekly</option>
+                            <option value="Daily">Daily</option>
+                        </select>
+                        </div>
+                        <div class="p-2 bd-highlight">
+                            <button class="btn btn-primary btn-sm">Filter</button>
+                        </div>
+                        </div>
+                        <!-- end Drop down -->
+                        <table id="invetoryr-table" class="table bg-light rounded shadow-sm table-hover">
                             <thead>
                                 <tr>
                                     <th>Item No.</th>
@@ -349,27 +280,6 @@ $user = $_SESSION['user_name'];
                                 <!-- Table content here -->
                             </tbody>
                         </table>
-
-                                <!-- Pagination -->
-                                <!-- <nav aria-label="Page navigation">
-                                    <ul class="pagination justify-content-center">
-                                        <li class="page-item">       
-                                        <a class="page-link <?= ($page_num <= 1) ? 'disabled' : ''; ?>"<?= ($page_num > 1) ? 'href=?page_num=' . $previouss_page : ''; ?> tabindex="-1" aria-disabled="true">Previous</a>
-                                        </li>
-
-                                        <?php for ($counters = 1; $counters <= $total_no_of_page; $counters++)
-                                        {?>
-                                        <li class="page-item"><a class="page-link" href="?page_num= <?php echo $counters; ?>"><?php echo $counters; ?></a></li>
-                                        <?php } ?>
-
-                                        <a class="page-link <?= ($page_num >= $total_no_of_page)? 'disabled' : '';?>" <?= ($page_num < $total_no_of_page)? 'href=?page_num=' . $nexts_page: '';?>>Next</a>
-                                        </li>
-                                    </ul>
-                                </nav>
-                            <div class="p-10">
-                                <strong>Page <?= $page_num; ?> of <?= $total_no_of_page; ?></strong>
-                            </div>  -->
-
                     </div>
                 </div>
             </div>
@@ -381,7 +291,22 @@ $user = $_SESSION['user_name'];
                 <div class="card">
                     <div class="card-body colorbox">
                         <h5 class="card-title">Transaction Record</h5>
-                        <table class="table bg-light rounded shadow-sm table-hover">
+                        <!-- Drop down -->
+                        <div class="d-flex justify-content-end bd-highlight">
+                        <div class="p-2 bd-highlight">
+                        <select class="form-select mb-3 form-select-sm" id="dropdown-val" aria-label="Default select example">
+                            <option selected value="">--Select Filter--</option>
+                            <option value="Monthly">Monthly</option>
+                            <option value="Weekly">Weekly</option>
+                            <option value="Daily">Daily</option>
+                        </select>
+                        </div>
+                        <div class="p-2 bd-highlight">
+                            <button class="btn btn-primary btn-sm">Filter</button>
+                        </div>
+                        </div>
+                        <!-- end Drop down -->
+                        <table id="transaction-table" class="table bg-light rounded shadow-sm table-hover">
                             <thead>
                                 <tr>
                                     <th>Collect Records</th>
@@ -392,27 +317,6 @@ $user = $_SESSION['user_name'];
                                 <!-- Table content here -->
                             </tbody>
                         </table>
-
-                                    <!-- Pagination -->
-                                    <!-- <nav aria-label="Page navigation">
-                                        <ul class="pagination justify-content-center">
-                                            <li class="page-item">       
-                                            <a class="page-link <?= ($page_s <= 1) ? 'disabled' : ''; ?>"<?= ($page_s > 1) ? 'href=?page_s=' . $previous_pages : ''; ?> tabindex="-1" aria-disabled="true">Previous</a>
-                                            </li>
-
-                                            <?php for ($counterss = 1; $counterss <= $totals_no_of_page; $counterss++)
-                                            {?>
-                                            <li class="page-item"><a class="page-link" href="?page_s=<?php echo $counterss; ?>"><?php echo $counterss; ?></a></li>
-                                            <?php } ?>
-
-                                            <a class="page-link <?= ($page_s >= $totals_no_of_page)? 'disabled' : '';?>" <?= ($page_s < $totals_no_of_page)? 'href=?page_s=' . $next_pages: '';?>>Next</a>
-                                            </li>
-                                        </ul>
-                                    </nav>
-                                <div class="p-10">
-                                    <strong>Page <?= $page_s; ?> of <?= $totals_no_of_page; ?></strong>
-                                </div> -->
-
                     </div>
                 </div>
             </div>
@@ -423,7 +327,22 @@ $user = $_SESSION['user_name'];
                 <div class="card">
                     <div class="card-body colorbox">
                         <h5 class="card-title">Slow Moving Product</h5>
-                        <table id="tbl-sm" class="table bg-light rounded shadow-sm table-hover">
+                        <!-- Drop down -->
+                        <div class="d-flex justify-content-end bd-highlight">
+                        <div class="p-2 bd-highlight">
+                        <select class="form-select mb-3 form-select-sm" id="dropdown-val" aria-label="Default select example">
+                            <option selected value="">--Select Filter--</option>
+                            <option value="Monthly">Monthly</option>
+                            <option value="Weekly">Weekly</option>
+                            <option value="Daily">Daily</option>
+                        </select>
+                        </div>
+                        <div class="p-2 bd-highlight">
+                            <button class="btn btn-primary btn-sm">Filter</button>
+                        </div>
+                        </div>
+                        <!-- end Drop down -->
+                        <table id="slow-table" class="table bg-light rounded shadow-sm table-hover">
                             <thead>
                                 <tr>
                                     <th>Item Barcode</th>
@@ -438,8 +357,7 @@ $user = $_SESSION['user_name'];
                                 WHERE s_date >= DATE_FORMAT(CURRENT_DATE, '%Y-%m-01') -- First day of the current month
                                     AND s_date <= LAST_DAY(CURRENT_DATE) -- Last day of the current month
                                 GROUP BY s_item
-                                HAVING total_quantity_sold < $threshold
-                                LIMIT $offsetf, $totals_record_per_pagef";
+                                HAVING total_quantity_sold < $threshold";
                                 
                                 $result_fm = mysqli_query($sqlconn, $query_fm);
 
@@ -454,27 +372,6 @@ $user = $_SESSION['user_name'];
                                 <?php } ?>
                             </tbody>
                         </table>
-
-                                    <!-- Pagination -->
-                                    <!-- <nav aria-label="Page navigation">
-                                        <ul class="pagination justify-content-center">
-                                            <li class="page-item">       
-                                            <a class="page-link <?= ($page_sl <= 1) ? 'disabled' : ''; ?>"<?= ($page_sl > 1) ? 'href=?page_s=' . $previous_pagesl : ''; ?> tabindex="-1" aria-disabled="true">Previous</a>
-                                            </li>
-
-                                            <?php for ($counterl = 1; $counterl <= $totals_no_of_pagel; $counterl++)
-                                            {?>
-                                            <li class="page-item"><a class="page-link" href="?page_sl=<?php echo $counterl; ?>"><?php echo $counterl; ?></a></li>
-                                            <?php } ?>
-
-                                            <a class="page-link <?= ($page_sl >= $totals_no_of_pagel)? 'disabled' : '';?>" <?= ($page_s < $totals_no_of_pagel)? 'href=?page_sl=' . $next_pagesl: '';?>>Next</a>
-                                            </li>
-                                        </ul>
-                                    </nav>
-                                <div class="p-10">
-                                    <strong>Page <?= $page_sl; ?> of <?= $totals_no_of_pagel; ?></strong>
-                                </div> -->
-                                
                     </div>
                 </div>
             </div>
@@ -486,14 +383,21 @@ $user = $_SESSION['user_name'];
                     <div class="card-body colorbox">
                         <h5 class="card-title">Fast Moving Product</h5>
                         <!-- Drop down -->
-                        <select class="form-select mb-3" id="dropdown-val" aria-label="Default select example">
-                            <option selected value="" disabled="">Open this select menu</option>
+                        <div class="d-flex justify-content-end bd-highlight">
+                         <div class="p-2 bd-highlight">
+                        <select class="form-select mb-3 form-select-sm" id="dropdown-val" aria-label="Default select example">
+                            <option selected value="">--Select Filter--</option>
                             <option value="Monthly">Monthly</option>
                             <option value="Weekly">Weekly</option>
                             <option value="Daily">Daily</option>
                         </select>
+                        </div>
+                        <div class="p-2 bd-highlight">
+                            <button class="btn btn-primary btn-sm">Filter</button>
+                        </div>
+                        </div>
                         <!-- end Drop down -->
-                        <table class="table bg-light rounded shadow-sm table-hover">
+                        <table id="fast-table" class="table bg-light rounded shadow-sm table-hover">
                             <thead>
                                 <tr>
                                     <th>Item Barcode</th>
@@ -509,8 +413,7 @@ $user = $_SESSION['user_name'];
                                 WHERE s_date >= DATE_FORMAT(CURRENT_DATE, '%Y-%m-01') -- First day of the current month
                                     AND s_date <= LAST_DAY(CURRENT_DATE) -- Last day of the current month
                                 GROUP BY s_item
-                                HAVING total_quantity_sold >= $threshold
-                                LIMIT $offsetf, $totals_record_per_pagef";
+                                HAVING total_quantity_sold >= $threshold";
                                 
                                 $result_fm = mysqli_query($sqlconn, $query_fm);
 
@@ -525,26 +428,6 @@ $user = $_SESSION['user_name'];
                                 <?php } ?>
                             </tbody>
                         </table>
-
-                                    <!-- Pagination -->
-                                    <nav aria-label="Page navigation">
-                                        <ul class="pagination justify-content-center">
-                                            <li class="page-item">       
-                                            <a class="page-link <?= ($page_sf <= 1) ? 'disabled' : ''; ?>"<?= ($page_sf > 1) ? 'href=?page_sf=' . $previous_pagesf : ''; ?> tabindex="-1" aria-disabled="true">Previous</a>
-                                            </li>
-
-                                            <?php for ($countersf = 1; $countersf <= $totals_no_of_pagef; $countersf++)
-                                            {?>
-                                            <li class="page-item"><a class="page-link" href="?page_sf=<?php echo $countersf; ?>"><?php echo $countersf; ?></a></li>
-                                            <?php } ?>
-
-                                            <a class="page-link <?= ($page_sf >= $totals_no_of_pagef)? 'disabled' : '';?>" <?= ($page_sf < $totals_no_of_pagef)? 'href=?page_sf=' . $next_pagesf: '';?>>Next</a>
-                                            </li>
-                                        </ul>
-                                    </nav>
-                                <div class="p-10">
-                                    <strong>Page <?= $page_sf; ?> of <?= $totals_no_of_pagef; ?></strong>
-                                </div>
                     </div>
                 </div>
             </div>
@@ -559,27 +442,38 @@ $user = $_SESSION['user_name'];
 
         <!-- Modal goes here -->
 
-
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <!--Boostrap Layout-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
         <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.6/js/jquery.dataTables.min.js"></script>
         <script src="dropdown-fetch-data.js"></script>
         
-        <!-- data table scripts -->
+        <!-- Data table Scripts -->
         <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
         <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
         <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
 
         <script>
-  $(document).ready( function () {
-     $('#sales-table').DataTable( {
-        lengthChange: false
-    });
+        $(document).ready( function () {
+            $('#sales-table').DataTable( {
+                lengthChange: false
+            });
 
-    $('#tbl-sm').DataTable( {
-        lengthChange: false
-    });
-});
+            $('#invetoryr-table').DataTable( {
+                lengthChange: false
+            });
+
+            $('#transaction-table').DataTable( {
+                lengthChange: false
+            });
+
+            $('#slow-table').DataTable( {
+                lengthChange: false
+            });
+
+            $('#fast-table').DataTable({
+                lengthChange: false
+            });
+        });
 
 
 </script>
@@ -597,7 +491,7 @@ $user = $_SESSION['user_name'];
     
             // If no last active tab is found, default to the "Sales Report" tab (tab number 1)
             if (lastActiveTab === null) {
-                lastActiveTab = null;
+                lastActiveTab = 1;
             }
     
             // Add a click event listener to restore the last active tab
