@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 06, 2023 at 12:39 PM
+-- Generation Time: Nov 09, 2023 at 01:26 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -65,11 +65,10 @@ CREATE TABLE `items_db` (
 --
 
 INSERT INTO `items_db` (`id`, `item_sku`, `item_barcode`, `item_name`, `item_stocks`, `item_expdate`, `item_price`, `item_category`) VALUES
-(2, '231031ETV', 5649879321689, 'energen', 59, '2023-11-03', 15, 'Drinks'),
-(3, '231103LSK', 2353452352345, 'piatoss', 295, '2023-11-10', 19.84, 'Canned Goods'),
-(5, '231103TKY', 8739458234004, 'shabu', 2000, '2023-11-24', 5.28, 'Chemicals'),
-(6, '231105JUT', 875435276987, 'rexona sachet', 500, '2023-12-14', 8.81, 'Necessities'),
-(7, '231105ZUR', 7498756432654, 'yawawee', 300, '2023-11-15', 26, 'Canned Goods');
+(3, '231103LSK', 2353452352345, 'piatoss', 283, '2023-11-10', 19.84, 'Canned Goods'),
+(5, '231103TKY', 8739458234004, 'shabu', 1968, '2023-11-24', 5.28, 'Chemicals'),
+(6, '231105JUT', 875435276987, 'rexona sachet', 481, '2023-12-14', 8.81, 'Necessities'),
+(8, '231107KBI', 3456341234345, 'bear brand', 2499, '2023-12-15', 14.3, 'Drinks');
 
 -- --------------------------------------------------------
 
@@ -87,9 +86,8 @@ CREATE TABLE `notification_db` (
 --
 
 INSERT INTO `notification_db` (`notif_id`, `message`) VALUES
-(66, 'The item energen with the SKU of 231031ETV is expired'),
-(67, 'The item piatoss with the SKU of 231103LSK is about to expire'),
-(68, 'The item yawawee with the SKU of 231105ZUR is about to expire');
+(70, 'The item piatoss with the SKU of 231103LSK is about to expire'),
+(71, 'The item shabu with the SKU of 231103TKY is about to expire');
 
 -- --------------------------------------------------------
 
@@ -111,6 +109,15 @@ CREATE TABLE `purchase_order_db` (
   `vendor_id` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `purchase_order_db`
+--
+
+INSERT INTO `purchase_order_db` (`po_item_sku`, `po_item_name`, `po_qty`, `po_uom`, `po_category`, `po_item_price`, `po_dot`, `po_expdelivery`, `is_delivered`, `isBadOrder`, `vendor_id`) VALUES
+('231109LXT', 'qweasdasd', 231, 'Boxes', 'Necessities', 6548, '2023-11-09', '2023-11-30', NULL, NULL, 10004),
+('231109BOS', 'asdadqweqwe', 546, 'Boxes', 'Canned Goods', 545, '2023-11-09', '2023-11-30', NULL, NULL, 10004),
+('231109GQV', 'dasdqwe', 23, 'Boxes', 'Canned Goods', 5876, '2023-11-09', '2023-12-09', NULL, NULL, 10002);
+
 -- --------------------------------------------------------
 
 --
@@ -123,60 +130,25 @@ CREATE TABLE `sales_db` (
   `s_item` varchar(255) NOT NULL,
   `s_qty` float NOT NULL,
   `s_total` float NOT NULL,
-  `s_date` date NOT NULL
+  `s_date` date NOT NULL,
+  `reciept_no` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `sales_db`
 --
 
-INSERT INTO `sales_db` (`id`, `s_sku`, `s_item`, `s_qty`, `s_total`, `s_date`) VALUES
-(1, 89456456123, 'toblerone', 1, 26, '2023-10-25'),
-(2, 89456456123, 'toblerone', 1, 26, '2023-10-25'),
-(3, 89456456123, 'toblerone', 1, 26, '2023-10-25'),
-(4, 89456456123, 'toblerone', 1, 26, '2023-10-25'),
-(5, 23568775126, 'Coca Cola Mismo', 1, 15, '2023-10-25'),
-(6, 89456456123, 'toblerone', 3, 78, '2023-10-26'),
-(7, 23568775126, 'Coca Cola Mismo', 3, 45, '2023-10-26'),
-(8, 89456456123, 'toblerone', 3, 78, '2023-10-26'),
-(9, 25458976321, 'Piattos', 2, 38, '2023-10-26'),
-(22, 25458976321, 'Piattos', 1, 19, '2023-10-26'),
-(23, 89456456123, 'toblerone', 1, 26, '2023-10-26'),
-(24, 23568775126, 'Coca Cola Mismo', 5, 75, '2023-10-26'),
-(25, 89456456123, 'toblerone', 3, 78, '2023-10-26'),
-(26, 25458976321, 'Piattos', 2, 38, '2023-10-26'),
-(27, 23568775126, 'Coca Cola Mismo', 1, 15, '2023-10-28'),
-(28, 23568775126, 'Coca Cola Mismo', 1, 15, '2023-10-28'),
-(29, 89456456123, 'toblerone', 1, 26, '2023-10-28'),
-(30, 654897561321, 'Coca Cola Mismo', 1, 27, '2023-10-31'),
-(31, 654897561321, 'Coca Cola Mismo', 1, 27, '2023-10-31'),
-(32, 654897561321, 'Coca Cola Mismo', 1, 27, '2023-10-31'),
-(33, 654897561321, 'Coca Cola Mismo', 1, 27, '2023-10-31'),
-(34, 654897561321, 'Coca Cola Mismo', 1, 27, '2023-10-31'),
-(36, 654897561321, 'Coca Cola Mismo', 1, 27, '2023-10-31'),
-(37, 5649879321689, 'energen', 4, 15, '2023-10-31'),
-(38, 5649879321689, 'energen', 5, 15, '2023-10-31'),
-(39, 654897561321, 'Coca Cola Mismo', 6, 162, '2023-10-31'),
-(40, 654897561321, 'Coca Cola Mismo', 6, 162, '2023-10-31'),
-(41, 654897561321, 'Coca Cola Mismo', 2, 54, '2023-10-31'),
-(42, 654897561321, 'Coca Cola Mismo', 3, 27, '2023-11-01'),
-(43, 654897561321, 'Coca Cola Mismo', 1, 27, '2023-11-01'),
-(44, 5649879321689, 'energen', 5, 15, '2023-11-01'),
-(45, 5649879321689, 'energen', 1, 15, '2023-11-01'),
-(46, 654897561321, 'Coca Cola Mismo', 2, 54, '2023-11-01'),
-(47, 654897561321, 'Coca Cola Mismo', 2, 54, '2023-11-01'),
-(48, 5649879321689, 'energen', 4, 60, '2023-11-01'),
-(49, 5649879321689, 'energen', 4, 60, '2023-11-01'),
-(50, 5649879321689, 'energen', 4, 60, '2023-11-01'),
-(51, 5649879321689, 'energen', 4, 60, '2023-11-01'),
-(52, 5649879321689, 'energen', 3, 45, '2023-11-01'),
-(53, 5649879321689, 'energen', 2, 30, '2023-11-01'),
-(54, 5649879321689, 'energen', 2, 30, '2023-11-01'),
-(55, 5649879321689, 'energen', 2, 30, '2023-11-01'),
-(56, 5649879321689, 'energen', 5, 75, '2023-11-01'),
-(57, 5649879321689, 'energen', 3, 45, '2023-11-01'),
-(58, 5649879321689, 'energen', 2, 30, '2023-11-01'),
-(59, 2353452352345, 'piatoss', 5, 99.2, '2023-11-03');
+INSERT INTO `sales_db` (`id`, `s_sku`, `s_item`, `s_qty`, `s_total`, `s_date`, `reciept_no`) VALUES
+(1, 8739458234004, 'shabu', 3, 15.84, '2023-11-09', 'juncathyr20231109103421'),
+(3, 3456341234345, 'bear brand', 1, 14.3, '2023-11-09', 'juncathyr20231109115625'),
+(4, 875435276987, 'rexona sachet', 1, 8.81, '2023-11-09', 'juncathyr20231109115625'),
+(5, 8739458234004, 'shabu', 1, 5.28, '2023-11-09', 'juncathyr20231109115625'),
+(6, 2353452352345, 'piatoss', 1, 19.84, '2023-11-09', 'juncathyr20231109115625'),
+(9, 2353452352345, 'piatoss', 3, 59.52, '2023-11-09', 'juncathyr20231109120311'),
+(10, 875435276987, 'rexona sachet', 4, 35.24, '2023-11-09', 'juncathyr20231109130412'),
+(11, 2353452352345, 'piatoss', 4, 79.36, '2023-11-09', 'juncathyr20231109130412'),
+(12, 875435276987, 'rexona sachet', 4, 35.24, '2023-11-09', 'juncathyr20231109130557'),
+(13, 2353452352345, 'piatoss', 4, 79.36, '2023-11-09', 'juncathyr20231109130557');
 
 -- --------------------------------------------------------
 
@@ -194,7 +166,7 @@ CREATE TABLE `setting_db` (
 --
 
 INSERT INTO `setting_db` (`threshold`, `markup`) VALUES
-(30, 20);
+(40, 10);
 
 -- --------------------------------------------------------
 
@@ -214,37 +186,11 @@ CREATE TABLE `transaction_db` (
 --
 
 INSERT INTO `transaction_db` (`reciept_no`, `transaction_date`, `total_item`, `overall_amount`) VALUES
-('juncathyr20231026062720', '2023-10-26', 2, 45),
-('juncathyr20231026063026', '2023-10-26', 10, 191),
-('juncathyr20231028082611', '2023-10-28', 1, 15),
-('juncathyr20231028115524', '2023-10-28', 1, 15),
-('juncathyr20231028121831', '2023-10-28', 1, 26),
-('juncathyr20231031150143', '2023-10-31', 1, 27),
-('juncathyr20231031150330', '2023-10-31', 1, 27),
-('juncathyr20231031151016', '2023-10-31', 1, 27),
-('juncathyr20231031155305', '2023-10-31', 1, 27),
-('juncathyr20231031155559', '2023-10-31', 1, 27),
-('juncathyr20231031163648', '2023-10-31', 1, 27),
-('juncathyr20231031164027', '2023-10-31', 4, 15),
-('juncathyr20231031164353', '2023-10-31', 5, 15),
-('juncathyr20231031164415', '2023-10-31', 6, 162),
-('juncathyr20231031164729', '2023-10-31', 6, 162),
-('juncathyr20231031164826', '2023-10-31', 2, 54),
-('juncathyr20231031170902', '2023-11-01', 3, 27),
-('juncathyr20231031171054', '2023-11-01', 6, 42),
-('juncathyr20231031173822', '2023-11-01', 1, 15),
-('juncathyr20231101072242', '2023-11-01', 2, 54),
-('juncathyr20231101072341', '2023-11-01', 2, 54),
-('juncathyr20231101074612', '2023-11-01', 4, 60),
-('juncathyr20231101074612', '2023-11-01', 8, 60),
-('juncathyr20231101074636', '2023-11-01', 4, 60),
-('juncathyr20231101074717', '2023-11-01', 3, 45),
-('juncathyr20231101075611', '2023-11-01', 2, 30),
-('juncathyr20231101075611', '2023-11-01', 4, 30),
-('juncathyr20231101075731', '2023-11-01', 5, 75),
-('juncathyr20231101075756', '2023-11-01', 3, 45),
-('juncathyr20231101080227', '2023-11-01', 2, 30),
-('juncathyr20231103124606', '2023-11-03', 5, 99.2);
+('juncathyr20231109103421', '2023-11-09', 3, 15.84),
+('juncathyr20231109115625', '2023-11-09', 4, 48.23),
+('juncathyr20231109120311', '2023-11-09', 3, 59.52),
+('juncathyr20231109130412', '2023-11-09', 8, 114.6),
+('juncathyr20231109130557', '2023-11-09', 8, 114.6);
 
 -- --------------------------------------------------------
 
@@ -285,7 +231,7 @@ CREATE TABLE `users__db` (
 --
 
 INSERT INTO `users__db` (`id`, `user_name`, `email`, `pass_word`, `contact_no`, `is_admin`) VALUES
-(1, 'admin', 'admin@admin.com', '$2y$10$vBkpyaBMLDr2dfoFdFud3OaigYUe6GjCG39Ad2xeC2vwUmWW5kAea', 0, 1),
+(1, 'admin', 'admin@admin.com', '$2y$10$CzzLKx87QEgkQzq5gJh3.uo7g5knkdFCv.2oQEyVu3wZR3xd.dCBu', 0, 1),
 (2, 'cashier', 'notadmin@notadmin.com', '$2y$10$srTH9HwBVOhWeXmEkMVRCOc5uA10C.7KEjbQLPVcC5AlToknX3/kS', 0, 0),
 (3, ' ena', 'em@em.com', '$2y$10$G5ydTTTSU0GVMKqdP7dUEe1EuLsmEigBoGB5bypcq.2znK6QfQZCi', 0, 1);
 
@@ -344,7 +290,14 @@ ALTER TABLE `purchase_order_db`
 -- Indexes for table `sales_db`
 --
 ALTER TABLE `sales_db`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `sales_db_ibfk_1` (`reciept_no`);
+
+--
+-- Indexes for table `transaction_db`
+--
+ALTER TABLE `transaction_db`
+  ADD PRIMARY KEY (`reciept_no`);
 
 --
 -- Indexes for table `uom_db`
@@ -378,15 +331,43 @@ ALTER TABLE `category_db`
 -- AUTO_INCREMENT for table `items_db`
 --
 ALTER TABLE `items_db`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `notification_db`
 --
 ALTER TABLE `notification_db`
-  MODIFY `notif_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
+  MODIFY `notif_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
 
 --
 -- AUTO_INCREMENT for table `sales_db`
 --
 ALTER TABLE `sales_db`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
+--
+-- AUTO_INCREMENT for table `uom_db`
+--
+ALTER TABLE `uom_db`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `users__db`
+--
+ALTER TABLE `users__db`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `purchase_order_db`
+--
+ALTER TABLE `purchase_order_db`
+  ADD CONSTRAINT `purchase_order_db_ibfk_1` FOREIGN KEY (`vendor_id`) REFERENCES `vendors_db` (`vendor_id`) ON DELETE NO ACTION;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
