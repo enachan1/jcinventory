@@ -16,6 +16,8 @@ $user = $_SESSION['user_name'];
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
     <link rel="stylesheet" href="../styles.css" />
+    <!-- data tables -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css" />
     <title>Accounts</title>
     <!--Style inside main Page -->
     <style>
@@ -93,7 +95,6 @@ $user = $_SESSION['user_name'];
                         <button type="button" class="btn colorbox btn-outline-secondary btn-lg" data-bs-toggle="modal" data-bs-target="#myModal">
                             Add Account
                         </button>
-                        <input type="text" class="form-control search-bar" placeholder="Search">
                     </div>
                 </div>
                 <div class="alert alert-success alert-dismissible fade show" role="alert" id="alert-call">
@@ -102,7 +103,7 @@ $user = $_SESSION['user_name'];
                 </div>
                 <div class="card-body">
                 <div class="card-body" style="max-height: 400px; overflow-y: auto;">
-                    <table class="table colorbox rounded shadow-sm table-hover">
+                    <table id="account-table" class="table colorbox rounded shadow-sm table-hover">
                         <thead>
                             <tr>
                                 <th scope="col">Username</th>
@@ -221,12 +222,15 @@ $user = $_SESSION['user_name'];
 
 
 
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="submit.js"></script>
+    <!-- Boostrap Layout -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="submit.js"></script>
+
+    <!-- Data table Scripts -->
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
     <script>
         var el = document.getElementById("wrapper");
         var toggleButton = document.getElementById("menu-toggle");
@@ -235,6 +239,11 @@ $user = $_SESSION['user_name'];
             el.classList.toggle("toggled");
         };
 
+        $(document).ready( function () {
+            $('#account-table').DataTable( {
+            lengthChange: false
+        });
+    });
 
     </script>
     
