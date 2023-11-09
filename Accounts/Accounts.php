@@ -102,7 +102,6 @@ $user = $_SESSION['user_name'];
                     <button type="button" class="btn-close btn-clsbtn" data-bs-dismiss="alert"></button>
                 </div>
                 <div class="card-body">
-                <div class="card-body" style="max-height: 400px; overflow-y: auto;">
                     <table id="account-table" class="table colorbox rounded shadow-sm table-hover">
                         <thead>
                             <tr>
@@ -141,7 +140,6 @@ $user = $_SESSION['user_name'];
                 </div>
             </div>
         </div>
-    </div>
       
 
     <!-- Add Account Modal-->
