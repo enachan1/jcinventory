@@ -21,7 +21,6 @@ $user = $_SESSION['user_name'];
     <head>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" />
         <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
-        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.6/css/jquery.dataTables.min.css">
         <link rel="stylesheet" href="../styles.css" />
         <!-- data tables -->
         <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css" />
@@ -309,12 +308,29 @@ $user = $_SESSION['user_name'];
                         <table id="transaction-table" class="table bg-light rounded shadow-sm table-hover">
                             <thead>
                                 <tr>
-                                    <th>Collect Records</th>
-                                    <th>Records</th>
+                                    <th>Reciept No.</th>
+                                    <th>Transaction Date</th>
+                                    <th>Overall Amount</th>
+                                    <th>Total Item</th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <!-- Table content here -->
+                                <?php 
+                                $transaction_query = "SELECT * FROM transaction_db";
+
+                                $result = $sqlconn->query($transaction_query);
+
+                                while($t_row = mysqli_fetch_assoc($result)) {
+                                ?>
+                                <tr>
+                                    <td><?= $t_row['reciept_no'] ?></td>
+                                    <td><?= $t_row['transaction_date'] ?></td>
+                                    <td><?= $t_row['overall_amount'] ?></td>
+                                    <td><?= $t_row['total_item'] ?></td>
+                                    <td><button class="btn btn-primary btn-sm view-data" data-itemrec="<?php echo $t_row['reciept_no'];?>" data-bs-toggle="modal" data-bs-target="#viewItems">View Items</button></td>
+                                </tr>
+                                <?php } ?>
                             </tbody>
                         </table>
                     </div>
@@ -436,6 +452,68 @@ $user = $_SESSION['user_name'];
         </div>
     </div>
 
+     <!-- ...View Modal ... -->
+     <div class="modal fade" id="viewItems">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                        <!-- Modal Header -->
+                            <div class="modal-header">
+                                <h3 class="modal-title" id="disp-reciept"></h3>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                            </div>
+
+                            <div class="col-6 px-3 py-2">
+
+                                <!-- Date Current -->
+                                <div class="d-flex">
+                                    <div class="p-2 w-50"><h5>Transaction Date:</h5></div>
+                                                                    <!-- Display Date js-->
+                                    <div class="p-2 flex-shrink-1"><h5 id="transDate"></h5></div>
+                                </div>
+
+                                <!-- Total -->
+                                <div class="d-flex">
+                                    <div class="p-2 w-50"><h5>Total</h5></div>
+                                                                    <!-- Display Date js-->
+                                    <div class="p-2 flex-shrink-1"><h5 id="transTot"></h5></div>
+                                </div>
+                                <div class="dropdown-divider"></div>
+                            </div>
+
+                            <!-- Modal Body -->
+                            <div class="modal-body">
+                                <!-- Table Content Display Goes Here -->
+                                <div class="container-fluid px-4">
+                                    <div class="table-responsive">
+                                        <table class="table colorbox rounded shadow-sm table-hover" id="itemTable">
+                                            <thead>
+                                            <tr>
+                                                <th scope="col">Barcode</th>
+                                                <th scope="col">Item Name</th>
+                                                <th scope="col">QTY</th>
+                                                <th scope="col">Total</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                                
+                                        </tbody>
+                                        </table>
+                                    </div>
+
+                                <!-- Modal Footer Goes here-->
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Print Recipt</button>
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+    <!-- ...View Modal Ends Here... -->
+
 
         </div>
         </div>
@@ -444,13 +522,16 @@ $user = $_SESSION['user_name'];
 
         <!--Boostrap Layout-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
-        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.6/js/jquery.dataTables.min.js"></script>
-        <script src="dropdown-fetch-data.js"></script>
         
         <!-- Data table Scripts -->
         <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
         <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
         <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
+        
+
+        <!-- JS Scripts that is created -->
+        <script src="transact-view-item.js"></script>
+
 
         <script>
         $(document).ready( function () {
