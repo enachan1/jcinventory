@@ -97,7 +97,7 @@ $user = $_SESSION['user_name'];
                         </button>
                     </div>
                 </div>
-                <div class="alert alert-success alert-dismissible fade show" role="alert" id="alert-call">
+                <div class="alert alert-warning alert-dismissible fade show" role="alert" id="alert-call">
                     <span id="alert-text"></span>
                     <button type="button" class="btn-close btn-clsbtn" data-bs-dismiss="alert"></button>
                 </div>
