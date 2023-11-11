@@ -2,7 +2,7 @@
 <?php
 include "../connectdb.php";
 session_start();
-if(isset($_SESSION['id']) && isset($_SESSION['user_name'])) {
+if(isset($_SESSION['id']) && isset($_SESSION['user_name']) && $_SESSION['is_admin'] == 1) {
 $user = $_SESSION['user_name'];
 
     if(!isset($user)) {

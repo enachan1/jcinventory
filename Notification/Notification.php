@@ -1,3 +1,17 @@
+<!DOCTYPE html>
+<?php
+include "../connectdb.php";
+session_start();
+if(isset($_SESSION['id']) && isset($_SESSION['user_name']) && $_SESSION['is_admin'] == 1) {
+$user = $_SESSION['user_name'];
+
+    if(!isset($user)) {
+        header("Location: login_form.php");
+        exit();
+    }
+
+
+?>
 <html>
     <head>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" />
@@ -133,3 +147,10 @@
         </script>
     </body>
 </html>
+<?php
+}
+else {
+    header("Location: /jcinventory/login_form.php");
+    exit();
+}
+?>

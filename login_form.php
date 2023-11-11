@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <?php 
     session_start();
-    if(isset($_SESSION['user_name'])) {
+    if(isset($_SESSION['user_name']) && $_SESSION['is_admin'] == 1) {
         header("Location: /jcinventory/Dashboard/Dashboard.php");
         exit();
     }
