@@ -111,9 +111,16 @@ $user = $_SESSION['user_name'];
                                     WHERE DATE(s_date) = CURDATE()";
                                 $total_result_day = mysqli_query($sqlconn, $total_sales_today);
                                 if ($rows_count = mysqli_fetch_array($total_result_day)) {
+                                    if(!isset($rows_count['today_sales'])) {
                                 ?>
-                                <h3 class="fs-2">₱<?php echo $rows_count['today_sales'] ?></h3>
-                                <?php }?>
+                                <h3 class="fs-2">₱ 0</h3>
+                                <?php }
+                                else {
+                                    ?>
+                                    <h3 class="fs-2">₱ <?php echo $rows_count['today_sales'] ?></h3>
+                                <?php }
+                                }
+                                ?>
                                 <p class="fs-5">Today Sales</p>
                             </div>
                             <i
