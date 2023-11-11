@@ -89,9 +89,9 @@ $user = $_SESSION['user_name'];
                         <div class="p-3 colorbox shadow-sm d-flex justify-content-around align-items-center rounded">
                             <div>
                                 <?php
-                                $item_total_count_query = "SELECT COUNT(*) as total_count FROM items_db";
-                                $result_query = mysqli_query($sqlconn, $item_total_count_query);
-                                if ($rows_count = mysqli_fetch_array($result_query)) {
+                                $total_sales_today = "SELECT COUNT(*) as total_count FROM items_db";
+                                $total_result_day = mysqli_query($sqlconn, $total_sales_today);
+                                if ($rows_count = mysqli_fetch_array($total_result_day)) {
                                 ?>
                                 
                                 
@@ -106,8 +106,15 @@ $user = $_SESSION['user_name'];
                     <div class="col-md-4">
                         <div class="p-3 colorbox shadow-sm d-flex justify-content-around align-items-center rounded">
                             <div>
-                                <h3 class="fs-2">4920</h3>
-                                <p class="fs-5">Sales</p>
+                            <?php
+                                $total_sales_today = "SELECT ROUND(SUM(`s_total`),2) as today_sales FROM sales_db
+                                    WHERE DATE(s_date) = CURDATE()";
+                                $total_result_day = mysqli_query($sqlconn, $total_sales_today);
+                                if ($rows_count = mysqli_fetch_array($total_result_day)) {
+                                ?>
+                                <h3 class="fs-2">₱<?php echo $rows_count['today_sales'] ?></h3>
+                                <?php }?>
+                                <p class="fs-5">Today Sales</p>
                             </div>
                             <i
                                 class="fas fa-sack-dollar fs-1 primary-text border rounded-full secondary-bg p-3"></i>
@@ -117,8 +124,17 @@ $user = $_SESSION['user_name'];
                     <div class="col-md-4">
                         <div class="p-3 colorbox shadow-sm d-flex justify-content-around align-items-center rounded">
                             <div>
-                                <h3 class="fs-2">3899</h3>
-                                <p class="fs-5">Delivery</p>
+                            <?php
+                                $total_sales_today = "SELECT COUNT(*) as delivered_items FROM purchase_order_db
+                                    WHERE `is_delivered` = 1";
+                                $total_result_day = mysqli_query($sqlconn, $total_sales_today);
+                                if ($rows_count = mysqli_fetch_array($total_result_day)) {
+                                ?>
+                                
+                                
+                                <h3 class="fs-2"><?php echo $rows_count['delivered_items'] ?></h3>
+                                <?php }?>
+                                <p class="fs-5">Delivered</p>
                             </div>
                             <i class="fad fa-truck fs-1 primary-text border rounded-full secondary-bg p-3"></i>
                         </div>
