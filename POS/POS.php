@@ -205,8 +205,13 @@ if(isset($_SESSION['id']) && isset($_SESSION['user_name'])) {
                     <div class="card-body bg-info">
                         <h3 class="mb-1">Barcode:</h3>
                     </div>
-                        <input type="number" class="form-control" name="skubarcode" id="barcodeInput">
-                        <button style="display: none;" class="btn btn-primary">btn</button>
+                        <input type="text" class="form-control" name="skubarcode" id="barcodeInput">
+                        <!-- Auto complete items -->
+                        <div class="list-group" id="showlist_skuitems" style="position: absolute; z-index: 1; width: 50%; top: 90px; left: 150px;">
+                       
+                        </div>
+                        <!-- End of auto complete items -->
+                        <button style="display: none;" class="btn btn-primary" id="submitButton">btn</button>
                 </div>
                 </form>
         </div>
@@ -694,7 +699,8 @@ if(isset($_SESSION['id']) && isset($_SESSION['user_name'])) {
         updateTextSize();
 
     </script>
-    
+    <!-- another js file that i created -->
+    <script src="disableinput.js"></script>
 </body>
 <?php }
     else {
