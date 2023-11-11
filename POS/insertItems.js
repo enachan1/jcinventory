@@ -76,7 +76,7 @@ $(document).ready(function () {
         var totalPrice = quantity * priceValue;
         var totalPriceElement = $(this).closest('tr').find('.totalPrice');
         if (!isNaN(totalPrice)) {
-            totalPriceElement.text(totalPrice);
+            totalPriceElement.text(totalPrice.toFixed(2));
         } else {
             totalPriceElement.text('0');
         }
