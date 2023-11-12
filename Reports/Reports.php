@@ -293,15 +293,17 @@ $user = $_SESSION['user_name'];
                         <!-- Drop down -->
                         <div class="d-flex justify-content-end bd-highlight">
                         <div class="p-2 bd-highlight">
-                        <select class="form-select mb-3 form-select-sm" id="dropdown-val" aria-label="Default select example">
-                            <option selected value="">--Select Filter--</option>
-                            <option value="Monthly">Monthly</option>
-                            <option value="Weekly">Weekly</option>
-                            <option value="Daily">Daily</option>
+                        <form action="" method="GET">
+                        <select class="form-select mb-3 form-select-sm" name="filter_transaction" id="dropdown-val" aria-label="Default select example">
+                                <option selected value="">--Select Filter--</option>
+                                <option value="Monthly"<?=isset($_GET['filter_transaction']) == TRUE ? ($_GET['filter_transaction'] == 'Monthly' ? 'selected': ''): '' ?>>Monthly</option>
+                                <option value="Weekly" <?=isset($_GET['filter_transaction']) == TRUE ? ($_GET['filter_transaction'] == 'Weekly' ? 'selected': ''): '' ?>>Weekly</option>
+                                <option value="Daily" <?=isset($_GET['filter_transaction']) == TRUE ? ($_GET['filter_transaction'] == 'Daily' ? 'selected': ''): '' ?>>Daily</option>
                         </select>
                         </div>
                         <div class="p-2 bd-highlight">
                             <button class="btn btn-primary btn-sm">Filter</button>
+                                </form>
                         </div>
                         </div>
                         <!-- end Drop down -->
@@ -317,11 +319,37 @@ $user = $_SESSION['user_name'];
                             </thead>
                             <tbody>
                                 <?php 
-                                $transaction_query = "SELECT * FROM transaction_db";
+                                // Transaction Filter
+                                if(isset($_GET['filter_transaction']) == TRUE && $_GET['filter_transaction'] != "") {
+                                    $filter = mysqli_real_escape_string($sqlconn, $_GET['filter_transaction']);
 
-                                $result = $sqlconn->query($transaction_query);
+                                    if($filter == "Monthly") {
+                                        $transaction_query1 = "SELECT * FROM `transaction_db` 
+                                        WHERE transaction_date >= DATE_FORMAT(CURRENT_DATE, '%Y-%m-01') 
+                                        AND transaction_date <= LAST_DAY(CURRENT_DATE)
+                                        ORDER BY `transaction_date` DESC";
+                                        $result_transaction = mysqli_query($sqlconn, $transaction_query1);
+                                    }
+                                    elseif($filter == "Weekly") {
+                                        $transaction_query1 = "SELECT * FROM `transaction_db` 
+                                        WHERE transaction_date >= DATE_SUB(CURDATE(), INTERVAL WEEKDAY(CURDATE()) DAY)
+                                        AND transaction_date < DATE_ADD(DATE_SUB(CURDATE(), INTERVAL WEEKDAY(CURDATE()) DAY), INTERVAL 7 DAY)
+                                        ORDER BY `transaction_date` DESC";
+                                        $result_transaction = mysqli_query($sqlconn, $transaction_query1);
+                                    }
+                                    elseif($filter == "Daily") {
+                                        $transaction_query1 = "SELECT * FROM `transaction_db` WHERE DATE(transaction_date) = CURDATE() ORDER BY `transaction_date` DESC";
+                                        $result_transaction = mysqli_query($sqlconn, $transaction_query1);
+                                    } 
+                                }
+                                else {
+                                    $transaction_query1 = "SELECT * FROM `transaction_db` ORDER BY `transaction_date` DESC";
+                                    $result_transaction = mysqli_query($sqlconn, $transaction_query1);
+                                }
 
-                                while($t_row = mysqli_fetch_assoc($result)) {
+                                
+
+                                while($t_row = mysqli_fetch_assoc($result_transaction)) {
                                 ?>
                                 <tr>
                                     <td><?= $t_row['reciept_no'] ?></td>
@@ -346,15 +374,17 @@ $user = $_SESSION['user_name'];
                         <!-- Drop down -->
                         <div class="d-flex justify-content-end bd-highlight">
                         <div class="p-2 bd-highlight">
-                        <select class="form-select mb-3 form-select-sm" id="dropdown-val" aria-label="Default select example">
+                            <form action="" method="GET">
+                        <select class="form-select mb-3 form-select-sm" name="filter_sm" id="dropdown-val" aria-label="Default select example">
                             <option selected value="">--Select Filter--</option>
-                            <option value="Monthly">Monthly</option>
-                            <option value="Weekly">Weekly</option>
-                            <option value="Daily">Daily</option>
+                            <option value="Monthly"<?=isset($_GET['filter_sm']) == TRUE ? ($_GET['filter_sm'] == 'Monthly' ? 'selected': ''): '' ?>>Monthly</option>
+                            <option value="Weekly" <?=isset($_GET['filter_sm']) == TRUE ? ($_GET['filter_sm'] == 'Weekly' ? 'selected': ''): '' ?>>Weekly</option>
+                            <option value="Daily" <?=isset($_GET['filter_sm']) == TRUE ? ($_GET['filter_sm'] == 'Daily' ? 'selected': ''): '' ?>>Daily</option>
                         </select>
                         </div>
                         <div class="p-2 bd-highlight">
                             <button class="btn btn-primary btn-sm">Filter</button>
+                                </form>
                         </div>
                         </div>
                         <!-- end Drop down -->
@@ -368,6 +398,38 @@ $user = $_SESSION['user_name'];
                             </thead>
                             <tbody>
                             <?php 
+                            //filter slow moving
+                            if(isset($_GET['filter_sm']) == TRUE && $_GET['filter_sm'] != "") {
+                                $filter = mysqli_real_escape_string($sqlconn, $_GET['filter_sm']);
+
+                                if($filter == "Monthly") {
+                                    $query_fm = "SELECT s_sku, s_item, SUM(s_qty) AS total_quantity_sold
+                                    FROM sales_db
+                                    WHERE s_date >= DATE_FORMAT(CURRENT_DATE, '%Y-%m-01') -- First day of the current month
+                                    AND s_date <= LAST_DAY(CURRENT_DATE) -- Last day of the current month
+                                    GROUP BY s_item
+                                    HAVING total_quantity_sold < $threshold";
+                                    $result_fm = mysqli_query($sqlconn, $query_fm);
+                                }
+                                elseif($filter == "Weekly") {
+                                    $query_fm = "SELECT s_sku, s_item, SUM(s_qty) AS total_quantity_sold
+                                    FROM sales_db 
+                                    WHERE s_date >= DATE_SUB(CURDATE(), INTERVAL WEEKDAY(CURDATE()) DAY)
+                                    AND s_date < DATE_ADD(DATE_SUB(CURDATE(), INTERVAL WEEKDAY(CURDATE()) DAY), INTERVAL 7 DAY)
+                                    GROUP BY s_item
+                                    HAVING total_quantity_sold < $threshold";
+                                    $result_fm = mysqli_query($sqlconn, $query_fm);
+                                }
+                                elseif($filter == "Daily") {
+                                    $query_fm = "SELECT s_sku, s_item, SUM(s_qty) AS total_quantity_sold
+                                    FROM sales_db  
+                                    WHERE DATE(s_date) = CURDATE() 
+                                    GROUP BY s_item
+                                    HAVING total_quantity_sold < $threshold";
+                                    $result_fm = mysqli_query($sqlconn, $query_fm);
+                                } 
+                            }
+                            else {
                                 $query_fm = "SELECT s_sku, s_item, SUM(s_qty) AS total_quantity_sold
                                 FROM sales_db
                                 WHERE s_date >= DATE_FORMAT(CURRENT_DATE, '%Y-%m-01') -- First day of the current month
@@ -376,6 +438,7 @@ $user = $_SESSION['user_name'];
                                 HAVING total_quantity_sold < $threshold";
                                 
                                 $result_fm = mysqli_query($sqlconn, $query_fm);
+                            }
 
 
                                 while($fm_rows = mysqli_fetch_assoc($result_fm)) {
@@ -401,15 +464,17 @@ $user = $_SESSION['user_name'];
                         <!-- Drop down -->
                         <div class="d-flex justify-content-end bd-highlight">
                          <div class="p-2 bd-highlight">
-                        <select class="form-select mb-3 form-select-sm" id="dropdown-val" aria-label="Default select example">
+                            <form action="" method="GET">
+                        <select class="form-select mb-3 form-select-sm" name="filter_fm" id="dropdown-val" aria-label="Default select example">
                             <option selected value="">--Select Filter--</option>
-                            <option value="Monthly">Monthly</option>
-                            <option value="Weekly">Weekly</option>
-                            <option value="Daily">Daily</option>
+                            <option value="Monthly"<?=isset($_GET['filter_fm']) == TRUE ? ($_GET['filter_fm'] == 'Monthly' ? 'selected': ''): '' ?>>Monthly</option>
+                            <option value="Weekly" <?=isset($_GET['filter_fm']) == TRUE ? ($_GET['filter_fm'] == 'Weekly' ? 'selected': ''): '' ?>>Weekly</option>
+                            <option value="Daily" <?=isset($_GET['filter_fm']) == TRUE ? ($_GET['filter_fm'] == 'Daily' ? 'selected': ''): '' ?>>Daily</option>
                         </select>
                         </div>
                         <div class="p-2 bd-highlight">
                             <button class="btn btn-primary btn-sm">Filter</button>
+                                </form>
                         </div>
                         </div>
                         <!-- end Drop down -->
@@ -424,14 +489,46 @@ $user = $_SESSION['user_name'];
                             <tbody id="table-fm">
                                 <!-- Table content here -->
                                 <?php 
-                                $query_fm = "SELECT s_sku, s_item, SUM(s_qty) AS total_quantity_sold
-                                FROM sales_db
-                                WHERE s_date >= DATE_FORMAT(CURRENT_DATE, '%Y-%m-01') -- First day of the current month
-                                    AND s_date <= LAST_DAY(CURRENT_DATE) -- Last day of the current month
-                                GROUP BY s_item
-                                HAVING total_quantity_sold >= $threshold";
-                                
-                                $result_fm = mysqli_query($sqlconn, $query_fm);
+                                if(isset($_GET['filter_fm']) == TRUE && $_GET['filter_fm'] != "") {
+                                    $filter = mysqli_real_escape_string($sqlconn, $_GET['filter_fm']);
+    
+                                    if($filter == "Monthly") {
+                                        $query_fm = "SELECT s_sku, s_item, SUM(s_qty) AS total_quantity_sold
+                                        FROM sales_db
+                                        WHERE s_date >= DATE_FORMAT(CURRENT_DATE, '%Y-%m-01') -- First day of the current month
+                                        AND s_date <= LAST_DAY(CURRENT_DATE) -- Last day of the current month
+                                        GROUP BY s_item
+                                        HAVING total_quantity_sold >= $threshold";
+                                        $result_fm = mysqli_query($sqlconn, $query_fm);
+                                    }
+                                    elseif($filter == "Weekly") {
+                                        $query_fm = "SELECT s_sku, s_item, SUM(s_qty) AS total_quantity_sold
+                                        FROM sales_db 
+                                        WHERE s_date >= DATE_SUB(CURDATE(), INTERVAL WEEKDAY(CURDATE()) DAY)
+                                        AND s_date < DATE_ADD(DATE_SUB(CURDATE(), INTERVAL WEEKDAY(CURDATE()) DAY), INTERVAL 7 DAY)
+                                        GROUP BY s_item
+                                        HAVING total_quantity_sold >= $threshold";
+                                        $result_fm = mysqli_query($sqlconn, $query_fm);
+                                    }
+                                    elseif($filter == "Daily") {
+                                        $query_fm = "SELECT s_sku, s_item, SUM(s_qty) AS total_quantity_sold
+                                        FROM sales_db  
+                                        WHERE DATE(s_date) = CURDATE() 
+                                        GROUP BY s_item
+                                        HAVING total_quantity_sold >= $threshold";
+                                        $result_fm = mysqli_query($sqlconn, $query_fm);
+                                    } 
+                                }
+                                else {
+                                    $query_fm = "SELECT s_sku, s_item, SUM(s_qty) AS total_quantity_sold
+                                    FROM sales_db
+                                    WHERE s_date >= DATE_FORMAT(CURRENT_DATE, '%Y-%m-01') -- First day of the current month
+                                        AND s_date <= LAST_DAY(CURRENT_DATE) -- Last day of the current month
+                                    GROUP BY s_item
+                                    HAVING total_quantity_sold >= $threshold";
+                                    
+                                    $result_fm = mysqli_query($sqlconn, $query_fm);
+                                }
 
 
                                 while($fm_rows = mysqli_fetch_assoc($result_fm)) {
