@@ -10,66 +10,13 @@ $user = $_SESSION['user_name'];
         exit();
     }
 
-    //get page number on purchase order
-    if (isset($_GET['page_no']) && $_GET['page_no'] !== "") {
-        $page_no = $_GET['page_no'];
-    } else {
-        $page_no = 1;
-    }
-    $total_records_per_page = 10;
-    $offset = ($page_no -1) * $total_records_per_page;
-    $previous_page = $page_no -1;
-    $next_page = $page_no + 1;
-    
-    $pagination_queary = "SELECT COUNT(vendors_db.vendor_name) AS total_records FROM vendors_db JOIN purchase_order_db ON vendors_db.vendor_id = purchase_order_db.vendor_id";
-    $result_count = mysqli_query($sqlconn, $pagination_queary);
-    $records = mysqli_fetch_array($result_count);
-    $total_records = $records['total_records'];
-    $total_no_of_pages = ceil($total_records / $total_records_per_page);
-
-
-    //get page number on vendors
-    if (isset($_GET['page_num']) && $_GET['page_num'] !== "") {
-        $page_num = $_GET['page_num'];
-    } else {
-        $page_num = 1;
-    }
-
-    $total_record_per_page = 10;
-    $offsets = ($page_num -1) * $total_record_per_page;
-    $previouss_page = $page_num -1;
-    $nexts_page = $page_num + 1;
-    
-    $results_count = mysqli_query($sqlconn,"SELECT COUNT(*) as total_record FROM vendors_db");
-    $recordss = mysqli_fetch_array($results_count);
-    $total_record = $recordss['total_record'];
-    $total_no_of_page = ceil($total_record / $total_record_per_page);
-
-
-    //get page number on delivery
-    if (isset($_GET['page_s']) && $_GET['page_s'] !== "") {
-        $page_s = $_GET["page_s"];
-    } else {
-        $page_s = 1;
-    }
-    
-    $totals_record_per_page = 10;
-    $offsetp = ($page_s - 1) * $totals_record_per_page;
-    $previous_pages = $page_s - 1;
-    $next_pages = $page_s + 1;
-    
-    $pagination_query = "SELECT COUNT(*) AS totals_record FROM vendors_db JOIN purchase_order_db ON vendors_db.vendor_id = purchase_order_db.vendor_id WHERE is_delivered = 1";
-    $result_counts = mysqli_query($sqlconn, $pagination_query);
-    $record = mysqli_fetch_array($result_counts);
-    $totals_record = $record['totals_record'];
-    $totals_no_of_page = ceil($totals_record / $totals_record_per_page);
-
-
 ?>
     <head>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" />
         <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
         <link rel="stylesheet" href="../styles.css" />
+        <!-- data tables -->
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css" />
         <title>Purchase Maintenance</title>
     </head>
     <!--Style inside main Page -->
@@ -178,8 +125,6 @@ $user = $_SESSION['user_name'];
                                     <button type="button" class="btn colorbox btn-outline-secondary btn-lg" id="order-btn" data-bs-toggle="modal" data-bs-target="#purchase1">
                                         Add Order
                                     </button>
-                                    <!-- Search Bar-->
-                                    <input type="text" class="form-control search-bar" placeholder="Search">
                                 </div><br>
 
                                 <?php 
@@ -191,7 +136,7 @@ $user = $_SESSION['user_name'];
                                         </div>
                             <?php } ?>
                                 <!--Table-->
-                                <table class="table bg-light rounded shadow-sm table-hover">
+                                <table id="purchase-table" class="table bg-light rounded shadow-sm table-hover">
                                     <thead>
                                         <tr>
                                             <!-- Table content here -->
@@ -203,70 +148,38 @@ $user = $_SESSION['user_name'];
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php 
-                                            $query = "SELECT Vendor, dateOfTransaction, expectedDel, item_vendorID
-                                            FROM (
-                                                SELECT
-                                                    vendors_db.vendor_name as Vendor,
-                                                    purchase_order_db.vendor_id as item_vendorID,
-                                                    purchase_order_db.po_dot as dateOfTransaction,
-                                                    purchase_order_db.po_expdelivery as expectedDel,
-                                                    @rownum := IF(@prev_value = vendors_db.vendor_name, @rownum + 1, 1) AS rn,
-                                                    @prev_value := vendors_db.vendor_name
-                                                FROM vendors_db
-                                                JOIN purchase_order_db ON vendors_db.vendor_id = purchase_order_db.vendor_id
-                                                ORDER BY vendors_db.vendor_name, purchase_order_db.po_dot
-                                            ) AS ranked
-                                            WHERE rn <= $total_records_per_page
-                                            LIMIT $offset, $total_records_per_page";
-                    
+                                    <?php
+                                        $query = "SELECT
+                                        vendors_db.vendor_id,
+                                        vendors_db.vendor_name as Vendor,
+                                        MAX(purchase_order_db.vendor_id) as item_vendorID,
+                                        MAX(purchase_order_db.po_dot) as dateOfTransaction,
+                                        MAX(purchase_order_db.po_expdelivery) as expectedDel
+                                        FROM vendors_db
+                                        JOIN purchase_order_db ON vendors_db.vendor_id = purchase_order_db.vendor_id
+                                        GROUP BY vendors_db.vendor_id, vendors_db.vendor_name
+                                        ORDER BY Vendor, dateOfTransaction";
+
                                         $results = mysqli_query($sqlconn, $query);
-                                        $previous = null;
-                                        $unique_identifier = 0;
-                                        
+
                                         while ($rows = mysqli_fetch_assoc($results)) {
                                         ?>
                                         <tr>
-                                            <?php if($rows['Vendor'] != $previous) { ?>
-                                            <td><?php echo $rows['Vendor']; 
-                                            $previous = $rows['Vendor'];
-                                            ?></td>
-                                            <td><?php echo $rows['dateOfTransaction'] ?></td>
-                                            <td><?php echo $rows['expectedDel'] ?></td>
-                                            <td>
-                                                <button title="<?php echo $rows['item_vendorID']; ?>" class="btn btn-primary btn-sm view-data" data-itemid="<?php echo $rows['item_vendorID'];?>" data-bs-toggle="modal" data-bs-target="#viewModal">View Items</button>
-                                                <a class="btn btn-primary btn-sm btn-danger" href="delete_po.php?id=<?= $rows['item_vendorID'] ?>"><i class="fas fa-trash"></i></a>
-                                            </td>
-                                            <td>
+                                        <td><?php echo $rows['Vendor']; ?></td>
+                                        <td><?php echo $rows['dateOfTransaction']; ?></td>
+                                        <td><?php echo $rows['expectedDel']; ?></td>
+                                        <td>
+                                            <button title="<?php echo $rows['item_vendorID']; ?>" class="btn btn-primary btn-sm view-data" data-itemid="<?php echo $rows['item_vendorID']; ?>" data-bs-toggle="modal" data-bs-target="#viewModal">View Items</button>
+                                        </td>
+                                        <td>
                                             <button class="btn btn-primary btn-sm delivered-rbtn" id="delivered_label" value="Delivered" name="dob_<?php echo $rows['item_vendorID']; ?>" data-itemid="<?php echo $rows['item_vendorID']; ?>">Delivered</button>
-                                            </td>
-                                            <?php } ?>
+                                        </td>
                                         </tr>
-                                        <?php } ?>
+                                        <?php
+                                        }
+                                        ?>
                                     </tbody>
                                 </table>
-        
-                                <!-- Pagination -->
-                                <nav aria-label="Page navigation">
-                                    <ul class="pagination justify-content-center">
-                                        <li class="page-item">       
-                                        <a class="page-link <?= ($page_no <= 1) ? 'disabled' : ''; ?>"<?= ($page_no > 1) ? 'href=?page_no=' . $previous_page : ''; ?> tabindex="-1" aria-disabled="true">Previous</a>
-                                        </li>
-
-                                        <?php for ($counter = 1; $counter <= $total_no_of_pages; $counter++)
-                                        {?>
-                                        <li class="page-item"><a class="page-link" href="?page_no= <?php echo $counter; ?>"><?php echo $counter; ?></a></li>
-                                        <?php } ?>
-                            
-
-                                        <a class="page-link <?= ($page_no >= $total_no_of_pages)? 'disabled' : '';?>" <?= ($page_no < $total_no_of_pages)? 'href=?page_no=' . $next_page: '';?>>Next</a>
-                                        </li>
-                                    </ul>
-                                </nav>
-                                <div class="p-10">
-                                    <strong>Page <?= $page_no; ?> of <?= $total_no_of_pages; ?></strong>
-                                </div>
-
                             </div>
                         </div>
                     </div>
@@ -281,8 +194,6 @@ $user = $_SESSION['user_name'];
                                     <button type="button" class="btn colorbox btn-outline-secondary btn-lg" data-bs-toggle="modal" data-bs-target="#vendor1">
                                         Add Vendor
                                     </button>
-                                      <!-- Search Bar-->
-                                    <input type="text" class="form-control search-bar" placeholder="Search">
                                 </div><br>
                                 <!-- Missing bs form data-bs-dimiss this should work now "if you read this remove comment"-->
                                 <div class="alert alert-warning alert-dismissible fade show" role="alert">
@@ -290,7 +201,7 @@ $user = $_SESSION['user_name'];
                                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                 </div>
                                 <!--Table-->
-                                <table class="table bg-light rounded shadow-sm table-hover">
+                                <table id="vendor-table" class="table bg-light rounded shadow-sm table-hover">
                                     <thead>
                                         <tr>
                                             <!-- Table content here -->
@@ -302,7 +213,7 @@ $user = $_SESSION['user_name'];
                                     </thead>
                                     <tbody>
                                 <?php  
-                                    $sql_query = "SELECT * FROM vendors_db LIMIT $offsets , $total_record_per_page";
+                                    $sql_query = "SELECT * FROM vendors_db";
                                     $sql_res = mysqli_query($sqlconn, $sql_query);
 
                                     while($array = mysqli_fetch_array($sql_res)) {
@@ -319,26 +230,6 @@ $user = $_SESSION['user_name'];
                                         <?php } ?>
                                     </tbody>
                                 </table>
-        
-                                <!-- Pagination -->
-                                <nav aria-label="Page navigation">
-                                    <ul class="pagination justify-content-center">
-                                        <li class="page-item">       
-                                        <a class="page-link <?= ($page_num <= 1) ? 'disabled' : ''; ?>"<?= ($page_num > 1) ? 'href=?page_num=' . $previouss_page : ''; ?> tabindex="-1" aria-disabled="true">Previous</a>
-                                        </li>
-
-                                        <?php for ($counters = 1; $counters <= $total_no_of_page; $counters++)
-                                        {?>
-                                        <li class="page-item"><a class="page-link" href="?page_num= <?php echo $counters; ?>"><?php echo $counters; ?></a></li>
-                                        <?php } ?>
-
-                                        <a class="page-link <?= ($page_num >= $total_no_of_page)? 'disabled' : '';?>" <?= ($page_num < $total_no_of_page)? 'href=?page_num=' . $nexts_page: '';?>>Next</a>
-                                        </li>
-                                    </ul>
-                                </nav>
-                            <div class="p-10">
-                                <strong>Page <?= $page_num; ?> of <?= $total_no_of_page; ?></strong>
-                            </div>
 
                             </div>
                         </div>
@@ -349,13 +240,8 @@ $user = $_SESSION['user_name'];
                         <div class="card">
                             <div class="card-body colorbox">
                                 <h5 class="card-title">Delivery In</h5>
-                                <!-- Button for Add item-->
-                                <div class="d-flex justify-content-end mt-2">
-                                    <!-- Search Bar-->
-                                    <input type="text" class="form-control search-bar" style="height: 49px; max-width: 300px;"" placeholder="Search">
-                                </div><br>
                                 <!--Table-->
-                                <table class="table bg-light rounded shadow-sm table-hover">
+                                <table id="delivery-table" class="table bg-light rounded shadow-sm table-hover">
                                     <thead>
                                         <tr>
                                             <!-- Table content here -->
@@ -367,65 +253,34 @@ $user = $_SESSION['user_name'];
                                     </thead>
                                     <tbody>
                                     <?php
-                                    $query_deliveryin = "SELECT
+                                        $query_deliveryin = "SELECT
                                         vendors_db.vendor_id,
                                         vendors_db.vendor_name as Vendor,
-                                        purchase_order_db.vendor_id as item_vendorID,
-                                        purchase_order_db.po_dot as dateOfTransaction,
-                                        purchase_order_db.po_expdelivery as expectedDel,
-                                        @rownum := IF(@prev_value = vendors_db.vendor_name, @rownum + 1, 1) AS rn,
-                                        @prev_value := vendors_db.vendor_name
-                                    FROM vendors_db
-                                    JOIN purchase_order_db ON vendors_db.vendor_id = purchase_order_db.vendor_id
-                                    WHERE purchase_order_db.is_delivered = 1
-                                    ORDER BY vendors_db.vendor_name, purchase_order_db.po_dot
-                                    LIMIT $offsetp, $totals_record_per_page";
-                                        
-                                        
+                                        MAX(purchase_order_db.vendor_id) as item_vendorID,
+                                        MAX(purchase_order_db.po_dot) as dateOfTransaction,
+                                        MAX(purchase_order_db.po_expdelivery) as expectedDel
+                                        FROM vendors_db
+                                        JOIN purchase_order_db ON vendors_db.vendor_id = purchase_order_db.vendor_id
+                                        WHERE purchase_order_db.is_delivered = 1
+                                        GROUP BY vendors_db.vendor_id, vendors_db.vendor_name
+                                        ORDER BY Vendor, dateOfTransaction";
+
                                         $results_deliveryin = mysqli_query($sqlconn, $query_deliveryin);
-                                        $previous_deliverIn = null;
-                                        
+
                                         while ($rows_deliveryin = mysqli_fetch_assoc($results_deliveryin)) {
-                                        
                                         ?>
                                         <tr>
-                                        <?php if($rows_deliveryin['Vendor'] != $previous_deliverIn) { ?>
-                                            <td><?php echo $rows_deliveryin['Vendor']; 
-                                            $previous_deliverIn = $rows_deliveryin['Vendor'];
-                                            ?></td>
-                                            <td><?php echo $rows_deliveryin['dateOfTransaction'] ?></td>
-                                            <td><?php echo $rows_deliveryin['expectedDel'] ?></td>
-                                            <td>
-                                                <button title="<?php echo $rows_deliveryin['item_vendorID']; ?>" class="btn btn-primary btn-sm view-data" data-itemid="<?php echo $rows_deliveryin['item_vendorID'];?>" data-bs-toggle="modal" data-bs-target="#viewModal">View Items</button>
-                                                <a href="delete_po.php?vendorid=<?php echo $rows_deliveryin['item_vendorID'] ?>" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>
-                                            </td>
-                                            <?php } ?>
+                                        <td><?php echo $rows_deliveryin['Vendor']; ?></td>
+                                        <td><?php echo $rows_deliveryin['dateOfTransaction']; ?></td>
+                                        <td><?php echo $rows_deliveryin['expectedDel']; ?></td>
+                                        <td>
+                                            <button title="<?php echo $rows_deliveryin['item_vendorID']; ?>" class="btn btn-primary btn-sm view-data" data-itemid="<?php echo $rows_deliveryin['item_vendorID']; ?>" data-bs-toggle="modal" data-bs-target="#viewModal">View Items</button>
+                                            <a href="delete_po.php?vendorid=<?php echo $rows_deliveryin['item_vendorID']; ?>" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>
+                                        </td>
                                         </tr>
-                                    <?php  } ?>
+                                        <?php } ?>
                                     </tbody>
                                 </table>
-        
-                                    <!-- Pagination -->
-                                    <nav aria-label="Page navigation">
-                                        <ul class="pagination justify-content-center">
-                                            <li class="page-item">       
-                                            <a class="page-link <?= ($page_s <= 1) ? 'disabled' : ''; ?>"<?= ($page_s > 1) ? 'href=?page_s=' . $previous_pages : ''; ?> tabindex="-1" aria-disabled="true">Previous</a>
-                                            </li>
-
-                                            <?php for ($counterss = 1; $counterss <= $totals_no_of_page; $counterss++)
-                                            {?>
-                                            <li class="page-item"><a class="page-link" href="?page_s=<?php echo $counterss; ?>"><?php echo $counterss; ?></a></li>
-                                            <?php } ?>
-
-                                            <a class="page-link <?= ($page_s >= $totals_no_of_page)? 'disabled' : '';?>" <?= ($page_s < $totals_no_of_page)? 'href=?page_s=' . $next_pages: '';?>>Next</a>
-                                            </li>
-                                        </ul>
-                                    </nav>
-                                <div class="p-10">
-                                    <strong>Page <?= $page_s; ?> of <?= $totals_no_of_page; ?></strong>
-                                </div>
-
-
                                 </div>             
                             </div>
                         </div>
@@ -719,23 +574,21 @@ $user = $_SESSION['user_name'];
         </div>
 <!-- ends here -->
 
-
-
-
-
-
-
-
-
-        
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!--Boostrap Layout-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+        
+    <!-- Data table Scripts -->
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
     
     <script src="cloneInputs.js"></script>
     <script src="autocomplete.js"></script>
     <script src="radioBtn-function.js"></script>
     <script src="po-view-item.js"></script>
     <script src="update-vendor.js"></script>
+    <script src="purchasetable.js"></script>
+    <script src="deliverytable.js"></script>
     <script>
         var el = document.getElementById("wrapper");
         var toggleButton = document.getElementById("menu-toggle");
@@ -743,6 +596,20 @@ $user = $_SESSION['user_name'];
         toggleButton.onclick = function () {
             el.classList.toggle("toggled");
         };
+
+        $(document).ready( function () {
+            $('#purchase-table').DataTable( {
+                lengthChange: false
+            });
+
+            $('#vendor-table').DataTable( {
+                lengthChange: false
+            });
+
+            $('#delivery-table').DataTable({
+                lengthChange: false
+            });
+        });
 
         document.addEventListener('DOMContentLoaded', function () {
         // Retrieve the last active tab from sessionStorage
