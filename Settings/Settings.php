@@ -144,6 +144,17 @@ $id = $_SESSION['id'];
                 <div class="tab-content" id="myTabContent">
                     <div class="tab-pane fade" id="inventory" role="tabpanel" aria-labelledby="inventory-tab">
                             <h2 class="text-center">Inventory Settings</h2>
+                            <br>
+                            <?php 
+                                if(isset($_GET['invmsg'])) {
+                                ?>
+                                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                    <?= $_GET['invmsg'] ?>
+                                    <button class="btn-close" data-bs-dismiss="alert" id="removemsgBtn" aria-label="Close"></button>
+                                </div>
+                                <?php } 
+                            
+                                ?>
 
                                     <form action="update-inventory-setting.php" method="POST" autocomplete="off">
                                         <?php 
@@ -159,15 +170,15 @@ $id = $_SESSION['id'];
                                         </div>
                                         <div class="form-group">
                                             <label for="critical">Critical Threshold</label>
-                                            <input type="number" class="form-control" >
+                                            <input type="number" class="form-control" value="<?= $result_rows['critical']?>" name="critical">
                                         </div>
                                         <div class="form-group">
                                             <label for="average">Average Threshold</label>
-                                            <input type="number" class="form-control">
+                                            <input type="number" class="form-control" value="<?= $result_rows['average'] ?>" name="average">
                                         </div>
                                         <div class="form-group">
                                             <label for="reorder">Reorder Threshold</label>
-                                            <input type="number" class="form-control">
+                                            <input type="number" class="form-control" value="<?= $result_rows['reorder'] ?>" name="reorder">
                                         </div>
                                         <div class="form-group">
                                             <label for="mark-up">Markup %</label>
@@ -253,6 +264,13 @@ $id = $_SESSION['id'];
     // Remove the 'err' query parameter from the URL
         var currentUrl = window.location.href;
         var updatedUrl = currentUrl.replace(/[?&]err=.*&?/, '');
+        history.replaceState({}, document.title, updatedUrl);
+    });
+
+    $('#removemsgBtn').on('click', function() {
+    // Remove the 'invmsg' query parameter from the URL
+        var currentUrl = window.location.href;
+        var updatedUrl = currentUrl.replace(/[?&]invmsg=.*&?/, '');
         history.replaceState({}, document.title, updatedUrl);
     });
 });    
