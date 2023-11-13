@@ -270,8 +270,6 @@ $user = $_SESSION['user_name'];
                         </div>
                         </div>
                         <!-- end Drop down -->
-
-                        <!-- WARNING: THERE'S AN FRONT END ERROR HERE WHEN I SEARCH THE RESULTS SHOWS ON THE FIRST ROW IDK WHY -->
                         <table id="invetoryr-table" class="table bg-white rounded shadow-sm table-hover">
                             <thead>
                                 <tr>
@@ -371,8 +369,8 @@ $user = $_SESSION['user_name'];
                                     <td><?= $rows['item_stocks'] ?></td>
                                     <td><?= $rows['stock_status'] ?></td>
                                 </tr>
-                            </tbody>
                             <?php } ?>
+                            </tbody>
                         </table>
                     </div>
                 </div>
