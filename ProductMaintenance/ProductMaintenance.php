@@ -10,39 +10,6 @@ $user = $_SESSION['user_name'];
         exit();
     }
 
-    //get page number on category
-    if (isset($_GET['page_no']) && $_GET['page_no'] !== "") {
-        $page_no = $_GET['page_no'];
-    } else {
-        $page_no = 1;
-    }
-    $total_records_per_page = 10;
-    $offset = ($page_no -1) * $total_records_per_page;
-    $previous_page = $page_no -1;
-    $next_page = $page_no + 1;
-    
-    $result_count = mysqli_query($sqlconn, "SELECT COUNT(*) as total_records FROM category_db");
-    $records = mysqli_fetch_array($result_count);
-    $total_records = $records['total_records'];
-    $total_no_of_pages = ceil($total_records / $total_records_per_page);
-
-    //get page number on Uom
-    if (isset($_GET['page_nos']) && $_GET['page_nos'] !== "") {
-        $page_nos = $_GET['page_nos'];
-    } else {
-        $page_nos = 1;
-    }
-    $total_records_per_pages = 10;
-    $offsets = ($page_nos -1) * $total_records_per_pages;
-    $previous_pages = $page_nos -1;
-    $next_pages = $page_nos + 1;
-    
-    $result_counts = mysqli_query($sqlconn, "SELECT COUNT(*) as total_record FROM uom_db");
-    $recordss = mysqli_fetch_array($result_counts);
-    $total_record = $recordss['total_record'];
-    $total_no_of_pagess = ceil($total_record / $total_records_per_pages);
-
-
 ?>
 <html>
     <head>
@@ -158,13 +125,13 @@ $user = $_SESSION['user_name'];
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
+                            <tbody>
                              <?php 
                                     $sql_query = "SELECT * FROM category_db";
                                     $sql_res = mysqli_query($sqlconn, $sql_query);
 
                                     while($array = mysqli_fetch_array($sql_res)) {
                                 ?>
-                            <tbody>
                                 <tr>
                                     <td>
                                         <?php echo $array['category_name']; ?>
@@ -175,10 +142,10 @@ $user = $_SESSION['user_name'];
                                         </a>
                                     </td>
                                 </tr>
-                            </tbody>
                             <?php 
                                 }
                                 ?>
+                            </tbody>
                         </table>
                     </div>
                 </div>
@@ -204,13 +171,13 @@ $user = $_SESSION['user_name'];
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
+                            <tbody>
                             <?php 
                                 $sql_query1 = "SELECT * FROM uom_db";
                                 $sql_res1 = mysqli_query($sqlconn, $sql_query1);
 
                                 while($array1 = mysqli_fetch_array($sql_res1)) {
                             ?>
-                            <tbody>
                                 <tr>
                                     <td>
                                         <?php echo $array1['uom_name']; ?>
@@ -221,11 +188,10 @@ $user = $_SESSION['user_name'];
                             </a>
                                     </td>
                                 </tr>
-                            </tbody>
                             <?php 
                             }
-                            
                             ?>
+                            </tbody>
                         </table>
                         </div>
                     </div>
@@ -316,7 +282,7 @@ $user = $_SESSION['user_name'];
             // Retrieve the last active tab from sessionStorage
             var lastActiveTab = sessionStorage.getItem('activeTab');
     
-            // If no last active tab is found, default to the "Sales Report" tab (tab number 1)
+            // If no last active tab is found, default to the "Category" tab (tab number 1)
             if (lastActiveTab === null) {
                 lastActiveTab = 1;
             }
@@ -339,14 +305,11 @@ $user = $_SESSION['user_name'];
         });
 
             $(document).ready( function () {
-            $('#category-table').DataTable( {
-                lengthChange: false
+                $('#category-table').DataTable();
             });
-            $('#uom-table').DataTable( {
-                lengthChange: false
+            $(document).ready( function () {
+                $('#uom-table').DataTable();
             });
-        });
-
 
         </script>
     </body>
