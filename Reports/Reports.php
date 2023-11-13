@@ -14,6 +14,9 @@ $user = $_SESSION['user_name'];
 
     if($rows = mysqli_fetch_assoc($threshold_query_result)) {
         $threshold = $rows['threshold'];
+        $critical = $rows['critical'];
+        $reorder = $rows['reorder'];
+        $average = $rows['average'];
     }
 
 ?>
@@ -269,13 +272,23 @@ $user = $_SESSION['user_name'];
                         <table id="invetoryr-table" class="table bg-white rounded shadow-sm table-hover">
                             <thead>
                                 <tr>
-                                    <th>Item No.</th>
+                                    <th>Item Barcode</th>
                                     <th>Item Name</th>
-                                    <th>Item Description</th>
-                                    <th>Qty</th>
+                                    <th>Item Catogory</th>
+                                    <th>Stock Level</th>
                                 </tr>
                             </thead>
                             <tbody>
+                                <?php 
+                                $inventory_level_query = "SELECT `item_barcode`, `item_name`, `item_category`, `item_stocks`,
+                                CASE 
+                                    WHEN `item_stocks` >= $average AND `item_stocks` > $reorder THEN 'Average'
+                                    WHEN `item_stocks` <= $critical THEN 'Critical'
+                                    WHEN `item_stocks` >= $reorder 
+                                ";
+                                
+                                
+                                ?>
                                 <!-- Table content here -->
                             </tbody>
                         </table>
