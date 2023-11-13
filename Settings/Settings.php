@@ -144,8 +144,7 @@ $id = $_SESSION['id'];
                 <div class="tab-content" id="myTabContent">
                     <div class="tab-pane fade" id="inventory" role="tabpanel" aria-labelledby="inventory-tab">
                             <h1 class="text-center">Inventory Settings</h1>
-                            <div class="card">
-                                <div class="card-body">
+
                                     <form action="update-inventory-setting.php" method="POST" autocomplete="off">
                                         <?php 
                                         $query_value = "SELECT * FROM `setting_db`";
@@ -158,7 +157,18 @@ $id = $_SESSION['id'];
                                             <label for="Threshold">Threshold</label>
                                             <input type="number" class="form-control" id="Threshold" value="<?= $result_rows['threshold'] ?>" name="threshold-inp">
                                         </div>
-
+                                        <div class="form-group">
+                                            <label for="critical">Critical Threshold</label>
+                                            <input type="number" class="form-control" >
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="average">Average Threshold</label>
+                                            <input type="number" class="form-control">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="reorder">Reorder Threshold</label>
+                                            <input type="number" class="form-control">
+                                        </div>
                                         <div class="form-group">
                                             <label for="mark-up">Markup %</label>
                                             <input type="number" class="form-control" id="mark-up" value="<?= $result_rows['markup'] ?>" name="markup">
@@ -166,14 +176,12 @@ $id = $_SESSION['id'];
                                             <?php } ?>
                                         <button type="submit">Save Changes</button>
                                     </form>
-                                </div>
-                            </div>
                         </div>
                         <!--Inventory Setting Ends here -->
 
                     <!-- Account Settings-->
                     <div class="tab-pane fade" id="account-setting" role="tabpanel" aria-labelledby="account-setting-tab">
-                        <h2>Account Setting</h2>
+                        <h2 class="text-center">Account Setting</h2>
                         <br>
                         <?php 
                             if(isset($_GET['err'])) {
