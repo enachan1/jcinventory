@@ -9,7 +9,7 @@ $user = $_SESSION['user_name'];
         exit();
     }
     //for fast moving table threshold
-    $threshold_query = "SELECT `threshold` FROM `setting_db`";
+    $threshold_query = "SELECT * FROM `setting_db`";
     $threshold_query_result = mysqli_query($sqlconn, $threshold_query);
 
     if($rows = mysqli_fetch_assoc($threshold_query_result)) {
@@ -17,6 +17,7 @@ $user = $_SESSION['user_name'];
         $critical = $rows['critical'];
         $reorder = $rows['reorder'];
         $average = $rows['average'];
+        $stable = $rows['stable'];
     }
 
 ?>
@@ -275,6 +276,7 @@ $user = $_SESSION['user_name'];
                                     <th>Item Barcode</th>
                                     <th>Item Name</th>
                                     <th>Item Catogory</th>
+                                    <th>Item Stocks</th>
                                     <th>Stock Level</th>
                                 </tr>
                             </thead>
@@ -282,15 +284,27 @@ $user = $_SESSION['user_name'];
                                 <?php 
                                 $inventory_level_query = "SELECT `item_barcode`, `item_name`, `item_category`, `item_stocks`,
                                 CASE 
-                                    WHEN `item_stocks` >= $average AND `item_stocks` > $reorder THEN 'Average'
+                                    WHEN `item_stocks` > $stable THEN 'Stable'
                                     WHEN `item_stocks` <= $critical THEN 'Critical'
-                                    WHEN `item_stocks` >= $reorder 
-                                ";
-                                
-                                
+                                    WHEN `item_stocks` <= $reorder THEN 'Reorder'
+                                    WHEN `item_stocks` <= $average OR `item_stocks` < $stable THEN 'Average'
+                                END AS `stock_status`
+
+                                FROM `items_db`";
+                                $result = $sqlconn->query($inventory_level_query);
+
+
+                                while($rows = mysqli_fetch_assoc($result)) {
                                 ?>
                                 <!-- Table content here -->
+
+                                <td><?= $rows['item_barcode'] ?></td>
+                                <td><?= $rows['item_name'] ?></td>
+                                <td><?= $rows['item_category'] ?></td>
+                                <td><?= $rows['item_stocks'] ?></td>
+                                <td><?= $rows['stock_status'] ?></td>
                             </tbody>
+                            <?php } ?>
                         </table>
                     </div>
                 </div>

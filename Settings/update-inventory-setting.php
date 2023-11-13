@@ -8,10 +8,11 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
     $critical = mysqli_real_escape_string($sqlconn, $_POST['critical']);
     $reorder = mysqli_real_escape_string($sqlconn, $_POST['reorder']);
     $average = mysqli_real_escape_string($sqlconn, $_POST['average']);
+    $stable = mysqli_real_escape_string($sqlconn, $_POST['stable']);
 
 
 
-    $update_query = "UPDATE `setting_db` SET `threshold` = $threshold, `markup` = $markup, `reorder` = $reorder, `average` = $average, `critical` = $critical";
+    $update_query = "UPDATE `setting_db` SET `threshold` = $threshold, `markup` = $markup, `reorder` = $reorder, `average` = $average, `critical` = $critical, `stable` = $stable";
     $update_result = mysqli_query($sqlconn, $update_query);
 
     if($update_result == TRUE) {

@@ -181,6 +181,10 @@ $id = $_SESSION['id'];
                                             <input type="number" class="form-control" value="<?= $result_rows['reorder'] ?>" name="reorder">
                                         </div>
                                         <div class="form-group">
+                                            <label for="reorder">Stable Threshold</label>
+                                            <input type="number" class="form-control" value="<?= $result_rows['stable'] ?>" name="stable">
+                                        </div>
+                                        <div class="form-group">
                                             <label for="mark-up">Markup %</label>
                                             <input type="number" class="form-control" id="mark-up" value="<?= $result_rows['markup'] ?>" name="markup">
                                         </div>
