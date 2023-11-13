@@ -258,18 +258,20 @@ $user = $_SESSION['user_name'];
                         <!-- Drop down -->
                         <div class="d-flex justify-content-end bd-highlight">
                         <div class="p-2 bd-highlight">
-                        <select class="form-select mb-3 form-select-sm" id="dropdown-val" aria-label="Default select example">
-                            <option selected value="">--Select Filter--</option>
-                            <option value="Monthly">Monthly</option>
-                            <option value="Weekly">Weekly</option>
-                            <option value="Daily">Daily</option>
+                            <form action="" method="GET">
+                        <select class="form-select mb-3 form-select-sm" name="invlev" id="dropdown-val" aria-label="Default select example">
+                            <option value="Fast"<?=isset($_GET['invlev']) == TRUE ? ($_GET['invlev'] == 'Fast' ? 'selected': ''): '' ?>>Fast</option>
+                            <option value="Slow" <?=isset($_GET['invlev']) == TRUE ? ($_GET['invlev'] == 'Slow' ? 'selected': ''): '' ?>>Slow</option>
                         </select>
                         </div>
                         <div class="p-2 bd-highlight">
                             <button class="btn btn-primary btn-sm">Filter</button>
+                                </form>
                         </div>
                         </div>
                         <!-- end Drop down -->
+
+                        <!-- WARNING: THERE'S AN FRONT END ERROR HERE WHEN I SEARCH THE RESULTS SHOWS ON THE FIRST ROW IDK WHY -->
                         <table id="invetoryr-table" class="table bg-white rounded shadow-sm table-hover">
                             <thead>
                                 <tr>
@@ -282,27 +284,93 @@ $user = $_SESSION['user_name'];
                             </thead>
                             <tbody>
                                 <?php 
-                                $inventory_level_query = "SELECT `item_barcode`, `item_name`, `item_category`, `item_stocks`,
+                                if(isset($_GET['invlev']) == TRUE && $_GET['invlev'] != "") {
+                                    $filter = mysqli_real_escape_string($sqlconn, $_GET['invlev']);
+
+                                    if($filter == "Fast") {
+                                        $inventory_level_query = "SELECT item.`item_barcode`, item.`item_name`, item.`item_category`, item.`item_stocks`,
                                 CASE 
-                                    WHEN `item_stocks` > $stable THEN 'Stable'
-                                    WHEN `item_stocks` <= $critical THEN 'Critical'
-                                    WHEN `item_stocks` <= $reorder THEN 'Reorder'
-                                    WHEN `item_stocks` <= $average OR `item_stocks` < $stable THEN 'Average'
+                                    WHEN item.`item_stocks` > $stable THEN 'Stable'
+                                    WHEN item.`item_stocks` <= $critical THEN 'Critical'
+                                    WHEN item.`item_stocks` <= $reorder THEN 'Reorder'
+                                    WHEN item.`item_stocks` <= $average OR item.`item_stocks` < $stable THEN 'Average'
                                 END AS `stock_status`
+                                FROM `items_db` item
+                                
+                                JOIN (
+                                    SELECT sales.`s_sku` as sales_barcode
+                                    FROM `sales_db` sales
+                                    WHERE
+                                        sales.`s_date` >= DATE_FORMAT(CURRENT_DATE, '%Y-%m-01')
+                                    AND sales.`s_date` <= LAST_DAY(CURRENT_DATE)
 
-                                FROM `items_db`";
+                                    GROUP BY
+                                        `s_item`
+                                    HAVING SUM(sales.`s_qty`) >= $threshold
+                                        ) fm ON item.`item_barcode` = fm.`sales_barcode`";
+                                            $result = $sqlconn->query($inventory_level_query);
+                                    }
+
+                                    elseif ($filter == "Slow") {
+                                        $inventory_level_query = "SELECT item.`item_barcode`, item.`item_name`, item.`item_category`, item.`item_stocks`,
+                                        CASE 
+                                            WHEN item.`item_stocks` > $stable THEN 'Stable'
+                                            WHEN item.`item_stocks` <= $critical THEN 'Critical'
+                                            WHEN item.`item_stocks` <= $reorder THEN 'Reorder'
+                                            WHEN item.`item_stocks` <= $average OR item.`item_stocks` < $stable THEN 'Average'
+                                        END AS `stock_status`
+                                        FROM `items_db` item
+                                        
+                                        JOIN (
+                                            SELECT sales.`s_sku` as sales_barcode
+                                            FROM `sales_db` sales
+                                            WHERE
+                                                sales.`s_date` >= DATE_FORMAT(CURRENT_DATE, '%Y-%m-01')
+                                            AND sales.`s_date` <= LAST_DAY(CURRENT_DATE)
+        
+                                            GROUP BY
+                                                `s_item`
+                                            HAVING SUM(sales.`s_qty`) <= $threshold
+                                        ) fm ON item.`item_barcode` = fm.`sales_barcode`";
+
+                                        $result = $sqlconn->query($inventory_level_query);
+                                    }
+
+                                    
+                                }
+                                else {
+                                    $inventory_level_query = "SELECT item.`item_barcode`, item.`item_name`, item.`item_category`, item.`item_stocks`,
+                                CASE 
+                                    WHEN item.`item_stocks` > $stable THEN 'Stable'
+                                    WHEN item.`item_stocks` <= $critical THEN 'Critical'
+                                    WHEN item.`item_stocks` <= $reorder THEN 'Reorder'
+                                    WHEN item.`item_stocks` <= $average OR item.`item_stocks` < $stable THEN 'Average'
+                                END AS `stock_status`
+                                FROM `items_db` item
+                                
+                                JOIN (
+                                    SELECT sales.`s_sku` as sales_barcode
+                                    FROM `sales_db` sales
+                                    WHERE
+                                        sales.`s_date` >= DATE_FORMAT(CURRENT_DATE, '%Y-%m-01')
+                                    AND sales.`s_date` <= LAST_DAY(CURRENT_DATE)
+
+                                    GROUP BY
+                                        `s_item`
+                                    HAVING SUM(sales.`s_qty`) >= $threshold
+                                ) fm ON item.`item_barcode` = fm.`sales_barcode`";
                                 $result = $sqlconn->query($inventory_level_query);
-
-
+                                }
                                 while($rows = mysqli_fetch_assoc($result)) {
                                 ?>
                                 <!-- Table content here -->
-
-                                <td><?= $rows['item_barcode'] ?></td>
-                                <td><?= $rows['item_name'] ?></td>
-                                <td><?= $rows['item_category'] ?></td>
-                                <td><?= $rows['item_stocks'] ?></td>
-                                <td><?= $rows['stock_status'] ?></td>
+                                <tr>
+                                    <td><?= $rows['item_barcode'] ?></td>
+                                    <td><?= $rows['item_name'] ?></td>
+                                    <td><?= $rows['item_category'] ?></td>
+                                    <td><?= $rows['item_stocks'] ?></td>
+                                    <td><?= $rows['stock_status'] ?></td>
+                                </tr>
                             </tbody>
                             <?php } ?>
                         </table>
