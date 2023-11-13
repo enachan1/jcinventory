@@ -134,7 +134,7 @@ $user = $_SESSION['user_name'];
     <!-- Inventory -->
 
     <!-- Add Item -->
-    <div class="container-fuild mt-3 px-4">
+    <div class="container mt-3 px-4">
                 <div class="card">
                     <div class="card-header">
                         <div class="d-flex justify-content-between rounded">
@@ -143,10 +143,9 @@ $user = $_SESSION['user_name'];
                             </button>
                         </div>
                     </div>
-
                     <!-- Table Content -->
                     <div class="card-body">
-                        <!-- <div class="table-responsive"> -->
+                        <div class="table-responsive-xxl">
                         <table id="inv-table" class="table bg-light rounded shadow-sm table-hover">
                             <thead>
                                 <tr>
@@ -198,10 +197,11 @@ $user = $_SESSION['user_name'];
                         <?php } ?>
                     </tbody>
                 </table>
+                </div>
             </div>
         </div>
     </div>
-</div>
+
     
     <!-- Add Item Modal-->
     <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
@@ -350,15 +350,7 @@ $user = $_SESSION['user_name'];
         <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
         <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
         <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
-
-        <script>
-  $(document).ready( function () {
-     $('#inv-table').DataTable();
-});
-
-
-</script>
-    
+ 
         <script>
             var el = document.getElementById("wrapper");
             var toggleButton = document.getElementById("menu-toggle");
@@ -366,12 +358,11 @@ $user = $_SESSION['user_name'];
             toggleButton.onclick = function () {
                 el.classList.toggle("toggled");
             };
-    
-    
-        </script>
 
+            $(document).ready( function () {
+                $('#inv-table').DataTable();
+            });
 
-        <script>
             $(document).ready(function() {
                 $("tr").each(function() {
                 var row = $(this);
