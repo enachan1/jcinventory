@@ -184,7 +184,7 @@ $user = $_SESSION['user_name'];
                          </div>
                          </form>
                         <!-- end Drop down -->
-                        <table id="sales-table" class="table bg-light rounded shadow-sm table-hover">
+                        <table id="sales-table" class="table bg-white rounded shadow-sm table-hover">
                             <div id="btnwrapper"></div>
                             <thead>
                                 <tr>
@@ -266,7 +266,7 @@ $user = $_SESSION['user_name'];
                         </div>
                         </div>
                         <!-- end Drop down -->
-                        <table id="invetoryr-table" class="table bg-light rounded shadow-sm table-hover">
+                        <table id="invetoryr-table" class="table bg-white rounded shadow-sm table-hover">
                             <thead>
                                 <tr>
                                     <th>Item No.</th>
@@ -307,7 +307,7 @@ $user = $_SESSION['user_name'];
                         </div>
                         </div>
                         <!-- end Drop down -->
-                        <table id="transaction-table" class="table bg-light rounded shadow-sm table-hover">
+                        <table id="transaction-table" class="table bg-white rounded shadow-sm table-hover">
                             <thead>
                                 <tr>
                                     <th>Reciept No.</th>
@@ -388,7 +388,7 @@ $user = $_SESSION['user_name'];
                         </div>
                         </div>
                         <!-- end Drop down -->
-                        <table id="slow-table" class="table bg-light rounded shadow-sm table-hover">
+                        <table id="slow-table" class="table bg-white rounded shadow-sm table-hover">
                             <thead>
                                 <tr>
                                     <th>Item Barcode</th>
@@ -478,7 +478,7 @@ $user = $_SESSION['user_name'];
                         </div>
                         </div>
                         <!-- end Drop down -->
-                        <table id="fast-table" class="table bg-light rounded shadow-sm table-hover">
+                        <table id="fast-table" class="table bg-white rounded shadow-sm table-hover">
                             <thead>
                                 <tr>
                                     <th>Item Barcode</th>

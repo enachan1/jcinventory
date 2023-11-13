@@ -143,7 +143,7 @@ $id = $_SESSION['id'];
             <div class="container">
                 <div class="tab-content" id="myTabContent">
                     <div class="tab-pane fade" id="inventory" role="tabpanel" aria-labelledby="inventory-tab">
-                            <h1 class="text-center">Inventory Settings</h1>
+                            <h2 class="text-center">Inventory Settings</h2>
 
                                     <form action="update-inventory-setting.php" method="POST" autocomplete="off">
                                         <?php 

@@ -136,7 +136,7 @@ $user = $_SESSION['user_name'];
                                         </div>
                             <?php } ?>
                                 <!--Table-->
-                                <table id="purchase-table" class="table bg-light rounded shadow-sm table-hover">
+                                <table id="purchase-table" class="table bg-white rounded shadow-sm table-hover">
                                     <thead>
                                         <tr>
                                             <!-- Table content here -->
@@ -201,7 +201,7 @@ $user = $_SESSION['user_name'];
                                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                 </div>
                                 <!--Table-->
-                                <table id="vendor-table" class="table bg-light rounded shadow-sm table-hover">
+                                <table id="vendor-table" class="table bg-white rounded shadow-sm table-hover">
                                     <thead>
                                         <tr>
                                             <!-- Table content here -->
@@ -241,7 +241,7 @@ $user = $_SESSION['user_name'];
                             <div class="card-body colorbox">
                                 <h5 class="card-title">Delivery In</h5>
                                 <!--Table-->
-                                <table id="delivery-table" class="table bg-light rounded shadow-sm table-hover">
+                                <table id="delivery-table" class="table bg-white rounded shadow-sm table-hover">
                                     <thead>
                                         <tr>
                                             <!-- Table content here -->

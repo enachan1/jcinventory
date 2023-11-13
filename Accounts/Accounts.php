@@ -90,19 +90,17 @@ $user = $_SESSION['user_name'];
         <!-- Accounts Add-->
         <div class="container mt-3">
             <div class="card">
-                <div class="card-header">
-                    <div class="d-flex justify-content-between rounded">
+                <div class="card-body colorbox">
+                    <div class="d-flex justify-content-between rounded mb-4">
                         <button type="button" class="btn colorbox btn-outline-secondary btn-lg" data-bs-toggle="modal" data-bs-target="#myModal">
                             Add Account
                         </button>
                     </div>
-                </div>
                 <div class="alert alert-warning alert-dismissible fade show" role="alert" id="alert-call">
                     <span id="alert-text"></span>
                     <button type="button" class="btn-close btn-clsbtn" data-bs-dismiss="alert"></button>
                 </div>
-                <div class="card-body">
-                    <table id="account-table" class="table colorbox rounded shadow-sm table-hover">
+                    <table id="account-table" class="table bg-white rounded shadow-sm table-hover">
                         <thead>
                             <tr>
                                 <th scope="col">Username</th>
@@ -137,9 +135,9 @@ $user = $_SESSION['user_name'];
                             <?php  } ?>
                         </tbody>
                     </table>
-                </div>
             </div>
         </div>
+    </div>
       
 
     <!-- Add Account Modal-->

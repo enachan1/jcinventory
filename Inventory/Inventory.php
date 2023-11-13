@@ -136,17 +136,15 @@ $user = $_SESSION['user_name'];
     <!-- Add Item -->
     <div class="container mt-3 px-4">
                 <div class="card">
-                    <div class="card-header">
-                        <div class="d-flex justify-content-between rounded">
+                    <div class="card-body colorbox">
+                        <div class="d-flex justify-content-between rounded mb-4">
                             <button type="button" class="btn colorbox btn-outline-secondary btn-lg" data-bs-toggle="modal" data-bs-target="#myModal">
                                 Add item
                             </button>
                         </div>
-                    </div>
                     <!-- Table Content -->
-                    <div class="card-body">
                         <div class="table-responsive-xxl">
-                        <table id="inv-table" class="table bg-light rounded shadow-sm table-hover">
+                        <table id="inv-table" class="table bg-white rounded shadow-sm table-hover">
                             <thead>
                                 <tr>
                                     <th scope="col" style="display: none;"></th>
@@ -189,18 +187,17 @@ $user = $_SESSION['user_name'];
                             <td><?php echo $show_rows['item_price'] ?></td>
                             <td><?php echo $show_rows['item_category'] ?></td>
                             <!--Button Edit / Remove-->
-                            <div class="">
                             <td><button type="button" class="btn btn-secondary btn-sm editbtn" data-bs-toggle="modal" data-bs-target="#editModal"><i class="fas fa-edit"></i></button>
-                                <a class="btn btn-primary btn-sm btn-danger" href="delete_items.php?id=<?php echo $show_rows['id']?>"><i class="fas fa-trash"></i></td></a>
-                                </div>
+                                <a class="btn btn-primary btn-sm btn-danger" href="delete_items.php?id=<?php echo $show_rows['id']?>"><i class="fas fa-trash"></i></a>
+                            </td>
                         </tr>
                         <?php } ?>
                     </tbody>
                 </table>
-                </div>
             </div>
         </div>
     </div>
+</div>
 
     
     <!-- Add Item Modal-->

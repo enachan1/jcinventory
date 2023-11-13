@@ -89,7 +89,7 @@ $user = $_SESSION['user_name'];
         </div>
     </nav>
 
-    <div class="container mt-5">
+    <div class="container mt-2">
         <ul class="nav nav-tabs" id="myTab" role="tablist">
             <!-- Navigation Menu -->
             <li class="nav-item" role="presentation">
@@ -118,7 +118,7 @@ $user = $_SESSION['user_name'];
                             </button>
                         </div><br>
                         <!-- Table -->
-                        <table id="category-table" class="table bg-light rounded shadow-sm table-hover">
+                        <table id="category-table" class="table bg-white rounded shadow-sm table-hover">
                             <thead>
                                 <tr>
                                     <th scope="col">Category</th>
@@ -164,7 +164,7 @@ $user = $_SESSION['user_name'];
                                 </button>
                             </div><br>
                         <!-- Table -->
-                        <table id="uom-table" class="table bg-light rounded shadow-sm table-hover">
+                        <table id="uom-table" class="table bg-white rounded shadow-sm table-hover">
                             <thead>
                                 <tr>
                                     <th scope="col">Unit of Measure</th>
