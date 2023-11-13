@@ -25,51 +25,11 @@ $user = $_SESSION['user_name'];
         <link rel="stylesheet" href="../styles.css" />
         <!-- data tables -->
         <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css" />
+        <style>
+        </style>
 
 
         <title>Inventory</title>
-        <style>
-        .search-bar {
-           order: 2;
-           width: 200px;
-       }
-
-       .table-container {
-           order: 3;
-           width: 100%;
-       }
-
-       .open-modal-button {
-           order: 1;
-           margin-right: auto;
-       }
-
-       @media (max-width: 767px) {
-           .conntainer-fuild {
-               display: block;
-           }
-
-           .sidebar {
-               order: 1;
-           }
-
-           .search-bar,
-           .table-container {
-               order: 2;
-           }
-
-           .open-modal-button {
-               order: 3;
-               margin-top: 1rem;
-               margin-right: 0;
-           }
-
-           .modal-dialog {
-               max-width: 80%;
-               margin: 1.75rem auto;
-           }
-       }
-   </style>
     </head>
 
 <body>
@@ -134,7 +94,7 @@ $user = $_SESSION['user_name'];
     <!-- Inventory -->
 
     <!-- Add Item -->
-    <div class="container mt-3 px-4">
+    <div class="container-fuild mt-3 px-4">
                 <div class="card">
                     <div class="card-body colorbox">
                         <div class="d-flex justify-content-between rounded mb-4">
@@ -143,8 +103,7 @@ $user = $_SESSION['user_name'];
                             </button>
                         </div>
                     <!-- Table Content -->
-                        <div class="table-responsive-xxl">
-                        <table id="inv-table" class="table bg-white rounded shadow-sm table-hover">
+                        <table id="inv-table" class="table bg-white rounded shadow-sm table-hover w-100">
                             <thead>
                                 <tr>
                                     <th scope="col" style="display: none;"></th>
@@ -194,9 +153,11 @@ $user = $_SESSION['user_name'];
                         <?php } ?>
                     </tbody>
                 </table>
-            </div>
         </div>
     </div>
+</div>
+
+</div>
 </div>
 
     
@@ -331,9 +292,6 @@ $user = $_SESSION['user_name'];
         </div>
     </div>
 <!-- End of edit modal -->
-
-</div>
-</div>
 
 
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
