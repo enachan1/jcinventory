@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 09, 2023 at 01:26 PM
+-- Generation Time: Nov 13, 2023 at 02:49 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -65,10 +65,10 @@ CREATE TABLE `items_db` (
 --
 
 INSERT INTO `items_db` (`id`, `item_sku`, `item_barcode`, `item_name`, `item_stocks`, `item_expdate`, `item_price`, `item_category`) VALUES
-(3, '231103LSK', 2353452352345, 'piatoss', 283, '2023-11-10', 19.84, 'Canned Goods'),
-(5, '231103TKY', 8739458234004, 'shabu', 1968, '2023-11-24', 5.28, 'Chemicals'),
+(3, '231103LSK', 2353452352345, 'piatoss', 40, '2023-11-10', 19.84, 'Canned Goods'),
+(5, '231103TKY', 8739458234004, 'shabu', 20, '2023-11-24', 5.28, 'Chemicals'),
 (6, '231105JUT', 875435276987, 'rexona sachet', 481, '2023-12-14', 8.81, 'Necessities'),
-(8, '231107KBI', 3456341234345, 'bear brand', 2499, '2023-12-15', 14.3, 'Drinks');
+(8, '231107KBI', 3456341234345, 'bear brand', 2496, '2023-12-15', 14.3, 'Drinks');
 
 -- --------------------------------------------------------
 
@@ -114,8 +114,6 @@ CREATE TABLE `purchase_order_db` (
 --
 
 INSERT INTO `purchase_order_db` (`po_item_sku`, `po_item_name`, `po_qty`, `po_uom`, `po_category`, `po_item_price`, `po_dot`, `po_expdelivery`, `is_delivered`, `isBadOrder`, `vendor_id`) VALUES
-('231109LXT', 'qweasdasd', 231, 'Boxes', 'Necessities', 6548, '2023-11-09', '2023-11-30', NULL, NULL, 10004),
-('231109BOS', 'asdadqweqwe', 546, 'Boxes', 'Canned Goods', 545, '2023-11-09', '2023-11-30', NULL, NULL, 10004),
 ('231109GQV', 'dasdqwe', 23, 'Boxes', 'Canned Goods', 5876, '2023-11-09', '2023-12-09', NULL, NULL, 10002);
 
 -- --------------------------------------------------------
@@ -148,7 +146,9 @@ INSERT INTO `sales_db` (`id`, `s_sku`, `s_item`, `s_qty`, `s_total`, `s_date`, `
 (10, 875435276987, 'rexona sachet', 4, 35.24, '2023-11-09', 'juncathyr20231109130412'),
 (11, 2353452352345, 'piatoss', 4, 79.36, '2023-11-09', 'juncathyr20231109130412'),
 (12, 875435276987, 'rexona sachet', 4, 35.24, '2023-11-09', 'juncathyr20231109130557'),
-(13, 2353452352345, 'piatoss', 4, 79.36, '2023-11-09', 'juncathyr20231109130557');
+(13, 2353452352345, 'piatoss', 4, 79.36, '2023-11-09', 'juncathyr20231109130557'),
+(14, 2353452352345, 'piatoss', 2, 39.68, '2023-11-11', 'juncathyr20231111113422'),
+(15, 3456341234345, 'bear brand', 3, 42.9, '2023-11-11', 'juncathyr20231111123709');
 
 -- --------------------------------------------------------
 
@@ -158,15 +158,19 @@ INSERT INTO `sales_db` (`id`, `s_sku`, `s_item`, `s_qty`, `s_total`, `s_date`, `
 
 CREATE TABLE `setting_db` (
   `threshold` int(11) NOT NULL,
-  `markup` float NOT NULL
+  `markup` float NOT NULL,
+  `critical` int(11) NOT NULL,
+  `average` int(11) NOT NULL,
+  `reorder` int(11) NOT NULL,
+  `stable` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `setting_db`
 --
 
-INSERT INTO `setting_db` (`threshold`, `markup`) VALUES
-(40, 10);
+INSERT INTO `setting_db` (`threshold`, `markup`, `critical`, `average`, `reorder`, `stable`) VALUES
+(40, 10, 20, 70, 50, 150);
 
 -- --------------------------------------------------------
 
@@ -190,7 +194,9 @@ INSERT INTO `transaction_db` (`reciept_no`, `transaction_date`, `total_item`, `o
 ('juncathyr20231109115625', '2023-11-09', 4, 48.23),
 ('juncathyr20231109120311', '2023-11-09', 3, 59.52),
 ('juncathyr20231109130412', '2023-11-09', 8, 114.6),
-('juncathyr20231109130557', '2023-11-09', 8, 114.6);
+('juncathyr20231109130557', '2023-11-09', 8, 114.6),
+('juncathyr20231111113422', '2023-11-11', 2, 39.68),
+('juncathyr20231111123709', '2023-11-11', 3, 42.9);
 
 -- --------------------------------------------------------
 
@@ -209,7 +215,8 @@ CREATE TABLE `uom_db` (
 
 INSERT INTO `uom_db` (`id`, `uom_name`) VALUES
 (5, 'Boxes'),
-(6, 'Cases');
+(7, 'Cases'),
+(8, 'Tanga');
 
 -- --------------------------------------------------------
 
@@ -233,7 +240,8 @@ CREATE TABLE `users__db` (
 INSERT INTO `users__db` (`id`, `user_name`, `email`, `pass_word`, `contact_no`, `is_admin`) VALUES
 (1, 'admin', 'admin@admin.com', '$2y$10$CzzLKx87QEgkQzq5gJh3.uo7g5knkdFCv.2oQEyVu3wZR3xd.dCBu', 0, 1),
 (2, 'cashier', 'notadmin@notadmin.com', '$2y$10$srTH9HwBVOhWeXmEkMVRCOc5uA10C.7KEjbQLPVcC5AlToknX3/kS', 0, 0),
-(3, ' ena', 'em@em.com', '$2y$10$G5ydTTTSU0GVMKqdP7dUEe1EuLsmEigBoGB5bypcq.2znK6QfQZCi', 0, 1);
+(3, ' ena', 'em@em.com', '$2y$10$G5ydTTTSU0GVMKqdP7dUEe1EuLsmEigBoGB5bypcq.2znK6QfQZCi', 0, 1),
+(4, 'Nhorlvick', 'gagi@gagi.com', '$2y$10$n7x9dlRPJmPQB03p7dKhkulX16nw1NeAa3CUcAwZ0n0p5.dqLBy8.', 0, 1);
 
 -- --------------------------------------------------------
 
@@ -343,19 +351,19 @@ ALTER TABLE `notification_db`
 -- AUTO_INCREMENT for table `sales_db`
 --
 ALTER TABLE `sales_db`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `uom_db`
 --
 ALTER TABLE `uom_db`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `users__db`
 --
 ALTER TABLE `users__db`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Constraints for dumped tables
