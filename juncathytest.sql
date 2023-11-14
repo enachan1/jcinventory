@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 13, 2023 at 02:49 PM
+-- Generation Time: Nov 14, 2023 at 04:29 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -65,10 +65,8 @@ CREATE TABLE `items_db` (
 --
 
 INSERT INTO `items_db` (`id`, `item_sku`, `item_barcode`, `item_name`, `item_stocks`, `item_expdate`, `item_price`, `item_category`) VALUES
-(3, '231103LSK', 2353452352345, 'piatoss', 40, '2023-11-10', 19.84, 'Canned Goods'),
-(5, '231103TKY', 8739458234004, 'shabu', 20, '2023-11-24', 5.28, 'Chemicals'),
-(6, '231105JUT', 875435276987, 'rexona sachet', 481, '2023-12-14', 8.81, 'Necessities'),
-(8, '231107KBI', 3456341234345, 'bear brand', 2496, '2023-12-15', 14.3, 'Drinks');
+(11, '231114CLF', 89765421368, 'LEMON SQUARE CHEESE CAKE 300g', 265, '2024-01-05', 60.5, 'Snacks'),
+(12, '231114KTZ', 987561321858, 'CROSSINI 1PACK', 698, '2023-12-21', 11, 'Snacks');
 
 -- --------------------------------------------------------
 
@@ -78,16 +76,17 @@ INSERT INTO `items_db` (`id`, `item_sku`, `item_barcode`, `item_name`, `item_sto
 
 CREATE TABLE `notification_db` (
   `notif_id` bigint(20) NOT NULL,
-  `message` varchar(355) NOT NULL
+  `message` varchar(355) NOT NULL,
+  `is_deleted` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `notification_db`
 --
 
-INSERT INTO `notification_db` (`notif_id`, `message`) VALUES
-(70, 'The item piatoss with the SKU of 231103LSK is about to expire'),
-(71, 'The item shabu with the SKU of 231103TKY is about to expire');
+INSERT INTO `notification_db` (`notif_id`, `message`, `is_deleted`) VALUES
+(1, 'The item LEMON SQUARE CHEESE CAKE 300g with the SKU of 231114CLF is expired', 1),
+(2, 'The item CROSSINI 1PACK with the SKU of 231114KTZ is expired', 1);
 
 -- --------------------------------------------------------
 
@@ -108,13 +107,6 @@ CREATE TABLE `purchase_order_db` (
   `isBadOrder` tinyint(1) DEFAULT NULL,
   `vendor_id` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `purchase_order_db`
---
-
-INSERT INTO `purchase_order_db` (`po_item_sku`, `po_item_name`, `po_qty`, `po_uom`, `po_category`, `po_item_price`, `po_dot`, `po_expdelivery`, `is_delivered`, `isBadOrder`, `vendor_id`) VALUES
-('231109GQV', 'dasdqwe', 23, 'Boxes', 'Canned Goods', 5876, '2023-11-09', '2023-12-09', NULL, NULL, 10002);
 
 -- --------------------------------------------------------
 
@@ -148,7 +140,9 @@ INSERT INTO `sales_db` (`id`, `s_sku`, `s_item`, `s_qty`, `s_total`, `s_date`, `
 (12, 875435276987, 'rexona sachet', 4, 35.24, '2023-11-09', 'juncathyr20231109130557'),
 (13, 2353452352345, 'piatoss', 4, 79.36, '2023-11-09', 'juncathyr20231109130557'),
 (14, 2353452352345, 'piatoss', 2, 39.68, '2023-11-11', 'juncathyr20231111113422'),
-(15, 3456341234345, 'bear brand', 3, 42.9, '2023-11-11', 'juncathyr20231111123709');
+(15, 3456341234345, 'bear brand', 3, 42.9, '2023-11-11', 'juncathyr20231111123709'),
+(16, 875435276987, 'rexona sachet', 60, 528.6, '2023-11-14', 'juncathyr20231114120820'),
+(17, 3456341234345, 'bear brand', 50, 715, '2023-11-14', 'juncathyr20231114120820');
 
 -- --------------------------------------------------------
 
@@ -196,7 +190,8 @@ INSERT INTO `transaction_db` (`reciept_no`, `transaction_date`, `total_item`, `o
 ('juncathyr20231109130412', '2023-11-09', 8, 114.6),
 ('juncathyr20231109130557', '2023-11-09', 8, 114.6),
 ('juncathyr20231111113422', '2023-11-11', 2, 39.68),
-('juncathyr20231111123709', '2023-11-11', 3, 42.9);
+('juncathyr20231111123709', '2023-11-11', 3, 42.9),
+('juncathyr20231114120820', '2023-11-14', 110, 1243.6);
 
 -- --------------------------------------------------------
 
@@ -286,7 +281,8 @@ ALTER TABLE `items_db`
 -- Indexes for table `notification_db`
 --
 ALTER TABLE `notification_db`
-  ADD PRIMARY KEY (`notif_id`);
+  ADD PRIMARY KEY (`notif_id`),
+  ADD UNIQUE KEY `message` (`message`);
 
 --
 -- Indexes for table `purchase_order_db`
@@ -339,19 +335,19 @@ ALTER TABLE `category_db`
 -- AUTO_INCREMENT for table `items_db`
 --
 ALTER TABLE `items_db`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `notification_db`
 --
 ALTER TABLE `notification_db`
-  MODIFY `notif_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
+  MODIFY `notif_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `sales_db`
 --
 ALTER TABLE `sales_db`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `uom_db`
