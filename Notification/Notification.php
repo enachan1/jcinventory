@@ -61,7 +61,7 @@ $user = $_SESSION['user_name'];
                 <a href="../Accounts/Accounts.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
                         class="fad fa-users me-2"></i>Accounts</a>
                 <a href="../Notification/Notification.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-                        class="fas fa-bell me-2"></i>Notification</a>
+                        class="fas fa-bell me-2"></i><span class="badge badge-light num-notif"></span>Notification</a>
                 <a href="../Settings/Settings.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
                         class="far fa-cog me-2"></i>Setting</a>                            
                 <a href="../logout.php" class="list-group-item list-group-item-action bg-transparent text-danger fw-bold"><i
@@ -101,27 +101,22 @@ $user = $_SESSION['user_name'];
 
     <!-- Notification -->
     <div class="container">
+        <?php 
+        $notification_query = "SELECT * FROM notification_db";
+
+        $result = $sqlconn->query($notification_query);
+
+        while ($rows = mysqli_fetch_assoc($result)) {
+        
+        ?>
         <div class="alert alert-warning alert-dismissible fade show" role="alert">
             <div class="d-flex align-items-center">
                 <i class="fas fa-exclamation-triangle me-2"></i> <!-- Warning icon -->
-                <strong>Product Expiration Date:</strong> This product will expire on <strong>August 31, 2023</strong>
+                <strong><?= $rows['message'] ?></strong>
             </div>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <button class="btn-close" data-dismiss="alert" id="btn-del" data-id="<?= $rows['notif_id'] ?>" aria-label="Close"><span aria-hidden="true"></button>
         </div>
-        <div class="alert alert-warning alert-dismissible fade show" role="alert">
-            <div class="d-flex align-items-center">
-                <i class="fas fa-exclamation-triangle me-2"></i> <!-- Warning icon -->
-                <strong>Product Expiration Date:</strong> This product will expire on <strong>August 31, 2023</strong>
-            </div>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        </div>
-        <div class="alert alert-warning alert-dismissible fade show" role="alert">
-            <div class="d-flex align-items-center">
-                <i class="fas fa-exclamation-triangle me-2"></i> <!-- Warning icon -->
-                <strong>Product Expiration Date:</strong> This product will expire on <strong>August 31, 2023</strong>
-            </div>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        </div>
+        <?php } ?>
     </div>
 
 
@@ -134,6 +129,9 @@ $user = $_SESSION['user_name'];
 
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+
+        <!-- javascript file -->
+        <script src="insert-delete-notif.js"></script>
     
         <script>
             var el = document.getElementById("wrapper");
@@ -144,6 +142,30 @@ $user = $_SESSION['user_name'];
             };
     
     
+        </script>
+
+        <script>
+            $(document).ready(function () {
+                setInterval(function() {
+                    $.ajax({
+                        method: "POST",
+                        url: "count.php",
+                        success: function (response) {
+                            if(response != 0) {
+                                $(".num-notif").text(response);
+                            }
+                            else {
+                                $(".num-notif").text("");
+                            }
+                            
+                        }
+                    });
+
+                },500);
+                    
+
+            });
+
         </script>
     </body>
 </html>
