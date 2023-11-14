@@ -99,7 +99,7 @@ $user = $_SESSION['user_name'];
             </li>
             <li class="nav-item" role="presentation">
                 <a class="nav-link" href="?tb=2" id="uom-tab" data-bs-toggle="tab" data-bs-target="#uom" type="button" role="tab" aria-controls="uom" aria-selected="false">
-                    <i class="fas fa-ruler"></i> Unity of Measure
+                    <i class="fas fa-ruler"></i> Unit of Measure
                 </a>
             </li>
         </ul>
