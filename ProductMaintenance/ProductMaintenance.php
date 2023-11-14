@@ -269,7 +269,7 @@ $user = $_SESSION['user_name'];
         <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
     
         <script>
-            // Elements
+            // Elements Menu Toggle
             var el = document.getElementById("wrapper");
             var toggleButton = document.getElementById("menu-toggle");
 
@@ -278,32 +278,36 @@ $user = $_SESSION['user_name'];
                 el.classList.toggle("toggled");
             };
 
+            //Tab Active function
             document.addEventListener('DOMContentLoaded', function () {
+            var storageKey = 'activeTabSet1';
+
             // Retrieve the last active tab from sessionStorage
-            var lastActiveTab = sessionStorage.getItem('activeTab');
-    
+            var lastActiveTab = sessionStorage.getItem(storageKey);
+
             // If no last active tab is found, default to the "Category" tab (tab number 1)
             if (lastActiveTab === null) {
                 lastActiveTab = 1;
             }
-    
+
             // Add a click event listener to restore the last active tab
             var tabLink = document.querySelector('a[href="?tb=' + lastActiveTab + '"]');
-    
+
             if (tabLink) {
                 tabLink.click();
             }
-    
+
             // Add a click event listener to save the active tab to sessionStorage
             var tabLinks = document.querySelectorAll('#myTab a.nav-link');
             tabLinks.forEach(function (tabLink) {
                 tabLink.addEventListener('click', function () {
                     var tabNumber = tabLink.getAttribute('href').split('=')[1];
-                    sessionStorage.setItem('activeTab', tabNumber);
+                    sessionStorage.setItem(storageKey, tabNumber);
                 });
             });
         });
 
+            //Table function by using databases boostrap5
             $(document).ready( function () {
                 $('#category-table').DataTable();
             });

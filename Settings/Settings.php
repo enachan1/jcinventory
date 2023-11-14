@@ -252,58 +252,64 @@ $id = $_SESSION['id'];
 </div>
 <!-- Content Ends Here -->
                 
+    <!-- Boostrap Layout -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
             
     <script>
-    var el = document.getElementById("wrapper");
-    var toggleButton = document.getElementById("menu-toggle");
-    
-    toggleButton.onclick = function () {
-        el.classList.toggle("toggled");
-    };
+        //Element Menu Toggle
+        var el = document.getElementById("wrapper");
+        var toggleButton = document.getElementById("menu-toggle");
+        
+        //Sidebar Toggle
+        toggleButton.onclick = function () {
+            el.classList.toggle("toggled");
+        };
 
-    $(document).ready(function() {
-    $('#removeErrorButton').on('click', function() {
-    // Remove the 'err' query parameter from the URL
-        var currentUrl = window.location.href;
-        var updatedUrl = currentUrl.replace(/[?&]err=.*&?/, '');
-        history.replaceState({}, document.title, updatedUrl);
-    });
+        $(document).ready(function() {
+        $('#removeErrorButton').on('click', function() {
+        // Remove the 'err' query parameter from the URL
+            var currentUrl = window.location.href;
+            var updatedUrl = currentUrl.replace(/[?&]err=.*&?/, '');
+            history.replaceState({}, document.title, updatedUrl);
+        });
 
-    $('#removemsgBtn').on('click', function() {
-    // Remove the 'invmsg' query parameter from the URL
-        var currentUrl = window.location.href;
-        var updatedUrl = currentUrl.replace(/[?&]invmsg=.*&?/, '');
-        history.replaceState({}, document.title, updatedUrl);
-    });
-});    
+        $('#removemsgBtn').on('click', function() {
+        // Remove the 'invmsg' query parameter from the URL
+            var currentUrl = window.location.href;
+            var updatedUrl = currentUrl.replace(/[?&]invmsg=.*&?/, '');
+            history.replaceState({}, document.title, updatedUrl);
+        });
+    });    
     
+    //Tab Active function
     document.addEventListener('DOMContentLoaded', function () {
-    // Retrieve the last active tab from sessionStorage
-    var lastActiveTab = sessionStorage.getItem('activeTab');
-    
-    // If no last active tab is found, default to the "Purchase Order" tab (tab number 1)
-    if (lastActiveTab === null) {
-        lastActiveTab = 1;
-    }
-    
-    // Add a click event listener to restore the last active tab
-    var tabLink = document.querySelector('a[href="?tb=' + lastActiveTab + '"]');
-    
-    if (tabLink) {
-        tabLink.click();
-    }
-    
-    // Add a click event listener to save the active tab to sessionStorage
-    var tabLinks = document.querySelectorAll('#myTab a.nav-link');
-    tabLinks.forEach(function (tabLink) {
-        tabLink.addEventListener('click', function () {
-            var tabNumber = tabLink.getAttribute('href').split('=')[1];
-            sessionStorage.setItem('activeTab', tabNumber);
+        var storageKey = 'activeTabSet4';
+
+        // Retrieve the last active tab from sessionStorage
+        var lastActiveTab = sessionStorage.getItem(storageKey);
+
+        // If no last active tab is found, default to the "Category" tab (tab number 1)
+        if (lastActiveTab === null) {
+            lastActiveTab = 1;
+        }
+
+        // Add a click event listener to restore the last active tab
+        var tabLink = document.querySelector('a[href="?tb=' + lastActiveTab + '"]');
+
+        if (tabLink) {
+            tabLink.click();
+        }
+
+        // Add a click event listener to save the active tab to sessionStorage
+        var tabLinks = document.querySelectorAll('#myTab a.nav-link');
+        tabLinks.forEach(function (tabLink) {
+            tabLink.addEventListener('click', function () {
+                var tabNumber = tabLink.getAttribute('href').split('=')[1];
+                sessionStorage.setItem(storageKey, tabNumber);
+            });
         });
     });
-});
 
     </script>
 </body>

@@ -718,12 +718,11 @@ $user = $_SESSION['user_name'];
         <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
         <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
         
-
         <!-- JS Scripts that is created -->
         <script src="transact-view-item.js"></script>
 
-
         <script>
+        //Table function by using databases boostrap5
         $(document).ready( function () {
             $('#sales-table').DataTable( {
                 lengthChange: false
@@ -749,35 +748,41 @@ $user = $_SESSION['user_name'];
 
 </script>
         <script>
-            var el = document.getElementById("wrapper");
-            var toggleButton = document.getElementById("menu-toggle");
+        //Element Menu Toggle
+        var el = document.getElementById("wrapper");
+        var toggleButton = document.getElementById("menu-toggle");
     
-            toggleButton.onclick = function () {
-                el.classList.toggle("toggled");
-            };
+        //Sidebar Toggle
+        toggleButton.onclick = function () {
+            el.classList.toggle("toggled");
+        };
 
-            document.addEventListener('DOMContentLoaded', function () {
+
+        //Tab Active function
+        document.addEventListener('DOMContentLoaded', function () {
+            var storageKey = 'activeTabSet3';
+
             // Retrieve the last active tab from sessionStorage
-            var lastActiveTab = sessionStorage.getItem('activeTab');
-    
-            // If no last active tab is found, default to the "Sales Report" tab (tab number 1)
+            var lastActiveTab = sessionStorage.getItem(storageKey);
+
+            // If no last active tab is found, default to the "Category" tab (tab number 1)
             if (lastActiveTab === null) {
                 lastActiveTab = 1;
             }
-    
+
             // Add a click event listener to restore the last active tab
             var tabLink = document.querySelector('a[href="?tb=' + lastActiveTab + '"]');
-    
+
             if (tabLink) {
                 tabLink.click();
             }
-    
+
             // Add a click event listener to save the active tab to sessionStorage
             var tabLinks = document.querySelectorAll('#myTab a.nav-link');
             tabLinks.forEach(function (tabLink) {
                 tabLink.addEventListener('click', function () {
                     var tabNumber = tabLink.getAttribute('href').split('=')[1];
-                    sessionStorage.setItem('activeTab', tabNumber);
+                    sessionStorage.setItem(storageKey, tabNumber);
                 });
             });
         });
