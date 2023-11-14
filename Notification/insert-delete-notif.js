@@ -21,4 +21,19 @@ $(document).on('click', "#btn-del", function () {
         }
     });
 });
+
+
+
+//fetch table to notification.php
+
+setInterval(()=> {
+    $.ajax({
+        url: "fetch-notif-table.php",
+        method: "POST",
+        success: function (response) {
+            $("#fetch-table").html(response);
+            console.log("there's a response");
+        }
+    });
+}, 500);
 });

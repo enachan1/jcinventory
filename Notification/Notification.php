@@ -86,7 +86,7 @@ $user = $_SESSION['user_name'];
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle second-text fw-bold" href="#" id="navbarDropdown"
                     role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <i class="fas fa-user me-2"></i>My name
+                    <i class="fas fa-user me-2"></i><?=$user ?>
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <li><a class="dropdown-item" href="../Profile/Profile.php">Profile</a></li>
@@ -100,23 +100,8 @@ $user = $_SESSION['user_name'];
     </nav>
 
     <!-- Notification -->
-    <div class="container">
-        <?php 
-        $notification_query = "SELECT * FROM notification_db";
-
-        $result = $sqlconn->query($notification_query);
-
-        while ($rows = mysqli_fetch_assoc($result)) {
+    <div class="container" id="fetch-table">
         
-        ?>
-        <div class="alert alert-warning alert-dismissible fade show" role="alert">
-            <div class="d-flex align-items-center">
-                <i class="fas fa-exclamation-triangle me-2"></i> <!-- Warning icon -->
-                <strong><?= $rows['message'] ?></strong>
-            </div>
-            <button class="btn-close" data-dismiss="alert" id="btn-del" data-id="<?= $rows['notif_id'] ?>" aria-label="Close"><span aria-hidden="true"></button>
-        </div>
-        <?php } ?>
     </div>
 
 
