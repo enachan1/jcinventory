@@ -17,31 +17,34 @@ $(document).ready(function () {
                     // I-handle ang click event para sa mga resulta ng paghahanap
                     $(".search-result").on("click", function () {
                         // Kumuha ng mga detalye ng item mula sa resulta ng paghahanap
-                        var sku = $(this).find("td:eq(0)").text();
+                        var sku = $(this).data("sku");
                         var itemName = $(this).find("td:eq(1)").text();
                         var category = $(this).find("td:eq(2)").text();
                         var stocks = $(this).find("td:eq(3)").text();
                         var price = $(this).find("td:eq(4)").text();
+                        var barcode = $(this).data("barcode");
 
-                        var existingRow = $("#tableBody").find("tr:contains('" + sku + "')");
-                        if (existingRow.length === 0) {
-                            addToDisplayTable(sku, itemName, category, stocks, price);
-                        } else {
-                            var existingQtyInput = existingRow.find(".qty");
-                            var quantity = parseInt(existingQtyInput.val()) * 2; // Double the quantity
-                            existingQtyInput.val(quantity);
+                        $("#tableBody th:contains('SKU')").text(sku);
 
-                            var totalPriceElement = existingRow.find('.totalPrice');
-                            var priceValue = parseFloat(price);
-                            if (!isNaN(priceValue) && !isNaN(quantity)) {
-                                var totalPrice = quantity * priceValue;
-                                totalPriceElement.text(totalPrice.toFixed(2));
-                                updateOverallTotal(); // Update overall total when quantity changes
-                            }
-                        }
+                         var existingRow = $("#tableBody").find("tr:contains('" + sku + "')");
+    if (existingRow.length === 0) {
+        addToDisplayTable(sku, itemName, category, stocks, price, barcode);
+    } else {
+        var existingQtyInput = existingRow.find(".qty");
+        var quantity = parseInt(existingQtyInput.val()) * 2; // Double the quantity
+        existingQtyInput.val(quantity);
 
-                        $("#searchModal").modal("hide");
-                    });
+        var totalPriceElement = existingRow.find('.totalPrice');
+        var priceValue = parseFloat(price);
+        if (!isNaN(priceValue) && !isNaN(quantity)) {
+            var totalPrice = quantity * priceValue;
+            totalPriceElement.text(totalPrice.toFixed(2));
+            updateOverallTotal(); // Update overall total when quantity changes
+        }
+    }
+
+    $("#searchModal").modal("hide");
+});
                 } else {
                     $("#searchResults tbody").html('<tr><td colspan="5">Walang Natagpuang Item</td></tr>');
                 }
@@ -59,7 +62,7 @@ $(document).ready(function () {
 });
 
 // Function para idagdag ang napiling item sa display table
-function addToDisplayTable(sku, itemName, category, stocks, price) {
+function addToDisplayTable(sku, itemName, category, stocks, price, barcode) {
     // Assumed na may paraan kang nakuha ang quantity (halimbawa, gamit ang isang input field)
     var quantity = 1; // Quantity default sa 1
 
@@ -69,7 +72,7 @@ function addToDisplayTable(sku, itemName, category, stocks, price) {
     // Maaaring i-modify ang function na ito base sa iyong display table structure
     var tableRow = '<tr>';
     tableRow += '<td><input class="form-control adjustments qty" type="number" value="' + quantity + '"></td>';
-    tableRow += '<td class="sku">' + sku + '</td>';
+    tableRow += '<td class="sku">' + barcode + '</td>'; // Update SKU column with barcode value
     tableRow += '<td class="item-name">' + itemName + '</td>';
     tableRow += '<td class="price">' + price + '</td>';
     tableRow += '<td class="totalPrice">' + totalAmount + '</td>';
@@ -79,10 +82,12 @@ function addToDisplayTable(sku, itemName, category, stocks, price) {
     // Ilagay ang bagong row sa display table
     $("#tableBody").append(tableRow);
 
+    // Update barcode in the main table header
+    $("#tableBody th:contains('SKU')").text(barcode);
+
     // I-update ang overall total
     updateOverallTotal();
 }
-
 // Function para i-update ang overall total amount
 function updateOverallTotal() {
     var totalAmount = 0;
