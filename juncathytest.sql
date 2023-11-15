@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 14, 2023 at 04:29 PM
+-- Generation Time: Nov 15, 2023 at 04:22 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -57,16 +57,20 @@ CREATE TABLE `items_db` (
   `item_stocks` int(11) NOT NULL,
   `item_expdate` date NOT NULL,
   `item_price` float NOT NULL,
-  `item_category` varchar(50) NOT NULL
+  `item_category` varchar(50) NOT NULL,
+  `item_date_added` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `items_db`
 --
 
-INSERT INTO `items_db` (`id`, `item_sku`, `item_barcode`, `item_name`, `item_stocks`, `item_expdate`, `item_price`, `item_category`) VALUES
-(11, '231114CLF', 89765421368, 'LEMON SQUARE CHEESE CAKE 300g', 265, '2024-01-05', 60.5, 'Snacks'),
-(12, '231114KTZ', 987561321858, 'CROSSINI 1PACK', 698, '2023-12-21', 11, 'Snacks');
+INSERT INTO `items_db` (`id`, `item_sku`, `item_barcode`, `item_name`, `item_stocks`, `item_expdate`, `item_price`, `item_category`, `item_date_added`) VALUES
+(11, '231114CLF', 89765421368, 'LEMON SQUARE CHEESE CAKE 300g', 199, '2024-01-05', 60.5, 'Snacks', '2023-11-20'),
+(12, '231114KTZ', 987561321858, 'CROSSINI 1PACK', 604, '2023-12-21', 11, 'Snacks', '2023-10-31'),
+(13, '231115ZZR', 987561321858, 'CROSSINI 1PACK', 166, '2023-12-08', 49.5, 'Snacks', '2023-10-24'),
+(15, '231115SXS', 89765421368, 'LEMON SQUARE CHEESE CAKE 300G', 350, '2023-11-30', 60.5, 'Canned Goods', '2023-11-15'),
+(16, '231115YSN', 9876543215, 'piatoss', 55, '2023-12-16', 20.35, 'Snacks', '2023-11-15');
 
 -- --------------------------------------------------------
 
@@ -86,7 +90,9 @@ CREATE TABLE `notification_db` (
 
 INSERT INTO `notification_db` (`notif_id`, `message`, `is_deleted`) VALUES
 (1, 'The item LEMON SQUARE CHEESE CAKE 300g with the SKU of 231114CLF is expired', 1),
-(2, 'The item CROSSINI 1PACK with the SKU of 231114KTZ is expired', 1);
+(2, 'The item CROSSINI 1PACK with the SKU of 231114KTZ is expired', 1),
+(3, 'The item LEMON SQUARE CHEESE CAKE 20G with the SKU of 231115SXS is about to expire', 1),
+(4, 'The item LEMON SQUARE CHEESE CAKE 300G with the SKU of 231115SXS is about to expire', 1);
 
 -- --------------------------------------------------------
 
@@ -133,16 +139,23 @@ INSERT INTO `sales_db` (`id`, `s_sku`, `s_item`, `s_qty`, `s_total`, `s_date`, `
 (3, 3456341234345, 'bear brand', 1, 14.3, '2023-11-09', 'juncathyr20231109115625'),
 (4, 875435276987, 'rexona sachet', 1, 8.81, '2023-11-09', 'juncathyr20231109115625'),
 (5, 8739458234004, 'shabu', 1, 5.28, '2023-11-09', 'juncathyr20231109115625'),
-(6, 2353452352345, 'piatoss', 1, 19.84, '2023-11-09', 'juncathyr20231109115625'),
-(9, 2353452352345, 'piatoss', 3, 59.52, '2023-11-09', 'juncathyr20231109120311'),
 (10, 875435276987, 'rexona sachet', 4, 35.24, '2023-11-09', 'juncathyr20231109130412'),
-(11, 2353452352345, 'piatoss', 4, 79.36, '2023-11-09', 'juncathyr20231109130412'),
 (12, 875435276987, 'rexona sachet', 4, 35.24, '2023-11-09', 'juncathyr20231109130557'),
-(13, 2353452352345, 'piatoss', 4, 79.36, '2023-11-09', 'juncathyr20231109130557'),
-(14, 2353452352345, 'piatoss', 2, 39.68, '2023-11-11', 'juncathyr20231111113422'),
 (15, 3456341234345, 'bear brand', 3, 42.9, '2023-11-11', 'juncathyr20231111123709'),
 (16, 875435276987, 'rexona sachet', 60, 528.6, '2023-11-14', 'juncathyr20231114120820'),
-(17, 3456341234345, 'bear brand', 50, 715, '2023-11-14', 'juncathyr20231114120820');
+(17, 3456341234345, 'bear brand', 50, 715, '2023-11-14', 'juncathyr20231114120820'),
+(18, 987561321858, 'CROSSINI 1PACK', 1, 49.5, '2023-11-15', 'juncathyr20231115092530'),
+(19, 987561321858, 'CROSSINI 1PACK', 10, 495, '2023-11-15', 'juncathyr20231115093112'),
+(20, 987561321858, 'CROSSINI 1PACK', 10, 495, '2023-11-15', 'juncathyr20231115093148'),
+(21, 89765421368, 'LEMON SQUARE CHEESE CAKE 300g', 65, 3932.5, '2023-11-15', 'juncathyr20231115093239'),
+(22, 987561321858, 'CROSSINI 1PACK', 65, 3217.5, '2023-11-15', 'juncathyr20231115093239'),
+(23, 987561321858, 'CROSSINI 1PACK', 8, 396, '2023-11-15', 'juncathyr20231115093854'),
+(24, 987561321858, 'CROSSINI 1PACK', 1, 49.5, '2023-11-15', 'juncathyr20231115093912'),
+(25, 89765421368, 'LEMON SQUARE CHEESE CAKE 300g', 1, 60.5, '2023-11-15', 'juncathyr20231115125747'),
+(26, 987561321858, 'CROSSINI 1PACK', 1, 49.5, '2023-11-15', 'juncathyr20231115125923'),
+(29, 987561321858, 'CROSSINI 1PACK', 1, 49.5, '2023-11-15', 'juncathyr20231115125956'),
+(31, 987561321858, 'CROSSINI 1PACK', 1, 49.5, '2023-11-15', 'juncathyr20231115130041'),
+(32, 9876543215, 'piatoss', 200, 4070, '2023-11-15', 'juncathyr20231115132412');
 
 -- --------------------------------------------------------
 
@@ -191,7 +204,18 @@ INSERT INTO `transaction_db` (`reciept_no`, `transaction_date`, `total_item`, `o
 ('juncathyr20231109130557', '2023-11-09', 8, 114.6),
 ('juncathyr20231111113422', '2023-11-11', 2, 39.68),
 ('juncathyr20231111123709', '2023-11-11', 3, 42.9),
-('juncathyr20231114120820', '2023-11-14', 110, 1243.6);
+('juncathyr20231114120820', '2023-11-14', 110, 1243.6),
+('juncathyr20231115092530', '2023-11-15', 1, 49.5),
+('juncathyr20231115093112', '2023-11-15', 10, 495),
+('juncathyr20231115093148', '2023-11-15', 10, 495),
+('juncathyr20231115093239', '2023-11-15', 130, 7150),
+('juncathyr20231115093854', '2023-11-15', 8, 396),
+('juncathyr20231115093912', '2023-11-15', 1, 49.5),
+('juncathyr20231115125747', '2023-11-15', 1, 60.5),
+('juncathyr20231115125923', '2023-11-15', 2, 110),
+('juncathyr20231115125956', '2023-11-15', 2, 110),
+('juncathyr20231115130041', '2023-11-15', 2, 110),
+('juncathyr20231115132412', '2023-11-15', 200, 4070);
 
 -- --------------------------------------------------------
 
@@ -335,43 +359,19 @@ ALTER TABLE `category_db`
 -- AUTO_INCREMENT for table `items_db`
 --
 ALTER TABLE `items_db`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `notification_db`
 --
 ALTER TABLE `notification_db`
-  MODIFY `notif_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `notif_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `sales_db`
 --
 ALTER TABLE `sales_db`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `uom_db`
---
-ALTER TABLE `uom_db`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
-
---
--- AUTO_INCREMENT for table `users__db`
---
-ALTER TABLE `users__db`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `purchase_order_db`
---
-ALTER TABLE `purchase_order_db`
-  ADD CONSTRAINT `purchase_order_db_ibfk_1` FOREIGN KEY (`vendor_id`) REFERENCES `vendors_db` (`vendor_id`) ON DELETE NO ACTION;
-COMMIT;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
