@@ -23,7 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $total_amount = mysqli_real_escape_string($sqlconn, $datas['totalAmount']);
 
         // Check if requested quantity is greater than available stock
-        $select_stock_query = "SELECT item_stocks FROM items_db WHERE item_barcode = $sku";
+        $select_stock_query = "SELECT item_stocks FROM items_db WHERE item_barcode = $sku ORDER BY `item_date_added` ASC LIMIT 1";
         $result_stock = mysqli_query($sqlconn, $select_stock_query);
 
         if (!$result_stock || mysqli_num_rows($result_stock) !== 1) {
@@ -39,7 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             break; // Exit the loop if requested quantity exceeds available stock
         }
 
-        $update_query = "UPDATE items_db SET item_stocks = item_stocks - $qty WHERE item_barcode = $sku";
+        $update_query = "UPDATE items_db SET item_stocks = item_stocks - $qty WHERE item_barcode = $sku ORDER BY `item_date_added` ASC LIMIT $qty";
         $result_update = mysqli_query($sqlconn, $update_query);
 
         if (!$result_update) {

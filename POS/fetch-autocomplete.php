@@ -7,7 +7,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($data->query)) {
         $search_text = mysqli_real_escape_string($sqlconn, $data->query);
 
-        $sqlquery = "SELECT * FROM `items_db` WHERE `item_barcode` LIKE '%$search_text%' OR `item_name` LIKE '%$search_text%' AND `item_stocks` > 0";
+        $sqlquery = "SELECT * FROM `items_db` WHERE `item_barcode` LIKE '%$search_text%' OR `item_name` LIKE '%$search_text%' AND `item_stocks` > 0 ORDER BY `item_date_added` ASC LIMIT 1";
 
         $result = mysqli_query($sqlconn, $sqlquery);
 
