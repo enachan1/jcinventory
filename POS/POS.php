@@ -281,6 +281,8 @@ if(isset($_SESSION['id']) && isset($_SESSION['user_name'])) {
                                                     <th scope="col">Category</th>
                                                     <th scope="col">Stocks</th>
                                                     <th scope="col">Price</th>
+                                                    <th scope="col">Barcode</th>
+
                                                 </tr>
                                             </thead>
                                             <tbody>
