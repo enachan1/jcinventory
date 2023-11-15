@@ -286,50 +286,56 @@ $user = $_SESSION['user_name'];
                                     $filter = mysqli_real_escape_string($sqlconn, $_GET['invlev']);
 
                                     if($filter == "Fast") {
-                                        $inventory_level_query = "SELECT item.`item_barcode`, item.`item_name`, item.`item_category`, item.`item_stocks`,
-                                CASE 
-                                    WHEN item.`item_stocks` > $stable THEN 'Stable'
-                                    WHEN item.`item_stocks` <= $critical THEN 'Critical'
-                                    WHEN item.`item_stocks` <= $reorder THEN 'Reorder'
-                                    WHEN item.`item_stocks` <= $average OR item.`item_stocks` < $stable THEN 'Average'
-                                END AS `stock_status`
-                                FROM `items_db` item
-                                
-                                JOIN (
-                                    SELECT sales.`s_sku` as sales_barcode
-                                    FROM `sales_db` sales
-                                    WHERE
-                                        sales.`s_date` >= DATE_FORMAT(CURRENT_DATE, '%Y-%m-01')
-                                    AND sales.`s_date` <= LAST_DAY(CURRENT_DATE)
-
-                                    GROUP BY
-                                        `s_item`
-                                    HAVING SUM(sales.`s_qty`) >= $threshold
-                                        ) fm ON item.`item_barcode` = fm.`sales_barcode`";
-                                            $result = $sqlconn->query($inventory_level_query);
-                                    }
-
-                                    elseif ($filter == "Slow") {
-                                        $inventory_level_query = "SELECT item.`item_barcode`, item.`item_name`, item.`item_category`, item.`item_stocks`,
-                                        CASE 
-                                            WHEN item.`item_stocks` > $stable THEN 'Stable'
-                                            WHEN item.`item_stocks` <= $critical THEN 'Critical'
-                                            WHEN item.`item_stocks` <= $reorder THEN 'Reorder'
-                                            WHEN item.`item_stocks` <= $average OR item.`item_stocks` < $stable THEN 'Average'
-                                        END AS `stock_status`
+                                        $inventory_level_query = "SELECT `item_barcode`, `item_name`, `item_category`, `item_stocks`, `stock_status`
+                                    FROM (
+                                        SELECT item.`item_barcode`, item.`item_name`, item.`item_category`, item.`item_stocks`,
+                                            CASE 
+                                                WHEN item.`item_stocks` > $stable THEN 'Stable'
+                                                WHEN item.`item_stocks` <= $critical THEN 'Critical'
+                                                WHEN item.`item_stocks` <= $reorder THEN 'Reorder'
+                                                WHEN item.`item_stocks` <= $average OR item.`item_stocks` < $stable THEN 'Average'
+                                            END AS `stock_status`,
+                                            ROW_NUMBER() OVER (PARTITION BY item.`item_barcode` ORDER BY item.`item_date_added` ASC) as row_num
                                         FROM `items_db` item
-                                        
                                         JOIN (
                                             SELECT sales.`s_sku` as sales_barcode
                                             FROM `sales_db` sales
                                             WHERE
                                                 sales.`s_date` >= DATE_FORMAT(CURRENT_DATE, '%Y-%m-01')
                                             AND sales.`s_date` <= LAST_DAY(CURRENT_DATE)
-        
                                             GROUP BY
                                                 `s_item`
-                                            HAVING SUM(sales.`s_qty`) <= $threshold
-                                        ) fm ON item.`item_barcode` = fm.`sales_barcode`";
+                                            HAVING SUM(sales.`s_qty`) >= $threshold
+                                        ) fm ON item.`item_barcode` = fm.`sales_barcode`
+                                    ) subquery
+                                    WHERE row_num = 1";
+                                            $result = $sqlconn->query($inventory_level_query);
+                                    }
+
+                                    elseif ($filter == "Slow") {
+                                        $inventory_level_query = "SELECT `item_barcode`, `item_name`, `item_category`, `item_stocks`, `stock_status`
+                                        FROM (
+                                            SELECT item.`item_barcode`, item.`item_name`, item.`item_category`, item.`item_stocks`,
+                                                CASE 
+                                                    WHEN item.`item_stocks` > $stable THEN 'Stable'
+                                                    WHEN item.`item_stocks` <= $critical THEN 'Critical'
+                                                    WHEN item.`item_stocks` <= $reorder THEN 'Reorder'
+                                                    WHEN item.`item_stocks` <= $average OR item.`item_stocks` < $stable THEN 'Average'
+                                                END AS `stock_status`,
+                                                ROW_NUMBER() OVER (PARTITION BY item.`item_barcode` ORDER BY item.`item_date_added` ASC) as row_num
+                                            FROM `items_db` item
+                                            JOIN (
+                                                SELECT sales.`s_sku` as sales_barcode
+                                                FROM `sales_db` sales
+                                                WHERE
+                                                    sales.`s_date` >= DATE_FORMAT(CURRENT_DATE, '%Y-%m-01')
+                                                AND sales.`s_date` <= LAST_DAY(CURRENT_DATE)
+                                                GROUP BY
+                                                    `s_item`
+                                                HAVING SUM(sales.`s_qty`) <= $threshold
+                                            ) fm ON item.`item_barcode` = fm.`sales_barcode`
+                                        ) subquery
+                                        WHERE row_num = 1";
 
                                         $result = $sqlconn->query($inventory_level_query);
                                     }
@@ -337,26 +343,29 @@ $user = $_SESSION['user_name'];
                                     
                                 }
                                 else {
-                                    $inventory_level_query = "SELECT item.`item_barcode`, item.`item_name`, item.`item_category`, item.`item_stocks`,
-                                CASE 
-                                    WHEN item.`item_stocks` > $stable THEN 'Stable'
-                                    WHEN item.`item_stocks` <= $critical THEN 'Critical'
-                                    WHEN item.`item_stocks` <= $reorder THEN 'Reorder'
-                                    WHEN item.`item_stocks` <= $average OR item.`item_stocks` < $stable THEN 'Average'
-                                END AS `stock_status`
-                                FROM `items_db` item
-                                
-                                JOIN (
-                                    SELECT sales.`s_sku` as sales_barcode
-                                    FROM `sales_db` sales
-                                    WHERE
-                                        sales.`s_date` >= DATE_FORMAT(CURRENT_DATE, '%Y-%m-01')
-                                    AND sales.`s_date` <= LAST_DAY(CURRENT_DATE)
-
-                                    GROUP BY
-                                        `s_item`
-                                    HAVING SUM(sales.`s_qty`) >= $threshold
-                                ) fm ON item.`item_barcode` = fm.`sales_barcode`";
+                                    $inventory_level_query = "SELECT `item_barcode`, `item_name`, `item_category`, `item_stocks`, `stock_status`
+                                    FROM (
+                                        SELECT item.`item_barcode`, item.`item_name`, item.`item_category`, item.`item_stocks`,
+                                            CASE 
+                                                WHEN item.`item_stocks` > $stable THEN 'Stable'
+                                                WHEN item.`item_stocks` <= $critical THEN 'Critical'
+                                                WHEN item.`item_stocks` <= $reorder THEN 'Reorder'
+                                                WHEN item.`item_stocks` <= $average OR item.`item_stocks` < $stable THEN 'Average'
+                                            END AS `stock_status`,
+                                            ROW_NUMBER() OVER (PARTITION BY item.`item_barcode` ORDER BY item.`item_date_added` ASC) as row_num
+                                        FROM `items_db` item
+                                        JOIN (
+                                            SELECT sales.`s_sku` as sales_barcode
+                                            FROM `sales_db` sales
+                                            WHERE
+                                                sales.`s_date` >= DATE_FORMAT(CURRENT_DATE, '%Y-%m-01')
+                                            AND sales.`s_date` <= LAST_DAY(CURRENT_DATE)
+                                            GROUP BY
+                                                `s_item`
+                                            HAVING SUM(sales.`s_qty`) >= $threshold
+                                        ) fm ON item.`item_barcode` = fm.`sales_barcode`
+                                    ) subquery
+                                    WHERE row_num = 1";
                                 $result = $sqlconn->query($inventory_level_query);
                                 }
                                 while($rows = mysqli_fetch_assoc($result)) {
