@@ -562,26 +562,23 @@ $user = $_SESSION['user_name'];
                         <!-- Modal Header -->
                             <div class="modal-header">
                                 <h3 class="modal-title">Edit Purchase Order</h3>
-                                <button type="button" class="btn-close" id="cls" data-bs-dismiss="modal"></button>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                             </div>
                             <!-- Modal Body -->
                             <div class="modal-body">
                             <!-- Your Purchase content goes here -->
                             <div class="container-fluid px-1">
-                            <form method="POST" id="formList">
+                            <form method="POST" id="edit-po">
                                 <div class="mb-4">
                                     <!-- Label and Textbox -->
-                                    <label for="vendorID" class="form-label">Vendor ID</label>
-                                    <input type="number" class="form-control" id="vendorID" name="vendorId" required>
-                                    <div class="list-group" id="showlist_vendorid" style="position: absolute; z-index: 1; width: 30%;">
-
-                                    </div>
-                                    <label for="vendorNAME" class="form-label">Vendor Name</label>
-                                    <input type="text" class="form-control" id="vendorNAME" name="vendorName" disabled>
-                                    <label for="dateTransaction" class="form-label">Date of Transaction</label>
-                                    <input type="date" class="form-control" value="<?= date("Y-m-d")?>" id="dateTransaction" name="dateTrans" readonly>
-                                    <label for="expectedDelivery" class="form-label">Expected Delivery</label>
-                                    <input type="date" class="form-control" id="expectedDelivery" name="expectDel" required><br>
+                                    <label for="evendorID" class="form-label">Vendor ID</label>
+                                    <input type="number" class="form-control" id="evendorID" name="vendorId" disabled>
+                                    <label for="evendorNAME" class="form-label">Vendor Name</label>
+                                    <input type="text" class="form-control" id="evendorNAME" name="vendorName" disabled>
+                                    <label for="edateTransaction" class="form-label">Date of Transaction</label>
+                                    <input type="date" class="form-control" id="edateTransaction" name="dateTrans" readonly>
+                                    <label for="eexpectedDelivery" class="form-label">Expected Delivery</label>
+                                    <input type="date" class="form-control" id="eexpectedDelivery" name="expectDel" required><br>
                                 </div>
 
                                 <!-- Table for Items-->
@@ -597,46 +594,10 @@ $user = $_SESSION['user_name'];
                                                     <th scope="col">UOM</th>
                                                     <th scope="col">Category</th>
                                                     <th scope="col">Price</th>
-                                                    <th scope="col">Add</th>
                                                 </tr>
                                             </thead>
-                                            <tbody class="show_items">
-                                                <tr>
-                                                    <!--Table Content-->
-                                                    <th><input type="text" id="generateRandom" class="form-control" name="PO_sku[]" required></th>
-                                                    <th><input type="text" class="form-control" name="PO_itemname[]" required></th>
-                                                    <th><input type="number" class="form-control adjustments"  name="PO_qty[]" required></th>
-                                                    <th>            
-                                                    <select class="form-select" name="PO_uom[]">
-                                                    <?php  
-                                                         $sql_query = "SELECT * FROM uom_db";
-                                                        $sql_res = mysqli_query($sqlconn, $sql_query);
-
-                                                        while($array = mysqli_fetch_array($sql_res)) {
-                                                    ?>
-                                                        <option value="<?php echo $array['uom_name']; ?>"> <?php echo $array['uom_name']; ?> </option>
-                                                    <?php 
-                                                        }
-                                                    ?>
-                                                    </select></th>
-                                                    <th>            
-                                                    <select class="form-select" name="PO_category[]">
-                                                    <?php  
-                                                        $sql_query1 = "SELECT * FROM category_db";
-                                                        $sql_res1 = mysqli_query($sqlconn, $sql_query1);
-
-                                                        while($array1 = mysqli_fetch_array($sql_res1)) {
-                                                        ?>
-                                                        <option value="<?php echo $array1['category_name']; ?>"><?php echo $array1['category_name']; ?></option>
-                                                    <?php 
-                                                        }
-                                                    ?>
-                                                        <!-- Many Brands -->
-                                                    </select></th>
-                                                    <th><input type="number" class="form-control" name="PO_price[]" step=".01" required></th>
-                                                    <!--Added Input -->
-                                                    <td><button class="btn btn-primary btn-sm btn-secondary" id="addInput" type="button"><i class="far fa-plus-circle"></i>
-                                                </tr>
+                                            <tbody class="show_items" id="edt-tbl-itm">
+                                               
                                             </tbody>
                                         </table>
                                     </div>
@@ -646,7 +607,7 @@ $user = $_SESSION['user_name'];
                         </div>
                             <!-- Modal Footer Goes here-->
                             <div class="modal-footer">
-                                <input type="submit" class="btn btn-primary" value="Add" id="addBtn">
+                                <input type="submit" class="btn btn-primary" value="Update" id="addBtn">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                               </div>
                               </form>

@@ -4,7 +4,7 @@ include "../connectdb.php";
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $item_vendor_id = $_POST['vendorID'];
 
-    $query = "SELECT vendors_db.vendor_id,
+    $query = "SELECT vendors_db.vendor_id as venddID,
                      vendors_db.vendor_name as Vendor,
                      purchase_order_db.po_item_sku as itemSku,
                      purchase_order_db.vendor_id as item_vendorID,
