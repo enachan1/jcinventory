@@ -333,6 +333,7 @@ if(isset($_SESSION['id']) && isset($_SESSION['user_name'])) {
                                             <th scope="col">SKU</th>
                                             <th scope="col">Item Name</th>
                                             <th scope="col">Category</th>
+                                            <th scope="col">Barcode</th>
                                         </tr>
                                     </thead>
                                     <tbody>
