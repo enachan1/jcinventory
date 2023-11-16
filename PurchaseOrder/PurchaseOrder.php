@@ -126,15 +126,6 @@ $user = $_SESSION['user_name'];
                                         Add Order
                                     </button>
                                 </div><br>
-
-                                <?php 
-                                    if(isset($_GET['msg'])) {
-                                    ?>
-                                        <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                            <?= $_GET['msg'] ?>
-                                            <button class="btn-close" data-bs-dismiss="alert" id="removeErrorButton" aria-label="Close"></button>
-                                        </div>
-                            <?php } ?>
                                 <!--Table-->
                                 <table id="purchase-table" class="table bg-white rounded shadow-sm table-hover">
                                     <thead>
@@ -150,7 +141,7 @@ $user = $_SESSION['user_name'];
                                     <tbody>
                                     <?php
                                         $query = "SELECT
-                                        vendors_db.vendor_id,
+                                        vendors_db.vendor_id as vendId,
                                         vendors_db.vendor_name as Vendor,
                                         MAX(purchase_order_db.vendor_id) as item_vendorID,
                                         MAX(purchase_order_db.po_dot) as dateOfTransaction,
@@ -170,6 +161,7 @@ $user = $_SESSION['user_name'];
                                         <td><?php echo $rows['expectedDel']; ?></td>
                                         <td>
                                             <button title="<?php echo $rows['item_vendorID']; ?>" class="btn btn-primary btn-sm view-data" data-itemid="<?php echo $rows['item_vendorID']; ?>" data-bs-toggle="modal" data-bs-target="#viewModal">View Items</button>
+                                            <button class="btn btn-secondary btn-sm" id="editPObtn" data-vendoridtbl="<?= $rows['vendId'] ?>" data-bs-toggle="modal" data-bs-target="#edit-purchase"><i class="fas fa-edit"></i></button>
                                         </td>
                                         <td>
                                             <button class="btn btn-primary btn-sm delivered-rbtn" id="delivered_label" value="Delivered" name="dob_<?php echo $rows['item_vendorID']; ?>" data-itemid="<?php echo $rows['item_vendorID']; ?>">Delivered</button>
@@ -196,10 +188,25 @@ $user = $_SESSION['user_name'];
                                     </button>
                                 </div><br>
                                 <!-- Missing bs form data-bs-dimiss this should work now "if you read this remove comment"-->
-                                <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                                    <strong>Holy guacamole!</strong> You should check in on some of those fields below.
-                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                </div>
+                                <?php 
+                                    if(isset($_GET['venmsg'])) {
+                                    ?>
+                                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                            <?= $_GET['venmsg'] ?>
+                                            <button class="btn-close" data-bs-dismiss="alert" id="vremoveErrorButton" aria-label="Close"></button>
+                                        </div>
+                                <?php } ?>
+
+                                <?php 
+                                    if(isset($_GET['vendelete'])) {
+                                    ?>
+                                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                            <?= $_GET['vendelete'] ?>
+                                            <button class="btn-close" data-bs-dismiss="alert" id="vremoveErrorButton" aria-label="Close"></button>
+                                        </div>
+                                <?php } ?>
+
+
                                 <!--Table-->
                                 <table id="vendor-table" class="table bg-white rounded shadow-sm table-hover">
                                     <thead>
@@ -224,7 +231,7 @@ $user = $_SESSION['user_name'];
                                             <td><?php echo $array['vendor_contact'] ?></td>
                                             <td>
                                                 <button type="button" class="btn btn-secondary btn-sm edit-vendor-btn" data-bs-toggle="modal" data-bs-target="#edit-vendor"><i class="fas fa-edit"></i></button>
-                                                <a href="#" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>
+                                                <a href="delete_vendor.php?delven=<?= $array['vendor_id'] ?>"  class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>
                                             </td>
                                         </tr>
                                         <?php } ?>
@@ -240,6 +247,14 @@ $user = $_SESSION['user_name'];
                         <div class="card">
                             <div class="card-body colorbox">
                                 <h5 class="card-title">Delivery In</h5>
+                                <?php 
+                                    if(isset($_GET['msg'])) {
+                                    ?>
+                                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                            <?= $_GET['msg'] ?>
+                                            <button class="btn-close" data-bs-dismiss="alert" id="removeErrorButton" aria-label="Close"></button>
+                                        </div>
+                            <?php } ?>
                                 <!--Table-->
                                 <table id="delivery-table" class="table bg-white rounded shadow-sm table-hover">
                                     <thead>
@@ -322,7 +337,7 @@ $user = $_SESSION['user_name'];
                                     <label for="vendorNAME" class="form-label">Vendor Name</label>
                                     <input type="text" class="form-control" id="vendorNAME" name="vendorName" disabled>
                                     <label for="dateTransaction" class="form-label">Date of Transaction</label>
-                                    <input type="date" class="form-control" id="dateTransaction" name="dateTrans" required>
+                                    <input type="date" class="form-control" value="<?= date("Y-m-d")?>" id="dateTransaction" name="dateTrans" readonly>
                                     <label for="expectedDelivery" class="form-label">Expected Delivery</label>
                                     <input type="date" class="form-control" id="expectedDelivery" name="expectDel" required><br>
                                 </div>
@@ -554,6 +569,71 @@ $user = $_SESSION['user_name'];
 
 
 
+     <!-- Edit Purchase Modal-->
+     <div class="modal fade" id="edit-purchase">
+                    <div class="modal-dialog modal-xl">
+                        <div class="modal-content">
+                        <!-- Modal Header -->
+                            <div class="modal-header">
+                                <h3 class="modal-title">Edit Purchase Order</h3>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                            </div>
+                            <!-- Modal Body -->
+                            <div class="modal-body">
+                            <!-- Your Purchase content goes here -->
+                            <div class="container-fluid px-1">
+                            <form method="POST" id="edit-po">
+                                <div class="mb-4">
+                                    <!-- Label and Textbox -->
+                                    <label for="evendorID" class="form-label">Vendor ID</label>
+                                    <input type="number" class="form-control" id="evendorID" name="vendorId" readonly>
+                                    <label for="evendorNAME" class="form-label">Vendor Name</label>
+                                    <input type="text" class="form-control" id="evendorNAME" name="vendorName" disabled>
+                                    <label for="edateTransaction" class="form-label">Date of Transaction</label>
+                                    <input type="date" class="form-control" id="edateTransaction" name="dateTrans" disabled>
+                                    <label for="eexpectedDelivery" class="form-label">Expected Delivery</label>
+                                    <input type="date" class="form-control" id="eexpectedDelivery" name="expectDel" required><br>
+                                </div>
+
+                                <!-- Table for Items-->
+                                <div class="row my-1">
+                                    <h3 class="fs-4 mb-3">Items</h3>
+                                    <div class="col">
+                                        <table class="table colorbox rounded shadow-sm  table-hover" id="addPurchaseItems">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">SKU</th>
+                                                    <th scope="col">Item Name</th>
+                                                    <th scope="col">QTY</th>
+                                                    <th scope="col">UOM</th>
+                                                    <th scope="col">Category</th>
+                                                    <th scope="col">Price</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="show_items" id="edt-tbl-itm">
+                                               
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+    
+                            <!-- ... Rest of your Purchase content ... -->
+                        </div>
+                            <!-- Modal Footer Goes here-->
+                            <div class="modal-footer">
+                                <input type="submit" class="btn btn-primary" value="Update" id="addBtn">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                              </div>
+                              </form>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+
+    <!-- ...Purchase Modal Ends Here... -->
+
+
+
  <!-- confirmation Modal here -->
         <div class="modal fade" tabindex="-1" role="dialog" id="confirmation_modal">
             <div class="modal-dialog" role="document">
@@ -590,6 +670,7 @@ $user = $_SESSION['user_name'];
     <script src="update-vendor.js"></script>
     <script src="purchasetable.js"></script>
     <script src="deliverytable.js"></script>
+    <script src="PO-edit.js"></script>
     
     <script>
         //Element Menu toggle
@@ -652,6 +733,21 @@ $user = $_SESSION['user_name'];
     var updatedUrl = currentUrl.replace(/[?&]msg=.*&?/, '');
     history.replaceState({}, document.title, updatedUrl);
   });
+
+  $('#vremoveErrorButton').on('click', function() {
+    // Remove the 'err' query parameter from the URL
+    var currentUrl = window.location.href;
+    var updatedUrl = currentUrl.replace(/[?&]venmsg=.*&?/, '');
+    history.replaceState({}, document.title, updatedUrl);
+  });
+
+  $('#vremoveErrorButton').on('click', function() {
+    // Remove the 'err' query parameter from the URL
+    var currentUrl = window.location.href;
+    var updatedUrl = currentUrl.replace(/[?&]vendelete=.*&?/, '');
+    history.replaceState({}, document.title, updatedUrl);
+  });
+
 });    
 
     </script>

@@ -1,7 +1,7 @@
 <?php
 include "../connectdb.php";
-if(isset($_GET['id'])) 
-$id = $_GET['id'];
+if(isset($_GET['vendorid'])) 
+$id = $_GET['vendorid'];
 
 $sqlquery = "DELETE FROM `purchase_order_db` WHERE `vendor_id` = $id";
 try {

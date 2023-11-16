@@ -60,7 +60,7 @@ $(document).ready(function () {
         $("#purchase1").modal('hide');
         $('#vendorID').val(" ");
         $('#vendorNAME').val(" ");
-        $('#dateTransaction').val(" ");
+        // $('#dateTransaction').val(" ");
         $('#expectedDelivery').val(" ");
         $(".appended_items").remove();
     });

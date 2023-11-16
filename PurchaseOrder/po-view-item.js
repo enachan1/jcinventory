@@ -8,7 +8,6 @@ $(document).ready(function () {
         data: {vendorID: vendorItemID},
         dataType: "json",
         success: function (response) {
-            console.log(response);
             populateModal(response);
         }
        });
