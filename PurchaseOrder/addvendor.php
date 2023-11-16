@@ -15,7 +15,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
         exit();
     }
     else {
-        header("Location: PurchaseOrder.php?msg=Added Successfully");
+        header("Location: PurchaseOrder.php?venmsg=Added Successfully");
         exit();
     }
 }

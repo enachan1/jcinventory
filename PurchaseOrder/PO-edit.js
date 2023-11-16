@@ -30,7 +30,7 @@ $(document).ready(function () {
         
                 $('#edt-tbl-itm').append(
                     `<tr class="update-appended">
-                        <td><input type="text" id="generateRandom" value="${item.itemSku}" class="form-control" name="ePO_sku[]" required></td>
+                        <td><input type="text" id="generateRandom" value="${item.itemSku}" class="form-control" name="ePO_sku[]" readonly></td>
                         <td><input type="text" class="form-control" value="${item.item_name}" name="ePO_itemname[]" required></td>
                         <td><input type="number" class="form-control adjustments" value="${item.qty}" name="ePO_qty[]" required></td>
                         <td>
@@ -88,11 +88,9 @@ $(document).ready(function () {
                 method: "POST",
                 data: $(this).serialize(),
                 success: function (response) {
-                    // $("#purchase1").modal('hide');
-                    // $(".appended_items").remove();
-                    console.log(response);
-                    // updateTableContent();
-                    // location.reload();
+                    $("#edit-purchase").modal('hide');
+                    $(".update_appended").remove();
+                    location.reload();
                 }
             });
         });
