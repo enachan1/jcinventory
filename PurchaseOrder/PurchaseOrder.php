@@ -150,7 +150,7 @@ $user = $_SESSION['user_name'];
                                     <tbody>
                                     <?php
                                         $query = "SELECT
-                                        vendors_db.vendor_id,
+                                        vendors_db.vendor_id as vendId,
                                         vendors_db.vendor_name as Vendor,
                                         MAX(purchase_order_db.vendor_id) as item_vendorID,
                                         MAX(purchase_order_db.po_dot) as dateOfTransaction,
@@ -170,6 +170,7 @@ $user = $_SESSION['user_name'];
                                         <td><?php echo $rows['expectedDel']; ?></td>
                                         <td>
                                             <button title="<?php echo $rows['item_vendorID']; ?>" class="btn btn-primary btn-sm view-data" data-itemid="<?php echo $rows['item_vendorID']; ?>" data-bs-toggle="modal" data-bs-target="#viewModal">View Items</button>
+                                            <button class="btn btn-secondary btn-sm" id="editPObtn" data-vendoridtbl="<?= $rows['vendId'] ?>" data-bs-toggle="modal" data-bs-target="#edit-purchase"><i class="fas fa-edit"></i></button>
                                         </td>
                                         <td>
                                             <button class="btn btn-primary btn-sm delivered-rbtn" id="delivered_label" value="Delivered" name="dob_<?php echo $rows['item_vendorID']; ?>" data-itemid="<?php echo $rows['item_vendorID']; ?>">Delivered</button>
@@ -322,7 +323,7 @@ $user = $_SESSION['user_name'];
                                     <label for="vendorNAME" class="form-label">Vendor Name</label>
                                     <input type="text" class="form-control" id="vendorNAME" name="vendorName" disabled>
                                     <label for="dateTransaction" class="form-label">Date of Transaction</label>
-                                    <input type="date" class="form-control" id="dateTransaction" name="dateTrans" required>
+                                    <input type="date" class="form-control" value="<?= date("Y-m-d")?>" id="dateTransaction" name="dateTrans" readonly>
                                     <label for="expectedDelivery" class="form-label">Expected Delivery</label>
                                     <input type="date" class="form-control" id="expectedDelivery" name="expectDel" required><br>
                                 </div>
@@ -554,6 +555,110 @@ $user = $_SESSION['user_name'];
 
 
 
+     <!-- Edit Purchase Modal-->
+     <div class="modal fade" id="edit-purchase">
+                    <div class="modal-dialog modal-xl">
+                        <div class="modal-content">
+                        <!-- Modal Header -->
+                            <div class="modal-header">
+                                <h3 class="modal-title">Edit Purchase Order</h3>
+                                <button type="button" class="btn-close" id="cls" data-bs-dismiss="modal"></button>
+                            </div>
+                            <!-- Modal Body -->
+                            <div class="modal-body">
+                            <!-- Your Purchase content goes here -->
+                            <div class="container-fluid px-1">
+                            <form method="POST" id="formList">
+                                <div class="mb-4">
+                                    <!-- Label and Textbox -->
+                                    <label for="vendorID" class="form-label">Vendor ID</label>
+                                    <input type="number" class="form-control" id="vendorID" name="vendorId" required>
+                                    <div class="list-group" id="showlist_vendorid" style="position: absolute; z-index: 1; width: 30%;">
+
+                                    </div>
+                                    <label for="vendorNAME" class="form-label">Vendor Name</label>
+                                    <input type="text" class="form-control" id="vendorNAME" name="vendorName" disabled>
+                                    <label for="dateTransaction" class="form-label">Date of Transaction</label>
+                                    <input type="date" class="form-control" value="<?= date("Y-m-d")?>" id="dateTransaction" name="dateTrans" readonly>
+                                    <label for="expectedDelivery" class="form-label">Expected Delivery</label>
+                                    <input type="date" class="form-control" id="expectedDelivery" name="expectDel" required><br>
+                                </div>
+
+                                <!-- Table for Items-->
+                                <div class="row my-1">
+                                    <h3 class="fs-4 mb-3">Items</h3>
+                                    <div class="col">
+                                        <table class="table colorbox rounded shadow-sm  table-hover" id="addPurchaseItems">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">SKU</th>
+                                                    <th scope="col">Item Name</th>
+                                                    <th scope="col">QTY</th>
+                                                    <th scope="col">UOM</th>
+                                                    <th scope="col">Category</th>
+                                                    <th scope="col">Price</th>
+                                                    <th scope="col">Add</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="show_items">
+                                                <tr>
+                                                    <!--Table Content-->
+                                                    <th><input type="text" id="generateRandom" class="form-control" name="PO_sku[]" required></th>
+                                                    <th><input type="text" class="form-control" name="PO_itemname[]" required></th>
+                                                    <th><input type="number" class="form-control adjustments"  name="PO_qty[]" required></th>
+                                                    <th>            
+                                                    <select class="form-select" name="PO_uom[]">
+                                                    <?php  
+                                                         $sql_query = "SELECT * FROM uom_db";
+                                                        $sql_res = mysqli_query($sqlconn, $sql_query);
+
+                                                        while($array = mysqli_fetch_array($sql_res)) {
+                                                    ?>
+                                                        <option value="<?php echo $array['uom_name']; ?>"> <?php echo $array['uom_name']; ?> </option>
+                                                    <?php 
+                                                        }
+                                                    ?>
+                                                    </select></th>
+                                                    <th>            
+                                                    <select class="form-select" name="PO_category[]">
+                                                    <?php  
+                                                        $sql_query1 = "SELECT * FROM category_db";
+                                                        $sql_res1 = mysqli_query($sqlconn, $sql_query1);
+
+                                                        while($array1 = mysqli_fetch_array($sql_res1)) {
+                                                        ?>
+                                                        <option value="<?php echo $array1['category_name']; ?>"><?php echo $array1['category_name']; ?></option>
+                                                    <?php 
+                                                        }
+                                                    ?>
+                                                        <!-- Many Brands -->
+                                                    </select></th>
+                                                    <th><input type="number" class="form-control" name="PO_price[]" step=".01" required></th>
+                                                    <!--Added Input -->
+                                                    <td><button class="btn btn-primary btn-sm btn-secondary" id="addInput" type="button"><i class="far fa-plus-circle"></i>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+    
+                            <!-- ... Rest of your Purchase content ... -->
+                        </div>
+                            <!-- Modal Footer Goes here-->
+                            <div class="modal-footer">
+                                <input type="submit" class="btn btn-primary" value="Add" id="addBtn">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                              </div>
+                              </form>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+
+    <!-- ...Purchase Modal Ends Here... -->
+
+
+
  <!-- confirmation Modal here -->
         <div class="modal fade" tabindex="-1" role="dialog" id="confirmation_modal">
             <div class="modal-dialog" role="document">
@@ -590,6 +695,7 @@ $user = $_SESSION['user_name'];
     <script src="update-vendor.js"></script>
     <script src="purchasetable.js"></script>
     <script src="deliverytable.js"></script>
+    <script src="PO-edit.js"></script>
     
     <script>
         //Element Menu toggle
