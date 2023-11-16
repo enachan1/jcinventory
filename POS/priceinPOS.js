@@ -23,6 +23,7 @@
                                         item_sku: item.item_sku,
                                         item_name: item.item_name,
                                         item_category: item.item_category,
+                                        item_barcode: item.item_barcode,
                                     };
                                 });
 
@@ -35,6 +36,7 @@
                                     row.append($("<td>").text(item.item_sku));
                                     row.append($("<td>").text(item.item_name));
                                     row.append($("<td>").text(item.item_category));
+                                    row.append($("<td>").text(item.item_barcode));
                                     tableBody.append(row);
                                 });
                             } else {
