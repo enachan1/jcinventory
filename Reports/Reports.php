@@ -105,7 +105,7 @@ $user = $_SESSION['user_name'];
                         <h3 class="fs-2">720</h3>
                         <p class="fs-5">Product Sold</p>
                     </div>
-                    <i class="fas fa-box fs-1 primary-text border rounded-full secondary-bg p-3"></i>
+                    <i class="fas fa-check fs-1 primary-text border rounded-full secondary-bg p-3"></i>
                 </div>
             </div>
 
@@ -115,8 +115,7 @@ $user = $_SESSION['user_name'];
                         <h3 class="fs-2">4920</h3>
                         <p class="fs-5">Total Sales</p>
                     </div>
-                    <i
-                        class="fas fa-signal-alt fs-1 primary-text border rounded-full secondary-bg p-3"></i>
+                    <i class="fas fa-signal-alt fs-1 primary-text border rounded-full secondary-bg p-3"></i>
                 </div>
             </div>
 
@@ -125,8 +124,8 @@ $user = $_SESSION['user_name'];
                     <div>
                         <h3 class="fs-2">3899</h3>
                         <p class="fs-5">Total Cost</p>
-                    </div>
-                    <i class="fas fa-dollar-sign fs-1 primary-text border rounded-full secondary-bg p-3"></i>
+                    </div>    
+                    <i class="fas fa-sack-dollar fs-1 primary-text border rounded-full secondary-bg p-3"></i>
                 </div>
             </div>
 
