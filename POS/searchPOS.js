@@ -133,5 +133,6 @@ $(document).on('keydown', function (e) {
     if (e.which === 114 || e.which === 113) { // F3 key codes
         $("#tableBody").empty();
         updateOverallTotal();
+        location.reload();
     }
 });
