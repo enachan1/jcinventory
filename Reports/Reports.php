@@ -131,32 +131,40 @@ $user = $_SESSION['user_name'];
 
     <div class="container-fluid px-3">
         <div class="row g-3 my-2">
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <div class="p-3 colorbox shadow-sm d-flex justify-content-around align-items-center rounded">
                     <div>
-                        <h3 class="fs-2">720</h3>
-                        <p class="fs-5">Product Sold</p>
+                    <?php
+                        // Get total products sold count
+                        $total_sales_qty_query = "SELECT COUNT(*) as total_qty FROM sales_db";
+                        $total_sales_qty_result = mysqli_query($sqlconn, $total_sales_qty_query);
+
+                        if ($total_qty_count = mysqli_fetch_array($total_sales_qty_result)) {
+                        ?>
+                            <h3 class="fs-2"><?php echo $total_qty_count['total_qty'] ?></h3>
+                        <?php } ?>
+                        <p class="fs-5">Products Sold</p>
                     </div>
                     <i class="fas fa-check fs-1 primary-text border rounded-full secondary-bg p-3"></i>
                 </div>
             </div>
 
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <div class="p-3 colorbox shadow-sm d-flex justify-content-around align-items-center rounded">
                     <div>
-                        <h3 class="fs-2">4920</h3>
+                    <?php
+                        // Get total sales amount for the current month
+                        $total_sales_month_query = "SELECT ROUND(SUM(`s_total`), 2) as total_monthly_sales
+                                                FROM `sales_db`
+                                                WHERE MONTH(`s_date`) = MONTH(CURDATE()) AND YEAR(`s_date`) = YEAR(CURDATE())";
+                        $total_sales_month_result = mysqli_query($sqlconn, $total_sales_month_query);
+
+                        if ($total_monthly_sales = mysqli_fetch_array($total_sales_month_result)) {
+                        ?>
+                            <h3 class="fs-2">₱ <?php echo $total_monthly_sales['total_monthly_sales'] ?></h3>
+                        <?php } ?>
                         <p class="fs-5">Total Sales</p>
                     </div>
-                    <i class="fas fa-signal-alt fs-1 primary-text border rounded-full secondary-bg p-3"></i>
-                </div>
-            </div>
-
-            <div class="col-md-4">
-                <div class="p-3 colorbox shadow-sm d-flex justify-content-around align-items-center rounded">
-                    <div>
-                        <h3 class="fs-2">3899</h3>
-                        <p class="fs-5">Total Cost</p>
-                    </div>    
                     <i class="fas fa-sack-dollar fs-1 primary-text border rounded-full secondary-bg p-3"></i>
                 </div>
             </div>
