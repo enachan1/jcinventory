@@ -7,7 +7,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
     $item_sku = mysqli_real_escape_string($sqlconn,$_POST['v_id']);
 
 
-    $sqlquery = "SELECT `po_item_name`, `po_category` FROM `purchase_order_db` WHERE `po_item_sku` = '$item_sku' AND `is_delivered` = 1";
+    $sqlquery = "SELECT `po_item_name`, `po_category` FROM `purchase_order_db` WHERE `po_item_sku` = '$item_sku'";
     $query_result = mysqli_query($sqlconn, $sqlquery);
 
 
