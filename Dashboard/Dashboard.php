@@ -17,6 +17,8 @@ $user = $_SESSION['user_name'];
     if($setting_row = $result->fetch_assoc()) {
         $critical = $setting_row['critical'];
         $average = $setting_row['average'];
+        $reorder = $setting_row['reorder'];
+        $stable = $setting_row['stable'];
     }
 
 
@@ -187,14 +189,30 @@ $user = $_SESSION['user_name'];
 
                                         $result = $sqlconn->query($expiring_query);
 
-                                        while($rows = $result->fetch_assoc()) {
+
+                                        $expiring_count = "SELECT COUNT(`item_sku`) as `exp_count` FROM `items_db`
+                                        WHERE `item_expdate` BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL 15 DAY)";
+
+                                        $exp_query = $sqlconn->query($expiring_count);
+                                        $exprow = $exp_query->fetch_assoc();
+                                        $expCount = $exprow['exp_count'];
+
+                                        if($expCount <= 0) {
                                         ?>
+                                            <tr><td colspan="3" class="text-center">NO ITEMS</td></tr>
+                                        <?php }
+                                        
+                                        else {
+                                            while($rows = $result->fetch_assoc()) {?>
                                         <tr>
                                             <td><?= $rows['item_sku'] ?></td>
                                             <td><?= $rows['item_name'] ?></td>
                                             <td><?= $rows['item_expdate'] ?></td>
                                         </tr>
-                                        <?php } ?>
+                                        <?php 
+                                        }
+                                    }
+                                        ?>
                                     </tbody>
                                 </table>
                             </div>
@@ -210,19 +228,26 @@ $user = $_SESSION['user_name'];
                                             <th scope="col">Item SKU</th>
                                             <th scope="col">Item Name</th>
                                             <th scope="col">Remaining Quantity</th>
+                                            <th scope="col">Stock Status</th>
                                         </tr>
                                     </thead>
                                     <!-- Table Body -->
                                     <tbody>
                                     <?php 
-                                            $running_out_query = "SELECT `item_sku`, `item_name`, `item_stocks` FROM `items_db`
-                                                WHERE `item_stocks` <= $critical"; // Adjust the condition as needed
+                                            $running_out_query = "SELECT `item_sku`, `item_name`, `item_stocks`,
+                                            CASE 
+                                                WHEN `item_stocks` <= $critical THEN 'Critical'
+                                                WHEN `item_stocks` <= $reorder THEN 'Reorder'
+                                                WHEN `item_stocks` <= $average OR `item_stocks` < $stable THEN 'Average'
+                                            END AS `stock_status`
+                                             FROM `items_db`
+                                                WHERE `item_stocks` <= $critical OR `item_stocks` <= $average"; // Adjust the condition as needed
 
                                             $result_running_out = $sqlconn->query($running_out_query);
 
                                             // Get the count of rows
                                             $count_query = "SELECT COUNT(`item_sku`) as `count` FROM `items_db`
-                                                WHERE `item_stocks` <= $critical";
+                                                WHERE `item_stocks` <= $critical OR `item_stocks` <= $average";
                                             $result_count = $sqlconn->query($count_query);
                                             $count_rows = $result_count->fetch_assoc();
                                             $number_of_rows = $count_rows['count'];
@@ -238,6 +263,7 @@ $user = $_SESSION['user_name'];
                                                         <td><?= $rows_running_out['item_sku'] ?></td>
                                                         <td><?= $rows_running_out['item_name'] ?></td>
                                                         <td><?= $rows_running_out['item_stocks'] ?></td>
+                                                        <td><?= $rows_running_out['stock_status'] ?></td>
                                                     </tr>
                                                     <?php
                                                 }
