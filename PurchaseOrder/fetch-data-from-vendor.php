@@ -36,6 +36,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         echo json_encode($response);
     }
 } else {
-    echo json_encode(['error' => 'THERE IS SOMETHING WRONG WITH YOUR CODE DUMBASS']);
+    echo json_encode(['error' => 'THERE IS SOMETHING WRONG']);
 }
 ?>
