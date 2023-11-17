@@ -13,6 +13,10 @@ $(document).ready(function () {
         }
     });
 
+    $(document).on("click", submitButton, function (e) {  
+        $("#showlist_skuitems").html('');
+    });
+
     //fetch items from auto complete
 
     $('#barcodeInput').keyup(function (e) { 
