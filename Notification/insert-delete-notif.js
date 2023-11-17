@@ -5,10 +5,17 @@ $(document).ready(function () {
         console.log(event.data);
     }
 
-    // sse.onerror = function(err) {
-    //     console.log(err);
-    // }
+    const ssf = new EventSource('check_stock_level.php');
 
+    ssf.onmessage = function(event) {
+        console.log(event.data);
+    }   
+
+    ssf.onerror = function(err) {
+        console.log(err);
+    }
+
+    
 $(document).on('click', "#btn-del", function () {
     var row_id = $(this).data('id');
     console.log(row_id)
