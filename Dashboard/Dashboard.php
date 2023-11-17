@@ -11,6 +11,15 @@ $user = $_SESSION['user_name'];
     }
 
 
+    $query_get_critical = "SELECT * FROM `setting_db`";
+    $result = $sqlconn->query($query_get_critical);
+
+    if($setting_row = $result->fetch_assoc()) {
+        $critical = $setting_row['critical'];
+        $average = $setting_row['average'];
+    }
+
+
 ?>
 <html lang="en">
 
@@ -22,6 +31,10 @@ $user = $_SESSION['user_name'];
         window.history.forward();
     </script>
     <style>
+        .scrollable-table {
+            max-height: 300px; /* Set the maximum height */
+            overflow-y: auto; /* Enable vertical scrolling */
+        }
     </style>
     <title>Dashboard</title>
 </head>
@@ -155,37 +168,88 @@ $user = $_SESSION['user_name'];
                         </div>
                     </div>
 
-                <div class="row my-5">
-                    <h3 class="fs-4 mb-3">Expiring Items</h3>
-                    <div class="col">
-                        <table class="table colorbox rounded shadow-sm  table-hover">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Item SKU</th>
-                                    <th scope="col">Item Name</th>
-                                    <th scope="col">Date</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php 
-                                $expiring_query = "SELECT `item_sku`, `item_name`, `item_expdate` FROM `items_db`
-                                WHERE `item_expdate` BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL 15 DAY)";
+                    <div class="row my-5">
+                        <div class="col">
+                            <h3 class="fs-4 mb-3">Expiring Items</h3>
+                                <div class="table-responsive scrollable-table">
+                                <table class="table colorbox rounded shadow-sm table-hover">
+                                    <!-- Table Header -->
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Item SKU</th>
+                                            <th scope="col">Item Name</th>
+                                            <th scope="col">Date</th>
+                                        </tr>
+                                    </thead>
+                                    <!-- Table Body -->
+                                    <tbody>
+                                        <?php 
+                                        $expiring_query = "SELECT `item_sku`, `item_name`, `item_expdate` FROM `items_db`
+                                            WHERE `item_expdate` BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL 15 DAY)";
 
-                                $result = $sqlconn->query($expiring_query);
+                                        $result = $sqlconn->query($expiring_query);
 
-                                while($rows = $result->fetch_assoc()) {
-                                ?>
-                                <tr>
-                                    <td><?= $rows['item_sku'] ?></td>
-                                    <td><?= $rows['item_name'] ?></td>
-                                    <td><?= $rows['item_expdate'] ?></td>
-                                </tr>
-                                <?php } ?>
-                                
-                            </tbody>
-                        </table>
+                                        while($rows = $result->fetch_assoc()) {
+                                        ?>
+                                        <tr>
+                                            <td><?= $rows['item_sku'] ?></td>
+                                            <td><?= $rows['item_name'] ?></td>
+                                            <td><?= $rows['item_expdate'] ?></td>
+                                        </tr>
+                                        <?php } ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                        <h3 class="fs-4 mb-3">Running out Product</h3>
+                            <div class="table-responsive scrollable-table"> 
+                                <table class="table colorbox rounded shadow-sm table-hover">
+                                    <!-- Table Header -->
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Item SKU</th>
+                                            <th scope="col">Item Name</th>
+                                            <th scope="col">Remaining Quantity</th>
+                                        </tr>
+                                    </thead>
+                                    <!-- Table Body -->
+                                    <tbody>
+                                    <?php 
+                                            $running_out_query = "SELECT `item_sku`, `item_name`, `item_stocks` FROM `items_db`
+                                                WHERE `item_stocks` <= $critical"; // Adjust the condition as needed
+
+                                            $result_running_out = $sqlconn->query($running_out_query);
+
+                                            // Get the count of rows
+                                            $count_query = "SELECT COUNT(`item_sku`) as `count` FROM `items_db`
+                                                WHERE `item_stocks` <= $critical";
+                                            $result_count = $sqlconn->query($count_query);
+                                            $count_rows = $result_count->fetch_assoc();
+                                            $number_of_rows = $count_rows['count'];
+
+                                            if ($number_of_rows <= 0) {
+                                                ?>
+                                                <td colspan="3" class="text-center">NO ITEMS</td>
+                                                <?php
+                                            } else {
+                                                while ($rows_running_out = $result_running_out->fetch_assoc()) {
+                                                    ?>
+                                                    <tr>
+                                                        <td><?= $rows_running_out['item_sku'] ?></td>
+                                                        <td><?= $rows_running_out['item_name'] ?></td>
+                                                        <td><?= $rows_running_out['item_stocks'] ?></td>
+                                                    </tr>
+                                                    <?php
+                                                }
+                                            }
+                                            ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
-                </div>
 
             </div>
         </div>
