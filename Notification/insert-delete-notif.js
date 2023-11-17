@@ -5,15 +5,6 @@ $(document).ready(function () {
         console.log(event.data);
     }
 
-    const ssf = new EventSource('check_stock_level.php');
-
-    ssf.onmessage = function(event) {
-        console.log(event.data);
-    }   
-
-    ssf.onerror = function(err) {
-        console.log(err);
-    }
 
     
 $(document).on('click', "#btn-del", function () {

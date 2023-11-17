@@ -89,9 +89,7 @@ $user = $_SESSION['user_name'];
                         <i class="fas fa-user me-2"></i><?=$user ?>
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="../Profile/Profile.php">Profile</a></li>
                                 <li><a class="dropdown-item" href="../Settings/Settings.php">Setting</a></li>
-                                <div class="dropdown-divider"></div>
                                 <li><a class="dropdown-item" href="../logout.php">Log-out</a></li>
                     </ul>
                 </li>

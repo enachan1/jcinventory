@@ -53,7 +53,7 @@ $user = $_SESSION['user_name'];
                 <a href="../Accounts/Accounts.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
                         class="fad fa-users me-2"></i>Accounts</a>
                 <a href="../Notification/Notification.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-                        class="fas fa-bell me-2"></i>Notification</a>
+                        class="fas fa-bell me-2"></i>Notification<span class="badge badge-light num-notif top-50 start-50 translate-middle-y rounded-circle bg-danger"></span></a>
                 <a href="../Settings/Settings.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
                         class="far fa-cog me-2"></i>Setting</a>                            
                 <a href="../logout.php" class="list-group-item list-group-item-action bg-transparent text-danger fw-bold"><i
@@ -102,9 +102,7 @@ $user = $_SESSION['user_name'];
                             <i class="fas fa-user me-2"></i><?php echo $user; ?>
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="../Profile/Profile.php">Profile</a></li>
                             <li><a class="dropdown-item" href="../Settings/Settings.php">Setting</a></li>
-                            <div class="dropdown-divider"></div>
                             <li><a class="dropdown-item" href="../logout.php">Log-out</a></li>
                         </ul>
                     </li>
@@ -753,6 +751,10 @@ $user = $_SESSION['user_name'];
 });    
 
     </script>
+
+    <!-- For notification script -->
+    <script src="../notif-count.js"></script>
+    
 <?php } ?>
 </body>
 </html>

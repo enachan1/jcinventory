@@ -94,9 +94,7 @@ $user = $_SESSION['user_name'];
                                 <i class="fas fa-user me-2"></i><?php echo $user; ?>
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="../Profile/Profile.php">Profile</a></li>
                             <li><a class="dropdown-item" href="../Settings/Settings.php">Setting</a></li>
-                            <div class="dropdown-divider"></div>
                             <li><a class="dropdown-item" href="../logout.php">Log-out</a></li>
                             </ul>
                         </li>
@@ -304,6 +302,9 @@ $user = $_SESSION['user_name'];
 
 
     </script>
+
+    <!-- For notification script -->
+    <script src="../notif-count.js"></script>
 </body>
 <?php
 }
