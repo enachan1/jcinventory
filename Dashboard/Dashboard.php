@@ -156,67 +156,32 @@ $user = $_SESSION['user_name'];
                     </div>
 
                 <div class="row my-5">
-                    <h3 class="fs-4 mb-3">Expiration Date</h3>
+                    <h3 class="fs-4 mb-3">Expiring Items</h3>
                     <div class="col">
                         <table class="table colorbox rounded shadow-sm  table-hover">
                             <thead>
                                 <tr>
-                                    <th scope="col" width="50">#</th>
-                                    <th scope="col">Product</th>
+                                    <th scope="col">Item SKU</th>
+                                    <th scope="col">Item Name</th>
                                     <th scope="col">Date</th>
                                 </tr>
                             </thead>
                             <tbody>
+                                <?php 
+                                $expiring_query = "SELECT `item_sku`, `item_name`, `item_expdate` FROM `items_db`
+                                WHERE `item_expdate` BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL 15 DAY)";
+
+                                $result = $sqlconn->query($expiring_query);
+
+                                while($rows = $result->fetch_assoc()) {
+                                ?>
                                 <tr>
-                                    <th scope="row">1</th>
-                                    <td>Chicaron</td>
-                                    <td>6/20/25</td>
+                                    <td><?= $rows['item_sku'] ?></td>
+                                    <td><?= $rows['item_name'] ?></td>
+                                    <td><?= $rows['item_expdate'] ?></td>
                                 </tr>
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td>Orea</td>
-                                    <td>6/20/25</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">3</th>
-                                    <td>Orea</td>
-                                    <td>6/20/25</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">4</th>
-                                    <td>Sardens</td>
-                                    <td>6/20/25</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">5</th>
-                                    <td>Choco Choco</td>
-                                    <td>6/20/25</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">6</th>
-                                    <td>Mints</td>
-                                    <td>6/20/25</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">7</th>
-                                    <td>Kleso</td>
-                                    <td>6/20/25</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">8</th>
-                                    <td>Yiama</td>
-                                    <td>6/20/25</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">9</th>
-                                    <td>Skyflex</td>
-                                    <td>6/20/25</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">10</th>
-                                    <td>Doni Donat</td>
-                                    <td>6/20/25</td>
-                                </tr>
+                                <?php } ?>
+                                
                             </tbody>
                         </table>
                     </div>
