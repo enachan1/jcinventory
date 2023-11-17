@@ -21,14 +21,14 @@ $user = $_SESSION['user_name'];
         <title>Product Maintenance</title>
     </head>
     <style>
-        .open-modal-button {
-           order: 1;
-           margin-right: auto;
-       }
-       .search-bar {
-           order: 2;
-           width: 200px;
-       }
+        .nav-tabs .nav-item {
+            border: none;
+        }
+
+        .nav-tabs .nav-link {
+            border: none;
+            border-radius: 0; /* Remove border-radius if applied by Bootstrap */
+        }
     </style>
 
 <body>
@@ -60,51 +60,51 @@ $user = $_SESSION['user_name'];
 
 <!--Page Content-->
 <div id="page-content-wrapper">
-    <nav class="navbar navbar-expand-lg navbar-light bg-transparent py-4 px-4">
+    <nav class="navbar navbar-expand-lg navbar-light bg-transparent py-4 px-4 ">
         <div class="d-flex align-items-center">
             <i class="fas fa-align-left fs-4 me-3 " id="menu-toggle"></i>
             <h2 class="fs-2 m-0">Product Maintenance</h2>
         </div>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-        aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
+            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+            aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav ms-auto mb-2 mb-lg-0 dropadjust">
-                <li class="nav-item dropdown">
+            <ul class="nav nav-tabs ms-3 border border-0" id="myTab" role="tablist">
+                <!-- Navigation Tabs -->
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link fs-5" href="?tb=1" id="category-tab" data-bs-toggle="tab" data-bs-target="#category" type="button" role="tab" aria-controls="category" aria-selected="true">
+                        <i class="fas fa-folder"></i> Category
+                    </a>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link fs-5" href="?tb=2"  id="uom-tab" data-bs-toggle="tab" data-bs-target="#uom" type="button" role="tab" aria-controls="uom" aria-selected="false">
+                        <i class="fas fa-ruler"></i> Unit of Measure
+                    </a>
+                </li>
+            </ul>
+
+            <!-- Right-aligned items -->
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item dropdown dropadjust">
                     <a class="nav-link dropdown-toggle second-text fw-bold" href="#" id="navbarDropdown"
                         role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="fas fa-user me-2"></i><?php echo $user; ?>
                     </a>
-                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" href="../Profile/Profile.html">Profile</a></li>
-                    <li><a class="dropdown-item" href="../Settings/Settings.html">Setting</a></li>
-                    <div class="dropdown-divider"></div>
-                    <li><a class="dropdown-item" href="../logout.php">Log-out</a></li>
-                </ul>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="../Profile/Profile.php">Profile</a></li>
+                        <li><a class="dropdown-item" href="../Settings/Settings.php">Setting</a></li>
+                        <div class="dropdown-divider"></div>
+                        <li><a class="dropdown-item" href="../logout.php">Log-out</a></li>
+                    </ul>
                 </li>
             </ul>
         </div>
     </nav>
 
-    <div class="container mt-2">
-        <ul class="nav nav-tabs" id="myTab" role="tablist">
-            <!-- Navigation Menu -->
-            <li class="nav-item" role="presentation">
-                <a class="nav-link" href="?tb=1" id="category-tab" data-bs-toggle="tab" data-bs-target="#category" type="button" role="tab" aria-controls="category" aria-selected="true">
-                    <i class="fas fa-folder"></i> Category
-                </a>
-            </li>
-            <li class="nav-item" role="presentation">
-                <a class="nav-link" href="?tb=2" id="uom-tab" data-bs-toggle="tab" data-bs-target="#uom" type="button" role="tab" aria-controls="uom" aria-selected="false">
-                    <i class="fas fa-ruler"></i> Unit of Measure
-                </a>
-            </li>
-        </ul>
-
-
+    <div class="container mt-4">
         <!-- Category Tab -->
         <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade" id="category" role="tabpanel" aria-labelledby="category-tab">

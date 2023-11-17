@@ -30,14 +30,16 @@ $user = $_SESSION['user_name'];
         <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css" />
         <title>Reports</title>
     </head>
-    <!--
     <style>
-        
-        .nav-link.active {
-            color: red;
+        .nav-tabs .nav-item {
+            border: none;
+        }
+
+        .nav-tabs .nav-link {
+            border: none;
+            border-radius: 0; /* Remove border-radius if applied by Bootstrap */
         }
     </style>
-    -->
     
 <body>
     <!-- Sidebar -->
@@ -79,22 +81,52 @@ $user = $_SESSION['user_name'];
         <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav ms-auto mb-2 mb-lg-0 dropadjust">
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle second-text fw-bold" href="#" id="navbarDropdown"
-                    role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <i class="fas fa-user me-2"></i><?php echo $user; ?>
-                </a>
-                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="../Profile/Profile.php">Profile</a></li>
-                            <li><a class="dropdown-item" href="../Settings/Settings.php">Setting</a></li>
-                            <div class="dropdown-divider"></div>
-                            <li><a class="dropdown-item" href="../logout.php">Log-out</a></li>
-                </ul>
-            </li>
-        </ul>
-    </div>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="nav nav-tabs ms-3 border border-0" id="myTab" role="tablist">
+                <!-- Navigation Menu -->
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link fs-5" href="?tb=1" id="sales-tab" data-bs-toggle="tab" data-bs-target="#sales" type="button" role="tab" aria-controls="sales" aria-selected="true">
+                        <i class="fas fa-chart-line"></i> Sales Report
+                    </a>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link fs-5" href="?tb=2" id="inventory-tab" data-bs-toggle="tab" data-bs-target="#inventory" type="button" role="tab" aria-controls="inventory" aria-selected="false">
+                        <i class="fas fa-box"></i> Inventory Report
+                    </a>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link fs-5" href="?tb=3" id="trackrecord-tab" data-bs-toggle="tab" data-bs-target="#trackrecord" type="button" role="tab" aria-controls="trackrecord" aria-selected="false">
+                        <i class="fas fa-list-alt"></i> Transaction Record
+                    </a>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link fs-5" href="?tb=4" id="slow-tab" data-bs-toggle="tab" data-bs-target="#slow" type="button" role="tab" aria-controls="slow" aria-selected="false">
+                        <i class="fas fa-arrow-down"></i> Slow Moving
+                    </a>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link fs-5" href="?tb=5" id="fast-tab" data-bs-toggle="tab" data-bs-target="#fast" type="button" role="tab" aria-controls="fast" aria-selected="false">
+                        <i class="fas fa-arrow-up"></i> Fast Moving
+                    </a>
+                </li>
+            </ul>
+
+            <!-- Right-aligned items -->
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item dropdown dropadjust">
+                    <a class="nav-link dropdown-toggle second-text fw-bold" href="#" id="navbarDropdown"
+                        role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-user me-2"></i><?php echo $user; ?>
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="../Profile/Profile.php">Profile</a></li>
+                        <li><a class="dropdown-item" href="../Settings/Settings.php">Setting</a></li>
+                        <div class="dropdown-divider"></div>
+                        <li><a class="dropdown-item" href="../logout.php">Log-out</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
     </nav>
 
     <div class="container-fluid px-3">
@@ -130,36 +162,7 @@ $user = $_SESSION['user_name'];
             </div>
 
     <!--Tab button--->
-    <div class="container mt-2">
-        <ul class="nav nav-tabs" id="myTab" role="tablist">
-            <!-- Navigation Menu -->
-            <li class="nav-item" role="presentation">
-                <a class="nav-link " href="?tb=1" id="sales-tab" data-bs-toggle="tab" data-bs-target="#sales" type="button" role="tab" aria-controls="sales" aria-selected="true">
-                    <i class="fas fa-chart-line"></i> Sales Report
-                </a>
-            </li>
-            <li class="nav-item" role="presentation">
-                <a class="nav-link" href="?tb=2" id="inventory-tab" data-bs-toggle="tab" data-bs-target="#inventory" type="button" role="tab" aria-controls="inventory" aria-selected="false">
-                    <i class="fas fa-box"></i> Inventory Report
-                </a>
-            </li>
-            <li class="nav-item" role="presentation">
-                <a class="nav-link" href="?tb=3" id="trackrecord-tab" data-bs-toggle="tab" data-bs-target="#trackrecord" type="button" role="tab" aria-controls="trackrecord" aria-selected="false">
-                    <i class="fas fa-list-alt"></i> Transaction Record
-                </a>
-            </li>
-            <li class="nav-item" role="presentation">
-                <a class="nav-link" href="?tb=4" id="slow-tab" data-bs-toggle="tab" data-bs-target="#slow" type="button" role="tab" aria-controls="slow" aria-selected="false">
-                    <i class="fas fa-arrow-down"></i> Slow Moving
-                </a>
-            </li>
-            <li class="nav-item" role="presentation">
-                <a class="nav-link" href="?tb=5" id="fast-tab" data-bs-toggle="tab" data-bs-target="#fast" type="button" role="tab" aria-controls="fast" aria-selected="false">
-                    <i class="fas fa-arrow-up"></i> Fast Moving
-                </a>
-            </li>
-        </ul>
-
+    <div class="container mt-3">
         <!-- Tab content -->
         
         <!-- Sales Report -->

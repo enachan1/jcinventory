@@ -21,14 +21,17 @@ $user = $_SESSION['user_name'];
     </head>
     <!--Style inside main Page -->
     <style>
-        .search-bar {
-           order: 2;
-           width: 200px;
-       }
-
        .adjustments {
-        width: 65px;
+            width: 65px;
        }
+       .nav-tabs .nav-item {
+            border: none;
+        }
+
+        .nav-tabs .nav-link {
+            border: none;
+            border-radius: 0; /* Remove border-radius if applied by Bootstrap */
+        }
     </style>
 
 <body>
@@ -71,47 +74,46 @@ $user = $_SESSION['user_name'];
             <span class="navbar-toggler-icon"></span>
         </button>
     
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav ms-auto mb-2 mb-lg-0 dropadjust">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle second-text fw-bold" href="#" id="navbarDropdown"
-                        role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="fas fa-user me-2"></i><?php echo $user; ?>
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="../Profile/Profile.php">Profile</a></li>
-                        <li><a class="dropdown-item" href="../Settings/Settings.php">Setting</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="../logout.php">Logout</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="nav nav-tabs ms-3 border border-0" id="myTab" role="tablist">
+                    <!-- Navigation Menu -->
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link fs-5" href="?tb=1" id="purchase-tab" data-bs-toggle="tab" data-bs-target="#purchase" type="button" role="tab" aria-controls="purchase" aria-selected="true">
+                            <i class="fas fa-shopping-cart"></i> Purchase Order
+                        </a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link fs-5" href="?tb=2" id="vendor-tab" data-bs-toggle="tab" data-bs-target="#vendor" type="button" role="tab" aria-controls="vendor" aria-selected="false">
+                            <i class="fas fa-building"></i> Vendors
+                        </a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link fs-5" href="?tb=3" id="delivery-tab" data-bs-toggle="tab" data-bs-target="#delivery" type="button" role="tab" aria-controls="delivery" aria-selected="false">
+                            <i class="fas fa-truck"></i> Delivery In
+                        </a>
+                    </li>
+                </ul>
+
+                <!-- Right-aligned items -->
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item dropdown dropadjust">
+                        <a class="nav-link dropdown-toggle second-text fw-bold" href="#" id="navbarDropdown"
+                            role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-user me-2"></i><?php echo $user; ?>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="../Profile/Profile.php">Profile</a></li>
+                            <li><a class="dropdown-item" href="../Settings/Settings.php">Setting</a></li>
+                            <div class="dropdown-divider"></div>
+                            <li><a class="dropdown-item" href="../logout.php">Log-out</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
         </nav>
 
 
-    <!--Tab button--->
-
 <div class="container-fluid mt-4 px-4">
-    <ul class="nav nav-tabs" id="myTab" role="tablist">
-        <!-- Navigation Menu -->
-        <li class="nav-item" role="presentation">
-            <a class="nav-link" href="?tb=1" id="purchase-tab" data-bs-toggle="tab" data-bs-target="#purchase" type="button" role="tab" aria-controls="purchase" aria-selected="true">
-                <i class="fas fa-shopping-cart"></i> Purchase Order
-            </a>
-        </li>
-        <li class="nav-item" role="presentation">
-            <a class="nav-link" href="?tb=2" id="vendor-tab" data-bs-toggle="tab" data-bs-target="#vendor" type="button" role="tab" aria-controls="vendor" aria-selected="false">
-                <i class="fas fa-building"></i> Vendors
-            </a>
-        </li>
-        <li class="nav-item" role="presentation">
-            <a class="nav-link" href="?tb=3" id="delivery-tab" data-bs-toggle="tab" data-bs-target="#delivery" type="button" role="tab" aria-controls="delivery" aria-selected="false">
-                <i class="fas fa-truck"></i> Delivery In
-            </a>
-        </li>
-    </ul>
-
         <!-- Tab-Content here -->
 
                 <!-- Purchase Order -->

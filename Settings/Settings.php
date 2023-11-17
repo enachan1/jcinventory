@@ -60,6 +60,14 @@ $id = $_SESSION['id'];
         button:hover {
             background-color: #0056b3;
         }
+        .nav-tabs .nav-item {
+            border: none;
+        }
+
+        .nav-tabs .nav-link {
+            border: none;
+            border-radius: 0; /* Remove border-radius if applied by Bootstrap */
+        }
     </style>
 
 <body>
@@ -104,43 +112,39 @@ $id = $_SESSION['id'];
                 <span class="navbar-toggler-icon"></span>
             </button>
             
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 dropadjust">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle second-text fw-bold" href="#" id="navbarDropdown"
-                            role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="fas fa-user me-2"></i>
-                            <?=  $user ?>
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="../Profile/Profile.php">Profile</a></li>
-                            <li><a class="dropdown-item" href="../Settings/Settings.php">Setting</a></li>
-                            <div class="dropdown-divider"></div>
-                            <li><a class="dropdown-item" href="../logout.php">Log-out</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-            </nav>
-
-            <nav class="navbar bg-body-tertiary">
-                <div class="container-fluid mt-4 px-5">
-                    <!-- Navigation Menu -->
-                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="nav nav-tabs ms-3 border border-0" id="myTab" role="tablist">
+                        <!-- Navigation Tabs -->
                         <li class="nav-item" role="presentation">
-                            <a class="nav-link" href="?tb=1" id="inventory-tab" data-bs-toggle="tab" data-bs-target="#inventory" type="button" role="tab" aria-controls="inventory" aria-selected="true"><i class="fas fa-cog"></i><i class="fas fa-box"></i> Inventory Settings</a>
+                            <a class="nav-link fs-5" href="?tb=1" id="inventory-tab" data-bs-toggle="tab" data-bs-target="#inventory" type="button" role="tab" aria-controls="inventory" aria-selected="true"><i class="fas fa-cog"></i><i class="fas fa-box"></i> Inventory Settings</a>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <a class="nav-link" href="?tb=2" id="account-setting-tab" data-bs-toggle="tab" data-bs-target="#account-setting" type="button" role="tab" aria-controls="account-setting" aria-selected="false"><i class="fas fa-user-cog"></i> Account Setting</a>
+                            <a class="nav-link fs-5" href="?tb=2" id="account-setting-tab" data-bs-toggle="tab" data-bs-target="#account-setting" type="button" role="tab" aria-controls="account-setting" aria-selected="false"><i class="fas fa-user-cog"></i> Account Setting</a>
+                        </li>
+                    </ul>
+
+                    <!-- Right-aligned items -->
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item dropdown dropadjust">
+                            <a class="nav-link dropdown-toggle second-text fw-bold" href="#" id="navbarDropdown"
+                                role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fas fa-user me-2"></i><?php echo $user; ?>
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="../Profile/Profile.php">Profile</a></li>
+                                <li><a class="dropdown-item" href="../Settings/Settings.php">Setting</a></li>
+                                <div class="dropdown-divider"></div>
+                                <li><a class="dropdown-item" href="../logout.php">Log-out</a></li>
+                            </ul>
                         </li>
                     </ul>
                 </div>
             </nav>
-            
-            <!-- Inside tab content -->
+
+            <!-- Tab content -->
 
             <!--Inventory Setting Content Here -->
-            <div class="container">
+            <div class="container mt-4">
                 <div class="tab-content" id="myTabContent">
                     <div class="tab-pane fade" id="inventory" role="tabpanel" aria-labelledby="inventory-tab">
                             <h2 class="text-center">Inventory Settings</h2>

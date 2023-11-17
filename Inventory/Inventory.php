@@ -62,7 +62,7 @@ $user = $_SESSION['user_name'];
 <!--Page Content-->
 
 <div id="page-content-wrapper">
-    <nav class="navbar navbar-expand-lg navbar-light bg-transparent py-4 px-4">
+    <nav class="navbar navbar-expand-lg navbar-light bg-transparent py-4 px-4 navadjust">
         <div class="d-flex align-items-center">
             <i class="fas fa-align-left fs-4 me-3 " id="menu-toggle"></i>
             <h2 class="fs-2 m-0">Inventory</h2>
@@ -81,8 +81,8 @@ $user = $_SESSION['user_name'];
                     <i class="fas fa-user me-2"></i><?php echo $user; ?>
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                   <li><a class="dropdown-item" href="Profile.html">Profile</a></li>
-                   <li><a class="dropdown-item" href="Settings.html">Setting</a></li>
+                    <li><a class="dropdown-item" href="../Profile/Profile.php">Profile</a></li>
+                    <li><a class="dropdown-item" href="../Settings/Settings.php">Setting</a></li>
                    <div class="dropdown-divider"></div>
                     <li><a class="dropdown-item" href="../logout.php">Log-out</a></li>
                 </ul>

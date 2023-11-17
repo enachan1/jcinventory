@@ -21,7 +21,7 @@ $user = $_SESSION['user_name'];
     
 
 <body>
-                <!-- Sidebar -->
+    <!-- Sidebar -->
     <div class="d-flex" id="wrapper">
         <div id="sidebar-wrapper">
             <div class="sidebar-heading text-center py-4 primary-text fs-4 fw-bold text-uppercase border-bottom">Jun&Cathy</div>
@@ -49,7 +49,7 @@ $user = $_SESSION['user_name'];
     
             <!--Page Content-->
             <div id="page-content-wrapper">
-                <nav class="navbar navbar-expand-lg navbar-light bg-transparent py-4 px-4">
+                <nav class="navbar navbar-expand-lg navbar-light bg-transparent py-4 px-4 navadjust">
                     <div class="d-flex align-items-center">
                         <i class="fas fa-align-left fs-4 me-3 " id="menu-toggle"></i>
                         <h2 class="fs-2 m-0">Personal Account</h2>

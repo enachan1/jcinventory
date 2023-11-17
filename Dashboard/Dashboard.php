@@ -21,6 +21,8 @@ $user = $_SESSION['user_name'];
     <script type="text/javascript">
         window.history.forward();
     </script>
+    <style>
+    </style>
     <title>Dashboard</title>
 </head>
 
@@ -42,7 +44,7 @@ $user = $_SESSION['user_name'];
                 <a href="../Accounts/Accounts.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
                         class="fad fa-users me-2"></i>Accounts</a>
                 <a href="../Notification/Notification.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-                        class="fas fa-bell me-2"></i>Notification</a>
+                        class="fas fa-bell me-2"></i>Notification<span class="badge badge-light num-notif top-50 start-50 translate-middle-y rounded-circle bg-danger"></span></a>
                 <a href="../Settings/Settings.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
                         class="far fa-cog me-2"></i>Setting</a>                            
                 <a href="../logout.php" class="list-group-item list-group-item-action bg-transparent text-danger fw-bold"><i
@@ -53,7 +55,7 @@ $user = $_SESSION['user_name'];
 
         <!-- Page Content -->
         <div id="page-content-wrapper">
-            <nav class="navbar navbar-expand-lg navbar-light bg-transparent py-4 px-4">
+            <nav class="navbar navbar-expand-lg navbar-light bg-transparent py-4 px-4 navadjust">
                 <div class="d-flex align-items-center">
                     <i class="fas fa-align-left fs-4 me-3 " id="menu-toggle"></i>
                     <h2 class="fs-2 m-0">Dashboard</h2>
@@ -67,6 +69,12 @@ $user = $_SESSION['user_name'];
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0 dropadjust">
+                        <!-- Help Icon -->
+                        <!-- <li class="nav-item">
+                            <a class="nav-link" data-bs-toggle="modal" data-bs-placement="bottom" data-bs-target="#helpModal" title="Help">
+                                <i class="fas fa-question-circle"></i>
+                            </a>
+                        </li> -->
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle second-text fw-bold" href="#" id="navbarDropdown"
                                 role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -209,16 +217,6 @@ $user = $_SESSION['user_name'];
                                     <td>Doni Donat</td>
                                     <td>6/20/25</td>
                                 </tr>
-                                <tr>
-                                    <th scope="row">11</th>
-                                    <td>Respa</td>
-                                    <td>6/20/25</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">12</th>
-                                    <td>Muchos</td>
-                                    <td>6/20/25</td>
-                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -229,8 +227,41 @@ $user = $_SESSION['user_name'];
     </div>
     </div>
 
+
+    <!-- Modal Goes Here -->
+    
+        <!-- Modal Help -->
+        <!-- <div class="modal fade" id="helpModal" tabindex="-1" aria-labelledby="helpModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="helpModalLabel">Help</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body"> -->
+                <!--Content Goes here-->
+                <!-- <h1>Bullsheatiy Tortorial</h1>
+                <img src="..." class="img-thumbnail" alt="...">
+                <h5>qweasdqwrasdqrzxqw</h5>
+                <p class="text-start">Start aligned text on all viewport sizes.</p>
+                <p class="text-center">Center aligned text on all viewport sizes.</p>
+                <p class="text-end">End aligned text on all viewport sizes.</p>
+
+                <p class="text-sm-end">End aligned text on viewports sized SM (small) or wider.</p>
+                </div> -->
+                <!--Modal Footer Goes here-->
+                <!-- <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+                </div>
+            </div>
+        </div> -->
+        <!-- End modal help -->
+
+
         <!-- /#page-content-wrapper -->
 
+    <!--Boostrap Layout-->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 
