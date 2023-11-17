@@ -7,7 +7,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($data->query)) {
         $search_text = mysqli_real_escape_string($sqlconn, $data->query);
 
-        $sqlquery = "SELECT * FROM `purchase_order_db` WHERE `po_item_sku` LIKE '%$search_text%' OR `po_item_name` LIKE '%$search_text%' AND `is_delivered` = 1";
+        $sqlquery = "SELECT * FROM `purchase_order_db` WHERE (`po_item_sku` LIKE '%$search_text%' OR `po_item_name` LIKE '%$search_text%') AND `is_delivered` = 1";
 
         $result = mysqli_query($sqlconn, $sqlquery);
 
