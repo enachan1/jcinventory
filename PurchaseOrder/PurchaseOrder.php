@@ -470,7 +470,7 @@ $user = $_SESSION['user_name'];
 
                                 <!-- Modal Footer Goes here-->
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Print Recipt</button>
+                                    <!-- <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Print Recipt</button> -->
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                 </div>
 
