@@ -177,7 +177,7 @@ if(isset($_SESSION['id']) && isset($_SESSION['user_name'])) {
                                 <thead>
                                     <tr>
                                         <th>QTY</th>
-                                        <th>SKU</th>
+                                        <th>Barcode</th>
                                         <th>Item Description</th>
                                         <th>Price</th>
                                         <th>Total Amount</th>
