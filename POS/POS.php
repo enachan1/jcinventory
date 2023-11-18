@@ -144,9 +144,6 @@ if(isset($_SESSION['id']) && isset($_SESSION['user_name'])) {
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="../POS/POS.php">Point of Sales</a></li>
-                        <li><a class="dropdown-item" href="Profile.html">Profile</a></li>
-                        <li><a class="dropdown-item" href="Setting.html">Setting</a></li>
-                        <div class="dropdown-divider"></div>
                         <li><a class="dropdown-item" href="../logout.php">Logout</a></li>
                     </ul>
                 </li>
@@ -180,7 +177,7 @@ if(isset($_SESSION['id']) && isset($_SESSION['user_name'])) {
                                 <thead>
                                     <tr>
                                         <th>QTY</th>
-                                        <th>SKU</th>
+                                        <th>Barcode</th>
                                         <th>Item Description</th>
                                         <th>Price</th>
                                         <th>Total Amount</th>
