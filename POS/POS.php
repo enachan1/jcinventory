@@ -160,7 +160,7 @@ if(isset($_SESSION['id']) && isset($_SESSION['user_name'])) {
             <div class="card mb-3">
                 <div class="card-body d-flex justify-content-between bg-info">
                     <h1 class="display-4 mb-0 apto-display-font">Total:</h1>
-                    <h1 class="display-4 mb-0 roboto-font">P <span id="overallTotal">0.00</span></h1>
+                    <h1 class="display-4 mb-0 roboto-font">₱ <span id="overallTotal">0.00</span></h1>
                 </div>
             </div>
             <div class="alert alert-warning alert-dismissible fade show" role="alert" id="alert-pos-stocks" style="font-size:24px">
@@ -177,7 +177,7 @@ if(isset($_SESSION['id']) && isset($_SESSION['user_name'])) {
                                 <thead>
                                     <tr>
                                         <th>QTY</th>
-                                        <th>SKU</th>
+                                        <th>Barcode</th>
                                         <th>Item Description</th>
                                         <th>Price</th>
                                         <th>Total Amount</th>
@@ -273,13 +273,11 @@ if(isset($_SESSION['id']) && isset($_SESSION['user_name'])) {
                                         <table class="table table-bordered colorbody w-75 m-auto">
                                             <thead>
                                                 <tr>
-                                                    <th scope="col">SKU</th>
+                                                    <th scope="col">Barcode</th>
                                                     <th scope="col">Item Name</th>
                                                     <th scope="col">Category</th>
                                                     <th scope="col">Stocks</th>
                                                     <th scope="col">Price</th>
-                                                    <th scope="col">Barcode</th>
-
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -317,20 +315,16 @@ if(isset($_SESSION['id']) && isset($_SESSION['user_name'])) {
                             <div class="card-body center d-flex justify-content-between bg-info mt-2 m-4">
                                         <h1 class="display-4 px-2 apto-display-font">Price:</h1>
                                                                 <!-- Display Price Display here -->
-                                        <h1 class="display-4 px-5">
-                                        <i class="fas fa-dollar-sign"></i>
-                                            <span class="roboto-font text-end" id="priceDisplay">0.00</span>
-                                        </h1>
+                                        <h1 class="display-4 px-5 roboto-font"><strong>₱ <span class="text-end" id="priceDisplay"> 0.00</strong></span></h1>
                                     </div>
                             <div class="table-responsive text-center mt-4" id="priceResults">
                                 <!-- Results will be displayed here -->
                                 <table class="table table-bordered colorbody w-75 m-auto">
                                     <thead>
                                         <tr>
-                                            <th scope="col">SKU</th>
+                                            <th scope="col">Barcode</th>
                                             <th scope="col">Item Name</th>
                                             <th scope="col">Category</th>
-                                            <th scope="col">Barcode</th>
                                         </tr>
                                     </thead>
                                     <tbody>

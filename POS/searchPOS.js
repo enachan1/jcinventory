@@ -17,21 +17,20 @@ $(document).ready(function () {
                     // I-handle ang click event para sa mga resulta ng paghahanap
                     $(".search-result").on("click", function () {
                         // Kumuha ng mga detalye ng item mula sa resulta ng paghahanap
-                        var sku = $(this).data("sku");
+                        var barcode = $(this).data("barcode");
                         var itemName = $(this).find("td:eq(1)").text();
                         var category = $(this).find("td:eq(2)").text();
                         var stocks = $(this).find("td:eq(3)").text();
                         var price = $(this).find("td:eq(4)").text();
-                        var barcode = $(this).data("barcode");
+                        addToDisplayTable(barcode, itemName, category, stocks, price, barcode);
+                        $("#tableBody th:contains('BARCODE')").text(barcode);
 
-                        $("#tableBody th:contains('SKU')").text(sku);
-
-                         var existingRow = $("#tableBody").find("tr:contains('" + sku + "')");
+                         var existingRow = $("#tableBody").find("tr:contains('" + barcode + "')");
     if (existingRow.length === 0) {
-        addToDisplayTable(sku, itemName, category, stocks, price, barcode);
+        addToDisplayTable(barcode, itemName, category, stocks, price);
     } else {
         var existingQtyInput = existingRow.find(".qty");
-        var quantity = parseInt(existingQtyInput.val()) * 2; // Double the quantity
+        var quantity = parseInt(existingQtyInput.val()) * 1; // Double the quantity
         existingQtyInput.val(quantity);
 
         var totalPriceElement = existingRow.find('.totalPrice');
@@ -62,7 +61,7 @@ $(document).ready(function () {
 });
 
 // Function para idagdag ang napiling item sa display table
-function addToDisplayTable(sku, itemName, category, stocks, price, barcode) {
+function addToDisplayTable(barcode, itemName, category, stocks, price) {
     // Assumed na may paraan kang nakuha ang quantity (halimbawa, gamit ang isang input field)
     var quantity = 1; // Quantity default sa 1
 
@@ -72,7 +71,7 @@ function addToDisplayTable(sku, itemName, category, stocks, price, barcode) {
     // Maaaring i-modify ang function na ito base sa iyong display table structure
     var tableRow = '<tr>';
     tableRow += '<td><input class="form-control adjustments qty" type="number" value="' + quantity + '"></td>';
-    tableRow += '<td class="sku">' + barcode + '</td>'; // Update SKU column with barcode value
+    tableRow += '<td class="barcode">' + barcode + '</td>'; // Update SKU column with barcode value
     tableRow += '<td class="item-name">' + itemName + '</td>';
     tableRow += '<td class="price">' + price + '</td>';
     tableRow += '<td class="totalPrice">' + totalAmount + '</td>';
@@ -88,6 +87,7 @@ function addToDisplayTable(sku, itemName, category, stocks, price, barcode) {
     // I-update ang overall total
     updateOverallTotal();
 }
+
 // Function para i-update ang overall total amount
 function updateOverallTotal() {
     var totalAmount = 0;
@@ -120,19 +120,4 @@ $(document).on('click', '.del-row', function () {
     var row = $(this).closest('tr');
     row.remove();
     updateOverallTotal();
-});
-
-// Handle click event for clearing all rows
-$("#F3Button").on('click', function () {
-    $("#tableBody").empty();
-    updateOverallTotal();
-});
-
-// Handle keydown event for F3 key
-$(document).on('keydown', function (e) {
-    if (e.which === 114 || e.which === 113) { // F3 key codes
-        $("#tableBody").empty();
-        updateOverallTotal();
-        location.reload();
-    }
 });

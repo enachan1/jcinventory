@@ -105,3 +105,40 @@ $(document).ready(function () {
         $("#barcodeInput").focus();
     });
 });
+
+// Handle click event for clearing all rows
+$("#F3Button").on('click', function () {
+    clearTableAndPayment();
+});
+
+// Handle keydown event for F3 key
+$(document).on('keydown', function (e) {
+    if (e.which === 114 || e.which === 113) { // F3 key codes
+        e.preventDefault();
+        clearTableAndPayment();
+    }
+});
+
+// Function to clear table rows and trigger payment
+function clearTableAndPayment() {
+    $("#tableBody").empty();
+    updateOverallTotal();
+
+    triggerPaymentFunction();
+}
+
+// Function to trigger payment-related functionality
+function triggerPaymentFunction() {
+    // Add your payment-related code here
+    console.log("Payment triggered!");
+    // Reset the payment total to zero
+    resetPaymentTotal();
+}
+
+// Function to reset the payment total
+function resetPaymentTotal() {
+    totalAmount = 0;
+    $("#modalPVat").val("0.00");
+    $("#overallTotal").text("0.00");
+    $("#modalPTotal").val("0.00");
+}

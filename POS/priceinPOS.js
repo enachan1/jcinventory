@@ -33,10 +33,9 @@
 
                                 $.each(modifiedData, function (index, item) {
                                     var row = $("<tr>");
-                                    row.append($("<td>").text(item.item_sku));
+                                    row.append($("<td>").text(item.item_barcode));
                                     row.append($("<td>").text(item.item_name));
                                     row.append($("<td>").text(item.item_category));
-                                    row.append($("<td>").text(item.item_barcode));
                                     tableBody.append(row);
                                 });
                             } else {
