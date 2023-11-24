@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 24, 2023 at 09:54 AM
+-- Generation Time: Nov 24, 2023 at 10:43 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -114,6 +114,13 @@ CREATE TABLE `purchase_order_db` (
   `isBadOrder` tinyint(1) DEFAULT NULL,
   `vendor_id` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `purchase_order_db`
+--
+
+INSERT INTO `purchase_order_db` (`po_item_sku`, `po_item_name`, `po_qty`, `po_uom`, `po_category`, `po_item_price`, `po_dot`, `po_expdelivery`, `is_delivered`, `isBadOrder`, `vendor_id`) VALUES
+('231124WNU', 'Mang Inasal', 25, 'Tanga', 'Canned Goods', 700, '2023-11-24', '2023-12-02', NULL, NULL, 10001);
 
 -- --------------------------------------------------------
 
@@ -232,7 +239,7 @@ INSERT INTO `users__db` (`id`, `user_name`, `email`, `pass_word`, `contact_no`, 
 --
 
 CREATE TABLE `vendors_db` (
-  `vendor_id` bigint(20) NOT NULL,
+  `vendor_id` bigint(50) NOT NULL,
   `vendor_name` varchar(255) NOT NULL,
   `vendor_contact` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -242,11 +249,7 @@ CREATE TABLE `vendors_db` (
 --
 
 INSERT INTO `vendors_db` (`vendor_id`, `vendor_name`, `vendor_contact`) VALUES
-(10001, 'vendor2', 123456),
-(10002, 'xijinping', 2147483647),
-(10003, 'vladimir', 6589443),
-(10004, 'haheds', 2147483647),
-(10005, 'vendor ni mama', 223654987);
+(10001, 'Nhorlvick', 91492665);
 
 --
 -- Indexes for dumped tables
@@ -335,6 +338,12 @@ ALTER TABLE `notification_db`
 --
 ALTER TABLE `sales_db`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `vendors_db`
+--
+ALTER TABLE `vendors_db`
+  MODIFY `vendor_id` bigint(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10002;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
