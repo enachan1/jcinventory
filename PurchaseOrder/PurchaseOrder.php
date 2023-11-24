@@ -326,16 +326,17 @@ $user = $_SESSION['user_name'];
                             <div class="modal-body">
                             <!-- Your Purchase content goes here -->
                             <div class="container-fluid px-1">
-                            <form method="POST" id="formList">
+                            <form method="POST" id="formList" autocomplete="off">
                                 <div class="mb-4">
                                     <!-- Label and Textbox -->
                                     <label for="vendorID" class="form-label">Vendor ID</label>
-                                    <input type="number" class="form-control" id="vendorID" name="vendorId" required>
-                                    <div class="list-group" id="showlist_vendorid" style="position: absolute; z-index: 1; width: 30%;">
+                                    <input type="number" class="form-control" id="vendorID" name="vendorId" readonly>
+                                    <label for="vendorNAME" class="form-label">Vendor Name</label>
+                                    <input type="text" class="form-control" id="vendorNAME" name="vendorName" required>
+                                    <!-- Show list vendor Name -->
+                                    <div class="list-group" id="showlist_vendorname" style="position: absolute; z-index: 1; width: 30%;">
 
                                     </div>
-                                    <label for="vendorNAME" class="form-label">Vendor Name</label>
-                                    <input type="text" class="form-control" id="vendorNAME" name="vendorName" disabled>
                                     <label for="dateTransaction" class="form-label">Date of Transaction</label>
                                     <input type="date" class="form-control" value="<?= date("Y-m-d")?>" id="dateTransaction" name="dateTrans" readonly>
                                     <label for="expectedDelivery" class="form-label">Expected Delivery</label>
@@ -497,12 +498,12 @@ $user = $_SESSION['user_name'];
                             <!-- Modal Body -->
                             <div class="modal-body">
                             <!-- Your Vendor1 content goes here -->
-                            <form action="addvendor.php" method="post">
+                            <form action="addvendor.php" method="post" autocomplete="off">
                             <div class="container-fluid px-1">
                                 <div class="mb-4">
                                     <!-- Label and Textbox -->
-                                    <label for="itemnameInput" class="form-label">Vendor ID</label>
-                                    <input type="number" name="vendorId" class="form-control" id="itemnameInput" required>
+                                    <!-- <label for="itemnameInput" class="form-label">Vendor ID</label>
+                                    <input type="number" name="vendorId" class="form-control" id="itemnameInput" required> -->
                                     <label for="skuInput" class="form-label">Vendor Name</label>
                                     <input type="text" name="vendorName" class="form-control" id="skuInput" required>
                                     <label for="itemnameInput" class="form-label">Contact Number</label>

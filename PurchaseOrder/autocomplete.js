@@ -1,39 +1,39 @@
 $(document).ready(function () {
-    $('#vendorID').keyup(function (e) { 
+    $('#vendorNAME').keyup(function (e) { 
         e.preventDefault();
-        var vendorId_text = parseFloat($(this).val());
+        var get_vendorNAME = $(this).val();
 
 
-        if(vendorId_text != '') {
+        if(get_vendorNAME != '') {
             $.ajax({
                 url: "fetch_autocomplete.php",
                 method: "POST",
                 contentType: "application/json",
-                data: JSON.stringify({ query: vendorId_text }),
+                data: JSON.stringify({ query: get_vendorNAME }),
                 success: function (response) {
-                    $("#showlist_vendorid").html(response);
+                    $("#showlist_vendorname").html(response);
                 }
             });
         } else {
-            $("#showlist_vendorid").html('');
+            $("#showlist_vendorname").html('');
         }
     });
 
     $(document).on('click', '.clickers', function(e) {
-        var get_vendorID = $(this).text();
-        $('#vendorID').val(get_vendorID);
+        var get_vendornm = $(this).text();
+        $('#vendorNAME').val(get_vendornm);
 
         $.ajax({
             url: "getName.php",
                 method: "POST",
-                data: { v_id: get_vendorID },
+                data: { v_name: get_vendornm },
                 success: function (response) {
                     console.log("there's a response");
-                    $("#vendorNAME").val(response);
+                    $("#vendorID").val(response);
                 }
             });
         
 
-        $("#showlist_vendorid").html('');
+        $("#showlist_vendorname").html('');
     });
 });
