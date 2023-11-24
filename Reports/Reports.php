@@ -161,7 +161,7 @@ $user = $_SESSION['user_name'];
                         ?>
                             <h3 class="fs-2">₱ <?php echo $total_monthly_sales['total_monthly_sales'] ?></h3>
                         <?php } ?>
-                        <p class="fs-5">Total Sales</p>
+                        <p class="fs-5">Monthly Total Sales</p>
                     </div>
                     <i class="fas fa-sack-dollar fs-1 primary-text border rounded-full secondary-bg p-3"></i>
                 </div>
@@ -684,8 +684,16 @@ $user = $_SESSION['user_name'];
                                                                     <!-- Display Date js-->
                                     <div class="p-2 flex-shrink-1"><h5 id="transTot"></h5></div>
                                 </div>
+
+                                <div class="d-flex">
+                                    <div class="p-2 w-50"><h5>Total Including VAT</h5></div>
+                                                                    <!-- Display Date js-->
+                                    <div class="p-2 flex-shrink-1"><h5 id="incl-vat"></h5></div>
+                                </div>
                                 <div class="dropdown-divider"></div>
                             </div>
+
+                            <!-- Total Including -->
 
                             <!-- Modal Body -->
                             <div class="modal-body">

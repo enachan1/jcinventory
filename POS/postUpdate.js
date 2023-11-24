@@ -31,7 +31,6 @@ $(document).ready(function() {
                     console.log(response);
                     
                     if(response === "false") {
-                        console.log("tanga");
                         $("#paymentModal").modal('hide');
                         $("#alert-pos-stocks").show();
 

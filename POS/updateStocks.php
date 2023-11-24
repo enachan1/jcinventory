@@ -16,6 +16,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     //generate reciept no
     $generate_reciept = "juncathyr" . date('YmdHis');
 
+    //get date today
+    date_default_timezone_set('Asia/Manila');
+    $get_date = date("Y-m-d H:i:s");
+
     foreach ($dataToUpdate as $datas) {
         $sku = mysqli_real_escape_string($sqlconn, $datas['sku']);
         $item_name = mysqli_real_escape_string($sqlconn, $datas['item_name']);
@@ -48,7 +52,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         }
 
         // Insert into the sales table
-        $insert_query = "INSERT INTO `sales_db`(`s_sku`, `s_item`, `s_qty`, `s_total`, `s_date`, `reciept_no`) VALUES ($sku, '$item_name', $qty, $total_amount, NOW(), '$generate_reciept')";
+        $insert_query = "INSERT INTO `sales_db`(`s_sku`, `s_item`, `s_qty`, `s_total`, `s_date`, `reciept_no`) VALUES ($sku, '$item_name', $qty, $total_amount, '$get_date', '$generate_reciept')";
         $result_insert = mysqli_query($sqlconn, $insert_query);
 
         if (!$result_insert) {
@@ -58,7 +62,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     }
 
     if ($success) {
-        $transaction_query = "INSERT INTO `transaction_db`(`reciept_no`,`transaction_date`, `total_item`, `overall_amount`) VALUES ('$generate_reciept', NOW(), $overallQuantity, $overallTotal)";
+        $transaction_query = "INSERT INTO `transaction_db`(`reciept_no`,`transaction_date`, `total_item`, `overall_amount`) VALUES ('$generate_reciept', '$get_date', $overallQuantity, $overallTotal)";
         $result_transaction = mysqli_query($sqlconn, $transaction_query);
 
         if ($result_transaction == true) {

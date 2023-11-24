@@ -10,7 +10,7 @@ $(document).ready(function () {
             data: {recieptData: reciept_no},
             dataType: "json",
             success: function (response) {
-                // console.log(response);
+                console.log(response);
                 populateModal(response);
             },
             error: function (jqXHR, textStatus, errorThrown) {
@@ -31,6 +31,7 @@ function populateModal(data) {
     $('#itemTable tbody').empty();
 
     $('#transTot').text(data.Overall);
+    $('#incl-vat').text(data.Vat);
     
     data.items.forEach(function(item) {
         $('#disp-reciept').text(item.reciept_num);

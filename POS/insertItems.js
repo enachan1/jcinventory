@@ -15,7 +15,7 @@ $(document).ready(function () {
         var totalIncludingVAT = totalAmount + parseFloat(totalWithVAT);
 
         $("#modalPVat").val(totalWithVAT);
-        $("#overallTotal").text(totalAmount.toFixed(2));
+        $("#overallTotal").text(totalIncludingVAT.toFixed(2));
         $("#modalPTotal").val(totalIncludingVAT.toFixed(2));
     }
 

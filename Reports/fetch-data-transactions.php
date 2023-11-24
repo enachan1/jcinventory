@@ -17,7 +17,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $result = $sqlconn->query($query);
 
-    $querySum = "SELECT ROUND(SUM(s_total), 2) as Overall 
+    $querySum = "SELECT ROUND(SUM(s_total), 2) as Overall,
+     ROUND(SUM(s_total) + SUM(s_total) * 0.12, 2) as TotalVat 
     FROM sales_db 
     WHERE reciept_no = '$reciept'";
 
@@ -32,12 +33,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $data[] = $rows; 
         }
 
-        $sum = mysqli_fetch_assoc($resultSum)['Overall'];
+        if($total_rows = mysqli_fetch_assoc($resultSum)) {
+            $sum = $total_rows['Overall'];
+            $withVat = $total_rows['TotalVat'];
+
+        }
         
         $sqlconn->close();
         $response = [
                     'items' => $data,
-                    'Overall' => $sum
+                    'Overall' => $sum,
+                    'Vat' => $withVat
                     ];
         echo json_encode($response);
     }
