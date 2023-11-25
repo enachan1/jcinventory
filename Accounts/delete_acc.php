@@ -3,7 +3,7 @@ include "../connectdb.php";
 if(isset($_GET['acc'])) 
 $id = $_GET['acc'];
 
-$sqlquery = "DELETE FROM `users__db` WHERE `id`=$id";
+$sqlquery = "DELETE FROM `users__db` WHERE `acc_id`=$id";
 try {
 $sql_result = mysqli_query($sqlconn, $sqlquery);
 
