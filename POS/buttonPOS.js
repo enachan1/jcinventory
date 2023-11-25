@@ -6,14 +6,8 @@ document.addEventListener("keydown", function(event) {
     }
 })
 document.addEventListener("keydown", function(event) {
-    if (event.key === "F2"){
+    if (event.key === "F3"){
         event.preventDefault();
-        document.getElementById("F2Button").click();
-    }
-})
-document.addEventListener("keydown", function(event) {
-    if (event.key === "F4"){
-        event.preventDefault();
-        document.getElementById("F4Button").click();
+        document.getElementById("F3Button").click();
     }
 })

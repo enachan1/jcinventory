@@ -114,11 +114,6 @@ if(isset($_SESSION['id']) && isset($_SESSION['user_name'])) {
             font-family: 'Alfa Slab One', cursive;
             font-size: 28px;
         }
-        .custom-button {
-            width: 170px; 
-            height: 70px; 
-        }
-
 
     </style>
 
@@ -230,17 +225,14 @@ if(isset($_SESSION['id']) && isset($_SESSION['user_name'])) {
                 <div class="card-body ">
                     <div class="container">
                         <div class="row g-2">
-                            <div class="col-md-6 col-sm-12 col-12">
-                                <div class="p-3 d-flex justify-content-center"><button type="button" class="btn btn-primary w-100 btns" style="height: 100px; font-size: 24px; font-weight: bold;" data-bs-toggle="modal" data-bs-target="#searchModal" id="F1Button"> Search Item F1</button> </div>
+                            <div class="col-sm-12">
+                                <div class="p-3 d-flex justify-content-center"><button type="button" class="btn btn-primary w-100 btns" style="height: 100px; font-size: 28px; font-weight: bold;" data-bs-toggle="modal" data-bs-target="#searchModal" id="F1Button"> Search Item F1</button> </div>
                             </div>
-                            <div class="col-md-6 col-sm-12 col-12">
-                                <div class="p-3 d-flex justify-content-center"><button type="button" class="btn btn-primary w-100 btns" style="height: 100px; font-size: 24px; font-weight: bold;" data-bs-toggle="modal" data-bs-target="#priceinquiryModal" id="F2Button"> Price Inquiry F2</button> </div>
+                            <div class="col-sm-12">
+                                <div class="p-3 d-flex justify-content-center"><button type="button" class="btn btn-primary w-100 btns" style="height: 100px; font-size: 28px; font-weight: bold;" id="F2Button"> Void F2</button> </div>
                             </div>
-                            <div class="col-md-6 col-sm-12 col-12">
-                                <div class="p-3 d-flex justify-content-center"><button type="button" class="btn btn-primary w-100 btns" style="height: 100px; font-size: 24px; font-weight: bold;" id="F3Button"> Void F3</button> </div>
-                            </div>
-                            <div class="col-md-6 col-sm-12 col-12">
-                                <div class="p-3 d-flex justify-content-center"><button type="button" class="btn btn-primary w-100 btns" style="height: 100px; font-size: 24px; font-weight: bold;" data-bs-toggle="modal" data-bs-target="#paymentModal" id="F4Button"> Payment  F4</button> </div>
+                            <div class="col-sm-12">
+                                <div class="p-3 d-flex justify-content-center"><button type="button" class="btn btn-primary w-100 btns" style="height: 100px; font-size: 28px; font-weight: bold;" data-bs-toggle="modal" data-bs-target="#paymentModal" id="F3Button"> Payment  F3</button> </div>
                             </div>
                         </div>
                     </div>
@@ -252,65 +244,12 @@ if(isset($_SESSION['id']) && isset($_SESSION['user_name'])) {
 
     <!-- End of Page Content -->
 
-                    <!-- Search Modal-->
-                    <div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="searchModalLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-fullscreen">
-                            <div class="modal-content">
-                                <div class="modal-header ">
-                                    <h2 class="modal-title display-4 mb-0 apto-display-fonts" id="searchModalLabel"><strong>Search Item</strong></h2>
-                                </div>
-                                <div class="modal-body colobody">
-                                <div class="container-fluid">
-                                <form action="search_script.php" method="GET" id="searchForm" autocomplete="off">
-                                        <div class=" d-flex input-group input-group-lg" style="height: 70px;">
-                                            <span class="input-group-text" id="inputGroup-sizing-lg"><strong>Search:</strong></span>
-                                                                                                <!-- Value for search to get item -->
-                                            <input type="text" class="form-control" name="search" required value="<?php if(isset($_GET['search'])){echo $_GET['search'];}?>">
-                                            <button type="submit" class="btn btn-primary btn-lg custom-search-button d-none">Search</button>
-                                        </div>
-                                    </form>
-                                    <div class="table-responsive text-center mt-4" id="searchResults">
-                                        <!-- Results will be displayed here -->
-                                        <table class="table table-bordered colorbody w-75 m-auto">
-                                            <thead>
-                                                <tr>
-                                                    <th scope="col">Barcode</th>
-                                                    <th scope="col">Item Name</th>
-                                                    <th scope="col">Category</th>
-                                                    <th scope="col">Stocks</th>
-                                                    <th scope="col">Price</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <!-- This section will be populated with search results using JavaScript -->
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                                </div>
-
-                                <!-- Modal footer goes here -->
-                                <div class="modal-footer">
-                                    <!-- Kapag nag enter mapupunta sa table yong item kaso wala pa function nilagay ni carlo -->
-                                    <button type="button" class="btn btn-primary custom-button"><h2><strong>Enter</strong></h2></button>
-                                    <button type="button" class="btn btn-secondary custom-button" data-bs-dismiss="modal"><h2><strong>Close</strong></h2></button>
-                                </div>
-                                <!-- Modal footer End here -->
-
-                            </div>
-                        </div>
-                    </div>
-
-            <!--End search-->
-
-
-
-            <!-- Price Inquiry Modal -->
-            <div class="modal fade" id="priceinquiryModal" tabindex="-1" aria-labelledby="priceinquiryModalLabel" aria-hidden="true">
+            <!-- Search Modal -->
+            <div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="searchModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-fullscreen">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title display-4 mb-0 apto-display-fonts" id="priceinquiryModalLabel">Price Inquiry</h5>
+                            <h5 class="modal-title display-4 mb-0 apto-display-fonts" id="searchModalLabel">Search Items</h5>
                         </div>
                         <div class="modal-body colobody">
                             <div class="card-body center d-flex justify-content-between bg-info mt-2 m-4">
@@ -326,6 +265,7 @@ if(isset($_SESSION['id']) && isset($_SESSION['user_name'])) {
                                             <th scope="col">Barcode</th>
                                             <th scope="col">Item Name</th>
                                             <th scope="col">Category</th>
+                                            <th scope="col">Stocks</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -340,11 +280,11 @@ if(isset($_SESSION['id']) && isset($_SESSION['user_name'])) {
                             <div class="container-fluid">
                                 <div class="row">
                                 <!-- Left column for the form content -->
-                                    <div class="col-md-8">
+                                    <div class="col-md-9">
                                         <form action="price_inquiry.php" method="GET" id="priceForm" autocomplete="off">
                                         <div class="card-body d-flex justify-content-around colobody">
                                             <div class="input-group input-group-lg">
-                                                <span class="input-group-text" id="inputGroup-sizing-lg"><strong>Item Name:</strong></span>
+                                                <span class="input-group-text" id="inputGroup-sizing-lg"><strong>Search Item:</strong></span>
                                                                                                                     <!-- Call value form price -->
                                                 <input type="text" class="form-control" name="price" required value="<?php if(isset($_GET['price'])){echo $_GET['price'];}?>">
                                                 <button type="submit" class="btn btn-primary d-none">Submit</button>
@@ -354,9 +294,10 @@ if(isset($_SESSION['id']) && isset($_SESSION['user_name'])) {
                                     </div>
 
                                 <!-- Right column for the "Close" button -->
-                                    <div class="col-md-4">
-                                        <div class="d-grid m-1 gap-7 col-15 mx-auto h-50">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><h2><strong>Close</strong></h2></button>
+                                    <div class="col-md-3">
+                                        <div class="d-flex m-2 gap-3 col-15">
+                                            <button type="button" class="btn btn-primary w-100"><h2><strong>Enter</strong></h2></button>
+                                            <button type="button" class="btn btn-secondary w-100" data-bs-dismiss="modal"><h2><strong>Close</strong></h2></button>
                                         </div>
                                     </div>
                                 </div>
@@ -367,7 +308,7 @@ if(isset($_SESSION['id']) && isset($_SESSION['user_name'])) {
                     </div>
                 </div>
             </div>
-            <!--End modal Price Inquiry-->
+            <!--End modal Search-->
 
             <!-- Payment Modal -->
             <div class="modal fade" id="paymentModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -461,7 +402,7 @@ if(isset($_SESSION['id']) && isset($_SESSION['user_name'])) {
         function updateTextSize() {
         const screenWidth = window.innerWidth;
         const buttonElements = document.querySelectorAll(".btns");
-        const textSize = screenWidth <= 1440 ? "18px" : "24px"; 
+        const textSize = screenWidth <= 1440 ? "18px" : "28px"; 
     
         buttonElements.forEach((button) => {
                 button.style.fontSize = textSize;

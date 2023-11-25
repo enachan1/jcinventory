@@ -107,13 +107,13 @@ $(document).ready(function () {
 });
 
 // Handle click event for clearing all rows
-$("#F3Button").on('click', function () {
+$("#F2Button").on('click', function () {
     clearTableAndPayment();
 });
 
-// Handle keydown event for F3 key
+// Handle keydown event for F2 key
 $(document).on('keydown', function (e) {
-    if (e.which === 114 || e.which === 113) { // F3 key codes
+    if (e.which === 113) { // F2 key code
         e.preventDefault();
         clearTableAndPayment();
     }
