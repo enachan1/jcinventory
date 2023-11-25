@@ -10,6 +10,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     mysqli_autocommit($sqlconn, FALSE);
     $success = true;
 
+    $account_id = $_POST['accountid'];
     $overallQuantity = $_POST['overAllQty'];
     $overallTotal = $_POST['overallTotalVal'];
 
@@ -52,7 +53,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         }
 
         // Insert into the sales table
-        $insert_query = "INSERT INTO `sales_db`(`s_sku`, `s_item`, `s_qty`, `s_total`, `s_date`, `reciept_no`) VALUES ($sku, '$item_name', $qty, $total_amount, '$get_date', '$generate_reciept')";
+        $insert_query = "INSERT INTO `sales_db`(`s_sku`, `s_item`, `s_qty`, `s_total`, `s_date`, `reciept_no`, `acc_id`) VALUES ($sku, '$item_name', $qty, $total_amount, '$get_date', '$generate_reciept', $account_id)";
         $result_insert = mysqli_query($sqlconn, $insert_query);
 
         if (!$result_insert) {
@@ -62,7 +63,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     }
 
     if ($success) {
-        $transaction_query = "INSERT INTO `transaction_db`(`reciept_no`,`transaction_date`, `total_item`, `overall_amount`) VALUES ('$generate_reciept', '$get_date', $overallQuantity, $overallTotal)";
+        $transaction_query = "INSERT INTO `transaction_db`(`reciept_no`,`transaction_date`, `total_item`, `overall_amount`, `acc_id`) VALUES ('$generate_reciept', '$get_date', $overallQuantity, $overallTotal, $account_id)";
         $result_transaction = mysqli_query($sqlconn, $transaction_query);
 
         if ($result_transaction == true) {

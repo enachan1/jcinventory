@@ -4,6 +4,7 @@
 include "../connectdb.php";
 session_start();
 if(isset($_SESSION['id']) && isset($_SESSION['user_name'])) {
+    $acc_id = $_SESSION['id'];
     $user = $_SESSION['user_name'];
 
     if(!isset($user)) {
@@ -386,6 +387,7 @@ if(isset($_SESSION['id']) && isset($_SESSION['user_name'])) {
                                 
                                     <!--Total Input-->
                                     <div class="card-body d-flex justify-content-between bg-info">
+                                        <input type="hidden" name="user-id" value="<?= $acc_id ?>" id="acc-id" readonly>
                                         <h1 class="display-4 mb-0 apto-display-font">Total:</h1>
                                                                 <!-- Display total here -->
                                         <h1 class="display-4 mb-0">
@@ -402,7 +404,7 @@ if(isset($_SESSION['id']) && isset($_SESSION['user_name'])) {
                                     </div><br>
                                     <!--Cash Input-->
                                     <div class="card-body d-flex justify-content-between bg-info">
-                                        <h1 class="display-4 mb-0 apto-display-font">Cash:</h1>
+                                        <h1 class="display-4 mb-0 apto-display-font">Amt Tendered:</h1>
                                                                 <!-- Display cash here -->
                                         <h1 class="display-4 mb-0">
                                             <input type="number" class="form-control roboto-font text-end responsive-input" step=".01" id="cash" placeholder="0.00">

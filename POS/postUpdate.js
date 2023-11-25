@@ -5,6 +5,7 @@ $(document).ready(function() {
     $("#alert-pos-stocks").hide();
     $("#purchase").click(function() {
         
+        var account_id = $("#acc-id").val();
         var cash_input = parseFloat($('#cash').val());
         var total_input = parseFloat($('#modalPTotal').val());
         var qty;
@@ -25,7 +26,7 @@ $(document).ready(function() {
             $.ajax({
                 url: "updateStocks.php", 
                 type: "POST",
-                data: { dataToUpdate: JSON.stringify(dataToUpdate), overAllQty: overAllQty, overallTotalVal: overallTotalVal },
+                data: { dataToUpdate: JSON.stringify(dataToUpdate), overAllQty: overAllQty, overallTotalVal: overallTotalVal, accountid: account_id },
                 success: function(response) {
                     overAllQty = 0;
                     console.log(response);
