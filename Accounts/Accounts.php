@@ -104,13 +104,14 @@ $user = $_SESSION['user_name'];
                                 <th scope="col">Username</th>
                                 <th scope="col">Email</th>
                                 <th scope="col">Contact</th>
+                                <th scope="col">User Type</th>
                                 <th scope="col">Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             <!-- Table rows here -->
                          <?php 
-                         $account_fetch_query = "SELECT `id`, `user_name`, `email`, `contact_no` FROM `users__db`";
+                         $account_fetch_query = "SELECT * FROM `users__db`";
                          $result = mysqli_query($sqlconn, $account_fetch_query);
                          
                          while($rows = mysqli_fetch_assoc($result)) {
@@ -120,6 +121,12 @@ $user = $_SESSION['user_name'];
                                 <td><?= $rows['user_name']; ?></td>
                                 <td><?= $rows['email']; ?></td>
                                 <td><?= $rows['contact_no']; ?></td>
+                                <?php if($rows['is_admin'] == 0) { ?>
+                                    <td>Cashier</td>
+                                <?php }
+                                else if($rows['is_admin'] == 1) { ?>
+                                    <td>Admin</td>
+                                <?php } ?>
                                 <?php 
                                 if($user == $rows['user_name']) {
                                 ?>
@@ -127,7 +134,7 @@ $user = $_SESSION['user_name'];
                                 <?php }
                                     else {
                                 ?>
-                                <td><button class="btn btn-sm btn-danger delete-btn" data-accid="<?= $rows['id']; ?>"><i class="fas fa-trash"></i></button></td>
+                                <td><button class="btn btn-sm btn-danger delete-btn" data-accid="<?= $rows['acc_id']; ?>"><i class="fas fa-trash"></i></button></td>
                                 <?php } ?>
                             </tr>
                             <?php  } ?>
