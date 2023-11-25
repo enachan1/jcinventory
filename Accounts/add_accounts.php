@@ -2,8 +2,8 @@
 include "../connectdb.php";
 if($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-    $username = mysqli_real_escape_string($sqlconn, $_POST['a_username']);
-    $email = mysqli_real_escape_string($sqlconn, $_POST['a_email']);
+    $username = trim(mysqli_real_escape_string($sqlconn, $_POST['a_username']));
+    $email = trim(mysqli_real_escape_string($sqlconn, $_POST['a_email']));
     $password = mysqli_real_escape_string($sqlconn, $_POST['a_password']);
     $contact = mysqli_real_escape_string($sqlconn, $_POST['a_contact']);
     $usertype = mysqli_real_escape_string($sqlconn, $_POST['user_type']);
