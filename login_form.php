@@ -27,8 +27,8 @@
         <?php } ?>
 
         <div class="input-container">
-            <input type="email" name="email" id="email" class="forminput" placeholder=" " autocomplete="off">
-            <label for="email" class="formlabel">Email</label>
+            <input type="text" name="email" id="email" class="forminput" placeholder=" " autocomplete="off">
+            <label for="email" class="formlabel">Email or Username</label>
         </div>
          <div class="input-container">
             <input type="password" name="password" id="password"
