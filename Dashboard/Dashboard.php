@@ -219,7 +219,7 @@ $user = $_SESSION['user_name'];
                         </div>
 
                         <div class="col">
-                        <h3 class="fs-4 mb-3">Running out Product</h3>
+                        <h3 class="fs-4 mb-3">Low Stock Items</h3>
                             <div class="table-responsive scrollable-table"> 
                                 <table class="table colorbox rounded shadow-sm table-hover">
                                     <!-- Table Header -->

@@ -109,6 +109,11 @@ $user = $_SESSION['user_name'];
                         <i class="fas fa-arrow-up"></i> Fast Moving
                     </a>
                 </li>
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link fs-5" href="?tb=6" id="close-tab" data-bs-toggle="tab" data-bs-target="#closing" type="button" role="tab" aria-controls="fast" aria-selected="false">
+                        <i class="fas fa-arrow-up"></i> Daily Closing Sales
+                    </a>
+                </li>
             </ul>
 
             <!-- Right-aligned items -->
@@ -656,6 +661,57 @@ $user = $_SESSION['user_name'];
             </div>
             <!-- End Fast Moving  -->
 
+
+            <!-- Daily Closing Sales -->
+            <div class="tab-pane fade" id="closing" role="tabpanel" aria-labelledby="close-tab">
+                <div class="card">
+                    <div class="card-body colorbox">
+                        <h5 class="card-title">Daily Closing Sales</h5>
+                        <table id="cls-sales" class="table bg-white rounded shadow-sm table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Cashier Name</th>
+                                    <th>Number of Transaction</th>
+                                    <th>Total Sales</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            <?php 
+                            $closing_report_query = "SELECT u.user_name as Name,
+                                COALESCE(t.Transactions, 0) as Transactions,
+                                COALESCE(s.TotalSales, 0) as TotalSales
+                            FROM users__db u
+                            LEFT JOIN (
+                                SELECT acc_id, COUNT(reciept_no) as Transactions
+                                FROM transaction_db
+                                WHERE DATE(transaction_date) = CURDATE()
+                                GROUP BY acc_id
+                            ) t ON t.acc_id = u.acc_id
+                            LEFT JOIN (
+                                SELECT acc_id, ROUND(SUM(s_total), 2) as TotalSales
+                                FROM sales_db
+                                WHERE DATE(s_date) = CURDATE()
+                                GROUP BY acc_id
+                            ) s ON s.acc_id = u.acc_id
+                            WHERE u.is_admin = 0  -- Selecting non-admin users
+                            AND s.acc_id IS NOT NULL; -- Ensuring there are sales associated
+                            ";
+
+                                $close_query_result = $sqlconn->query($closing_report_query);
+
+                                while($close_rows = $close_query_result->fetch_assoc()) {
+                                ?>
+                                <tr>
+                                    <td><?= $close_rows['Name'] ?></td>
+                                    <td><?= $close_rows['Transactions'] ?></td>
+                                    <td><?= $close_rows['TotalSales'] ?></td>
+                                </tr>
+                                <?php } ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -766,6 +822,9 @@ $user = $_SESSION['user_name'];
             });
 
             $('#fast-table').DataTable({
+                lengthChange: false
+            });
+            $('#cls-sales').DataTable({
                 lengthChange: false
             });
         });
