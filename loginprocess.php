@@ -24,7 +24,7 @@ if(isset($_POST['email']) && isset($_POST['password'])) {
         exit();
     }
     else {
-        $sqlquery = "SELECT * FROM users__db WHERE email = '$email'";
+        $sqlquery = "SELECT * FROM users__db WHERE email = '$email' OR user_name = '$email'";
         $sqlconquery = mysqli_query($sqlconn, $sqlquery) or die("error");
 
 
@@ -32,8 +32,8 @@ if(isset($_POST['email']) && isset($_POST['password'])) {
             $rows = mysqli_fetch_assoc($sqlconquery);
             $hashed_fromDB = $rows['pass_word'];
 
-            if($rows['email'] === $email && password_verify($pass, $hashed_fromDB)) {
-                $_SESSION['id'] = $rows['id'];
+            if($rows['email'] === $email && password_verify($pass, $hashed_fromDB) || $rows['user_name'] === $email && password_verify($pass, $hashed_fromDB)) {
+                $_SESSION['id'] = $rows['acc_id'];
                 $_SESSION['user_name'] = $rows['user_name'];
                 $_SESSION['email'] = $rows['email'];
                 $_SESSION['is_admin'] = $rows['is_admin'];
