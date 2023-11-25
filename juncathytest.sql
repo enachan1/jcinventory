@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 24, 2023 at 10:43 AM
+-- Generation Time: Nov 25, 2023 at 11:47 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -67,10 +67,10 @@ CREATE TABLE `items_db` (
 
 INSERT INTO `items_db` (`id`, `item_sku`, `item_barcode`, `item_name`, `item_stocks`, `item_expdate`, `item_price`, `item_category`, `item_date_added`) VALUES
 (11, '231114CLF', 89765421368, 'LEMON SQUARE CHEESE CAKE 300g', 184, '2024-01-05', 60.5, 'Snacks', '2023-11-20'),
-(12, '231114KTZ', 987561321858, 'CROSSINI 1PACK', 590, '2023-12-21', 11, 'Snacks', '2023-10-31'),
-(13, '231115ZZR', 987561321858, 'CROSSINI 1PACK', 149, '2023-12-08', 49.5, 'Snacks', '2023-10-24'),
-(15, '231115SXS', 89765421368, 'LEMON SQUARE CHEESE CAKE 300G', 335, '2023-11-30', 60.5, 'Canned Goods', '2023-11-15'),
-(16, '231115YSN', 9876543215, 'piatoss', 55, '2023-12-16', 20.35, 'Snacks', '2023-11-15');
+(12, '231114KTZ', 987561321858, 'CROSSINI 1PACK', 587, '2023-12-21', 11, 'Snacks', '2023-10-31'),
+(13, '231115ZZR', 987561321858, 'CROSSINI 1PACK', 141, '2023-12-08', 49.5, 'Snacks', '2023-10-24'),
+(15, '231115SXS', 89765421368, 'LEMON SQUARE CHEESE CAKE 300G', 333, '2023-11-30', 60.5, 'Canned Goods', '2023-11-15'),
+(16, '231115YSN', 9876543215, 'piatoss', 50, '2023-12-16', 20.35, 'Snacks', '2023-11-15');
 
 -- --------------------------------------------------------
 
@@ -93,7 +93,8 @@ INSERT INTO `notification_db` (`notif_id`, `message`, `is_deleted`) VALUES
 (2, 'The item CROSSINI 1PACK with the SKU of 231114KTZ is expired', 1),
 (3, 'The item LEMON SQUARE CHEESE CAKE 20G with the SKU of 231115SXS is about to expire', 1),
 (4, 'The item LEMON SQUARE CHEESE CAKE 300G with the SKU of 231115SXS is about to expire', 1),
-(5, 'The item CROSSINI 1PACK with the SKU of 231115ZZR is about to expire', 0);
+(5, 'The item CROSSINI 1PACK with the SKU of 231115ZZR is about to expire', 0),
+(6, 'The item piatoss with the SKU of 231115YSN is in reorder level', 1);
 
 -- --------------------------------------------------------
 
@@ -120,7 +121,7 @@ CREATE TABLE `purchase_order_db` (
 --
 
 INSERT INTO `purchase_order_db` (`po_item_sku`, `po_item_name`, `po_qty`, `po_uom`, `po_category`, `po_item_price`, `po_dot`, `po_expdelivery`, `is_delivered`, `isBadOrder`, `vendor_id`) VALUES
-('231124WNU', 'Mang Inasal', 25, 'Tanga', 'Canned Goods', 700, '2023-11-24', '2023-12-02', NULL, NULL, 10001);
+('231124WNU', 'Mang Inasal', 25, 'Tanga', 'Canned Goods', 700, '2023-11-24', '2023-12-02', 1, 0, 10001);
 
 -- --------------------------------------------------------
 
@@ -135,15 +136,9 @@ CREATE TABLE `sales_db` (
   `s_qty` float NOT NULL,
   `s_total` float NOT NULL,
   `s_date` datetime NOT NULL,
-  `reciept_no` varchar(255) NOT NULL
+  `reciept_no` varchar(255) NOT NULL,
+  `acc_id` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `sales_db`
---
-
-INSERT INTO `sales_db` (`id`, `s_sku`, `s_item`, `s_qty`, `s_total`, `s_date`, `reciept_no`) VALUES
-(1, 987561321858, 'CROSSINI 1PACK', 10, 495, '2023-11-24 15:40:10', 'juncathyr20231124084010');
 
 -- --------------------------------------------------------
 
@@ -177,15 +172,9 @@ CREATE TABLE `transaction_db` (
   `reciept_no` varchar(255) NOT NULL,
   `transaction_date` datetime NOT NULL,
   `total_item` int(11) NOT NULL,
-  `overall_amount` float NOT NULL
+  `overall_amount` float NOT NULL,
+  `acc_id` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `transaction_db`
---
-
-INSERT INTO `transaction_db` (`reciept_no`, `transaction_date`, `total_item`, `overall_amount`) VALUES
-('juncathyr20231124084010', '2023-11-24 15:40:10', 10, 554.4);
 
 -- --------------------------------------------------------
 
@@ -203,9 +192,9 @@ CREATE TABLE `uom_db` (
 --
 
 INSERT INTO `uom_db` (`id`, `uom_name`) VALUES
+(0, 'Packs'),
 (5, 'Boxes'),
-(7, 'Cases'),
-(8, 'Tanga');
+(7, 'Cases');
 
 -- --------------------------------------------------------
 
@@ -214,7 +203,7 @@ INSERT INTO `uom_db` (`id`, `uom_name`) VALUES
 --
 
 CREATE TABLE `users__db` (
-  `id` bigint(20) NOT NULL,
+  `acc_id` bigint(20) NOT NULL,
   `user_name` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `pass_word` varchar(255) NOT NULL,
@@ -226,11 +215,12 @@ CREATE TABLE `users__db` (
 -- Dumping data for table `users__db`
 --
 
-INSERT INTO `users__db` (`id`, `user_name`, `email`, `pass_word`, `contact_no`, `is_admin`) VALUES
+INSERT INTO `users__db` (`acc_id`, `user_name`, `email`, `pass_word`, `contact_no`, `is_admin`) VALUES
 (1, 'admin', 'admin@admin.com', '$2y$10$CzzLKx87QEgkQzq5gJh3.uo7g5knkdFCv.2oQEyVu3wZR3xd.dCBu', 0, 1),
 (2, 'cashier', 'notadmin@notadmin.com', '$2y$10$srTH9HwBVOhWeXmEkMVRCOc5uA10C.7KEjbQLPVcC5AlToknX3/kS', 0, 0),
-(3, ' ena', 'em@em.com', '$2y$10$G5ydTTTSU0GVMKqdP7dUEe1EuLsmEigBoGB5bypcq.2znK6QfQZCi', 0, 1),
-(4, 'Nhorlvick', 'gagi@gagi.com', '$2y$10$n7x9dlRPJmPQB03p7dKhkulX16nw1NeAa3CUcAwZ0n0p5.dqLBy8.', 0, 1);
+(5, 'Carlo', 'carlo@gmail.com', '$2y$10$ldK3ogolhUOUNouMUpW9pOvHyrdjUD3zLyfOdAqSGN1qHV8WJP8ua', 0, 0),
+(7, 'kohaku', 'kohaku@gmail.com', '$2y$10$YqeqhRuHPeTis01Gzx9t9.3iRh3ZXNc/hW2/xSBogPcjJYgacuuPu', 0, 1),
+(8, 'Nhorlvick', 'nhrlvck@gmail.com', '$2y$10$mJnLIf4.kR22nUQxvq5tpuVJwdy6vZDHxkO8mRlGlP0qAalQmSf5u', 0, 1);
 
 -- --------------------------------------------------------
 
@@ -303,7 +293,7 @@ ALTER TABLE `uom_db`
 -- Indexes for table `users__db`
 --
 ALTER TABLE `users__db`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`acc_id`);
 
 --
 -- Indexes for table `vendors_db`
@@ -331,13 +321,19 @@ ALTER TABLE `items_db`
 -- AUTO_INCREMENT for table `notification_db`
 --
 ALTER TABLE `notification_db`
-  MODIFY `notif_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `notif_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `sales_db`
 --
 ALTER TABLE `sales_db`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `users__db`
+--
+ALTER TABLE `users__db`
+  MODIFY `acc_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `vendors_db`
