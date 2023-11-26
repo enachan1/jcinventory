@@ -296,15 +296,14 @@ if(isset($_SESSION['id']) && isset($_SESSION['user_name'])) {
                                 <!-- Right column for the "Close" button -->
                                     <div class="col-md-3">
                                         <div class="d-flex m-2 gap-3 col-15">
-                                            <button type="button" class="btn btn-primary w-100"><h2><strong>Enter</strong></h2></button>
-                                            <button type="button" class="btn btn-secondary w-100" data-bs-dismiss="modal"><h2><strong>Close</strong></h2></button>
-                                        </div>
+                                        <button type="button" class="btn btn-secondary w-100" data-bs-dismiss="modal"><h2><strong>Close</strong></h2></button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <!-- Modal footer end here -->
 
+                        </div>
                     </div>
                 </div>
             </div>

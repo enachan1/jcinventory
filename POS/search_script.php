@@ -1,5 +1,5 @@
 <?php
-$con = mysqli_connect("localhost", "root", "", "juncathytest");
+/*$con = mysqli_connect("localhost", "root", "", "juncathytest");
 
 if (isset($_GET['search'])) {
     $filtervalues = $_GET['search'];
@@ -15,5 +15,5 @@ if (isset($_GET['search'])) {
         echo '<td><strong>' . $items['item_price'] . '</strong></td>';
         echo '</tr>';
     }
-}
-?>
+} */
+?> 

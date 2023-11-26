@@ -1,3 +1,4 @@
+/*
 // Sa document.ready function, itinatag ang mga event listeners para sa paghahanap.
 $(document).ready(function () {
     // I-handle ang pag-browse ng keyup sa input ng paghahanap
@@ -121,3 +122,4 @@ $(document).on('click', '.del-row', function () {
     row.remove();
     updateOverallTotal();
 });
+*/

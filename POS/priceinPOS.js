@@ -23,6 +23,7 @@
                                         item_sku: item.item_sku,
                                         item_name: item.item_name,
                                         item_category: item.item_category,
+                                        item_stocks: item.item_stocks,
                                         item_barcode: item.item_barcode,
                                     };
                                 });
@@ -36,10 +37,11 @@
                                     row.append($("<td>").text(item.item_barcode));
                                     row.append($("<td>").text(item.item_name));
                                     row.append($("<td>").text(item.item_category));
+                                    row.append($("<td>").text(item.item_stocks));
                                     tableBody.append(row);
                                 });
                             } else {
-                                $("#priceDisplay").text("Wala pa ang price nito");
+                                $("#priceDisplay").text("0");
                                 $("#priceResults tbody").empty(); // Clear table body
                             }
                         }

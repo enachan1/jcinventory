@@ -68,7 +68,7 @@
 }
 
 #sidebar-wrapper .list-group {
-  width: 15rem;
+  width: 16rem;
 }
 
 #page-content-wrapper {
@@ -106,13 +106,13 @@
   }
 
   #wrapper.toggled #sidebar-wrapper {
-    margin-left: -15rem;
+    margin-left: -16rem;
   }
 }
 
 .dropadjust
 {
-    padding-right: 30px;
+    padding-right: 50px;
 }
 
 .navadjust{

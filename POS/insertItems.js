@@ -122,15 +122,19 @@ $(document).on('keydown', function (e) {
 // Function to clear table rows and trigger payment
 function clearTableAndPayment() {
     $("#tableBody").empty();
-    updateOverallTotal();
 
+    // Trigger payment-related functionality first
     triggerPaymentFunction();
+
+    // Update the overall total after payment-related changes
+    updateOverallTotal();
 }
 
 // Function to trigger payment-related functionality
 function triggerPaymentFunction() {
     // Add your payment-related code here
     console.log("Payment triggered!");
+
     // Reset the payment total to zero
     resetPaymentTotal();
 }

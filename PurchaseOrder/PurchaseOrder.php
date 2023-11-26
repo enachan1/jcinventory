@@ -51,7 +51,7 @@ $user = $_SESSION['user_name'];
                 <a href="../Reports/Reports.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
                         class="fas fa-file-spreadsheet me-2"></i>Reports</a>
                 <a href="../Accounts/Accounts.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-                        class="fad fa-users me-2"></i>Accounts</a>
+                        class="fad fa-users me-2"></i>User Accounts</a>
                 <a href="../Notification/Notification.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
                         class="fas fa-bell me-2"></i>Notification<span class="badge badge-light num-notif top-50 start-50 translate-middle-y rounded-circle bg-danger"></span></a>
                 <a href="../Settings/Settings.php" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
