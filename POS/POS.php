@@ -329,7 +329,7 @@ if(isset($_SESSION['id']) && isset($_SESSION['user_name'])) {
                                     <div class="card-body d-flex justify-content-between bg-info">
                                         <input type="hidden" name="user-id" value="<?= $acc_id ?>" id="acc-id" readonly>
                                         <input type="hidden" name="user-nm" value="<?= $user ?>" id="user-nm" readonly>
-                                        <input type="text" name="ttamount" id="excluded-vat-amount" readonly>
+                                        <input type="hidden" name="ttamount" id="excluded-vat-amount" readonly>
                                         <h1 class="display-4 mb-0 apto-display-font">Total:</h1>
                                                                 <!-- Display total here -->
                                         <h1 class="display-4 mb-0">
