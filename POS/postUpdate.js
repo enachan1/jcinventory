@@ -1,6 +1,7 @@
 $(document).ready(function() {
     var dataToUpdate = [];
     var overAllQty = 0;
+    
     $("#alert-pos").hide();
     $("#alert-pos-stocks").hide();
     $("#purchase").click(function() {
@@ -30,9 +31,10 @@ $(document).ready(function() {
                 data: { dataToUpdate: JSON.stringify(dataToUpdate), overAllQty: overAllQty, overallTotalVal: overallTotalVal, accountid: account_id },
                 success: function(response) {
                     overAllQty = 0;
+                    var responseTxt = response;
                     console.log(response);
                     
-                    if(response === "false") {
+                    if(responseTxt === "false") {
                         $("#paymentModal").modal('hide');
                         $("#alert-pos-stocks").show();
 
@@ -40,8 +42,8 @@ $(document).ready(function() {
                             location.reload();
                         }, 1500);
                     }
-                    else {
-                        printReceipt();
+                    else if (responseTxt.includes("JUNCATHYR")) {
+                        printReceipt(responseTxt);
                         location.reload();
                     }
                 },
@@ -78,7 +80,8 @@ $(document).ready(function() {
         $("#alert-pos-stocks").fadeOut();
     });
 
-    function printReceipt() {
+    function printReceipt(reciept) {
+        var recieptNo = reciept;
         var change = parseFloat($('#change').val()).toFixed(2);
         var cash = parseFloat($('#cash').val()).toFixed(2);
         var userName = $('#user-nm').val();
@@ -89,6 +92,7 @@ $(document).ready(function() {
         // Create a new HTML page with the receipt content
         var printContent = '<html><head><title>Receipt</title></head><body><br>';
         printContent += '<center><h1>Jun&Cathy Grocery</h1></center>';
+        printContent += '<center><h3>Reciept: ' + recieptNo +'</h3></center>';
         
         printContent += '<table style="width: 100%; border-collapse: collapse;">';
         printContent += '<thead>';

@@ -15,7 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $overallTotal = $_POST['overallTotalVal'];
 
     //generate reciept no
-    $generate_reciept = "juncathyr" . date('YmdHis');
+    $generate_reciept = "JUNCATHYR" . date('YmdHis');
 
     //get date today
     date_default_timezone_set('Asia/Manila');
@@ -68,12 +68,17 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
         if ($result_transaction == true) {
             mysqli_commit($sqlconn); // Commit the transaction if everything is successful
-            echo "true";
+            echo $generate_reciept;
         }
+        else {
+            echo "false";
+        }
+    }
+    else {
+        echo "false";
     }
 
     mysqli_rollback($sqlconn); // Rollback the transaction on failure
-    echo "false";
 } else {
     // Handle invalid requests here
     http_response_code(400);
