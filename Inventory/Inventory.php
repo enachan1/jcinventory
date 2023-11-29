@@ -174,28 +174,27 @@ $user = $_SESSION['user_name'];
                     <form action="add_items.php" method="post" autocomplete="off">
                     <!-- Label and Textbox -->
                     <label for="skuInput" class="form-label">SKU</label>
-                    <input type="text" name="modal_sku" class="form-control" id="skuInput" required>
+                    <div class="d-flex flex-row">
+                        <input type="text" name="modal_sku" class="form-control me-1" id="skuInput" required>
+                        <input type="button" id="generate" value="Generate SKU" class="btn btn-secondary btn-sm">
+                    </div>
+                    <label for="skuInput" class="form-label">Barcode</label>
+                    <input type="number" name="modal_barcode" class="form-control" id="barcodeInput" required>
+                    <label for="itemnameInput" class="form-label">Item Name</label>
+                    <input type="text" name="modal_itemname" class="form-control" id="itemnameInput" required>
                     <!-- Auto complete items -->
                     <div class="list-group" id="showlist_skuitems" style="position: absolute; z-index: 1; width: 70%;">
                         
                     </div>
                     <!-- End of auto complete items -->
-                    <label for="skuInput" class="form-label">Barcode</label>
-                    <input type="number" name="modal_barcode" class="form-control" id="barcodeInput" required>
-                    <label for="itemnameInput" class="form-label">Item Name</label>
-                    <input type="text" name="modal_itemname" class="form-control" id="itemnameInput" required>
                     <label for="stocksInput" class="form-label">Stocks</label>
                     <input type="number" name="modal_stocks" class="form-control" id="stocksInput" required>
                     <label for="expdateInput" class="form-label">Exp. Date</label>
                     <input type="date" name="modal_date" class="form-control" id="expdateInput" required>
+                    <label for="cpriceInput" class="form-label">Mark Up %</label>
+                    <input style="margin: 0;" type="number" name="modal_markup" class="form-control" id="mark-up">
                     <label for="cpriceInput" class="form-label">Selling Price</label>
                     <input style="margin: 0;" type="number" name="modal_cp" class="form-control" step=".01" id="cpriceInput" required>
-                    <?php 
-                        if ($rows = mysqli_fetch_assoc($setting_query_result)) {
-
-                    ?>
-                    <input style="margin: 0;" type="hidden" value="<?= $rows['markup'] ?>" name="modal_markup" class="form-control" id="mark-up" readonly>
-                    <?php }?>
                     <label for="priceInput" class="form-label">Total Price</label>
                     <input style="margin: 0;" type="number" name="modal_price" class="form-control" id="priceInput" step=".01" required><br>
 

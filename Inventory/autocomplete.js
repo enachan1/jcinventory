@@ -1,13 +1,6 @@
 $(document).ready(function () {
 
-    //disabling the modal input when the modal opens
-    $("#myModal").on("shown.bs.modal", function (e) {  
-        $('#cpriceInput').prop("disabled", true);
-        $('#priceInput').prop("disabled", true);
-    })
-    
-
-    $('#skuInput').keyup(function (e) { 
+    $('#itemnameInput').keyup(function (e) { 
         e.preventDefault();
         var skuinput_text = $(this).val();
 
@@ -27,6 +20,7 @@ $(document).ready(function () {
         }
     });
 
+
     $(document).on('click', '.clickers', function(e) {
         var get_itemsku = $(this).data('itemsku');
         $('#skuInput').val(get_itemsku);
@@ -45,6 +39,7 @@ $(document).ready(function () {
         $("#showlist_skuitems").html('');
         $('#cpriceInput').prop("disabled", false);
         $('#priceInput').prop("disabled", false);
+        $('#generate').prop("disabled", true);
     });
 
 
@@ -56,9 +51,17 @@ $(document).ready(function () {
         $('#barcodeInput').val("");
         $('#stocksInput').val("");
         $('#expdateInput').val("");
-        $('#cpriceInput').prop("disabled", true);
-        $('#priceInput').prop("disabled", true);
+        $('#itemnameInput').val("");
+        $("#showlist_skuitems").html('');
+        $('#generate').prop("disabled", false);
 
+    });
+
+    //generate sku
+    $(document).on('click', "#generate", function (e) {
+        e.preventDefault();
+        var generate_sku = generateRandomSku();
+        $('#skuInput').val(generate_sku);
     });
 });
 
@@ -72,4 +75,22 @@ function fetch_data_from_input(data) {
     } else {
         console.error("Data or data.itemdesc is not defined or not an array.");
     }
+}
+
+function generateRandomSku() {
+    var currentDate = new Date();
+    var year = currentDate.getFullYear().toString().substr(-2); // Get the last two digits of the year
+    var month = (currentDate.getMonth() + 1).toString().padStart(2, "0"); // Ensure two-digit month
+    var day = currentDate.getDate().toString().padStart(2, "0"); // Ensure two-digit day
+
+    var characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"; // You can add more characters if needed
+    var randomLetters = "";
+
+    for (var i = 0; i < 3; i++) {
+        randomLetters += characters.charAt(Math.floor(Math.random() * characters.length));
+    }
+
+    var sku = year + month + day + randomLetters;
+
+    return sku;
 }

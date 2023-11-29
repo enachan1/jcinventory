@@ -15,8 +15,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             while ($row = $result->fetch_assoc()) {
                 echo "<a href='#' class='list-group-item list-group-item-action border-1 clickers' data-itemsku='". $row['po_item_sku']. "'>" . $row['po_item_sku'] . ' - ' . $row['po_item_name'] .  "</a>";
             }
-        } else {
-            echo '<a href="#" class="list-group-item list-group-item-action border-1">no record</a>';
         }
     }
 } else {

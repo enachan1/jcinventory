@@ -1,8 +1,13 @@
 $(document).ready(function () {
-    var mark_up = $('#mark-up').val();
-    //console.log(mark_up);
-    var markup_decimal = mark_up / 100;
-    //console.log(markup_decimal);
+    var markup = 0;
+    var markup_decimal = 0;
+    
+
+    $('#mark-up').keyup(function (e) { 
+        markup = $('#mark-up').val();
+        markup_decimal = markup / 100;
+        console.log(markup_decimal);
+    });
     
 
     $('#cpriceInput').keyup(function() {
