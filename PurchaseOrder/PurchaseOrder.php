@@ -504,10 +504,10 @@ $user = $_SESSION['user_name'];
                                     <!-- Label and Textbox -->
                                     <!-- <label for="itemnameInput" class="form-label">Vendor ID</label>
                                     <input type="number" name="vendorId" class="form-control" id="itemnameInput" required> -->
-                                    <label for="skuInput" class="form-label">Vendor Name</label>
-                                    <input type="text" name="vendorName" class="form-control" id="skuInput" required>
-                                    <label for="itemnameInput" class="form-label">Contact Number</label>
-                                    <input type="number" class="form-control" name="vendorContact" id="itemnameInput" required>
+                                    <label for="vend-name" class="form-label">Vendor Name</label>
+                                    <input type="text" name="vendorName" class="form-control" id="vend-name" required>
+                                    <label for="contact-label" class="form-label">Contact Number</label>
+                                    <input type="number" class="form-control" name="vendorContact" id="contact-label" required>
                                 </div>
     
                             <!-- ... Rest of your Vendor1 content ... -->
