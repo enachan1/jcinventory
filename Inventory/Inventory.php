@@ -175,7 +175,7 @@ $user = $_SESSION['user_name'];
                     <!-- Label and Textbox -->
                     <label for="skuInput" class="form-label">SKU</label>
                     <div class="d-flex flex-row">
-                        <input type="text" name="modal_sku" class="form-control me-1" id="skuInput" required>
+                        <input type="text" name="modal_sku" class="form-control me-1" id="skuInput" required readonly>
                         <input type="button" id="generate" value="Generate SKU" class="btn btn-secondary btn-sm">
                     </div>
                     <label for="skuInput" class="form-label">Barcode</label>
@@ -196,7 +196,7 @@ $user = $_SESSION['user_name'];
                     <label for="cpriceInput" class="form-label">Selling Price</label>
                     <input style="margin: 0;" type="number" name="modal_cp" class="form-control" step=".01" id="cpriceInput" required>
                     <label for="priceInput" class="form-label">Total Price</label>
-                    <input style="margin: 0;" type="number" name="modal_price" class="form-control" id="priceInput" step=".01" required><br>
+                    <input style="margin: 0;" type="number" name="modal_price" class="form-control" id="priceInput" step=".01" readonly><br>
 
                     <!-- Selecting Category -->
                     <div class="input-group mb-4">
@@ -237,7 +237,7 @@ $user = $_SESSION['user_name'];
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="editModalLabel">Edit Item</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close" id="edit-close-btn" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
 
             <!-- Start of Modal Body -->
@@ -247,7 +247,7 @@ $user = $_SESSION['user_name'];
                     <!-- Label and Textbox -->
                     <input type="hidden" name="modal_id" id="update_id">
                     <label for="skuInput" class="form-label">SKU</label>
-                    <input type="text" name="modal_sku" id="sku" class="form-control">
+                    <input type="text" name="modal_sku" id="sku" class="form-control" readonly>
                     <label for="itemnameInput" class="form-label">Barcode</label>
                     <input type="text" name="modal_barcode" id="barcode" class="form-control" id="ubarcodeInput">
                     <label for="itemnameInput" class="form-label">Item Name</label>
@@ -256,8 +256,12 @@ $user = $_SESSION['user_name'];
                     <input type="number" name="modal_stocks" id="stocks" class="form-control" id="ustocksInput">
                     <label for="expdateInput" class="form-label">Exp. Date</label>
                     <input type="date" name="modal_date" id="expdate" class="form-control" id="uexpdateInput">
+                    <label for="edt-mark-up" class="form-label">Mark Up</label>
+                    <input style="margin: 0;" type="number" name="modal_markup" class="form-control" id="edt-mark-up">
+                    <label for="cpriceInput" class="form-label">Selling Price</label>
+                    <input style="margin: 0;" type="number" name="modal_cp" class="form-control" step=".01" id="edt-cpriceInput" required>
                     <label for="priceInput" class="form-label">Price</label>
-                    <input style="margin: 0;" type="number" name="modal_price" id="price" step=".01" class="form-control" id="upriceInput"><br>
+                    <input style="margin: 0;" type="number" name="modal_price" step=".01" class="form-control" id="upriceInput" readonly><br>
 
                     <!-- Selecting Category-->
                     <div class="input-group mb-4">
@@ -283,7 +287,7 @@ $user = $_SESSION['user_name'];
                 <div class="modal-footer">
                     <button  class="btn btn-primary">Update Changes</button>
                 </form>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary" id="edit-close-btn" data-bs-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>

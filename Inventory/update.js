@@ -8,8 +8,6 @@ $(document).ready(function() {
             return $(this).text();
         }).get();
 
-        console.log(data);
-
 
         $('#update_id').val(data[0]);
         $('#sku').val(data[1]);
@@ -17,8 +15,13 @@ $(document).ready(function() {
         $('#itemname').val(data[3]);
         $('#stocks').val(data[4]);
         $('#expdate').val(data[5]);
-        $('#price').val(data[6]);
+        $('#upriceInput').val(data[6]);
         $('#category').val(data[7]);
 
     });
+
+    $(document).on("click", "#edit-close-btn", function(e) {
+        $("#edt-cpriceInput").val("");
+        $("#edt-mark-up").val("");
+    })
 });
