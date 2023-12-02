@@ -9,14 +9,6 @@ $user = $_SESSION['user_name'];
         header("Location: login_form.php");
         exit();
     }
-
-
-    //for markup query
-
-    $setting_query = "SELECT `markup` FROM setting_db";
-    $setting_query_result = mysqli_query($sqlconn, $setting_query);
-
-
 ?>
 <html>
     <head>
@@ -259,7 +251,7 @@ $user = $_SESSION['user_name'];
                     <label for="edt-mark-up" class="form-label">Mark Up</label>
                     <input style="margin: 0;" type="number" name="modal_markup" class="form-control" id="edt-mark-up">
                     <label for="cpriceInput" class="form-label">Selling Price</label>
-                    <input style="margin: 0;" type="number" name="modal_cp" class="form-control" step=".01" id="edt-cpriceInput" required>
+                    <input style="margin: 0;" type="number" name="modal_cp" class="form-control" step=".01" id="edt-cpriceInput">
                     <label for="priceInput" class="form-label">Price</label>
                     <input style="margin: 0;" type="number" name="modal_price" step=".01" class="form-control" id="upriceInput" readonly><br>
 

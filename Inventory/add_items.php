@@ -16,7 +16,7 @@ if(isset($_POST['modal_sku']) || isset($_POST['modal_itemname'])) {
     $itemstocks = validate($_POST['modal_stocks']);
     $expdate = mysqli_escape_string($sqlconn, $_POST['modal_date']);
     $price = validate($_POST['modal_price']);
-    $uom = validate($_POST['uom']);
+    // $uom = validate($_POST['uom']);
     $category = validate($_POST['category']);
 
 
@@ -31,7 +31,7 @@ if(isset($_POST['modal_sku']) || isset($_POST['modal_itemname'])) {
         $sql_result = mysqli_query($sqlconn, $sql_query);
 
         if($sql_result == TRUE) {
-            $remove_po = "DELETE FROM purchase_order_db WHERE `po_item_sku` = '$sku'";
+            $remove_po = "UPDATE purchase_order_db SET `inventory_in` = 1 WHERE `po_item_sku` = '$sku'";
             $remove_res = mysqli_query($sqlconn, $remove_po);
 
             if($remove_res == TRUE) {

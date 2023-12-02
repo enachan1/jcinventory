@@ -4,7 +4,9 @@ $(document).ready(function () {
     
     // for adding items
     $('#mark-up').keyup(function (e) { 
-        markup = $('#mark-up').val();
+        var markup = $('#mark-up').val();
+        markup_decimal = markup / 100;
+        console.log(markup_decimal);
     });
     
 
