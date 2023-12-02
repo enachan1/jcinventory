@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 25, 2023 at 11:47 AM
+-- Generation Time: Dec 02, 2023 at 07:29 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -69,8 +69,10 @@ INSERT INTO `items_db` (`id`, `item_sku`, `item_barcode`, `item_name`, `item_sto
 (11, '231114CLF', 89765421368, 'LEMON SQUARE CHEESE CAKE 300g', 184, '2024-01-05', 60.5, 'Snacks', '2023-11-20'),
 (12, '231114KTZ', 987561321858, 'CROSSINI 1PACK', 587, '2023-12-21', 11, 'Snacks', '2023-10-31'),
 (13, '231115ZZR', 987561321858, 'CROSSINI 1PACK', 141, '2023-12-08', 49.5, 'Snacks', '2023-10-24'),
-(15, '231115SXS', 89765421368, 'LEMON SQUARE CHEESE CAKE 300G', 333, '2023-11-30', 60.5, 'Canned Goods', '2023-11-15'),
-(16, '231115YSN', 9876543215, 'piatoss', 50, '2023-12-16', 20.35, 'Snacks', '2023-11-15');
+(16, '231115YSN', 9876543215, 'piatoss', 50, '2023-12-16', 20.35, 'Snacks', '2023-11-15'),
+(17, '231124WNU', 6549223216698, 'Mang Inasal 1 PACK', 500, '2024-01-31', 12.6, 'Snacks', '2023-11-29'),
+(20, '231202HSA', 564321995498, 'Red Horse Beer', 255, '2024-01-27', 63, 'Drinks', '2023-12-02'),
+(21, '231202JJH', 65436512984, 'San Miguel BEER', 255, '2024-02-09', 40.95, 'Drinks', '2023-12-02');
 
 -- --------------------------------------------------------
 
@@ -94,7 +96,9 @@ INSERT INTO `notification_db` (`notif_id`, `message`, `is_deleted`) VALUES
 (3, 'The item LEMON SQUARE CHEESE CAKE 20G with the SKU of 231115SXS is about to expire', 1),
 (4, 'The item LEMON SQUARE CHEESE CAKE 300G with the SKU of 231115SXS is about to expire', 1),
 (5, 'The item CROSSINI 1PACK with the SKU of 231115ZZR is about to expire', 0),
-(6, 'The item piatoss with the SKU of 231115YSN is in reorder level', 1);
+(6, 'The item piatoss with the SKU of 231115YSN is in reorder level', 1),
+(7, 'The item LEMON SQUARE CHEESE CAKE 300G with the SKU of 231115SXS is expired', 0),
+(8, 'The item piatoss with the SKU of 231115YSN is about to expire', 0);
 
 -- --------------------------------------------------------
 
@@ -112,16 +116,9 @@ CREATE TABLE `purchase_order_db` (
   `po_dot` date NOT NULL,
   `po_expdelivery` date NOT NULL,
   `is_delivered` tinyint(1) DEFAULT NULL,
-  `isBadOrder` tinyint(1) DEFAULT NULL,
+  `inventory_in` tinyint(1) DEFAULT NULL,
   `vendor_id` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `purchase_order_db`
---
-
-INSERT INTO `purchase_order_db` (`po_item_sku`, `po_item_name`, `po_qty`, `po_uom`, `po_category`, `po_item_price`, `po_dot`, `po_expdelivery`, `is_delivered`, `isBadOrder`, `vendor_id`) VALUES
-('231124WNU', 'Mang Inasal', 25, 'Tanga', 'Canned Goods', 700, '2023-11-24', '2023-12-02', 1, 0, 10001);
 
 -- --------------------------------------------------------
 
@@ -140,6 +137,15 @@ CREATE TABLE `sales_db` (
   `acc_id` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `sales_db`
+--
+
+INSERT INTO `sales_db` (`id`, `s_sku`, `s_item`, `s_qty`, `s_total`, `s_date`, `reciept_no`, `acc_id`) VALUES
+(1, 89765421368, 'LEMON SQUARE CHEESE CAKE 300G', 1, 60.5, '2023-12-02 13:39:45', 'JUNCATHYR20231202063945', 5),
+(2, 89765421368, 'LEMON SQUARE CHEESE CAKE 300G', 1, 60.5, '2023-12-02 13:41:33', 'JUNCATHYR20231202064133', 5),
+(3, 89765421368, 'LEMON SQUARE CHEESE CAKE 300G', 1, 60.5, '2023-12-02 13:42:00', 'JUNCATHYR20231202064200', 5);
+
 -- --------------------------------------------------------
 
 --
@@ -148,7 +154,6 @@ CREATE TABLE `sales_db` (
 
 CREATE TABLE `setting_db` (
   `threshold` int(11) NOT NULL,
-  `markup` float NOT NULL,
   `critical` int(11) NOT NULL,
   `average` int(11) NOT NULL,
   `reorder` int(11) NOT NULL,
@@ -159,8 +164,8 @@ CREATE TABLE `setting_db` (
 -- Dumping data for table `setting_db`
 --
 
-INSERT INTO `setting_db` (`threshold`, `markup`, `critical`, `average`, `reorder`, `stable`) VALUES
-(40, 10, 20, 70, 50, 150);
+INSERT INTO `setting_db` (`threshold`, `critical`, `average`, `reorder`, `stable`) VALUES
+(50, 20, 70, 50, 150);
 
 -- --------------------------------------------------------
 
@@ -175,6 +180,15 @@ CREATE TABLE `transaction_db` (
   `overall_amount` float NOT NULL,
   `acc_id` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `transaction_db`
+--
+
+INSERT INTO `transaction_db` (`reciept_no`, `transaction_date`, `total_item`, `overall_amount`, `acc_id`) VALUES
+('JUNCATHYR20231202063945', '2023-12-02 13:39:45', 1, 67.76, 5),
+('JUNCATHYR20231202064133', '2023-12-02 13:41:33', 1, 67.76, 5),
+('JUNCATHYR20231202064200', '2023-12-02 13:42:00', 1, 67.76, 5);
 
 -- --------------------------------------------------------
 
@@ -231,7 +245,7 @@ INSERT INTO `users__db` (`acc_id`, `user_name`, `email`, `pass_word`, `contact_n
 CREATE TABLE `vendors_db` (
   `vendor_id` bigint(50) NOT NULL,
   `vendor_name` varchar(255) NOT NULL,
-  `vendor_contact` int(11) NOT NULL
+  `vendor_contact` bigint(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -239,7 +253,12 @@ CREATE TABLE `vendors_db` (
 --
 
 INSERT INTO `vendors_db` (`vendor_id`, `vendor_name`, `vendor_contact`) VALUES
-(10001, 'Nhorlvick', 91492665);
+(10001, 'Nhorlvick', 91492665),
+(10002, 'CHIPS CO', 2147483647),
+(10003, 'San Miguels', 2147483647),
+(10004, 'Lawrence', 2147483647),
+(10005, 'Carlo', 919276513),
+(10006, 'Paul', 91928854652);
 
 --
 -- Indexes for dumped tables
@@ -315,19 +334,19 @@ ALTER TABLE `category_db`
 -- AUTO_INCREMENT for table `items_db`
 --
 ALTER TABLE `items_db`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `notification_db`
 --
 ALTER TABLE `notification_db`
-  MODIFY `notif_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `notif_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `sales_db`
 --
 ALTER TABLE `sales_db`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `users__db`
@@ -339,7 +358,7 @@ ALTER TABLE `users__db`
 -- AUTO_INCREMENT for table `vendors_db`
 --
 ALTER TABLE `vendors_db`
-  MODIFY `vendor_id` bigint(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10002;
+  MODIFY `vendor_id` bigint(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10007;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
