@@ -122,7 +122,7 @@ $user = $_SESSION['user_name'];
                             $rowClass = '';
                             if ($dateDifference < 0) {
                                 $rowClass = 'expired'; // Expired
-                        }elseif ($dateDifference < 1296000) { // Less than 7 days (adjust as needed)
+                        }elseif ($dateDifference < 2592000) {  //a month before notifying
                                 $rowClass = 'close-to-expiration'; // Close to expiration
                     }
                         ?>

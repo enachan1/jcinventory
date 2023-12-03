@@ -198,13 +198,13 @@ $user = $_SESSION['user_name'];
                                     <tbody>
                                         <?php 
                                         $expiring_query = "SELECT `item_sku`, `item_name`, `item_expdate` FROM `items_db`
-                                            WHERE `item_expdate` BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL 15 DAY)";
+                                            WHERE `item_expdate` BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL 30 DAY)";
 
                                         $result = $sqlconn->query($expiring_query);
 
 
                                         $expiring_count = "SELECT COUNT(`item_sku`) as `exp_count` FROM `items_db`
-                                        WHERE `item_expdate` BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL 15 DAY)";
+                                        WHERE `item_expdate` BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL 30 DAY)";
 
                                         $exp_query = $sqlconn->query($expiring_count);
                                         $exprow = $exp_query->fetch_assoc();
