@@ -39,6 +39,18 @@ $user = $_SESSION['user_name'];
             border: none;
             border-radius: 0; /* Remove border-radius if applied by Bootstrap */
         }
+        .icon-container {
+            position: relative;
+        }
+
+        .icon-container::before {
+            content: "₱"; 
+            position: absolute;
+            top: 55%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 26px;
+        }
     </style>
     
 <body>
@@ -111,7 +123,10 @@ $user = $_SESSION['user_name'];
                 </li>
                 <li class="nav-item" role="presentation">
                     <a class="nav-link fs-5" href="?tb=6" id="close-tab" data-bs-toggle="tab" data-bs-target="#closing" type="button" role="tab" aria-controls="fast" aria-selected="false">
-                        <i class="fas fa-arrow-up"></i> Daily Closing Sales
+                        <i class="fas fa-store" style="position: relative; color: inherit;">
+                            <span style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white; font-weight: bold; font-size: 26px;">/</span>
+                        </i>
+                        Daily Closing Sales
                     </a>
                 </li>
             </ul>
@@ -168,7 +183,9 @@ $user = $_SESSION['user_name'];
                         <?php } ?>
                         <p class="fs-5">Monthly Total Sales</p>
                     </div>
-                    <i class="fas fa-sack-dollar fs-1 primary-text border rounded-full secondary-bg p-3"></i>
+                    <span class="icon-container">
+                        <i class="fas fa-sack fs-1 primary-text border rounded-full secondary-bg p-3"></i>
+                    </span>
                 </div>
             </div>
 

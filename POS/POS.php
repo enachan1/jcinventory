@@ -377,8 +377,33 @@ if(isset($_SESSION['id']) && isset($_SESSION['user_name'])) {
             </div>
             <!--End modal Payment-->
 
-
-  
+            <!-- Alert Expired Item Modal -->
+            <!--
+            <div class="modal fade" id="alert-expireditem" tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Expired Item Alert</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="alert alert-danger" role="alert">
+                                <strong>Attention!</strong> This item has expired.
+                            </div>
+                            <p>Additional details about the expired item can go here.</p>
+                            <ul>
+                                <li>Expiration Date: [Your Expiration Date]</li>
+                                <li>Item Name: [Your Item Name]</li>
+                            </ul>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            -->
+            <!-- End Alert Expired Modal -->
 
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

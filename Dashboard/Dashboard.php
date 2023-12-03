@@ -37,6 +37,18 @@ $user = $_SESSION['user_name'];
             max-height: 300px; /* Set the maximum height */
             overflow-y: auto; /* Enable vertical scrolling */
         }
+        .icon-container {
+            position: relative;
+        }
+
+        .icon-container::before {
+            content: "₱"; /* Unicode character for the peso sign */
+            position: absolute;
+            top: 55%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 26px;
+        }
     </style>
     <title>Dashboard</title>
 </head>
@@ -144,8 +156,9 @@ $user = $_SESSION['user_name'];
                                 ?>
                                 <p class="fs-5">Today Sales</p>
                             </div>
-                            <i
-                                class="fas fa-sack-dollar fs-1 primary-text border rounded-full secondary-bg p-3"></i>
+                            <span class="icon-container">
+                                <i class="fas fa-sack fs-1 primary-text border rounded-full secondary-bg p-3"></i>
+                            </span>
                         </div>
                     </div>
 
