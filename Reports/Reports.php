@@ -290,6 +290,7 @@ $user = $_SESSION['user_name'];
                         <div class="p-2 bd-highlight">
                             <form action="" method="GET">
                         <select class="form-select mb-3 form-select-sm" name="invlev" id="dropdown-val" aria-label="Default select example">
+                            <option selected value="">--Select Filter--</option>
                             <option value="Fast"<?=isset($_GET['invlev']) == TRUE ? ($_GET['invlev'] == 'Fast' ? 'selected': ''): '' ?>>Fast</option>
                             <option value="Slow" <?=isset($_GET['invlev']) == TRUE ? ($_GET['invlev'] == 'Slow' ? 'selected': ''): '' ?>>Slow</option>
                         </select>
@@ -392,7 +393,6 @@ $user = $_SESSION['user_name'];
                                             AND sales.`s_date` <= LAST_DAY(CURRENT_DATE)
                                             GROUP BY
                                                 `s_item`
-                                            HAVING SUM(sales.`s_qty`) >= $threshold
                                         ) fm ON item.`item_barcode` = fm.`sales_barcode`
                                     ) subquery
                                     WHERE row_num = 1";
