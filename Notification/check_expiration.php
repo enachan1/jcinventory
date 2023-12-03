@@ -34,7 +34,7 @@ while ($row = mysqli_fetch_array($result)) {
 
     if ($dateDifference <= 0) {
         $message = "The item " . $row['item_name'] . " with the SKU of " . $row['item_sku'] . " is expired";
-    } elseif ($dateDifference <= 1296000) { 
+    } elseif ($dateDifference <= 2592000) { 
         $message = "The item " . $row['item_name'] . " with the SKU of " . $row['item_sku'] . " is about to expire";
     }
     elseif ($itemStocks <= $critical) {
