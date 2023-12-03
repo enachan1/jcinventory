@@ -179,7 +179,13 @@ $user = $_SESSION['user_name'];
 
                         if ($total_monthly_sales = mysqli_fetch_array($total_sales_month_result)) {
                         ?>
+                            <?php if($total_monthly_sales['total_monthly_sales'] != 0) { ?>
                             <h3 class="fs-2">₱ <?php echo $total_monthly_sales['total_monthly_sales'] ?></h3>
+                            <?php } 
+                            else {
+                            ?>
+                            <h3 class="fs-2">₱ 0</h3>
+                            <?php } ?>
                         <?php } ?>
                         <p class="fs-5">Monthly Total Sales</p>
                     </div>
@@ -690,13 +696,15 @@ $user = $_SESSION['user_name'];
                                     <th>Cashier Name</th>
                                     <th>Number of Transaction</th>
                                     <th>Total Sales</th>
+                                    <th>Total VAT</th>
                                 </tr>
                             </thead>
                             <tbody>
                             <?php 
                             $closing_report_query = "SELECT u.user_name as Name,
                                 COALESCE(t.Transactions, 0) as Transactions,
-                                COALESCE(s.TotalSales, 0) as TotalSales
+                                COALESCE(s.TotalSales, 0) as TotalSales,
+                                ROUND(COALESCE(s.TotalSales * 0.12, 0), 2   ) as TotalVAT
                             FROM users__db u
                             LEFT JOIN (
                                 SELECT acc_id, COUNT(reciept_no) as Transactions
@@ -722,6 +730,7 @@ $user = $_SESSION['user_name'];
                                     <td><?= $close_rows['Name'] ?></td>
                                     <td><?= $close_rows['Transactions'] ?></td>
                                     <td><?= $close_rows['TotalSales'] ?></td>
+                                    <td><?= $close_rows['TotalVAT'] ?></td>
                                 </tr>
                                 <?php } ?>
                             </tbody>
