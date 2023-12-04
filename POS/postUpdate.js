@@ -88,12 +88,24 @@ $(document).ready(function() {
         var excludeVat = $('#excluded-vat-amount').val();
         var vatAmount = $('#modalPVat').val();
         var overallTotalVal = parseFloat($('#overallTotal').text());
+
+        // Get the current date and time
+        var currentDate = new Date();
+        var dateTimeString = currentDate.toLocaleString(); // Format the date and time as a string
         
-        // Create a new HTML page with the receipt content
         var printContent = '<html><head><title>Receipt</title></head><body><br>';
+
+        //for the font
+        printContent += '<style>';
+        printContent += 'body { font-family: "Helvetica", sans-serif; }';
+        printContent += '</style>';
+
         printContent += '<center><h1>Jun&Cathy Grocery</h1></center>';
         printContent += '<center><h3>Reciept: ' + recieptNo +'</h3></center>';
+        printContent += '<center><p>Date/Time: ' + dateTimeString +'</p></center>';
         
+
+        //table where purchased items is displayed
         printContent += '<table style="width: 100%; border-collapse: collapse;">';
         printContent += '<thead>';
         printContent += '<tr>';

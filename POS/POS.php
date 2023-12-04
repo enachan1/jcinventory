@@ -269,7 +269,27 @@ if(isset($_SESSION['id']) && isset($_SESSION['user_name'])) {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <!-- This section will be populated with search results using JavaScript -->
+                                        <?php 
+                                            $itm_search_qry = "SELECT *
+                                            FROM items_db
+                                            WHERE (item_barcode, item_date_added) IN (
+                                                SELECT item_barcode, item_date_added
+                                                FROM items_db
+                                                GROUP BY item_barcode
+                                            )
+                                            ORDER BY item_date_added ASC";
+
+                                            $result_qry = $sqlconn->query($itm_search_qry);
+
+                                            while($qry_rows = $result_qry->fetch_assoc()) {
+                                        ?>
+                                            <tr>
+                                                <td><?= $qry_rows['item_barcode'] ?></td>
+                                                <td><?= $qry_rows['item_name'] ?></td>
+                                                <td><?= $qry_rows['item_category'] ?></td>
+                                                <td><?= $qry_rows['item_stocks'] ?></td>
+                                            </tr>
+                                        <?php  } ?>
                                     </tbody>
                                 </table>
                             </div>
