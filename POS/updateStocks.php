@@ -66,8 +66,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $transaction_query = "INSERT INTO `transaction_db`(`reciept_no`,`transaction_date`, `total_item`, `overall_amount`, `acc_id`) VALUES ('$generate_reciept', '$get_date', $overallQuantity, $overallTotal, $account_id)";
         $result_transaction = mysqli_query($sqlconn, $transaction_query);
 
+        $delete_item = "DELETE FROM items_db WHERE item_stocks = 0";
+
         if ($result_transaction == true) {
-            mysqli_commit($sqlconn); // Commit the transaction if everything is successful
+            mysqli_query($sqlconn, $delete_item);
+            mysqli_commit($sqlconn); // Commit the transaction if everything is successfull
             echo $generate_reciept;
         }
         else {

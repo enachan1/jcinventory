@@ -22,11 +22,9 @@ if(isset($_POST['skubarcode'])) {
                     $itemprice = $rows['item_price'];
                     $itemStocks = $rows['item_stocks'];
                     if($itemStocks <= 0) {
-                        $table_row = "<tr>";
-                        $table_row .= '<td><input class="form-control adjustments qty" type="number" value="1"></td>';  
-                                        
+                        $table_row = "<tr>";           
                                         $table_row .='<td colspan="4">No Stocks</td>';
-                                        $table_row .= '<td><button class="btn btn-primary btn-sm btn-danger del-row"><i class="fas fa-trash"></i></button></td>';
+                                        $table_row .= '<td colspan="2"><button class="btn btn-primary btn-sm btn-danger del-row"><i class="fas fa-trash"></i></button></td>';
                         $table_row .= '</tr>';
     
                         echo $table_row;
