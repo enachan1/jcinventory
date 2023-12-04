@@ -267,7 +267,7 @@ $user = $_SESSION['user_name'];
 
                                             if ($number_of_rows <= 0) {
                                                 ?>
-                                                <td colspan="3" class="text-center">NO ITEMS</td>
+                                                <td colspan="4" class="text-center">NO ITEMS</td>
                                                 <?php
                                             } else {
                                                 while ($rows_running_out = $result_running_out->fetch_assoc()) {
