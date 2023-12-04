@@ -212,9 +212,9 @@ $user = $_SESSION['user_name'];
                             <select class="form-select mb-3 form-select-sm" name="filter" aria-label="Default select example">
                             <!-- <option selected value="" disabled="">Open this select menu</option> -->
                                 <option selected value="">--Select Filter--</option>
-                                <option value="Monthly"<?=isset($_GET['filter']) == TRUE ? ($_GET['filter'] == 'Monthly' ? 'selected': ''): '' ?>>Monthly</option>
-                                <option value="Weekly" <?=isset($_GET['filter']) == TRUE ? ($_GET['filter'] == 'Weekly' ? 'selected': ''): '' ?>>Weekly</option>
-                                <option value="Daily" <?=isset($_GET['filter']) == TRUE ? ($_GET['filter'] == 'Daily' ? 'selected': ''): '' ?>>Daily</option>
+                                <option value="Monthly"<?=isset($_GET['filter']) == TRUE ? ($_GET['filter'] == 'Monthly' ? 'selected': ''): '' ?>>Month</option>
+                                <option value="Weekly" <?=isset($_GET['filter']) == TRUE ? ($_GET['filter'] == 'Weekly' ? 'selected': ''): '' ?>>Week</option>
+                                <option value="Daily" <?=isset($_GET['filter']) == TRUE ? ($_GET['filter'] == 'Daily' ? 'selected': ''): '' ?>>Day</option>
                             </select>
                          </div>
                          <div class="p-2 bd-highlight">
@@ -434,9 +434,9 @@ $user = $_SESSION['user_name'];
                         <form action="" method="GET">
                         <select class="form-select mb-3 form-select-sm" name="filter_transaction" id="dropdown-val" aria-label="Default select example">
                                 <option selected value="">--Select Filter--</option>
-                                <option value="Monthly"<?=isset($_GET['filter_transaction']) == TRUE ? ($_GET['filter_transaction'] == 'Monthly' ? 'selected': ''): '' ?>>Monthly</option>
-                                <option value="Weekly" <?=isset($_GET['filter_transaction']) == TRUE ? ($_GET['filter_transaction'] == 'Weekly' ? 'selected': ''): '' ?>>Weekly</option>
-                                <option value="Daily" <?=isset($_GET['filter_transaction']) == TRUE ? ($_GET['filter_transaction'] == 'Daily' ? 'selected': ''): '' ?>>Daily</option>
+                                <option value="Monthly"<?=isset($_GET['filter_transaction']) == TRUE ? ($_GET['filter_transaction'] == 'Monthly' ? 'selected': ''): '' ?>>Month</option>
+                                <option value="Weekly" <?=isset($_GET['filter_transaction']) == TRUE ? ($_GET['filter_transaction'] == 'Weekly' ? 'selected': ''): '' ?>>Week</option>
+                                <option value="Daily" <?=isset($_GET['filter_transaction']) == TRUE ? ($_GET['filter_transaction'] == 'Daily' ? 'selected': ''): '' ?>>Day</option>
                         </select>
                         </div>
                         <div class="p-2 bd-highlight">
@@ -515,9 +515,9 @@ $user = $_SESSION['user_name'];
                             <form action="" method="GET">
                         <select class="form-select mb-3 form-select-sm" name="filter_sm" id="dropdown-val" aria-label="Default select example">
                             <option selected value="">--Select Filter--</option>
-                            <option value="Monthly"<?=isset($_GET['filter_sm']) == TRUE ? ($_GET['filter_sm'] == 'Monthly' ? 'selected': ''): '' ?>>Monthly</option>
-                            <option value="Weekly" <?=isset($_GET['filter_sm']) == TRUE ? ($_GET['filter_sm'] == 'Weekly' ? 'selected': ''): '' ?>>Weekly</option>
-                            <option value="Daily" <?=isset($_GET['filter_sm']) == TRUE ? ($_GET['filter_sm'] == 'Daily' ? 'selected': ''): '' ?>>Daily</option>
+                            <option value="Monthly"<?=isset($_GET['filter_sm']) == TRUE ? ($_GET['filter_sm'] == 'Monthly' ? 'selected': ''): '' ?>>Month</option>
+                            <option value="Weekly" <?=isset($_GET['filter_sm']) == TRUE ? ($_GET['filter_sm'] == 'Weekly' ? 'selected': ''): '' ?>>Week</option>
+                            <option value="Daily" <?=isset($_GET['filter_sm']) == TRUE ? ($_GET['filter_sm'] == 'Daily' ? 'selected': ''): '' ?>>Day</option>
                         </select>
                         </div>
                         <div class="p-2 bd-highlight">
@@ -605,9 +605,9 @@ $user = $_SESSION['user_name'];
                             <form action="" method="GET">
                         <select class="form-select mb-3 form-select-sm" name="filter_fm" id="dropdown-val" aria-label="Default select example">
                             <option selected value="">--Select Filter--</option>
-                            <option value="Monthly"<?=isset($_GET['filter_fm']) == TRUE ? ($_GET['filter_fm'] == 'Monthly' ? 'selected': ''): '' ?>>Monthly</option>
-                            <option value="Weekly" <?=isset($_GET['filter_fm']) == TRUE ? ($_GET['filter_fm'] == 'Weekly' ? 'selected': ''): '' ?>>Weekly</option>
-                            <option value="Daily" <?=isset($_GET['filter_fm']) == TRUE ? ($_GET['filter_fm'] == 'Daily' ? 'selected': ''): '' ?>>Daily</option>
+                            <option value="Monthly"<?=isset($_GET['filter_fm']) == TRUE ? ($_GET['filter_fm'] == 'Monthly' ? 'selected': ''): '' ?>>Month</option>
+                            <option value="Weekly" <?=isset($_GET['filter_fm']) == TRUE ? ($_GET['filter_fm'] == 'Weekly' ? 'selected': ''): '' ?>>Week</option>
+                            <option value="Daily" <?=isset($_GET['filter_fm']) == TRUE ? ($_GET['filter_fm'] == 'Daily' ? 'selected': ''): '' ?>>Day</option>
                         </select>
                         </div>
                         <div class="p-2 bd-highlight">
