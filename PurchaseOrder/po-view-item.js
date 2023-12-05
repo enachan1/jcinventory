@@ -24,6 +24,8 @@ $(document).ready(function () {
 function populateModal(data) {
     $('#itemTable tbody').empty();
 
+    $('#po-total-price').text("₱ " + parseFloat(data.total));
+
     data.items.forEach(function(item) {
         $('#dispVendorName').text(item.Vendor);
         $('#currentDate').text(item.transaction_date);

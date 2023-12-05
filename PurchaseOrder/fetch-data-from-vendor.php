@@ -19,7 +19,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
               JOIN purchase_order_db ON vendors_db.vendor_id = purchase_order_db.vendor_id
               WHERE vendors_db.vendor_id = $item_vendor_id";
 
-    $result = $sqlconn->query($query);
+            $result = $sqlconn->query($query);
+            $po_total = "SELECT ROUND(SUM(po_item_price),2) as `po_total_price` FROM `purchase_order_db` WHERE `vendor_id` = $item_vendor_id";
+            $result_total = $sqlconn->query($po_total);
 
     if ($result === false) {
         echo json_encode(['error' => $sqlconn->error]);
@@ -27,12 +29,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $data = array(); 
 
         while ($rows = mysqli_fetch_assoc($result)) {
-            $data[] = $rows; 
+            $data[] = $rows;
         }
 
+        if($rows_total = $result_total->fetch_assoc()) {
+            $result_total_po = $rows_total['po_total_price'];
+        }
         
         $sqlconn->close();
-        $response = ['items' => $data];
+        $response = ['items' => $data,
+        'total' => $result_total_po];
         echo json_encode($response);
     }
 } else {

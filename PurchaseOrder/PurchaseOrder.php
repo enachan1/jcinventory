@@ -443,6 +443,14 @@ $user = $_SESSION['user_name'];
                                                                     <!-- Display Date js-->
                                     <div class="p-2 flex-shrink-1"><h5 id="expectedDate"></h5></div>
                                 </div>
+
+                                <div class="dropdown-divider"></div>
+
+                                <!-- Total Price -->
+                                <div class="d-flex">
+                                    <div class="p-2 w-50"><h5>Total Price: </h5></div>   
+                                    <div class="p-2 flex-shrink-1"><h5 id="po-total-price"></h5></div>
+                                </div>
                                      
 
                             </div>
