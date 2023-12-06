@@ -315,6 +315,7 @@ $user = $_SESSION['user_name'];
             });
 
             $(document).ready(function() {
+                
                 $("tr").each(function() {
                 var row = $(this);
                 if (row.hasClass("expired")) {
@@ -322,6 +323,20 @@ $user = $_SESSION['user_name'];
             } else if (row.hasClass("close-to-expiration")) {
                     row.css("background-color", "#FCD299");
         }
+
+        //when add item modal opens, it will focus on the barcode input
+
+        $('#myModal').on('shown.bs.modal', function() {
+            $('#barcodeInput').focus();
+        });
+
+
+        $(document).on('keydown', '#barcodeInput', function(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                $('#itemnameInput').focus();
+        }
+        });
     });
 });
         </script>
