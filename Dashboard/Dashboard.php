@@ -185,7 +185,7 @@ $user = $_SESSION['user_name'];
                         <div class="col">
                             <h3 class="fs-4 mb-3">Expiring Items</h3>
                                 <div class="table-responsive scrollable-table">
-                                <table class="table colorbox rounded shadow-sm table-hover">
+                                <table class="table colorbox rounded shadow-sm table-hover" id="expiring-table">
                                     <!-- Table Header -->
                                     <thead>
                                         <tr>
@@ -216,8 +216,21 @@ $user = $_SESSION['user_name'];
                                         <?php }
                                         
                                         else {
-                                            while($rows = $result->fetch_assoc()) {?>
-                                        <tr>
+                                            while($rows = $result->fetch_assoc()) {
+                                                // Calculate the difference between the expiration date and the current date
+                                                $expDate = strtotime($rows['item_expdate']);
+                                                $currentDate = time();
+                                                $dateDifference = $expDate - $currentDate;
+
+                                                // Determine the row class based on the date difference
+                                                $rowClass = '';
+                                                if ($dateDifference < 0) {
+                                                    $rowClass = 'expired'; // Expired
+                                            }elseif ($dateDifference < 2592000) {  //a month before notifying
+                                                    $rowClass = 'close-to-expiration'; // Close to expiration
+                                            }
+                                                ?>
+                                        <tr class="<?= $rowClass ?>">
                                             <td><?= $rows['item_sku'] ?></td>
                                             <td><?= $rows['item_name'] ?></td>
                                             <td><?= $rows['item_expdate'] ?></td>
@@ -338,6 +351,17 @@ $user = $_SESSION['user_name'];
         toggleButton.onclick = function () {
             el.classList.toggle("toggled");
         };
+        
+        $(document).ready(function() {
+                $('#expiring-table tr').each(function() {
+                var row = $(this);
+                if (row.hasClass("expired")) {
+                    row.css("background-color", "#FF7276");
+            } else if (row.hasClass("close-to-expiration")) {
+                    row.css("background-color", "#FCD299");
+        }
+    });
+});
 
 
     </script>

@@ -17,7 +17,7 @@ $(document).ready(function () {
         $("#modalPVat").val(totalWithVAT);
         $("#overallTotal").text(totalIncludingVAT.toFixed(2));
         $("#modalPTotal").val(totalIncludingVAT.toFixed(2));
-        $("#excluded-vat-amount").val(totalAmount);
+        $("#excluded-vat-amount").val(totalAmount.toFixed(2));
     }
 
 
@@ -41,7 +41,7 @@ $(document).ready(function () {
 
                 var price = parseFloat(existingRow.find(".price").text());
                 var totalPrice = quantity * price;
-                existingRow.find(".totalPrice").text(totalPrice);
+                existingRow.find(".totalPrice").text(totalPrice.toFixed(2));
                 $("#barcodeInput").val("");
 
                 // Update the total amount incrementally when quantity changes

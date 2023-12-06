@@ -12,7 +12,7 @@ if(isset($_POST['skubarcode'])) {
             $select_query = "SELECT * FROM items_db WHERE item_barcode = $input_sku ORDER BY `item_date_added` ASC LIMIT 1";
             $result_query = mysqli_query($sqlconn, $select_query);
             if($result_query === false) {
-                echo $conn->error;
+                echo $sqlconn->error;
             }
             else {
                 if(mysqli_num_rows($result_query) === 1) {
