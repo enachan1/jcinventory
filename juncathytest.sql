@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 02, 2023 at 07:29 AM
+-- Generation Time: Dec 06, 2023 at 09:43 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -41,7 +41,13 @@ INSERT INTO `category_db` (`id`, `category_name`) VALUES
 (2, 'Drinks'),
 (3, 'Necessities'),
 (4, 'Snacks'),
-(5, 'Chemicals');
+(5, 'Chemicals'),
+(16, 'Biscuits'),
+(17, 'Powdered Drink'),
+(18, 'Noodles'),
+(19, 'Candy'),
+(20, 'Shampoo'),
+(21, 'Soap');
 
 -- --------------------------------------------------------
 
@@ -66,13 +72,16 @@ CREATE TABLE `items_db` (
 --
 
 INSERT INTO `items_db` (`id`, `item_sku`, `item_barcode`, `item_name`, `item_stocks`, `item_expdate`, `item_price`, `item_category`, `item_date_added`) VALUES
-(11, '231114CLF', 89765421368, 'LEMON SQUARE CHEESE CAKE 300g', 184, '2024-01-05', 60.5, 'Snacks', '2023-11-20'),
-(12, '231114KTZ', 987561321858, 'CROSSINI 1PACK', 587, '2023-12-21', 11, 'Snacks', '2023-10-31'),
-(13, '231115ZZR', 987561321858, 'CROSSINI 1PACK', 141, '2023-12-08', 49.5, 'Snacks', '2023-10-24'),
-(16, '231115YSN', 9876543215, 'piatoss', 50, '2023-12-16', 20.35, 'Snacks', '2023-11-15'),
-(17, '231124WNU', 6549223216698, 'Mang Inasal 1 PACK', 500, '2024-01-31', 12.6, 'Snacks', '2023-11-29'),
-(20, '231202HSA', 564321995498, 'Red Horse Beer', 255, '2024-01-27', 63, 'Drinks', '2023-12-02'),
-(21, '231202JJH', 65436512984, 'San Miguel BEER', 255, '2024-02-09', 40.95, 'Drinks', '2023-12-02');
+(1, '231206QZJ', 4800010075243, 'Cream O choco filled', 244, '2024-05-11', 8.8, 'Biscuits', '2023-12-06'),
+(2, '231206EBD', 4800010075069, 'Cream O Vanilla Filled', 243, '2024-05-31', 8.4, 'Biscuits', '2023-12-06'),
+(3, '231206OVR', 4806521795021, 'Donut Time', 249, '2024-05-31', 10.5, 'Snacks', '2023-12-06'),
+(4, '231206LGL', 4800361379557, 'Nestea Lemon', 246, '2024-03-30', 25.2, 'Powdered Drink', '2023-12-06'),
+(5, '231206NSV', 4800092113307, 'Hansel Chocolate Sandwich', 254, '2024-08-31', 8.07, 'Powdered Drink', '2023-12-06'),
+(6, '231206FAZ', 4800811156899, 'ANGIES GUMMY BERRIES', 98, '2026-12-31', 43.05, 'Snacks', '2023-12-06'),
+(7, '231206RAK', 4800016560910, 'NISSIN RAMEN SPICY SEAFOOD', 253, '2024-04-30', 24.15, 'Noodles', '2023-12-06'),
+(8, '231206GRG', 4800016555985, 'XTRA BIG KALAMANSI', 254, '2024-05-03', 17.12, 'Noodles', '2023-12-06'),
+(9, '231206OGC', 4800361416726, 'NESCAFE CREAMY WHITE', 253, '2024-04-05', 15.75, 'Powdered Drink', '2023-12-06'),
+(10, '231206OYI', 4800361410816, 'BEAR BRAND FORTIFIED MILK', 239, '2024-04-06', 12.08, 'Powdered Drink', '2023-12-06');
 
 -- --------------------------------------------------------
 
@@ -85,20 +94,6 @@ CREATE TABLE `notification_db` (
   `message` varchar(355) NOT NULL,
   `is_deleted` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `notification_db`
---
-
-INSERT INTO `notification_db` (`notif_id`, `message`, `is_deleted`) VALUES
-(1, 'The item LEMON SQUARE CHEESE CAKE 300g with the SKU of 231114CLF is expired', 1),
-(2, 'The item CROSSINI 1PACK with the SKU of 231114KTZ is expired', 1),
-(3, 'The item LEMON SQUARE CHEESE CAKE 20G with the SKU of 231115SXS is about to expire', 1),
-(4, 'The item LEMON SQUARE CHEESE CAKE 300G with the SKU of 231115SXS is about to expire', 1),
-(5, 'The item CROSSINI 1PACK with the SKU of 231115ZZR is about to expire', 0),
-(6, 'The item piatoss with the SKU of 231115YSN is in reorder level', 1),
-(7, 'The item LEMON SQUARE CHEESE CAKE 300G with the SKU of 231115SXS is expired', 0),
-(8, 'The item piatoss with the SKU of 231115YSN is about to expire', 0);
 
 -- --------------------------------------------------------
 
@@ -142,9 +137,22 @@ CREATE TABLE `sales_db` (
 --
 
 INSERT INTO `sales_db` (`id`, `s_sku`, `s_item`, `s_qty`, `s_total`, `s_date`, `reciept_no`, `acc_id`) VALUES
-(1, 89765421368, 'LEMON SQUARE CHEESE CAKE 300G', 1, 60.5, '2023-12-02 13:39:45', 'JUNCATHYR20231202063945', 5),
-(2, 89765421368, 'LEMON SQUARE CHEESE CAKE 300G', 1, 60.5, '2023-12-02 13:41:33', 'JUNCATHYR20231202064133', 5),
-(3, 89765421368, 'LEMON SQUARE CHEESE CAKE 300G', 1, 60.5, '2023-12-02 13:42:00', 'JUNCATHYR20231202064200', 5);
+(1, 4800010075069, 'Cream O Vanilla Filled', 4, 33.6, '2023-12-06 12:55:06', 'JUNCATHYR20231206055506', 5),
+(2, 4800361379557, 'Nestea Lemon', 6, 151.2, '2023-12-06 12:55:06', 'JUNCATHYR20231206055506', 5),
+(3, 4806521795021, 'Donut Time', 5, 52.5, '2023-12-06 12:55:06', 'JUNCATHYR20231206055506', 5),
+(4, 4800010075243, 'Cream O choco filled', 1, 8.8, '2023-12-06 12:55:06', 'JUNCATHYR20231206055506', 5),
+(5, 4800811156899, 'ANGIES GUMMY BERRIES', 2, 86.1, '2023-12-06 12:55:06', 'JUNCATHYR20231206055506', 5),
+(6, 4800092113307, 'Hansel Chocolate Sandwich', 1, 8.07, '2023-12-06 12:55:06', 'JUNCATHYR20231206055506', 5),
+(7, 4800016560910, 'NISSIN RAMEN SPICY SEAFOOD', 2, 48.3, '2023-12-06 12:55:06', 'JUNCATHYR20231206055506', 5),
+(8, 4800361410816, 'BEAR BRAND FORTIFIED MILK', 1, 12.08, '2023-12-06 12:55:06', 'JUNCATHYR20231206055506', 5),
+(9, 4800361416726, 'NESCAFE CREAMY WHITE', 1, 15.75, '2023-12-06 12:55:06', 'JUNCATHYR20231206055506', 5),
+(10, 4800016555985, 'XTRA BIG KALAMANSI', 1, 17.12, '2023-12-06 12:55:06', 'JUNCATHYR20231206055506', 5),
+(11, 4800361379557, 'Nestea Lemon', 3, 75.6, '2023-12-06 12:57:30', 'JUNCATHYR20231206055730', 5),
+(12, 4800010075069, 'Cream O Vanilla Filled', 8, 67.2, '2023-12-06 12:57:30', 'JUNCATHYR20231206055730', 5),
+(13, 4806521795021, 'Donut Time', 1, 10.5, '2023-12-06 12:57:30', 'JUNCATHYR20231206055730', 5),
+(14, 4800361416726, 'NESCAFE CREAMY WHITE', 1, 15.75, '2023-12-06 12:57:30', 'JUNCATHYR20231206055730', 5),
+(15, 4800361410816, 'BEAR BRAND FORTIFIED MILK', 15, 181.2, '2023-12-06 12:59:37', 'JUNCATHYR20231206055937', 5),
+(16, 4800010075243, 'Cream O choco filled', 10, 88, '2023-12-06 13:00:23', 'JUNCATHYR20231206060023', 5);
 
 -- --------------------------------------------------------
 
@@ -186,9 +194,10 @@ CREATE TABLE `transaction_db` (
 --
 
 INSERT INTO `transaction_db` (`reciept_no`, `transaction_date`, `total_item`, `overall_amount`, `acc_id`) VALUES
-('JUNCATHYR20231202063945', '2023-12-02 13:39:45', 1, 67.76, 5),
-('JUNCATHYR20231202064133', '2023-12-02 13:41:33', 1, 67.76, 5),
-('JUNCATHYR20231202064200', '2023-12-02 13:42:00', 1, 67.76, 5);
+('JUNCATHYR20231206055506', '2023-12-06 12:55:06', 24, 485.54, 5),
+('JUNCATHYR20231206055730', '2023-12-06 12:57:30', 13, 189.34, 5),
+('JUNCATHYR20231206055937', '2023-12-06 12:59:37', 15, 202.94, 5),
+('JUNCATHYR20231206060023', '2023-12-06 13:00:23', 10, 98.56, 5);
 
 -- --------------------------------------------------------
 
@@ -328,25 +337,25 @@ ALTER TABLE `vendors_db`
 -- AUTO_INCREMENT for table `category_db`
 --
 ALTER TABLE `category_db`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `items_db`
 --
 ALTER TABLE `items_db`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `notification_db`
 --
 ALTER TABLE `notification_db`
-  MODIFY `notif_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `notif_id` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `sales_db`
 --
 ALTER TABLE `sales_db`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `users__db`
