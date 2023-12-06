@@ -47,7 +47,7 @@ $(document).ready(function () {
 
     $(document).on("click", "#order-btn",function (e) { 
         $("#purchase1").on('shown.bs.modal', function() {
-            $("#vendorID").focus();
+            $("#vendorNAME").focus();
             var sku = generateRandomSku();
             console.log(sku);
             $("#generateRandom").val(sku);
