@@ -7,7 +7,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($data->query)) {
         $search_text = mysqli_real_escape_string($sqlconn, $data->query);
 
-        $sqlquery = "SELECT * FROM `items_db` WHERE `item_barcode` LIKE '%$search_text%' OR `item_name` LIKE '%$search_text%' AND `item_stocks` > 0 ORDER BY `item_date_added` ASC LIMIT 1";
+        $sqlquery = "SELECT * FROM `items_db` WHERE `item_name` LIKE '%$search_text%' AND `item_stocks` > 0 ORDER BY `item_date_added` ASC LIMIT 1";
 
         $result = mysqli_query($sqlconn, $sqlquery);
 
@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 echo "<a href='#' class='list-group-item list-group-item-action list-group-item-secondary border-1 clickers' data-itemsku='". $row['item_barcode']. "'>" . $row['item_barcode'] . ' - ' . $row['item_name'] . "</a>";
             }
         } else {
-            echo '<a href="#" class="list-group-item list-group-item-action list-group-item-secondary border-1">no record</a>';
+            
         }
     }
 } else {
