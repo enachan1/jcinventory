@@ -31,13 +31,11 @@ while ($row = mysqli_fetch_array($result)) {
     $expDate = strtotime($row['item_expdate']);
     $itemStocks = $row['item_stocks'];
     $dateDifference = $expDate - $currentDate;
-
-    if ($dateDifference <= 0) {
+    if ($dateDifference <= 0 && $row['item_expdate'] != '0000-00-00') {
         $message = "The item " . $row['item_name'] . " with the SKU of " . $row['item_sku'] . " is expired";
-    } elseif ($dateDifference <= 2592000) { 
+    } elseif ($dateDifference <= 2592000 && $row['item_expdate'] != '0000-00-00') { 
         $message = "The item " . $row['item_name'] . " with the SKU of " . $row['item_sku'] . " is about to expire";
-    }
-    elseif ($itemStocks <= $critical) {
+    } elseif ($itemStocks <= $critical) {
         $message = "The item " . $row['item_name'] . " with the SKU of " . $row['item_sku'] . " is in critical level";
     } elseif ($itemStocks <= $reorder) {
         $message = "The item " . $row['item_name'] . " with the SKU of " . $row['item_sku'] . " is in reorder level";

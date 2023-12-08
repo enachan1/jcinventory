@@ -114,17 +114,20 @@ $user = $_SESSION['user_name'];
 
                         while($show_rows = mysqli_fetch_array($show_result)) {
                             // Calculate the difference between the expiration date and the current date
+                            $expdate_nString = $show_rows['item_expdate'];
                             $expDate = strtotime($show_rows['item_expdate']);
                             $currentDate = time();
                             $dateDifference = $expDate - $currentDate;
 
                             // Determine the row class based on the date difference
                             $rowClass = '';
+                        if($expdate_nString != '0000-00-00') {
                             if ($dateDifference < 0) {
                                 $rowClass = 'expired'; // Expired
-                        }elseif ($dateDifference < 2592000) {  //a month before notifying
+                            }elseif ($dateDifference < 2592000) {  //a month before notifying
                                 $rowClass = 'close-to-expiration'; // Close to expiration
-                    }
+                            }
+                        }
                         ?>
                         <tr class="<?= $rowClass?>">
                             <td style="display: none;"><?php echo $show_rows['id'] ?></td>
@@ -132,7 +135,13 @@ $user = $_SESSION['user_name'];
                             <td><?php echo $show_rows['item_barcode'] ?></td>
                             <td><?php echo $show_rows['item_name'] ?></td>
                             <td><?php echo $show_rows['item_stocks'] ?></td>
-                            <td><?php echo $show_rows['item_expdate'] ?></td>
+                                <?php if($expdate_nString == '0000-00-00') { ?>
+                                    <td>N/A</td>
+                                <?php }
+                                else {
+                                ?>
+                                    <td><?php echo $show_rows['item_expdate'] ?></td>
+                                <?php } ?>
                             <td><?php echo $show_rows['item_price'] ?></td>
                             <td><?php echo $show_rows['item_category'] ?></td>
                             <!--Button Edit / Remove-->
@@ -313,7 +322,6 @@ $user = $_SESSION['user_name'];
             $(document).ready( function () {
                 $('#inv-table').DataTable( {
                     "drawCallback": function(settings) {
-                    // Loop through each row in the table
                         $('tbody tr').each(function() {
                             var row = $(this);
                             if (row.hasClass("expired")) {
