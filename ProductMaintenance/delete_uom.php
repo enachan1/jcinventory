@@ -13,7 +13,7 @@ if(!$sql_result) {
     die("Something's Wrong");
 }
 else {
-    header("Location: ProductMaintenance.php?msg=Deleted Successfully");
+    header("Location: ProductMaintenance.php?uommsg=Deleted Successfully");
     exit();
 }
 }

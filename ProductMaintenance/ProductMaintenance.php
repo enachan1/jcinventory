@@ -114,7 +114,24 @@ $user = $_SESSION['user_name'];
                             <button type="button" class="btn colorbox btn-outline-secondary btn-lg" data-bs-toggle="modal" data-bs-target="#categoryModal">
                                 Add Category
                             </button>
-                        </div><br>
+                        </div>
+                        <br>
+                        <?php 
+                                    if(isset($_GET['catmsg'])) {
+                                    ?>
+                                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                            <?= $_GET['catmsg'] ?>
+                                            <button class="btn-close" data-bs-dismiss="alert" id="removeCatMsgButton" aria-label="Close"></button>
+                                        </div>
+                            <?php } 
+                                   else if (isset($_GET['caterror'])) { 
+                            ?>
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                            <?= $_GET['caterror'] ?>
+                                            <button class="btn-close" data-bs-dismiss="alert" id="removeCatErrorButton" aria-label="Close"></button>
+                                        </div>
+                            <?php  } ?>
+                        <br>
                         <!-- Table -->
                         <table id="category-table" class="table bg-white rounded shadow-sm table-hover">
                             <thead>
@@ -160,7 +177,24 @@ $user = $_SESSION['user_name'];
                                 <button type="button" class="btn colorbox btn-outline-secondary btn-lg" data-bs-toggle="modal" data-bs-target="#uomModal">
                                     Add Unit of Measure
                                 </button>
-                            </div><br>
+                            </div>
+                            <br>
+                        <?php 
+                                    if(isset($_GET['uommsg'])) {
+                                    ?>
+                                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                            <?= $_GET['uommsg'] ?>
+                                            <button class="btn-close" data-bs-dismiss="alert" id="removeuomMsgButton" aria-label="Close"></button>
+                                        </div>
+                            <?php } 
+                                   else if (isset($_GET['uomerror'])) { 
+                            ?>
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                            <?= $_GET['uomerror'] ?>
+                                            <button class="btn-close" data-bs-dismiss="alert" id="removeuomErrorButton" aria-label="Close"></button>
+                                        </div>
+                            <?php  } ?>
+                        <br>
                         <!-- Table -->
                         <table id="uom-table" class="table bg-white rounded shadow-sm table-hover">
                             <thead>
@@ -311,6 +345,36 @@ $user = $_SESSION['user_name'];
             });
             $(document).ready( function () {
                 $('#uom-table').DataTable();
+            });
+
+            //removing url messages
+
+            $('#removeCatMsgButton').on('click', function() {
+                // Remove the 'err' query parameter from the URL
+                var currentUrl = window.location.href;
+                var updatedUrl = currentUrl.replace(/[?&]catmsg=.*&?/, '');
+                history.replaceState({}, document.title, updatedUrl);
+            });
+
+            $('#removeCatErrorButton').on('click', function() {
+                // Remove the 'err' query parameter from the URL
+                var currentUrl = window.location.href;
+                var updatedUrl = currentUrl.replace(/[?&]caterror=.*&?/, '');
+                history.replaceState({}, document.title, updatedUrl);
+            });
+
+            $('#removeuomMsgButton').on('click', function() {
+                // Remove the 'err' query parameter from the URL
+                var currentUrl = window.location.href;
+                var updatedUrl = currentUrl.replace(/[?&]uommsg=.*&?/, '');
+                history.replaceState({}, document.title, updatedUrl);
+            });
+
+            $('#removeuomErrorButton').on('click', function() {
+                // Remove the 'err' query parameter from the URL
+                var currentUrl = window.location.href;
+                var updatedUrl = currentUrl.replace(/[?&]uomerror=.*&?/, '');
+                history.replaceState({}, document.title, updatedUrl);
             });
 
         </script>
