@@ -311,7 +311,19 @@ $user = $_SESSION['user_name'];
             };
 
             $(document).ready( function () {
-                $('#inv-table').DataTable();
+                $('#inv-table').DataTable( {
+                    "drawCallback": function(settings) {
+                    // Loop through each row in the table
+                        $('tbody tr').each(function() {
+                            var row = $(this);
+                            if (row.hasClass("expired")) {
+                                row.css("background-color", "#FF7276");
+                            } else if (row.hasClass("close-to-expiration")) {
+                                row.css("background-color", "#FCD299");
+                            }
+            });
+        }
+                });
             });
 
             $(document).ready(function() {
