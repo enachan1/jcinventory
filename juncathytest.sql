@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 06, 2023 at 09:43 AM
+-- Generation Time: Dec 08, 2023 at 11:37 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -46,7 +46,6 @@ INSERT INTO `category_db` (`id`, `category_name`) VALUES
 (17, 'Powdered Drink'),
 (18, 'Noodles'),
 (19, 'Candy'),
-(20, 'Shampoo'),
 (21, 'Soap');
 
 -- --------------------------------------------------------
@@ -61,7 +60,7 @@ CREATE TABLE `items_db` (
   `item_barcode` bigint(20) NOT NULL,
   `item_name` varchar(50) NOT NULL,
   `item_stocks` int(11) NOT NULL,
-  `item_expdate` date NOT NULL,
+  `item_expdate` date DEFAULT NULL,
   `item_price` float NOT NULL,
   `item_category` varchar(50) NOT NULL,
   `item_date_added` date DEFAULT NULL
@@ -72,16 +71,18 @@ CREATE TABLE `items_db` (
 --
 
 INSERT INTO `items_db` (`id`, `item_sku`, `item_barcode`, `item_name`, `item_stocks`, `item_expdate`, `item_price`, `item_category`, `item_date_added`) VALUES
-(1, '231206QZJ', 4800010075243, 'Cream O choco filled', 244, '2024-05-11', 8.8, 'Biscuits', '2023-12-06'),
-(2, '231206EBD', 4800010075069, 'Cream O Vanilla Filled', 243, '2024-05-31', 8.4, 'Biscuits', '2023-12-06'),
+(1, '231206QZJ', 4800010075243, 'Cream O choco filled', 244, '2023-12-06', 8.8, 'Biscuits', '2023-12-06'),
+(2, '231206EBD', 4800010075069, 'Cream O Vanilla Filled', 30, '2023-11-24', 8.4, 'Biscuits', '2023-12-06'),
 (3, '231206OVR', 4806521795021, 'Donut Time', 249, '2024-05-31', 10.5, 'Snacks', '2023-12-06'),
-(4, '231206LGL', 4800361379557, 'Nestea Lemon', 246, '2024-03-30', 25.2, 'Powdered Drink', '2023-12-06'),
+(4, '231206LGL', 4800361379557, 'Nestea Lemon', 60, '2024-03-30', 25.2, 'Powdered Drink', '2023-12-06'),
 (5, '231206NSV', 4800092113307, 'Hansel Chocolate Sandwich', 254, '2024-08-31', 8.07, 'Powdered Drink', '2023-12-06'),
 (6, '231206FAZ', 4800811156899, 'ANGIES GUMMY BERRIES', 98, '2026-12-31', 43.05, 'Snacks', '2023-12-06'),
-(7, '231206RAK', 4800016560910, 'NISSIN RAMEN SPICY SEAFOOD', 253, '2024-04-30', 24.15, 'Noodles', '2023-12-06'),
+(7, '231206RAK', 4800016560910, 'NISSIN RAMEN SPICY SEAFOOD', 252, '2024-04-30', 24.15, 'Noodles', '2023-12-06'),
 (8, '231206GRG', 4800016555985, 'XTRA BIG KALAMANSI', 254, '2024-05-03', 17.12, 'Noodles', '2023-12-06'),
 (9, '231206OGC', 4800361416726, 'NESCAFE CREAMY WHITE', 253, '2024-04-05', 15.75, 'Powdered Drink', '2023-12-06'),
-(10, '231206OYI', 4800361410816, 'BEAR BRAND FORTIFIED MILK', 239, '2024-04-06', 12.08, 'Powdered Drink', '2023-12-06');
+(10, '231206OYI', 4800361410816, 'BEAR BRAND FORTIFIED MILK', 239, '2024-04-06', 12.08, 'Powdered Drink', '2023-12-06'),
+(11, '231208JNI', 4800016644504, 'PIATTOS CHEESE 85G', 255, '2023-12-09', 20, 'Snacks', '2023-12-08'),
+(12, '231208WQQ', 4800016644504, 'PIATTOS CHEESE 85G', 255, '2023-12-13', 20, 'Snacks', '2023-12-08');
 
 -- --------------------------------------------------------
 
@@ -94,6 +95,17 @@ CREATE TABLE `notification_db` (
   `message` varchar(355) NOT NULL,
   `is_deleted` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `notification_db`
+--
+
+INSERT INTO `notification_db` (`notif_id`, `message`, `is_deleted`) VALUES
+(1, 'The item PIATTOS CHEESE 85G with the SKU of 231208JNI is expired', 0),
+(2, 'The item PIATTOS CHEESE 85G with the SKU of 231208JNI is about to expire', 0),
+(3, 'The item Cream O choco filled with the SKU of 231206QZJ is expired', 0),
+(4, 'The item Cream O Vanilla Filled with the SKU of 231206EBD is expired', 0),
+(5, 'The item PIATTOS CHEESE 85G with the SKU of 231208WQQ is about to expire', 0);
 
 -- --------------------------------------------------------
 
@@ -152,7 +164,8 @@ INSERT INTO `sales_db` (`id`, `s_sku`, `s_item`, `s_qty`, `s_total`, `s_date`, `
 (13, 4806521795021, 'Donut Time', 1, 10.5, '2023-12-06 12:57:30', 'JUNCATHYR20231206055730', 5),
 (14, 4800361416726, 'NESCAFE CREAMY WHITE', 1, 15.75, '2023-12-06 12:57:30', 'JUNCATHYR20231206055730', 5),
 (15, 4800361410816, 'BEAR BRAND FORTIFIED MILK', 15, 181.2, '2023-12-06 12:59:37', 'JUNCATHYR20231206055937', 5),
-(16, 4800010075243, 'Cream O choco filled', 10, 88, '2023-12-06 13:00:23', 'JUNCATHYR20231206060023', 5);
+(16, 4800010075243, 'Cream O choco filled', 10, 88, '2023-12-06 13:00:23', 'JUNCATHYR20231206060023', 5),
+(17, 4800016560910, 'NISSIN RAMEN SPICY SEAFOOD', 1, 24.15, '2023-12-08 16:53:07', 'JUNCATHYR20231208095307', 5);
 
 -- --------------------------------------------------------
 
@@ -197,7 +210,8 @@ INSERT INTO `transaction_db` (`reciept_no`, `transaction_date`, `total_item`, `o
 ('JUNCATHYR20231206055506', '2023-12-06 12:55:06', 24, 485.54, 5),
 ('JUNCATHYR20231206055730', '2023-12-06 12:57:30', 13, 189.34, 5),
 ('JUNCATHYR20231206055937', '2023-12-06 12:59:37', 15, 202.94, 5),
-('JUNCATHYR20231206060023', '2023-12-06 13:00:23', 10, 98.56, 5);
+('JUNCATHYR20231206060023', '2023-12-06 13:00:23', 10, 98.56, 5),
+('JUNCATHYR20231208095307', '2023-12-08 16:53:07', 1, 27.05, 5);
 
 -- --------------------------------------------------------
 
@@ -215,9 +229,10 @@ CREATE TABLE `uom_db` (
 --
 
 INSERT INTO `uom_db` (`id`, `uom_name`) VALUES
-(0, 'Packs'),
-(5, 'Boxes'),
-(7, 'Cases');
+(1, 'Boxes'),
+(2, 'Cases'),
+(3, 'Packs'),
+(5, 'Gallons');
 
 -- --------------------------------------------------------
 
@@ -337,25 +352,31 @@ ALTER TABLE `vendors_db`
 -- AUTO_INCREMENT for table `category_db`
 --
 ALTER TABLE `category_db`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `items_db`
 --
 ALTER TABLE `items_db`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `notification_db`
 --
 ALTER TABLE `notification_db`
-  MODIFY `notif_id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `notif_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `sales_db`
 --
 ALTER TABLE `sales_db`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+
+--
+-- AUTO_INCREMENT for table `uom_db`
+--
+ALTER TABLE `uom_db`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `users__db`
