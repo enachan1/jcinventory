@@ -96,12 +96,6 @@ $user = $_SESSION['user_name'];
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0 dropadjust">
-                        <!-- Help Icon -->
-                        <!-- <li class="nav-item">
-                            <a class="nav-link" data-bs-toggle="modal" data-bs-placement="bottom" data-bs-target="#helpModal" title="Help">
-                                <i class="fas fa-question-circle"></i>
-                            </a>
-                        </li> -->
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle second-text fw-bold" href="#" id="navbarDropdown"
                                 role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -198,13 +192,13 @@ $user = $_SESSION['user_name'];
                                     <tbody>
                                         <?php 
                                         $expiring_query = "SELECT `item_sku`, `item_name`, `item_expdate` FROM `items_db`
-                                            WHERE `item_expdate` BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL 30 DAY)";
+                                            WHERE `item_expdate` <= CURDATE() OR `item_expdate` BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL 30 DAY)";
 
                                         $result = $sqlconn->query($expiring_query);
 
 
                                         $expiring_count = "SELECT COUNT(`item_sku`) as `exp_count` FROM `items_db`
-                                        WHERE `item_expdate` BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL 30 DAY)";
+                                        WHERE `item_expdate` <= CURDATE() OR `item_expdate` BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL 30 DAY)";
 
                                         $exp_query = $sqlconn->query($expiring_count);
                                         $exprow = $exp_query->fetch_assoc();
@@ -305,40 +299,6 @@ $user = $_SESSION['user_name'];
         </div>
     </div>
     </div>
-
-
-    <!-- Modal Goes Here -->
-    
-        <!-- Modal Help -->
-        <!-- <div class="modal fade" id="helpModal" tabindex="-1" aria-labelledby="helpModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="helpModalLabel">Help</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body"> -->
-                <!--Content Goes here-->
-                <!-- <h1>Bullsheatiy Tortorial</h1>
-                <img src="..." class="img-thumbnail" alt="...">
-                <h5>qweasdqwrasdqrzxqw</h5>
-                <p class="text-start">Start aligned text on all viewport sizes.</p>
-                <p class="text-center">Center aligned text on all viewport sizes.</p>
-                <p class="text-end">End aligned text on all viewport sizes.</p>
-
-                <p class="text-sm-end">End aligned text on viewports sized SM (small) or wider.</p>
-                </div> -->
-                <!--Modal Footer Goes here-->
-                <!-- <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                </div>
-                </div>
-            </div>
-        </div> -->
-        <!-- End modal help -->
-
-
-        <!-- /#page-content-wrapper -->
 
     <!--Boostrap Layout-->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
