@@ -182,7 +182,7 @@ $user = $_SESSION['user_name'];
                     <label for="stocksInput" class="form-label">Stocks</label>
                     <input type="number" name="modal_stocks" class="form-control" id="stocksInput" required>
                     <label for="expdateInput" class="form-label">Exp. Date</label>
-                    <input type="date" name="modal_date" class="form-control" id="expdateInput" required>
+                    <input type="date" name="modal_date" class="form-control" id="expdateInput">
                     <label for="cpriceInput" class="form-label">Mark Up %</label>
                     <input style="margin: 0;" type="number" name="modal_markup" class="form-control" id="mark-up">
                     <label for="cpriceInput" class="form-label">Selling Price</label>
