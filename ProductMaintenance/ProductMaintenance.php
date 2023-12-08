@@ -29,6 +29,12 @@ $user = $_SESSION['user_name'];
             border: none;
             border-radius: 0; /* Remove border-radius if applied by Bootstrap */
         }
+        #myTab .nav-link {
+            color: rgb(68, 68, 68);
+        }
+        #myTab .nav-link.active {
+            color: blue;
+        }
     </style>
 
 <body>

@@ -32,6 +32,12 @@ $user = $_SESSION['user_name'];
             border: none;
             border-radius: 0; /* Remove border-radius if applied by Bootstrap */
         }
+        #myTab .nav-link {
+            color: rgb(68, 68, 68);
+        }
+        #myTab .nav-link.active {
+            color: blue;
+        }
     </style>
 
 <body>
@@ -713,7 +719,7 @@ $user = $_SESSION['user_name'];
             // Retrieve the last active tab from sessionStorage
             var lastActiveTab = sessionStorage.getItem(storageKey);
 
-            // If no last active tab is found, default to the "Category" tab (tab number 1)
+            // If no last active tab is found, default to the "Purchase Order" tab (tab number 1)
             if (lastActiveTab === null) {
                 lastActiveTab = 1;
             }

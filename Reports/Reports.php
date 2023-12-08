@@ -51,6 +51,12 @@ $user = $_SESSION['user_name'];
             transform: translate(-50%, -50%);
             font-size: 26px;
         }
+        #myTab .nav-link {
+            color: rgb(68, 68, 68);
+        }
+        #myTab .nav-link.active {
+            color: blue;
+        }
     </style>
     
 <body>
@@ -869,15 +875,14 @@ $user = $_SESSION['user_name'];
             el.classList.toggle("toggled");
         };
 
-
-        //Tab Active function
+        // Tab Active function
         document.addEventListener('DOMContentLoaded', function () {
             var storageKey = 'activeTabSet3';
 
             // Retrieve the last active tab from sessionStorage
             var lastActiveTab = sessionStorage.getItem(storageKey);
 
-            // If no last active tab is found, default to the "Category" tab (tab number 1)
+            // If no last active tab is found, default to the "Sales Report" tab (tab number 1)
             if (lastActiveTab === null) {
                 lastActiveTab = 1;
             }
@@ -898,7 +903,7 @@ $user = $_SESSION['user_name'];
                 });
             });
         });
-    
+            
     
         </script>
         <!-- For notification script -->
