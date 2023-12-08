@@ -832,7 +832,8 @@ $user = $_SESSION['user_name'];
         //Table function by using databases boostrap5
         $(document).ready( function () {
             $('#sales-table').DataTable( {
-                lengthChange: false
+                lengthChange: false,
+                ordering: false
             });
 
             $('#invetoryr-table').DataTable( {
@@ -840,7 +841,8 @@ $user = $_SESSION['user_name'];
             });
 
             $('#transaction-table').DataTable( {
-                lengthChange: false
+                lengthChange: false,
+                ordering: false
             });
 
             $('#slow-table').DataTable( {
