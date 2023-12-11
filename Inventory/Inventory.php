@@ -160,75 +160,97 @@ $user = $_SESSION['user_name'];
 </div>
 
     
-    <!-- Add Item Modal-->
-    <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="editModalLabel">Add Item</h5>
-                    <button type="button" class="btn-close" id="closeBtn" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
+<!-- Add Item Modal-->
+<div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editModalLabel">Add Item</h5>
+                <button type="button" class="btn-close" id="closeBtn" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
 
             <!-- Start Modal Body-->
             <div class="modal-body">
-                <div class="mb-4">
-                    <form action="add_items.php" method="post" autocomplete="off">
-                    <!-- Label and Textbox -->
-                    <label for="skuInput" class="form-label">SKU</label>
-                    <div class="d-flex flex-row">
-                        <input type="text" name="modal_sku" class="form-control me-1" id="skuInput" required readonly>
-                        <input type="button" id="generate" value="Generate SKU" class="btn btn-secondary btn-sm">
-                    </div>
-                    <label for="skuInput" class="form-label">Barcode</label>
-                    <input type="number" name="modal_barcode" class="form-control" id="barcodeInput" required>
-                    <label for="itemnameInput" class="form-label">Item Name</label>
-                    <input type="text" name="modal_itemname" class="form-control" id="itemnameInput" required>
-                    <!-- Auto complete items -->
-                    <div class="list-group" id="showlist_skuitems" style="position: absolute; z-index: 1; width: 70%;">
-                        
-                    </div>
-                    <!-- End of auto complete items -->
-                    <label for="stocksInput" class="form-label">Stocks</label>
-                    <input type="number" name="modal_stocks" class="form-control" id="stocksInput" required>
-                    <label for="expdateInput" class="form-label">Exp. Date</label>
-                    <input type="date" name="modal_date" class="form-control" id="expdateInput">
-                    <label for="cpriceInput" class="form-label">Mark Up %</label>
-                    <input style="margin: 0;" type="number" name="modal_markup" class="form-control" id="mark-up">
-                    <label for="cpriceInput" class="form-label">Selling Price</label>
-                    <input style="margin: 0;" type="number" name="modal_cp" class="form-control" step=".01" id="cpriceInput" required>
-                    <label for="priceInput" class="form-label">Total Price</label>
-                    <input style="margin: 0;" type="number" name="modal_price" class="form-control" id="priceInput" step=".01" readonly><br>
+                <div class="container">
+                    <div class="row g-2">
+                        <!-- Left side column -->
+                        <div class="col-6">
+                            <div class="p-3">
+                                <form action="add_items.php" method="post" autocomplete="off">
+                                <!-- Label and Textbox -->
+                                <label for="skuInput" class="form-label">SKU</label>
+                                <div class="d-flex flex-row">
+                                    <input type="text" name="modal_sku" class="form-control me-1" id="skuInput" required readonly>
+                                    <input type="button" id="generate" value="Generate SKU" class="btn btn-secondary btn-sm">
+                                </div>
+                                <label for="skuInput" class="form-label">Barcode</label>
+                                <input type="number" name="modal_barcode" class="form-control" id="barcodeInput" required>
+                                <label for="itemnameInput" class="form-label">Item Name</label>
+                                <input type="text" name="modal_itemname" class="form-control" id="itemnameInput" required>
+                                <!-- Auto complete items -->
+                                <div class="list-group" id="showlist_skuitems" style="position: absolute; z-index: 1; width: 70%;">
+                                        
+                                </div>
+                                <!-- End of auto complete items -->
+                                <label for="stocksInput" class="form-label">Stocks</label>
+                                <input type="number" name="modal_stocks" class="form-control" id="stocksInput" required>
+                                <label for="expdateInput" class="form-label">Exp. Date</label>
+                                <input type="date" name="modal_date" class="form-control" id="expdateInput">
+                                <label for="cpriceInput" class="form-label">Mark Up %</label>
+                                <input style="margin: 0;" type="number" name="modal_markup" class="form-control" id="mark-up">
+                                <label for="cpriceInput" class="form-label">Selling Price</label>
+                                <input style="margin: 0;" type="number" name="modal_cp" class="form-control" step=".01" id="cpriceInput" required>
+                                <label for="priceInput" class="form-label">Total Price</label>
+                                <input style="margin: 0;" type="number" name="modal_price" class="form-control" id="priceInput" step=".01" readonly><br>
 
-                    <!-- Selecting Category -->
-                    <div class="input-group mb-4">
-                        <label class="input-group-text colorbox" for="category">Category</label>
-                        <select class="form-select" id="add_category" name="category">
+                                <!-- Selecting Category -->
+                                <div class="input-group mb-4">
+                                    <label class="input-group-text colorbox" for="category">Category</label>
+                                    <select class="form-select" id="add_category" name="category">
 
-                        <!-- PHP Looping for fetching uom's for the dropdown list -->
-                        <?php  
-                            $sql_query1 = "SELECT * FROM category_db";
-                            $sql_res1 = mysqli_query($sqlconn, $sql_query1);
+                                    <!-- PHP Looping for fetching uom's for the dropdown list -->
+                                    <?php  
+                                            $sql_query1 = "SELECT * FROM category_db";
+                                            $sql_res1 = mysqli_query($sqlconn, $sql_query1);
 
-                            while($array1 = mysqli_fetch_array($sql_res1)) {
-                        ?>
-                            <option value="<?php echo $array1['category_name']; ?>"><?php echo $array1['category_name']; ?></option>
-                        <?php 
-                            }
-                        ?>
-                        </select>
-                    </div>
-
-                </div>
-                <!-- End of modal body -->
-                    <div class="modal-footer">
-                        <button class="btn btn-primary">Add Item</button>
-                    </form>
-                        <button type="button" class="btn btn-secondary" id="closeBtn" data-bs-dismiss="modal">Close</button>
+                                            while($array1 = mysqli_fetch_array($sql_res1)) {
+                                        ?>
+                                            <option value="<?php echo $array1['category_name']; ?>"><?php echo $array1['category_name']; ?></option>
+                                        <?php 
+                                            }
+                                        ?>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End left side column -->
+                            
+                            <!-- Right side column -->
+                            <div class="col-6">
+                                <div class="p-3">
+                                    <form action="add_items.php" method="post" autocomplete="off">
+                                    <!-- Label and Textbox -->
+                                    <label for="" class="form-label">Sample</label>
+                                    <input type="number" name="modal_barcode" class="form-control" id="" required>
+                                    <label for="" class="form-label">Sample Name</label>
+                                    <input type="text" name="modal_itemname" class="form-control" id="" required>
+                                    <label for="" class="form-label">Sample</label>
+                                    <input type="number" name="modal_stocks" class="form-control" id="" required><br>
+                                    </div>
+                                    </div>
+                            <!-- End right side column -->
+                                </div>
+                            </div>
+                                <!-- End of modal body -->
+                                    <div class="modal-footer">
+                                        <button class="btn btn-primary">Add Item</button>
+                                    </form>
+                                        <button type="button" class="btn btn-secondary" id="closeBtn" data-bs-dismiss="modal">Close</button>
+                                    </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
 <!-- End of Add item modal -->
 
 
@@ -296,69 +318,65 @@ $user = $_SESSION['user_name'];
 <!-- End of edit modal -->
 
 
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="autocomplete.js"></script>
-        <script src="calculate-price.js"></script>
-        <script type="text/javascript" src="update.js"></script>
+    <!-- Boostrap scripts -->
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
 
-
-        <!-- data table scripts -->
-        <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
-        <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
-        <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
-
-        <!-- For notification script -->
-        <script src="../notif-count.js"></script>
+    <!-- For script made-->
+    <script src="../notif-count.js"></script>
+    <script src="autocomplete.js"></script>
+    <script src="calculate-price.js"></script>
+    <script type="text/javascript" src="update.js"></script>
  
-        <script>
-            var el = document.getElementById("wrapper");
-            var toggleButton = document.getElementById("menu-toggle");
+    <script>
+        var el = document.getElementById("wrapper");
+        var toggleButton = document.getElementById("menu-toggle");
     
-            toggleButton.onclick = function () {
-                el.classList.toggle("toggled");
-            };
+        toggleButton.onclick = function () {
+            el.classList.toggle("toggled");
+        };
 
-            $(document).ready( function () {
-                $('#inv-table').DataTable( {
-                    "drawCallback": function(settings) {
-                        $('tbody tr').each(function() {
-                            var row = $(this);
-                            if (row.hasClass("expired")) {
-                                row.css("background-color", "#FF7276");
-                            } else if (row.hasClass("close-to-expiration")) {
-                                row.css("background-color", "#FCD299");
-                            }
-            });
-        }
-                });
-            });
-
-            $(document).ready(function() {
-                
-                $("tr").each(function() {
+    $(document).ready( function () {
+        $('#inv-table').DataTable( {
+            "drawCallback": function(settings) {
+            $('tbody tr').each(function() {
                 var row = $(this);
-                if (row.hasClass("expired")) {
-                    row.css("background-color", "#FF7276");
-            } else if (row.hasClass("close-to-expiration")) {
-                    row.css("background-color", "#FCD299");
-        }
-
-        //when add item modal opens, it will focus on the barcode input
-
-        $('#myModal').on('shown.bs.modal', function() {
-            $('#barcodeInput').focus();
-        });
-
-
-        $(document).on('keydown', '#barcodeInput', function(event) {
-            if (event.key === 'Enter') {
-                event.preventDefault();
-                $('#itemnameInput').focus();
-        }
+                    if (row.hasClass("expired")) {
+                        row.css("background-color", "#FF7276");
+                    } else if (row.hasClass("close-to-expiration")) {
+                        row.css("background-color", "#FCD299");
+                    }
+                });
+            }
         });
     });
-});
+
+    $(document).ready(function() {   
+        $("tr").each(function() {
+            var row = $(this);
+            if (row.hasClass("expired")) {
+                row.css("background-color", "#FF7276");
+            } else if (row.hasClass("close-to-expiration")) {
+                row.css("background-color", "#FCD299");
+            }
+
+            //when add item modal opens, it will focus on the barcode input
+
+            $('#myModal').on('shown.bs.modal', function() {
+                $('#barcodeInput').focus();
+            });
+
+
+            $(document).on('keydown', '#barcodeInput', function(event) {
+                if (event.key === 'Enter') {
+                    event.preventDefault();
+                    $('#itemnameInput').focus();
+            }
+            });
+        });
+    });
         </script>
     </body>
     <?php
@@ -367,7 +385,5 @@ else {
     header("Location: /jcinventory/login_form.php");
     exit();
 }
-
-
 ?>
 </html>
