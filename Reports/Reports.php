@@ -8,17 +8,6 @@ $user = $_SESSION['user_name'];
         header("Location: login_form.php");
         exit();
     }
-    //for fast moving table threshold
-    $threshold_query = "SELECT * FROM `setting_db`";
-    $threshold_query_result = mysqli_query($sqlconn, $threshold_query);
-
-    if($rows = mysqli_fetch_assoc($threshold_query_result)) {
-        $threshold = $rows['threshold'];
-        $critical = $rows['critical'];
-        $reorder = $rows['reorder'];
-        $average = $rows['average'];
-        $stable = $rows['stable'];
-    }
 
 ?>
 <html>
@@ -331,24 +320,25 @@ $user = $_SESSION['user_name'];
                                     if($filter == "Fast") {
                                         $inventory_level_query = "SELECT `item_barcode`, `item_name`, `item_category`, `item_stocks`, `stock_status`
                                     FROM (
-                                        SELECT item.`item_barcode`, item.`item_name`, item.`item_category`, item.`item_stocks`,
+                                        SELECT item.`item_barcode`, item.`item_name`, item.`item_category`, item.`item_stocks`, item.`stable` as stable, item.`average` as average, item.`reorder` as reorder, item.`critical` as critical,
                                             CASE 
-                                                WHEN item.`item_stocks` > $stable THEN 'Stable'
-                                                WHEN item.`item_stocks` <= $critical THEN 'Critical'
-                                                WHEN item.`item_stocks` <= $reorder THEN 'Reorder'
-                                                WHEN item.`item_stocks` <= $average OR item.`item_stocks` < $stable THEN 'Average'
+                                                WHEN item.`item_stocks` > stable THEN 'Stable'
+                                                WHEN item.`item_stocks` <= critical THEN 'Critical'
+                                                WHEN item.`item_stocks` <= reorder THEN 'Reorder'
+                                                WHEN item.`item_stocks` <= average OR item.`item_stocks` < stable THEN 'Average'
                                             END AS `stock_status`,
                                             ROW_NUMBER() OVER (PARTITION BY item.`item_barcode` ORDER BY item.`item_date_added` ASC) as row_num
                                         FROM `items_db` item
                                         JOIN (
-                                            SELECT sales.`s_sku` as sales_barcode
+                                            SELECT sales.`s_sku` as sales_barcode, itm.sales as threshold
                                             FROM `sales_db` sales
+                                            JOIN items_db itm ON sales.s_sku = itm.item_barcode
                                             WHERE
                                                 sales.`s_date` >= DATE_FORMAT(CURRENT_DATE, '%Y-%m-01')
                                             AND sales.`s_date` <= LAST_DAY(CURRENT_DATE)
                                             GROUP BY
                                                 `s_item`
-                                            HAVING SUM(sales.`s_qty`) >= $threshold
+                                            HAVING SUM(sales.`s_qty`) >= threshold
                                         ) fm ON item.`item_barcode` = fm.`sales_barcode`
                                     ) subquery
                                     WHERE row_num = 1";
@@ -358,24 +348,25 @@ $user = $_SESSION['user_name'];
                                     elseif ($filter == "Slow") {
                                         $inventory_level_query = "SELECT `item_barcode`, `item_name`, `item_category`, `item_stocks`, `stock_status`
                                         FROM (
-                                            SELECT item.`item_barcode`, item.`item_name`, item.`item_category`, item.`item_stocks`,
+                                            SELECT item.`item_barcode`, item.`item_name`, item.`item_category`, item.`item_stocks`, item.`stable` as stable, item.`average` as average, item.`reorder` as reorder, item.`critical` as critical,
                                                 CASE 
-                                                    WHEN item.`item_stocks` > $stable THEN 'Stable'
-                                                    WHEN item.`item_stocks` <= $critical THEN 'Critical'
-                                                    WHEN item.`item_stocks` <= $reorder THEN 'Reorder'
-                                                    WHEN item.`item_stocks` <= $average OR item.`item_stocks` < $stable THEN 'Average'
+                                                    WHEN item.`item_stocks` > stable THEN 'Stable'
+                                                    WHEN item.`item_stocks` <= critical THEN 'Critical'
+                                                    WHEN item.`item_stocks` <= reorder THEN 'Reorder'
+                                                    WHEN item.`item_stocks` <= average OR item.`item_stocks` < stable THEN 'Average'
                                                 END AS `stock_status`,
                                                 ROW_NUMBER() OVER (PARTITION BY item.`item_barcode` ORDER BY item.`item_date_added` ASC) as row_num
                                             FROM `items_db` item
                                             JOIN (
-                                                SELECT sales.`s_sku` as sales_barcode
+                                                SELECT sales.`s_sku` as sales_barcode, itm.sales as threshold
                                                 FROM `sales_db` sales
+                                                JOIN items_db itm ON sales.s_sku = itm.item_barcode
                                                 WHERE
                                                     sales.`s_date` >= DATE_FORMAT(CURRENT_DATE, '%Y-%m-01')
                                                 AND sales.`s_date` <= LAST_DAY(CURRENT_DATE)
                                                 GROUP BY
                                                     `s_item`
-                                                HAVING SUM(sales.`s_qty`) <= $threshold
+                                                HAVING SUM(sales.`s_qty`) <= threshold
                                             ) fm ON item.`item_barcode` = fm.`sales_barcode`
                                         ) subquery
                                         WHERE row_num = 1";
@@ -388,12 +379,12 @@ $user = $_SESSION['user_name'];
                                 else {
                                     $inventory_level_query = "SELECT `item_barcode`, `item_name`, `item_category`, `item_stocks`, `stock_status`
                                     FROM (
-                                        SELECT item.`item_barcode`, item.`item_name`, item.`item_category`, item.`item_stocks`,
+                                        SELECT item.`item_barcode`, item.`item_name`, item.`item_category`, item.`item_stocks`, item.`stable` as stable, item.`average` as average, item.`reorder` as reorder, item.`critical` as critical,
                                             CASE 
-                                                WHEN item.`item_stocks` > $stable THEN 'Stable'
-                                                WHEN item.`item_stocks` <= $critical THEN 'Critical'
-                                                WHEN item.`item_stocks` <= $reorder THEN 'Reorder'
-                                                WHEN item.`item_stocks` <= $average OR item.`item_stocks` < $stable THEN 'Average'
+                                                WHEN item.`item_stocks` > stable THEN 'Stable'
+                                                WHEN item.`item_stocks` <= critical THEN 'Critical'
+                                                WHEN item.`item_stocks` <= reorder THEN 'Reorder'
+                                                WHEN item.`item_stocks` <= average OR item.`item_stocks` < stable THEN 'Average'
                                             END AS `stock_status`,
                                             ROW_NUMBER() OVER (PARTITION BY item.`item_barcode` ORDER BY item.`item_date_added` ASC) as row_num
                                         FROM `items_db` item
@@ -547,39 +538,41 @@ $user = $_SESSION['user_name'];
                                 $filter = mysqli_real_escape_string($sqlconn, $_GET['filter_sm']);
 
                                 if($filter == "Monthly") {
-                                    $query_fm = "SELECT s_sku, s_item, SUM(s_qty) AS total_quantity_sold
-                                    FROM sales_db
+                                    $query_fm = "SELECT s.s_sku, s.s_item, SUM(s.s_qty) AS total_quantity_sold, itm.sales as threshold
+                                    FROM sales_db s
+                                    JOIN items_db itm ON s.s_sku = itm.item_barcode
                                     WHERE s_date >= DATE_FORMAT(CURRENT_DATE, '%Y-%m-01') -- First day of the current month
                                     AND s_date <= LAST_DAY(CURRENT_DATE) -- Last day of the current month
                                     GROUP BY s_item
-                                    HAVING total_quantity_sold < $threshold";
+                                    HAVING total_quantity_sold < threshold";
                                     $result_fm = mysqli_query($sqlconn, $query_fm);
                                 }
                                 elseif($filter == "Weekly") {
-                                    $query_fm = "SELECT s_sku, s_item, SUM(s_qty) AS total_quantity_sold
-                                    FROM sales_db 
+                                    $query_fm = "SELECT s.s_sku, s.s_item, SUM(s.s_qty) AS total_quantity_sold, itm.sales as threshold
+                                    FROM sales_db s
+                                    JOIN items_db itm ON s.s_sku = itm.item_barcode
                                     WHERE s_date >= DATE_SUB(CURDATE(), INTERVAL WEEKDAY(CURDATE()) DAY)
                                     AND s_date < DATE_ADD(DATE_SUB(CURDATE(), INTERVAL WEEKDAY(CURDATE()) DAY), INTERVAL 7 DAY)
                                     GROUP BY s_item
-                                    HAVING total_quantity_sold < $threshold";
+                                    HAVING total_quantity_sold < threshold";
                                     $result_fm = mysqli_query($sqlconn, $query_fm);
                                 }
                                 elseif($filter == "Daily") {
-                                    $query_fm = "SELECT s_sku, s_item, SUM(s_qty) AS total_quantity_sold
-                                    FROM sales_db  
+                                    $query_fm = "SELECT s.s_sku, s.s_item, SUM(s.s_qty) AS total_quantity_sold, itm.sales as threshold
+                                    FROM sales_db s
+                                    JOIN items_db itm ON s.s_sku = itm.item_barcode
                                     WHERE DATE(s_date) = CURDATE() 
                                     GROUP BY s_item
-                                    HAVING total_quantity_sold < $threshold";
+                                    HAVING total_quantity_sold < threshold";
                                     $result_fm = mysqli_query($sqlconn, $query_fm);
                                 } 
                             }
                             else {
-                                $query_fm = "SELECT s_sku, s_item, SUM(s_qty) AS total_quantity_sold
-                                FROM sales_db
-                                WHERE s_date >= DATE_FORMAT(CURRENT_DATE, '%Y-%m-01') -- First day of the current month
-                                    AND s_date <= LAST_DAY(CURRENT_DATE) -- Last day of the current month
+                                $query_fm = "SELECT s.s_sku, s.s_item, SUM(s.s_qty) AS total_quantity_sold, itm.sales as threshold
+                                FROM sales_db s
+                                JOIN items_db itm ON s.s_sku = itm.item_barcode
                                 GROUP BY s_item
-                                HAVING total_quantity_sold < $threshold";
+                                HAVING total_quantity_sold < threshold";
                                 
                                 $result_fm = mysqli_query($sqlconn, $query_fm);
                             }
@@ -637,39 +630,41 @@ $user = $_SESSION['user_name'];
                                     $filter = mysqli_real_escape_string($sqlconn, $_GET['filter_fm']);
     
                                     if($filter == "Monthly") {
-                                        $query_fm = "SELECT s_sku, s_item, SUM(s_qty) AS total_quantity_sold
-                                        FROM sales_db
+                                        $query_fm = "SELECT s.s_sku, s.s_item, SUM(s.s_qty) AS total_quantity_sold, itm.sales as threshold
+                                        FROM sales_db s
+                                        JOIN items_db itm ON s.s_sku = itm.item_barcode
                                         WHERE s_date >= DATE_FORMAT(CURRENT_DATE, '%Y-%m-01') -- First day of the current month
                                         AND s_date <= LAST_DAY(CURRENT_DATE) -- Last day of the current month
                                         GROUP BY s_item
-                                        HAVING total_quantity_sold >= $threshold";
+                                        HAVING total_quantity_sold >= threshold";
                                         $result_fm = mysqli_query($sqlconn, $query_fm);
                                     }
                                     elseif($filter == "Weekly") {
-                                        $query_fm = "SELECT s_sku, s_item, SUM(s_qty) AS total_quantity_sold
-                                        FROM sales_db 
+                                        $query_fm = "SELECT s.s_sku, s.s_item, SUM(s.s_qty) AS total_quantity_sold, itm.sales as threshold
+                                        FROM sales_db s
+                                        JOIN items_db itm ON s.s_sku = itm.item_barcode
                                         WHERE s_date >= DATE_SUB(CURDATE(), INTERVAL WEEKDAY(CURDATE()) DAY)
                                         AND s_date < DATE_ADD(DATE_SUB(CURDATE(), INTERVAL WEEKDAY(CURDATE()) DAY), INTERVAL 7 DAY)
                                         GROUP BY s_item
-                                        HAVING total_quantity_sold >= $threshold";
+                                        HAVING total_quantity_sold >= threshold";
                                         $result_fm = mysqli_query($sqlconn, $query_fm);
                                     }
                                     elseif($filter == "Daily") {
-                                        $query_fm = "SELECT s_sku, s_item, SUM(s_qty) AS total_quantity_sold
-                                        FROM sales_db  
+                                        $query_fm = "SELECT s.s_sku, s.s_item, SUM(s.s_qty) AS total_quantity_sold, itm.sales as threshold
+                                        FROM sales_db s  
+                                        JOIN items_db itm ON s.s_sku = itm.item_barcode
                                         WHERE DATE(s_date) = CURDATE() 
                                         GROUP BY s_item
-                                        HAVING total_quantity_sold >= $threshold";
+                                        HAVING total_quantity_sold >= threshold";
                                         $result_fm = mysqli_query($sqlconn, $query_fm);
                                     } 
                                 }
                                 else {
-                                    $query_fm = "SELECT s_sku, s_item, SUM(s_qty) AS total_quantity_sold
-                                    FROM sales_db
-                                    WHERE s_date >= DATE_FORMAT(CURRENT_DATE, '%Y-%m-01') -- First day of the current month
-                                        AND s_date <= LAST_DAY(CURRENT_DATE) -- Last day of the current month
+                                    $query_fm = "SELECT s.s_sku, s.s_item, SUM(s.s_qty) AS total_quantity_sold, itm.sales as threshold
+                                    FROM sales_db s
+                                    JOIN items_db itm ON s.s_sku = itm.item_barcode
                                     GROUP BY s_item
-                                    HAVING total_quantity_sold >= $threshold";
+                                    HAVING total_quantity_sold >= threshold";
                                     
                                     $result_fm = mysqli_query($sqlconn, $query_fm);
                                 }
