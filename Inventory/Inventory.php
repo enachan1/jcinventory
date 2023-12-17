@@ -256,61 +256,83 @@ $user = $_SESSION['user_name'];
 
 <!-- Edit item modal -->
     <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="editModalLabel">Edit Item</h5>
                     <button type="button" class="btn-close" id="edit-close-btn" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
 
-            <!-- Start of Modal Body -->
-            <div class="modal-body">
-                <div class="mb-4">
-                    <form action="update_item.php" method="post">
-                    <!-- Label and Textbox -->
-                    <input type="hidden" name="modal_id" id="update_id">
-                    <label for="skuInput" class="form-label">SKU</label>
-                    <input type="text" name="modal_sku" id="sku" class="form-control" readonly>
-                    <label for="itemnameInput" class="form-label">Barcode</label>
-                    <input type="text" name="modal_barcode" id="barcode" class="form-control" id="ubarcodeInput">
-                    <label for="itemnameInput" class="form-label">Item Name</label>
-                    <input type="text" name="modal_itemname" id="itemname" class="form-control" id="uitemnameInput">
-                    <label for="stocksInput" class="form-label">Stocks</label>
-                    <input type="number" name="modal_stocks" id="stocks" class="form-control" id="ustocksInput">
-                    <label for="expdateInput" class="form-label">Exp. Date</label>
-                    <input type="date" name="modal_date" id="expdate" class="form-control" id="uexpdateInput">
-                    <label for="edt-mark-up" class="form-label">Mark Up</label>
-                    <input style="margin: 0;" type="number" name="modal_markup" class="form-control" id="edt-mark-up">
-                    <label for="cpriceInput" class="form-label">Selling Price</label>
-                    <input style="margin: 0;" type="number" name="modal_cp" class="form-control" step=".01" id="edt-cpriceInput">
-                    <label for="priceInput" class="form-label">Price</label>
-                    <input style="margin: 0;" type="number" name="modal_price" step=".01" class="form-control" id="upriceInput" readonly><br>
+                <!-- Start of Modal Body -->
+                <div class="modal-body">
+                    <div class="container">
+                        <div class="row g-2">
+                            <!-- Left side column -->
+                            <div class="col-6">
+                                <div class="p-3">
+                                <form action="update_item.php" method="post">
+                                <!-- Label and Textbox -->
+                                <input type="hidden" name="modal_id" id="update_id">
+                                <label for="skuInput" class="form-label">SKU</label>
+                                <input type="text" name="modal_sku" id="sku" class="form-control" readonly>
+                                <label for="itemnameInput" class="form-label">Barcode</label>
+                                <input type="text" name="modal_barcode" id="barcode" class="form-control" id="ubarcodeInput">
+                                <label for="itemnameInput" class="form-label">Item Name</label>
+                                <input type="text" name="modal_itemname" id="itemname" class="form-control" id="uitemnameInput">
+                                <label for="stocksInput" class="form-label">Stocks</label>
+                                <input type="number" name="modal_stocks" id="stocks" class="form-control" id="ustocksInput">
+                                <label for="expdateInput" class="form-label">Exp. Date</label>
+                                <input type="date" name="modal_date" id="expdate" class="form-control" id="uexpdateInput">
+                                <label for="edt-mark-up" class="form-label">Mark Up</label>
+                                <input style="margin: 0;" type="number" name="modal_markup" class="form-control" id="edt-mark-up">
+                                <label for="cpriceInput" class="form-label">Selling Price</label>
+                                <input style="margin: 0;" type="number" name="modal_cp" class="form-control" step=".01" id="edt-cpriceInput">
+                                <label for="priceInput" class="form-label">Price</label>
+                                <input style="margin: 0;" type="number" name="modal_price" step=".01" class="form-control" id="upriceInput" readonly><br>
 
-                    <!-- Selecting Category-->
-                    <div class="input-group mb-4">
-                        <label class="input-group-text colorbox" for="category">Category</label>
-                        <select class="form-select" id="category" name="category">
+                                <!-- Selecting Category-->
+                                <div class="input-group mb-4">
+                                    <label class="input-group-text colorbox" for="category">Category</label>
+                                    <select class="form-select" id="category" name="category">
 
-                        <!-- PHP Looping for fetching uom's for the dropdown list -->
-                        <?php  
-                            $sql_query1 = "SELECT * FROM category_db";
-                            $sql_res1 = mysqli_query($sqlconn, $sql_query1);
+                                    <!-- PHP Looping for fetching uom's for the dropdown list -->
+                                    <?php  
+                                        $sql_query1 = "SELECT * FROM category_db";
+                                        $sql_res1 = mysqli_query($sqlconn, $sql_query1);
 
-                            while($array1 = mysqli_fetch_array($sql_res1)) {
-                        ?>
-                            <option value="<?php echo $array1['category_name']; ?>"><?php echo $array1['category_name']; ?></option>
-                        <?php 
-                            }
-                        ?>
-                        </select>
+                                        while($array1 = mysqli_fetch_array($sql_res1)) {
+                                    ?>
+                                        <option value="<?php echo $array1['category_name']; ?>"><?php echo $array1['category_name']; ?></option>
+                                    <?php 
+                                        }
+                                    ?>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End left side column -->
+                            
+                                <!-- Right side column -->
+                                <div class="col-6">
+                                    <div class="p-3">
+                                        <form action="add_items.php" method="post" autocomplete="off">
+                                        <!-- Label and Textbox -->
+                                        <label for="" class="form-label">Sample</label>
+                                        <input type="number" name="modal_barcode" class="form-control" id="" required>
+                                        <label for="" class="form-label">Sample Name</label>
+                                        <input type="text" name="modal_itemname" class="form-control" id="" required>
+                                        <label for="" class="form-label">Sample</label>
+                                        <input type="number" name="modal_stocks" class="form-control" id="" required><br>
+                                    </div>
+                                </div>
+                            <!-- End right side column -->
+                                </div>
+                            </div>
+                    <div class="modal-footer">
+                        <button  class="btn btn-primary">Update Changes</button>
+                    </form>
+                        <button type="button" class="btn btn-secondary" id="edit-close-btn" data-bs-dismiss="modal">Close</button>
                     </div>
-                </div>
-            </div>
-            <!-- End of modal body -->
-                <div class="modal-footer">
-                    <button  class="btn btn-primary">Update Changes</button>
-                </form>
-                    <button type="button" class="btn btn-secondary" id="edit-close-btn" data-bs-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
