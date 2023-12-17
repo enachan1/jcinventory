@@ -104,11 +104,11 @@ $user = $_SESSION['user_name'];
                                     <th scope="col">Exp.Date</th>
                                     <th scope="col">Price</th>
                                     <th scope="col">Category</th>
-                                    <th scope="col">sales</th>
-                                    <th scope="col">stable</th>
-                                    <th scope="col">average</th>
-                                    <th scope="col">reorder</th>
-                                    <th scope="col">critical</th>
+                                    <th style="display: none;" scope="col">sales</th>
+                                    <th style="display: none;" scope="col">stable</th>
+                                    <th style="display: none;" scope="col">average</th>
+                                    <th style="display: none;" scope="col">reorder</th>
+                                    <th style="display: none;" scope="col">critical</th>
                                     <th scope="col">Action</th>
                             </tr>
                     </thead>
@@ -149,11 +149,11 @@ $user = $_SESSION['user_name'];
                                 <?php } ?>
                             <td><?php echo $show_rows['item_price'] ?></td>
                             <td><?php echo $show_rows['item_category'] ?></td>
-                            <td><?php echo $show_rows['sales'] ?></td>
-                            <td><?php echo $show_rows['stable'] ?></td>
-                            <td><?php echo $show_rows['average'] ?></td>
-                            <td><?php echo $show_rows['reorder'] ?></td>
-                            <td><?php echo $show_rows['critical'] ?></td>
+                            <td style="display: none;"><?php echo $show_rows['sales'] ?></td>
+                            <td style="display: none;"><?php echo $show_rows['stable'] ?></td>
+                            <td style="display: none;"><?php echo $show_rows['average'] ?></td>
+                            <td style="display: none;"><?php echo $show_rows['reorder'] ?></td>
+                            <td style="display: none;"><?php echo $show_rows['critical'] ?></td>
                             <!--Button Edit / Remove-->
                             <td><button type="button" class="btn btn-secondary btn-sm editbtn" data-bs-toggle="modal" data-bs-target="#editModal"><i class="fas fa-edit"></i></button>
                                 <a class="btn btn-primary btn-sm btn-danger" href="delete_items.php?id=<?php echo $show_rows['id']?>"><i class="fas fa-trash"></i></a>
@@ -328,14 +328,17 @@ $user = $_SESSION['user_name'];
                                 <!-- Right side column -->
                                 <div class="col-6">
                                     <div class="p-3">
-                                        <form action="add_items.php" method="post" autocomplete="off">
                                         <!-- Label and Textbox -->
-                                        <label for="" class="form-label">Sample</label>
-                                        <input type="number" name="modal_barcode" class="form-control" id="" required>
-                                        <label for="" class="form-label">Sample Name</label>
-                                        <input type="text" name="modal_itemname" class="form-control" id="" required>
-                                        <label for="" class="form-label">Sample</label>
-                                        <input type="number" name="modal_stocks" class="form-control" id="" required><br>
+                                        <label for="e-sales" class="form-label">Sales Threshold</label>
+                                        <input type="number" name="sales" class="form-control" id="e-sales" required>
+                                        <label for="e-stable" class="form-label">Stable Threshold</label>
+                                        <input type="text" name="stable" class="form-control" id="e-stable" required>
+                                        <label for="e-average" class="form-label">Average Threshold</label>
+                                        <input type="number" name="average" class="form-control" id="e-average" required>
+                                        <label for="e-reorder" class="form-label">Reorder Threshold</label>
+                                        <input type="number" name="reorder" class="form-control" id="e-reorder" required>
+                                        <label for="e-critical" class="form-label">Critical Threshold</label>
+                                        <input type="number" name="critical" class="form-control" id="e-critical" required><br>
                                     </div>
                                 </div>
                             <!-- End right side column -->

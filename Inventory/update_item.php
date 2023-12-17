@@ -17,6 +17,11 @@ if(isset($_POST['modal_sku']) || isset($_POST['modal_itemname'])) {
     $expdate = mysqli_escape_string($sqlconn, $_POST['modal_date']);
     $price = validate($_POST['modal_price']);
     $category = validate($_POST['category']);
+    $sales = validate($_POST['sales']);
+    $stable = validate($_POST['stable']);
+    $average = validate($_POST['average']);
+    $reorder = validate($_POST['reorder']);
+    $critical = validate($_POST['critical']);
 
 
     if(empty($itemname) || empty($sku)) {
@@ -25,8 +30,8 @@ if(isset($_POST['modal_sku']) || isset($_POST['modal_itemname'])) {
     } 
     else {
         try {
-            $sql_query = "UPDATE `items_db` SET `item_sku`='$sku', `item_barcode` = '$barcode', `item_name`='$itemname',`item_stocks`=$itemstocks,`item_expdate`='$expdate',`item_price`= $price,`item_category`='$category'
-            WHERE `id` = $id";
+            $sql_query = "UPDATE `items_db` SET `item_sku`='$sku', `item_barcode` = '$barcode', `item_name`='$itemname',`item_stocks`=$itemstocks,`item_expdate`='$expdate',`item_price`= $price,`item_category`='$category',
+            `sales` = $sales, `stable` = $stable, `average` = $average, `reorder` = $reorder, `critical` = $critical WHERE `id` = $id";
         $sql_result = mysqli_query($sqlconn, $sql_query);
 
         if($sql_result) {

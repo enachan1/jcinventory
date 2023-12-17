@@ -17,6 +17,11 @@ $(document).ready(function() {
         $('#expdate').val(data[5]);
         $('#upriceInput').val(data[6]);
         $('#category').val(data[7]);
+        $('#e-sales').val(data[8]);
+        $('#e-stable').val(data[9]);
+        $('#e-average').val(data[10]);
+        $('#e-reorder').val(data[11]);
+        $('#e-critical').val(data[12]);
 
     });
 
