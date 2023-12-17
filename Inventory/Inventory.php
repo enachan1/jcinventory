@@ -104,6 +104,11 @@ $user = $_SESSION['user_name'];
                                     <th scope="col">Exp.Date</th>
                                     <th scope="col">Price</th>
                                     <th scope="col">Category</th>
+                                    <th scope="col">sales</th>
+                                    <th scope="col">stable</th>
+                                    <th scope="col">average</th>
+                                    <th scope="col">reorder</th>
+                                    <th scope="col">critical</th>
                                     <th scope="col">Action</th>
                             </tr>
                     </thead>
@@ -144,6 +149,11 @@ $user = $_SESSION['user_name'];
                                 <?php } ?>
                             <td><?php echo $show_rows['item_price'] ?></td>
                             <td><?php echo $show_rows['item_category'] ?></td>
+                            <td><?php echo $show_rows['sales'] ?></td>
+                            <td><?php echo $show_rows['stable'] ?></td>
+                            <td><?php echo $show_rows['average'] ?></td>
+                            <td><?php echo $show_rows['reorder'] ?></td>
+                            <td><?php echo $show_rows['critical'] ?></td>
                             <!--Button Edit / Remove-->
                             <td><button type="button" class="btn btn-secondary btn-sm editbtn" data-bs-toggle="modal" data-bs-target="#editModal"><i class="fas fa-edit"></i></button>
                                 <a class="btn btn-primary btn-sm btn-danger" href="delete_items.php?id=<?php echo $show_rows['id']?>"><i class="fas fa-trash"></i></a>
@@ -228,14 +238,17 @@ $user = $_SESSION['user_name'];
                             <!-- Right side column -->
                             <div class="col-6">
                                 <div class="p-3">
-                                    <form action="add_items.php" method="post" autocomplete="off">
                                     <!-- Label and Textbox -->
-                                    <label for="" class="form-label">Sample</label>
-                                    <input type="number" name="modal_barcode" class="form-control" id="" required>
-                                    <label for="" class="form-label">Sample Name</label>
-                                    <input type="text" name="modal_itemname" class="form-control" id="" required>
-                                    <label for="" class="form-label">Sample</label>
-                                    <input type="number" name="modal_stocks" class="form-control" id="" required><br>
+                                    <label for="sales_threshold" class="form-label">Sales Threshold</label>
+                                    <input type="number" name="sales" class="form-control" id="sales_threshold" required>
+                                    <label for="stable_threshold" class="form-label">Stable Threshold</label>
+                                    <input type="number" name="stable" class="form-control" id="stable_threshold" required>
+                                    <label for="average_threshold" class="form-label">Average Threshold</label>
+                                    <input type="number" name="average" class="form-control" id="average_threshold" required>
+                                    <label for="reorder_threshold" class="form-label">Reorder Threshold</label>
+                                    <input type="number" name="reorder" class="form-control" id="reorder_threshold" required>
+                                    <label for="critical_threshold" class="form-label">Critical Threshold</label>
+                                    <input type="number" name="critical" class="form-control" id="critical_threshold" required><br>
                                     </div>
                                     </div>
                             <!-- End right side column -->
