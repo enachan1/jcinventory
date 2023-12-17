@@ -306,8 +306,7 @@ if(isset($_SESSION['id']) && isset($_SESSION['user_name'])) {
                                             <div class="input-group input-group-lg">
                                                 <span class="input-group-text" id="inputGroup-sizing-lg"><strong>Search Item:</strong></span>
                                                                                                                     <!-- Call value form price -->
-                                                <input type="text" class="form-control" name="price" required value="<?php if(isset($_GET['price'])){echo $_GET['price'];}?>">
-                                                <button type="submit" class="btn btn-primary d-none">Submit</button>
+                                                <input type="text" class="form-control" name="price" id="search-price" required value="<?php if(isset($_GET['price'])){echo $_GET['price'];}?>">
                                             </div>
                                         </div>
                                         </form>
@@ -460,6 +459,13 @@ if(isset($_SESSION['id']) && isset($_SESSION['user_name'])) {
     
         // Call the function initially
         updateTextSize();
+
+        //disabling enter key in search input
+        $(document).on("keydown", "#search-price", function(e) {
+            if(e.key === "Enter") {
+                e.preventDefault();
+            }
+        })
 
     </script>
 </body>
