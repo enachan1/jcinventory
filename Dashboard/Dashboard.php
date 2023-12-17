@@ -11,16 +11,6 @@ $user = $_SESSION['user_name'];
     }
 
 
-    $query_get_critical = "SELECT * FROM `setting_db`";
-    $result = $sqlconn->query($query_get_critical);
-
-    if($setting_row = $result->fetch_assoc()) {
-        $critical = $setting_row['critical'];
-        $average = $setting_row['average'];
-        $reorder = $setting_row['reorder'];
-        $stable = $setting_row['stable'];
-    }
-
 
 ?>
 <html lang="en">
@@ -256,20 +246,20 @@ $user = $_SESSION['user_name'];
                                     <!-- Table Body -->
                                     <tbody>
                                     <?php 
-                                            $running_out_query = "SELECT `item_sku`, `item_name`, `item_stocks`,
+                                            $running_out_query = "SELECT `item_sku`, `item_name`, `item_stocks`, `stable`, `average`, `reorder`, `critical`,
                                             CASE 
-                                                WHEN `item_stocks` <= $critical THEN 'Critical'
-                                                WHEN `item_stocks` <= $reorder THEN 'Reorder'
-                                                WHEN `item_stocks` <= $average OR `item_stocks` < $stable THEN 'Average'
+                                                WHEN `item_stocks` <= critical THEN 'Critical'
+                                                WHEN `item_stocks` <= reorder THEN 'Reorder'
+                                                WHEN `item_stocks` <= average OR `item_stocks` < stable THEN 'Average'
                                             END AS `stock_status`
                                              FROM `items_db`
-                                                WHERE `item_stocks` <= $critical OR `item_stocks` <= $average"; // Adjust the condition as needed
+                                                WHERE `item_stocks` <= critical OR `item_stocks` <= average"; // Adjust the condition as needed
 
                                             $result_running_out = $sqlconn->query($running_out_query);
 
                                             // Get the count of rows
-                                            $count_query = "SELECT COUNT(`item_sku`) as `count` FROM `items_db`
-                                                WHERE `item_stocks` <= $critical OR `item_stocks` <= $average";
+                                            $count_query = "SELECT COUNT(`item_sku`) as `count`, critical, average FROM `items_db`
+                                                WHERE `item_stocks` <= critical OR `item_stocks` <= average";
                                             $result_count = $sqlconn->query($count_query);
                                             $count_rows = $result_count->fetch_assoc();
                                             $number_of_rows = $count_rows['count'];
