@@ -716,6 +716,14 @@ $user = $_SESSION['user_name'];
         document.addEventListener('DOMContentLoaded', function () {
             var storageKey = 'activeTabSet2';
 
+            // Function to reset active tab to PurchaseOrder
+            function resetActiveTab() {
+                var purchaseTabLink = document.querySelector('a[href="?tb=1"]');
+                if (purchaseTabLink) {
+                    purchaseTabLink.click();
+                }
+            }
+
             // Retrieve the last active tab from sessionStorage
             var lastActiveTab = sessionStorage.getItem(storageKey);
 
@@ -729,7 +737,15 @@ $user = $_SESSION['user_name'];
 
             if (tabLink) {
                 tabLink.click();
+            } else {
+                resetActiveTab();
             }
+
+            // Added click event listener on sidebar for the save active tab sessionStorage
+            var sidebarLinks = document.querySelectorAll('#sidebar-wrapper a.list-group-item');
+            sidebarLinks.forEach(function (sidebarLink) {
+                sidebarLink.addEventListener('click', resetActiveTab);
+            });
 
             // Add a click event listener to save the active tab to sessionStorage
             var tabLinks = document.querySelectorAll('#myTab a.nav-link');
