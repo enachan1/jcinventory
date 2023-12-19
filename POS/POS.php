@@ -229,7 +229,7 @@ if(isset($_SESSION['id']) && isset($_SESSION['user_name'])) {
                                 <div class="p-3 d-flex justify-content-center"><button type="button" class="btn btn-primary w-100 btns" style="height: 100px; font-size: 28px; font-weight: bold;" data-bs-toggle="modal" data-bs-target="#searchModal" id="F1Button"> Search Item F1</button> </div>
                             </div>
                             <div class="col-sm-12">
-                                <div class="p-3 d-flex justify-content-center"><button type="button" class="btn btn-primary w-100 btns" style="height: 100px; font-size: 28px; font-weight: bold;" id="F2Button"> Void F2</button> </div>
+                                <div class="p-3 d-flex justify-content-center"><button type="button" class="btn btn-primary w-100 btns" style="height: 100px; font-size: 28px; font-weight: bold;" id="F2Button"> Delete All F2</button> </div>
                             </div>
                             <div class="col-sm-12">
                                 <div class="p-3 d-flex justify-content-center"><button type="button" class="btn btn-primary w-100 btns" style="height: 100px; font-size: 28px; font-weight: bold;" data-bs-toggle="modal" data-bs-target="#paymentModal" id="F3Button"> Payment  F3</button> </div>
@@ -395,35 +395,6 @@ if(isset($_SESSION['id']) && isset($_SESSION['user_name'])) {
                 </div>
             </div>
             <!--End modal Payment-->
-
-            <!-- Alert Expired Item Modal -->
-            <!--
-            <div class="modal fade" id="alert-expireditem" tabindex="-1">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Expired Item Alert</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="alert alert-danger" role="alert">
-                                <strong>Attention!</strong> This item has expired.
-                            </div>
-                            <p>Additional details about the expired item can go here.</p>
-                            <ul>
-                                <li>Expiration Date: [Your Expiration Date]</li>
-                                <li>Item Name: [Your Item Name]</li>
-                            </ul>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            -->
-            <!-- End Alert Expired Modal -->
-
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
