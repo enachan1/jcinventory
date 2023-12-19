@@ -686,61 +686,63 @@ $user = $_SESSION['user_name'];
             <!-- End Fast Moving  -->
 
 
-            <!-- Daily Closing Sales -->
-            <div class="tab-pane fade" id="closing" role="tabpanel" aria-labelledby="close-tab">
-                <div class="card">
-                    <div class="card-body colorbox">
-                        <h5 class="card-title">Daily Closing Sales</h5>
-                        <table id="cls-sales" class="table bg-white rounded shadow-sm table-hover">
-                            <thead>
-                                <tr>
-                                    <th>Cashier Name</th>
-                                    <th>Number of Transaction</th>
-                                    <th>Total Sales</th>
-                                    <th>Total VAT</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            <?php 
-                            $closing_report_query = "SELECT u.user_name as Name,
-                                COALESCE(t.Transactions, 0) as Transactions,
-                                COALESCE(s.TotalSales, 0) as TotalSales,
-                                ROUND(COALESCE(s.TotalSales * 0.12, 0), 2   ) as TotalVAT
-                            FROM users__db u
-                            LEFT JOIN (
-                                SELECT acc_id, COUNT(reciept_no) as Transactions
-                                FROM transaction_db
-                                WHERE DATE(transaction_date) = CURDATE()
-                                GROUP BY acc_id
-                            ) t ON t.acc_id = u.acc_id
-                            LEFT JOIN (
-                                SELECT acc_id, ROUND(SUM(s_total), 2) as TotalSales
-                                FROM sales_db
-                                WHERE DATE(s_date) = CURDATE()
-                                GROUP BY acc_id
-                            ) s ON s.acc_id = u.acc_id
-                            WHERE u.is_admin = 0  -- Selecting non-admin users
-                            AND s.acc_id IS NOT NULL; -- Ensuring there are sales associated
-                            ";
+                <!-- Daily Closing Sales -->
+                <div class="tab-pane fade" id="closing" role="tabpanel" aria-labelledby="close-tab">
+                    <div class="card">
+                        <div class="card-body colorbox">
+                            <h5 class="card-title">Daily Closing Sales</h5>
+                            <table id="cls-sales" class="table bg-white rounded shadow-sm table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Cashier Name</th>
+                                        <th>Number of Transaction</th>
+                                        <th>Total Sales</th>
+                                        <th>Total VAT</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                <?php 
+                                $closing_report_query = "SELECT u.user_name as Name,
+                                    COALESCE(t.Transactions, 0) as Transactions,
+                                    COALESCE(s.TotalSales, 0) as TotalSales,
+                                    ROUND(COALESCE(s.TotalSales * 0.12, 0), 2   ) as TotalVAT
+                                FROM users__db u
+                                LEFT JOIN (
+                                    SELECT acc_id, COUNT(reciept_no) as Transactions
+                                    FROM transaction_db
+                                    WHERE DATE(transaction_date) = CURDATE()
+                                    GROUP BY acc_id
+                                ) t ON t.acc_id = u.acc_id
+                                LEFT JOIN (
+                                    SELECT acc_id, ROUND(SUM(s_total), 2) as TotalSales
+                                    FROM sales_db
+                                    WHERE DATE(s_date) = CURDATE()
+                                    GROUP BY acc_id
+                                ) s ON s.acc_id = u.acc_id
+                                WHERE u.is_admin = 0  -- Selecting non-admin users
+                                AND s.acc_id IS NOT NULL; -- Ensuring there are sales associated
+                                ";
 
-                                $close_query_result = $sqlconn->query($closing_report_query);
+                                    $close_query_result = $sqlconn->query($closing_report_query);
 
-                                while($close_rows = $close_query_result->fetch_assoc()) {
-                                ?>
-                                <tr>
-                                    <td><?= $close_rows['Name'] ?></td>
-                                    <td><?= $close_rows['Transactions'] ?></td>
-                                    <td><?= $close_rows['TotalSales'] ?></td>
-                                    <td><?= $close_rows['TotalVAT'] ?></td>
-                                </tr>
-                                <?php } ?>
-                            </tbody>
-                        </table>
+                                    while($close_rows = $close_query_result->fetch_assoc()) {
+                                    ?>
+                                    <tr>
+                                        <td><?= $close_rows['Name'] ?></td>
+                                        <td><?= $close_rows['Transactions'] ?></td>
+                                        <td><?= $close_rows['TotalSales'] ?></td>
+                                        <td><?= $close_rows['TotalVAT'] ?></td>
+                                    </tr>
+                                    <?php } ?>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
      <!-- ...View Modal ... -->
      <div class="modal fade" id="viewItems">
@@ -812,9 +814,8 @@ $user = $_SESSION['user_name'];
 
     <!-- ...View Modal Ends Here... -->
 
-
-        </div>
-        </div>
+    </div>
+</div>
 
         <!-- Modal goes here -->
 
@@ -874,6 +875,14 @@ $user = $_SESSION['user_name'];
         document.addEventListener('DOMContentLoaded', function () {
             var storageKey = 'activeTabSet3';
 
+            // Function to reset active tab to "Sales Report"
+            function resetActiveTab() {
+                var salesTabLink = document.querySelector('a[href="?tb=1"]');
+                if (salesTabLink) {
+                    salesTabLink.click();
+                }
+            }
+
             // Retrieve the last active tab from sessionStorage
             var lastActiveTab = sessionStorage.getItem(storageKey);
 
@@ -887,9 +896,18 @@ $user = $_SESSION['user_name'];
 
             if (tabLink) {
                 tabLink.click();
+            } else {
+                // If no last active tab is found, reset to "Sales Report"
+                resetActiveTab();
             }
 
-            // Add a click event listener to save the active tab to sessionStorage
+            // Add a click event listener to save the active tab to sessionStorage for sidebar links
+            var sidebarLinks = document.querySelectorAll('#sidebar-wrapper a.list-group-item');
+            sidebarLinks.forEach(function (sidebarLink) {
+                sidebarLink.addEventListener('click', resetActiveTab);
+            });
+
+            // Add a click event listener to save the active tab to sessionStorage for tab links
             var tabLinks = document.querySelectorAll('#myTab a.nav-link');
             tabLinks.forEach(function (tabLink) {
                 tabLink.addEventListener('click', function () {
