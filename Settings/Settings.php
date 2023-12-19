@@ -119,15 +119,6 @@ $id = $_SESSION['id'];
             </button>
             
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="nav nav-tabs ms-3 border border-0" id="myTab" role="tablist">
-                        <!-- Navigation Tabs -->
-                        <li class="nav-item" role="presentation">
-                            <a class="nav-link fs-5" href="?tb=1" id="inventory-tab" data-bs-toggle="tab" data-bs-target="#inventory" type="button" role="tab" aria-controls="inventory" aria-selected="true"><i class="fas fa-cog"></i><i class="fas fa-box"></i> Inventory Settings</a>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                            <a class="nav-link fs-5" href="?tb=2" id="account-setting-tab" data-bs-toggle="tab" data-bs-target="#account-setting" type="button" role="tab" aria-controls="account-setting" aria-selected="false"><i class="fas fa-user-cog"></i> Account Setting</a>
-                        </li>
-                    </ul>
 
                     <!-- Right-aligned items -->
                     <ul class="navbar-nav ms-auto">
@@ -149,57 +140,7 @@ $id = $_SESSION['id'];
 
             <!--Inventory Setting Content Here -->
             <div class="container mt-4">
-                <div class="tab-content" id="myTabContent">
-                    <div class="tab-pane fade" id="inventory" role="tabpanel" aria-labelledby="inventory-tab">
-                            <h2 class="text-center">Inventory Settings</h2>
-                            <br>
-                            <?php 
-                                if(isset($_GET['invmsg'])) {
-                                ?>
-                                <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                                    <?= $_GET['invmsg'] ?>
-                                    <button class="btn-close" data-bs-dismiss="alert" id="removemsgBtn" aria-label="Close"></button>
-                                </div>
-                                <?php } 
-                            
-                                ?>
-
-                                    <form action="update-inventory-setting.php" method="POST" autocomplete="off">
-                                        <?php 
-                                        $query_value = "SELECT * FROM `setting_db`";
-                                        $result_query_value = mysqli_query($sqlconn, $query_value);
-
-
-                                        while($result_rows = mysqli_fetch_array($result_query_value)) {
-                                        ?>
-                                        <div class="form-group">
-                                            <label for="Threshold">Threshold</label>
-                                            <input type="number" class="form-control" id="Threshold" value="<?= $result_rows['threshold'] ?>" name="threshold-inp">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="critical">Critical Threshold</label>
-                                            <input type="number" class="form-control" value="<?= $result_rows['critical']?>" name="critical">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="average">Average Threshold</label>
-                                            <input type="number" class="form-control" value="<?= $result_rows['average'] ?>" name="average">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="reorder">Reorder Threshold</label>
-                                            <input type="number" class="form-control" value="<?= $result_rows['reorder'] ?>" name="reorder">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="reorder">Stable Threshold</label>
-                                            <input type="number" class="form-control" value="<?= $result_rows['stable'] ?>" name="stable">
-                                        </div>
-                                            <?php } ?>
-                                        <button type="submit">Save Changes</button>
-                                    </form>
-                        </div>
-                        <!--Inventory Setting Ends here -->
-
                     <!-- Account Settings-->
-                    <div class="tab-pane fade" id="account-setting" role="tabpanel" aria-labelledby="account-setting-tab">
                         <h2 class="text-center">Account Setting</h2>
                         <br>
                         <?php 
@@ -245,13 +186,9 @@ $id = $_SESSION['id'];
                             </div>
                             <button type="submit">Save Changes</button>
                         </form>
-                    </div>
                     <!-- Accounts Setting Ends Here -->
-
-                </div>
             </div>
             <!-- Tab Content Ends Here -->
-
     </div>
 </div>
 <!-- Content Ends Here -->
@@ -286,34 +223,6 @@ $id = $_SESSION['id'];
         });
     });    
     
-    //Tab Active function
-    document.addEventListener('DOMContentLoaded', function () {
-        var storageKey = 'activeTabSet4';
-
-        // Retrieve the last active tab from sessionStorage
-        var lastActiveTab = sessionStorage.getItem(storageKey);
-
-        // If no last active tab is found, default to the "Setting" tab (tab number 1)
-        if (lastActiveTab === null) {
-            lastActiveTab = 1;
-        }
-
-        // Add a click event listener to restore the last active tab
-        var tabLink = document.querySelector('a[href="?tb=' + lastActiveTab + '"]');
-
-        if (tabLink) {
-            tabLink.click();
-        }
-
-        // Add a click event listener to save the active tab to sessionStorage
-        var tabLinks = document.querySelectorAll('#myTab a.nav-link');
-        tabLinks.forEach(function (tabLink) {
-            tabLink.addEventListener('click', function () {
-                var tabNumber = tabLink.getAttribute('href').split('=')[1];
-                sessionStorage.setItem(storageKey, tabNumber);
-            });
-        });
-    });
 
     </script>
 
