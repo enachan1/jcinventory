@@ -11,12 +11,12 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
     $old_password = mysqli_real_escape_string($sqlconn, $_POST['old-password']);
     
 
-    $password_query = "SELECT `id`, `pass_word` FROM users__db WHERE `user_name` = '$username'";
+    $password_query = "SELECT `acc_id`, `pass_word` FROM users__db WHERE `user_name` = '$username'";
     $pass_result = mysqli_query($sqlconn, $password_query);
 
     if ($pass_result == TRUE) {
         if($rows = mysqli_fetch_assoc($pass_result)) {
-            $id = $rows['id'];
+            $id = $rows['acc_id'];
             $query_hashed_pass = $rows['pass_word'];
 
             if (!password_verify($old_password, $query_hashed_pass)) {
@@ -33,7 +33,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
             }
             else {
             $hash_password = password_hash($_POST['password'], PASSWORD_DEFAULT);
-            $update_query = "UPDATE `users__db` SET `user_name` = '$username', `email` = '$email', `pass_word` = '$hash_password' WHERE `id` = $id";
+            $update_query = "UPDATE `users__db` SET `user_name` = '$username', `email` = '$email', `pass_word` = '$hash_password' WHERE `acc_id` = $id";
             $update_result = mysqli_query($sqlconn, $update_query);
         
             if($update_result == TRUE) {
