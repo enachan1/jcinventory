@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 17, 2023 at 12:19 PM
+-- Generation Time: Jan 09, 2024 at 02:09 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -76,8 +76,7 @@ CREATE TABLE `items_db` (
 --
 
 INSERT INTO `items_db` (`id`, `item_sku`, `item_barcode`, `item_name`, `item_stocks`, `item_expdate`, `item_price`, `item_category`, `item_date_added`, `sales`, `stable`, `average`, `reorder`, `critical`) VALUES
-(6, '231216SUY', 5649873245, 'suka', 50, '2024-06-08', 11.03, 'Canned Goods', '2023-12-16', 200, 150, 80, 50, 25),
-(7, '231216RMS', 89734589763, 'toyo', 225, '2024-02-10', 12.08, 'Canned Goods', '2023-12-16', 50, 150, 80, 50, 25);
+(8, '240109MGP', 4204785633234, 'Piattos BBQ Flavor 20g', 14, '2024-01-18', 24.15, 'Snacks', '2024-01-09', 50, 150, 80, 50, 25);
 
 -- --------------------------------------------------------
 
@@ -100,14 +99,16 @@ INSERT INTO `notification_db` (`notif_id`, `message`, `is_deleted`) VALUES
 (2, 'The item Cream O Vanilla Filled with the SKU of 231206EBD is expired', 1),
 (3, 'The item PIATTOS CHEESE 85G with the SKU of 231208JNI is about to expire', 1),
 (4, 'The item PIATTOS CHEESE 85G with the SKU of 231208WQQ is about to expire', 1),
-(5, 'The item Nestea Lemon with the SKU of 231206LGL is expired', 0),
-(6, 'The item Hansel Chocolate Sandwich with the SKU of 231206NSV is about to expire', 0),
-(7, 'The item PIATTOS CHEESE 85G with the SKU of 231208JNI is expired', 0),
-(8, 'The item PIATTOS CHEESE 85G with the SKU of 231208WQQ is expired', 0),
-(9, 'The item hi with the SKU of 231215RRQ is about to expire', 0),
+(5, 'The item Nestea Lemon with the SKU of 231206LGL is expired', 1),
+(6, 'The item Hansel Chocolate Sandwich with the SKU of 231206NSV is about to expire', 1),
+(7, 'The item PIATTOS CHEESE 85G with the SKU of 231208JNI is expired', 1),
+(8, 'The item PIATTOS CHEESE 85G with the SKU of 231208WQQ is expired', 1),
+(9, 'The item hi with the SKU of 231215RRQ is about to expire', 1),
 (10, 'The item man inasal with the SKU of 231216TEG is about to expire', 1),
-(11, 'The item suka with the SKU of 231216GUX is in reorder level', 0),
-(12, 'The item suka with the SKU of 231216SUY is in reorder level', 0);
+(11, 'The item suka with the SKU of 231216GUX is in reorder level', 1),
+(12, 'The item suka with the SKU of 231216SUY is in reorder level', 1),
+(13, 'The item Piattos BBQ Flavor 20g with the SKU of 240109MGP is in critical level', 0),
+(14, 'The item Piattos BBQ Flavor 20g with the SKU of 240109MGP is about to expire', 0);
 
 -- --------------------------------------------------------
 
@@ -128,6 +129,16 @@ CREATE TABLE `purchase_order_db` (
   `inventory_in` tinyint(1) DEFAULT NULL,
   `vendor_id` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `purchase_order_db`
+--
+
+INSERT INTO `purchase_order_db` (`po_item_sku`, `po_item_name`, `po_qty`, `po_uom`, `po_category`, `po_item_price`, `po_dot`, `po_expdelivery`, `is_delivered`, `inventory_in`, `vendor_id`) VALUES
+('240109UYR', 'TAHOOS', 23, 'Packs', 'Snacks', 2435, '2024-01-09', '2024-03-02', 1, 0, 10002),
+('240109ZVI', 'PIATTOS', 23, 'Boxes', 'Snacks', 5553, '2024-01-09', '2024-03-02', 1, 0, 10002),
+('240109ZPE', 'tit', 23, 'Boxes', 'Necessities', 4655, '2024-01-09', '2024-02-10', NULL, 0, 10003),
+('240109HFU', 'asdasdq', 23, 'Boxes', 'Canned Goods', 3461, '2024-01-09', '2024-02-10', NULL, 0, 10003);
 
 -- --------------------------------------------------------
 
@@ -151,11 +162,8 @@ CREATE TABLE `sales_db` (
 --
 
 INSERT INTO `sales_db` (`id`, `s_sku`, `s_item`, `s_qty`, `s_total`, `s_date`, `reciept_no`, `acc_id`) VALUES
-(1, 5649873245, 'suka', 55, 606.65, '2023-12-16 14:42:22', 'JUNCATHYR20231216074222', 5),
-(2, 5649873245, 'suka', 50, 551.5, '2023-12-16 14:44:26', 'JUNCATHYR20231216074426', 5),
-(3, 5649873245, 'suka', 100, 1103, '2023-12-16 14:45:05', 'JUNCATHYR20231216074505', 5),
-(4, 5649873245, 'suka', 50, 551.5, '2023-12-16 14:46:49', 'JUNCATHYR20231216074649', 5),
-(5, 89734589763, 'toyo', 30, 362.4, '2023-12-16 15:10:17', 'JUNCATHYR20231216081017', 5);
+(1, 4204785633234, 'Piattos BBQ Flavor 20g', 15, 362.25, '2024-01-09 14:48:09', 'JUNCATHYR20240109074809', 9),
+(2, 4204785633234, 'Piattos BBQ Flavor 20g', 1, 24.15, '2024-01-09 20:49:34', 'JUNCATHYR20240109134934', 9);
 
 -- --------------------------------------------------------
 
@@ -197,16 +205,8 @@ CREATE TABLE `transaction_db` (
 --
 
 INSERT INTO `transaction_db` (`reciept_no`, `transaction_date`, `total_item`, `overall_amount`, `acc_id`) VALUES
-('JUNCATHYR20231216070736', '2023-12-16 14:07:36', 20, 264.66, 5),
-('JUNCATHYR20231216071716', '2023-12-16 14:17:16', 190, 2347.18, 5),
-('JUNCATHYR20231216073156', '2023-12-16 14:31:56', 90, 1270.08, 5),
-('JUNCATHYR20231216073746', '2023-12-16 14:37:46', 1, 14.11, 5),
-('JUNCATHYR20231216073850', '2023-12-16 14:38:50', 100, 1235.36, 5),
-('JUNCATHYR20231216074222', '2023-12-16 14:42:22', 55, 679.45, 5),
-('JUNCATHYR20231216074426', '2023-12-16 14:44:26', 50, 617.68, 5),
-('JUNCATHYR20231216074505', '2023-12-16 14:45:05', 100, 1235.36, 5),
-('JUNCATHYR20231216074649', '2023-12-16 14:46:49', 50, 617.68, 5),
-('JUNCATHYR20231216081017', '2023-12-16 15:10:17', 30, 405.89, 5);
+('JUNCATHYR20240109074809', '2024-01-09 14:48:09', 15, 405.72, 9),
+('JUNCATHYR20240109134934', '2024-01-09 20:49:34', 1, 27.05, 9);
 
 -- --------------------------------------------------------
 
@@ -249,11 +249,8 @@ CREATE TABLE `users__db` (
 --
 
 INSERT INTO `users__db` (`acc_id`, `user_name`, `email`, `pass_word`, `contact_no`, `is_admin`) VALUES
-(1, 'admin', 'admin@admin.com', '$2y$10$CzzLKx87QEgkQzq5gJh3.uo7g5knkdFCv.2oQEyVu3wZR3xd.dCBu', 0, 1),
-(2, 'cashier', 'notadmin@notadmin.com', '$2y$10$srTH9HwBVOhWeXmEkMVRCOc5uA10C.7KEjbQLPVcC5AlToknX3/kS', 0, 0),
-(5, 'Carlo', 'carlo@gmail.com', '$2y$10$ldK3ogolhUOUNouMUpW9pOvHyrdjUD3zLyfOdAqSGN1qHV8WJP8ua', 0, 0),
-(7, 'kohaku', 'kohaku@gmail.com', '$2y$10$YqeqhRuHPeTis01Gzx9t9.3iRh3ZXNc/hW2/xSBogPcjJYgacuuPu', 0, 1),
-(8, 'Nhorlvick', 'nhrlvck@gmail.com', '$2y$10$mJnLIf4.kR22nUQxvq5tpuVJwdy6vZDHxkO8mRlGlP0qAalQmSf5u', 0, 1);
+(1, 'admin', 'admin@admin.com', '$2y$10$IUtKkXUw/QcY0AqjzvEP1OUTY95mA.FSnNrBMA92uOmhr07VHlFki', 0, 1),
+(9, 'cashier', 'cashier@cashier.com', '$2y$10$SYbmI7.5m8Ayv7v8L5y/tuCFZwRUU2l60ZqiOUuMvS0nw7.QrDd8G', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -353,19 +350,19 @@ ALTER TABLE `category_db`
 -- AUTO_INCREMENT for table `items_db`
 --
 ALTER TABLE `items_db`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `notification_db`
 --
 ALTER TABLE `notification_db`
-  MODIFY `notif_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `notif_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `sales_db`
 --
 ALTER TABLE `sales_db`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `uom_db`
@@ -377,7 +374,7 @@ ALTER TABLE `uom_db`
 -- AUTO_INCREMENT for table `users__db`
 --
 ALTER TABLE `users__db`
-  MODIFY `acc_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `acc_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `vendors_db`
