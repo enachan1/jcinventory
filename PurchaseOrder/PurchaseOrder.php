@@ -167,7 +167,7 @@ $user = $_SESSION['user_name'];
                                         <td><?php echo $rows['expectedDel']; ?></td>
                                         <td>
                                             <button title="<?php echo $rows['item_vendorID']; ?>" class="btn btn-primary btn-sm view-data" data-itemid="<?php echo $rows['item_vendorID']; ?>" data-bs-toggle="modal" data-bs-target="#viewModal">View Items</button>
-                                            <button class="btn btn-secondary btn-sm" id="editPObtn" data-vendoridtbl="<?= $rows['vendId'] ?>" data-bs-toggle="modal" data-bs-target="#edit-purchase"><i class="fas fa-edit"></i></button>
+                                            <button class="btn btn-secondary btn-sm" data-vendoridtbl="<?= $rows['vendId'] ?>" data-bs-toggle="modal" data-bs-target="#edit-purchase"><i class="fas fa-edit"></i></button>
                                         </td>
                                         <td>
                                             <button class="btn btn-primary btn-sm delivered-rbtn" id="delivered_label" value="Delivered" name="dob_<?php echo $rows['item_vendorID']; ?>" data-itemid="<?php echo $rows['item_vendorID']; ?>">Delivered</button>

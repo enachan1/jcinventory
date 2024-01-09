@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 echo "<a href='#' class='list-group-item list-group-item-action border-1 clickers'>" . $row['vendor_name'] . "</a>";
             }
         } else {
-            echo '<a href="#" class="list-group-item list-group-item-action border-1">no record</a>';
+            
         }
     }
 } else {

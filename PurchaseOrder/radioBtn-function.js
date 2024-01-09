@@ -58,13 +58,10 @@ function loadIterate() {
                 // Update the radio button based on the fetched value
                 if (response === '1') {
                     row.addClass('bg-success text-white');
-                    $("#editPObtn").prop('disabled', true);
+
                 }
             }
         });
     });
-
-
-    
 
 }
